@@ -1,0 +1,2 @@
+serviceClass: com.leopin.parkfifty.client.GreetingService
+path: 1F3866E93D93EAFE3AD9D139856872D1.gwt.rpc
