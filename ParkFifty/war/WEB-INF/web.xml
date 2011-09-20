@@ -7,19 +7,19 @@
 	<!-- Servlets -->
 	<display-name>ParkFifty</display-name>
 	<!--<start id="param_contextConfigLocation" /> -->
-	<context-param>
+	<!-- <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:service-context.xml</param-value>
 
-	</context-param>
+	</context-param> -->
 	<!--<end id="param_contextConfigLocation" /> -->
 
 	<!-- /WEB-INF/spitter-security.xml classpath:persistence-context.xml classpath:dataSource-context.xml -->
 
 	<!--<start id="listener_ContextLoaderListener" /> -->
-	<listener>
+	<!-- <listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	</listener> -->
 	<!--<end id="listener_ContextLoaderListener" /> -->
 
 	<!--<start id="servlet_DispatcherServlet"/> -->
@@ -38,8 +38,8 @@
 	<!--<end id="servletmapping_DispatcherServlet" /> -->
 
 	<!-- Default page to serve -->
-	<welcome-file-list>
+	<!-- <welcome-file-list>
 		<welcome-file>parkfifty.html</welcome-file>
-	</welcome-file-list>
+	</welcome-file-list> -->
 
 </web-app>

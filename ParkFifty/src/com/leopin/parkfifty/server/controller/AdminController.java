@@ -1,5 +1,8 @@
 package com.leopin.parkfifty.server.controller;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,7 +19,9 @@ import com.leopin.parkfifty.shared.domain.Company;
 @RequestMapping("/admin")
 public class AdminController {
 
+	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	private AdminService adminService;
+	
 	
 	@Autowired
 	public AdminController(AdminService service) {
@@ -25,11 +30,12 @@ public class AdminController {
 	
 	@RequestMapping(value="/company/${name}", method=RequestMethod.GET)
 //	headers = "Content-Type=application/json")
-//	@ResponseStatus(Http)
-	@ResponseBody
-	
-	public Company getCompany(@PathVariable String name) {
-		
+//	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody public Company getCompany(@PathVariable String name) {
+		logger.info("Name[" + name + "]");
+		return adminService.getCompany(name);
 	}
+	
+	
 
 }

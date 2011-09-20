@@ -20,7 +20,7 @@
 	<!--<end id="mvc_annotatedcontrollers" /> -->
 
 	<!--<start id="mvc_resources"/> -->
-	<!-- <mvc:resources mapping="/resources/**" location="/resources/" /> -->
+	<mvc:resources mapping="/parkfifty/**" location="/parkfifty/" />
 	<!--<end id="mvc_resources"/> -->
 
 	<bean
@@ -31,19 +31,19 @@
 				<entry key="json" value="application/json" />
 			</map>
 		</property>
-		<property name="viewResolvers">
+		<!-- <property name="viewResolvers">
 			<list>
 				<bean
 					class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" />
 			</list>
-		</property>
+		</property> -->
 		
-		<!-- <property name="defaultViews">
+		<property name="defaultViews">
 			<list>
 				<bean
 					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
 			</list>
-		</property> -->
+		</property>
 		
 		<property name="favorParameter" value="true" />
 		
