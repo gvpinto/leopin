@@ -28,10 +28,14 @@ public class AdminController {
 		this.adminService = service;
 	}
 	
-	@RequestMapping(value="/company/${name}", method=RequestMethod.GET)
-//	headers = "Content-Type=application/json")
-//	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody public Company getCompany(@PathVariable String name) {
+	@RequestMapping(value="/company", method=RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody String getName() {
+		return "Glenn Pinto";
+		
+	}
+	
+	@RequestMapping(value="/company/{name}", method=RequestMethod.GET)
+	public @ResponseBody Company getCompany(@PathVariable String name) {
 		logger.info("Name[" + name + "]");
 		return adminService.getCompany(name);
 	}

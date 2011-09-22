@@ -2,7 +2,8 @@ package com.leopin.parkfifty.shared.domain;
 
 import java.io.Serializable;
 
-import com.google.appengine.repackaged.com.google.common.base.Objects;
+import com.google.common.base.Objects;
+
 
 public class Company implements Serializable {
 	

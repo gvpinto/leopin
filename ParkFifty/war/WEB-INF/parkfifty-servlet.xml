@@ -23,20 +23,20 @@
 	<mvc:resources mapping="/parkfifty/**" location="/parkfifty/" />
 	<!--<end id="mvc_resources"/> -->
 
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="mediaTypes">
 			<map>
-				<!-- <entry key="html" value="text/html" /> -->
+				<entry key="html" value="text/html" />
 				<entry key="json" value="application/json" />
 			</map>
 		</property>
-		<!-- <property name="viewResolvers">
+		<property name="viewResolvers">
 			<list>
 				<bean
 					class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" />
 			</list>
-		</property> -->
+		</property>
 		
 		<property name="defaultViews">
 			<list>
@@ -47,7 +47,7 @@
 		
 		<property name="favorParameter" value="true" />
 		
-	</bean>
+	</bean> -->
 
 	<!-- <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">

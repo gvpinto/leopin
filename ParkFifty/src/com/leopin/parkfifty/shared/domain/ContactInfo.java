@@ -2,7 +2,7 @@ package com.leopin.parkfifty.shared.domain;
 
 import java.math.BigDecimal;
 
-import com.google.gwt.thirdparty.guava.common.base.Objects;
+import com.google.common.base.Objects;
 
 public class ContactInfo {
 	
