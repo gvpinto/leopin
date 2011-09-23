@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +42,16 @@ public class AdminController {
 		return adminService.getCompany(name);
 	}
 	
+	@RequestMapping(value="/company", method=RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void addCompany(@RequestBody Company company) {
+		adminService.addCompany(company);
+	}
 	
+	@ExceptionHandler(Throwable.class)
+	
+	public String handleThrowable(Throwable.class) {
+		
+	}
 
 }

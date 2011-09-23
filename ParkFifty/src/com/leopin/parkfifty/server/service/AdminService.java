@@ -12,4 +12,6 @@ public interface AdminService {
 	
 	Company getCompany(Long id);
 
+	void addCompany(Company company);
+
 }
