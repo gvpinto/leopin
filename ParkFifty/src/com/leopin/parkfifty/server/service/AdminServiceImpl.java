@@ -3,14 +3,24 @@ package com.leopin.parkfifty.server.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.googlecode.objectify.Objectify;
+import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.ContactInfo;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
 
+	
+	@Autowired private ObjectifyFactory objectifyFactory;
+	
+	public AdminServiceImpl() {
+		super();
+	}
+	
 	@Override
 	public List<Company> getCompanies() {
 		List<Company> companies = new ArrayList<Company>();
@@ -41,6 +51,13 @@ public class AdminServiceImpl implements AdminService {
 		contactInfo.setZipcode("2761" + i);
 		company.setContactInfo(contactInfo);
 		return company;
+	}
+
+	@Override
+	public void addCompany(Company company) {
+		Objectify ofy = objectifyFactory.begin();
+		
+		
 	}
 
 }

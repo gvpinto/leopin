@@ -3,22 +3,24 @@ package com.leopin.parkfifty.shared.domain;
 import java.math.BigDecimal;
 
 import com.google.common.base.Objects;
+import com.googlecode.objectify.annotation.Entity;
 
+@Entity
 public class ContactInfo {
 	
-	private String street1;
-	private String street2;
-	private String city;
-	private String stateCd;
-	private String countryCd;
-	private String zipcode;
-	private BigDecimal gcLat;
-	private BigDecimal gcLng;
-	private String email;
-	private String url;
-	private String phonePri;
-	private String phoneSec;
-	private String fax;
+	String street1;
+	String street2;
+	String city;
+	String stateCd;
+	String countryCd;
+	String zipcode;
+	BigDecimal gcLat;
+	BigDecimal gcLng;
+	String email;
+	String url;
+	String phonePri;
+	String phoneSec;
+	String fax;
 	
 	public String getStreet1() {
 		return street1;

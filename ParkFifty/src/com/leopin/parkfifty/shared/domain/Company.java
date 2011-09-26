@@ -2,14 +2,19 @@ package com.leopin.parkfifty.shared.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Embedded;
+import javax.persistence.Id;
+
 import com.google.common.base.Objects;
+import com.googlecode.objectify.annotation.Entity;
 
-
+// TODO @Indexed and @UnIndexed on domain Classes and Properties 
+@Entity
 public class Company implements Serializable {
 	
-	private long id;
-	private String name;
-	private ContactInfo contactInfo;
+	@Id Long id;
+	String name;
+	@Embedded private ContactInfo contactInfo;
 
 
 	public long getId() {

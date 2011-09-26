@@ -58,5 +58,22 @@
 	</bean> -->
 
 	<!-- <util:properties id="s3Properties" location="classpath:s3.properties" /> -->
+	
+	<!-- <util:properties id="pfprops" location="classpath:pf.properties" /> -->
+	
+	<bean id="messages"
+      class="org.springframework.context.support.ResourceBundleMessageSource">
+	  <property name="basenames">
+	    <list>
+	      <value>messages</value>
+	      <!-- <value>exceptions</value>
+	      <value>windows</value> -->
+	    </list>
+	  </property>
+	</bean>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
+	
+	<bean class="com.googlecode.objectify.spring.ObjectifyFactoryBean" p:basePackage="com.leopin.parkfifty.shared.domain" />
 
 </beans>
