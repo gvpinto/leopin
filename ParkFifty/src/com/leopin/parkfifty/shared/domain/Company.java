@@ -1,6 +1,7 @@
 package com.leopin.parkfifty.shared.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Id;
 
@@ -14,6 +15,11 @@ public class Company implements Serializable {
 	
 	@Id Long id;
 	String name;
+	Date timestamp;
+	
+	public Company() {
+		this.timestamp = new Date();
+	}
 	
 	public long getId() {
 		return id;
@@ -31,6 +37,14 @@ public class Company implements Serializable {
 		this.name = name;
 	}
 
+	
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
 	@Override
 	public boolean equals(Object object) {
 		
