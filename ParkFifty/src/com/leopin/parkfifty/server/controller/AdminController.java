@@ -70,9 +70,10 @@ public class AdminController {
 		adminService.addCompany(company);
 	}
 	
-	@ExceptionHandler(Throwable.class)
-	public @ResponseBody AppException handleThrowable(Throwable th) {
-		return new AppException(true, "error.default", this.messages.getMessage("error.default", new Object[]{}, locale));
+	@ExceptionHandler(AppException.class)
+	public @ResponseBody AppException handleThrowable(AppException ae) {
+		ae.setDescription(this.messages.getMessage(ae.getErrorKey(), new Object[]{}, locale));
+		return ae;
 	}
 
 }

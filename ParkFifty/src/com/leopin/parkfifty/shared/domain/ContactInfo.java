@@ -2,12 +2,16 @@ package com.leopin.parkfifty.shared.domain;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Id;
+
 import com.google.common.base.Objects;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 
 @Entity
 public class ContactInfo {
-	
+
+	@Id Long id;
 	String street1;
 	String street2;
 	String city;
@@ -21,6 +25,8 @@ public class ContactInfo {
 	String phonePri;
 	String phoneSec;
 	String fax;
+	Key<Company> company;
+
 	
 	public String getStreet1() {
 		return street1;
@@ -99,6 +105,13 @@ public class ContactInfo {
 	}
 	public void setFax(String fax) {
 		this.fax = fax;
+	}
+	
+	public Key<Company> getCompany() {
+		return company;
+	}
+	public void setCompany(Key<Company> company) {
+		this.company = company;
 	}
 
 	@Override

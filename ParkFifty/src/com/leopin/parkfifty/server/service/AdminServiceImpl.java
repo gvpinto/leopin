@@ -10,6 +10,7 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.ContactInfo;
+import com.leopin.parkfifty.shared.domain.exception.AppException;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -43,20 +44,31 @@ public class AdminServiceImpl implements AdminService {
 	
 	private Company getCompany(int i) {
 		Company company = new Company();
-		ContactInfo contactInfo = new ContactInfo();
-		contactInfo.setStreet1("1280" + i + " Baybriar");
-		contactInfo.setCity("Raleigh");
-		contactInfo.setStateCd("NC");
-		contactInfo.setCountryCd("USA");
-		contactInfo.setZipcode("2761" + i);
-		company.setContactInfo(contactInfo);
+//		ContactInfo contactInfo = new ContactInfo();
+//		contactInfo.setStreet1("1280" + i + " Baybriar");
+//		contactInfo.setCity("Raleigh");
+//		contactInfo.setStateCd("NC");
+//		contactInfo.setCountryCd("USA");
+//		contactInfo.setZipcode("2761" + i);
+		company.setId(i);
+		company.setName("Park Fifty");
 		return company;
 	}
 
 	@Override
 	public void addCompany(Company company) {
-		Objectify ofy = objectifyFactory.begin();
+		Objectify ofy = objectifyFactory.beginTransaction();
 		
+		try {
+			ofy.put(company);
+			ofy.getTxn().commit();
+		} catch (Throwable e) {
+			throw new AppException(true, "error.default");
+		} finally {
+			if (ofy.getTxn().isActive())
+				ofy.getTxn().rollback();
+			
+		}
 		
 	}
 

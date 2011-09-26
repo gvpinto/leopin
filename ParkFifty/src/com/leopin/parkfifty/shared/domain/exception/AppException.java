@@ -1,13 +1,11 @@
 package com.leopin.parkfifty.shared.domain.exception;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Objects;
 
 @Component
-public class AppException {
+public class AppException extends RuntimeException {
 	
 	private boolean error;
 	private String errorKey;
@@ -19,10 +17,9 @@ public class AppException {
 		this.description = "Unknown Error has occurred";
 	}
 	
-	public  AppException(boolean error, String errorKey, String description) {
+	public  AppException(boolean error, String errorKey) {
 		this.error = error;
 		this.errorKey = errorKey;
-		this.description = description;
 	}
 	
 	public boolean isError() {
@@ -42,8 +39,8 @@ public class AppException {
 		return description;
 	}
 	
-	private void setDescription(String errorKey) {
-		this.description = null;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	
