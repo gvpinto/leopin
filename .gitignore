@@ -1,0 +1,2 @@
+ParkFifty/war/WEB-INF/classes/*
+!.gitignore
