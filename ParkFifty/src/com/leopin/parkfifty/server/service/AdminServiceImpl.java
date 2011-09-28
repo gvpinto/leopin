@@ -1,20 +1,24 @@
 package com.leopin.parkfifty.server.service;
 
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
-import com.leopin.parkfifty.shared.domain.ContactInfo;
-import com.leopin.parkfifty.shared.domain.exception.AppException;
+import com.leopin.parkfifty.shared.exception.AppException;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
-
+	
+	// TODO Replace Logger with AspectJ code
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
 	@Autowired private ObjectifyFactory objectifyFactory;
 	
@@ -33,7 +37,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Company getCompany(String name) {
-		return getCompany(9);
+//		return getCompany(9);
+		throw new AppException(ERROR_DEFAULT);
 	}
 
 	@Override
@@ -62,8 +67,9 @@ public class AdminServiceImpl implements AdminService {
 		try {
 			ofy.put(company);
 			ofy.getTxn().commit();
-		} catch (Throwable e) {
-			throw new AppException(true, "error.default");
+		} catch (Exception ex) {
+			LOGGER.error("Unexpected Error", ex);
+			throw new AppException("error.add.company", new Object[] {company.getName()});
 		} finally {
 			if (ofy.getTxn().isActive())
 				ofy.getTxn().rollback();

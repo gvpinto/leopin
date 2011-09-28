@@ -21,16 +21,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
-import com.leopin.parkfifty.shared.domain.exception.AppException;
+import com.leopin.parkfifty.shared.domain.ExceptionInfo;
+import com.leopin.parkfifty.shared.exception.AppException;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	// TODO Replace LOGGER with Aspects
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 	private AdminService adminService;
 	private MessageSource messages;
 	private Locale locale;
@@ -52,15 +53,23 @@ public class AdminController {
 			this.locale = Locale.US;
 		}
 	}
+	
 	@RequestMapping(value="/company", method=RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody String getName() {
 		return "Glenn Pinto";
 		
 	}
 	
+	@RequestMapping(value="/company/{id}", method=RequestMethod.GET, headers="Accept=application/json")
+	public @ResponseBody Company getCompany(@PathVariable Long id) {
+		LOGGER.info("ID[" + id + "]");
+		return adminService.getCompany(id);
+		
+	}
+	
 	@RequestMapping(value="/company/{name}", method=RequestMethod.GET)
 	public @ResponseBody Company getCompany(@PathVariable String name) {
-		logger.info("Name[" + name + "]");
+		LOGGER.info("Name[" + name + "]");
 		return adminService.getCompany(name);
 	}
 	
@@ -69,11 +78,18 @@ public class AdminController {
 	public void addCompany(@RequestBody Company company) {
 		adminService.addCompany(company);
 	}
+
 	
 	@ExceptionHandler(AppException.class)
-	public @ResponseBody AppException handleThrowable(AppException ae) {
-		ae.setDescription(this.messages.getMessage(ae.getErrorKey(), new Object[]{}, locale));
-		return ae;
+	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+	public @ResponseBody ExceptionInfo handleThrowable(AppException ex) {
+		return new ExceptionInfo(this.messages.getMessage(ex.getErrorKey(), ex.getPlaceholderValues(), locale));
+	}
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+	public @ResponseBody ExceptionInfo handleThrowable(Exception ex) {
+		return new ExceptionInfo(this.messages.getMessage("error.unexpected", new Object[]{}, locale));
 	}
 
 }
