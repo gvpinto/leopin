@@ -6,6 +6,13 @@
 
 	<!-- Servlets -->
 	<display-name>ParkFifty</display-name>
+	
+	
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
 	<!--<start id="param_contextConfigLocation" /> -->
 	<!-- <context-param>
 		<param-name>contextConfigLocation</param-name>

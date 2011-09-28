@@ -5,11 +5,15 @@ import java.util.Date;
 
 import javax.persistence.Id;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.google.common.base.Objects;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 
 // TODO @Indexed and @UnIndexed on domain Classes and Properties 
+@Component
+@Scope("prototype")
 @Entity
 public class Company implements Serializable {
 	

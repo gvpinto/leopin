@@ -38,6 +38,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Company getCompany(String name) {
 //		return getCompany(9);
+		LOGGER.info("getCompany Service");
 		throw new AppException(ERROR_DEFAULT);
 	}
 
@@ -68,8 +69,7 @@ public class AdminServiceImpl implements AdminService {
 			ofy.put(company);
 			ofy.getTxn().commit();
 		} catch (Exception ex) {
-			LOGGER.error("Unexpected Error", ex);
-			throw new AppException("error.add.company", new Object[] {company.getName()});
+			throw new AppException(ex, "error.add.company", new Object[] {company.getName()});
 		} finally {
 			if (ofy.getTxn().isActive())
 				ofy.getTxn().rollback();

@@ -1,6 +1,7 @@
 package com.leopin.parkfifty.server.controller;
 
-
+import static org.apache.commons.lang.StringUtils.*;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.*;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,17 +61,20 @@ public class AdminController {
 		
 	}
 	
+	/**
+	 * Retrieve Company by ID or Name
+	 * @param id Identifier that can be an Record ID or Name
+	 * @return
+	 */
 	@RequestMapping(value="/company/{id}", method=RequestMethod.GET, headers="Accept=application/json")
-	public @ResponseBody Company getCompany(@PathVariable Long id) {
+	public @ResponseBody Company getCompany(@PathVariable String id) {
 		LOGGER.info("ID[" + id + "]");
-		return adminService.getCompany(id);
+		if (isNumeric(id)) 
+			return adminService.getCompany(Long.parseLong(id));
+		else 
+			return adminService.getCompany(id);
+			
 		
-	}
-	
-	@RequestMapping(value="/company/{name}", method=RequestMethod.GET)
-	public @ResponseBody Company getCompany(@PathVariable String name) {
-		LOGGER.info("Name[" + name + "]");
-		return adminService.getCompany(name);
 	}
 	
 	@RequestMapping(value="/company", method=RequestMethod.PUT)
@@ -81,15 +85,17 @@ public class AdminController {
 
 	
 	@ExceptionHandler(AppException.class)
-	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+	@ResponseStatus(HttpStatus.METHOD_FAILURE)
 	public @ResponseBody ExceptionInfo handleThrowable(AppException ex) {
-		return new ExceptionInfo(this.messages.getMessage(ex.getErrorKey(), ex.getPlaceholderValues(), locale));
+		LOGGER.error(ex.getErrorKey(), ex);
+		return new ExceptionInfo(ex.getErrorKey(), this.messages.getMessage(ex.getErrorKey(), ex.getPlaceholderValues(), locale));
 	}
 	
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
 	public @ResponseBody ExceptionInfo handleThrowable(Exception ex) {
-		return new ExceptionInfo(this.messages.getMessage("error.unexpected", new Object[]{}, locale));
+		LOGGER.error("Exception", ex);
+		return new ExceptionInfo(ERROR_UNEXPECTED, this.messages.getMessage(ERROR_UNEXPECTED, new Object[]{}, locale));
 	}
-
+	
 }

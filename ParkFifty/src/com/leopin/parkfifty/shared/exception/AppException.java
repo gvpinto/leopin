@@ -6,20 +6,25 @@ import com.google.common.base.Objects;
 
 @Component
 public class AppException extends RuntimeException {
-	
+
 	private String errorKey;
 	private Object[] placeholderValues;
+
 	
 	public AppException() {
-		this("error.unknown");
+		this(null, "error.unknown", null);
 	}
-
 
 	public  AppException(String errorKey) {
-		this(errorKey, null);
+		this(null, errorKey, null);
+	}
+
+	public  AppException(Throwable th, String errorKey) {
+		this(th, errorKey, null);
 	}
 	
-	public  AppException(String errorKey, Object[] placeholderValues) {
+	public  AppException(Throwable th, String errorKey, Object[] placeholderValues) {
+		super(th);
 		this.errorKey = errorKey;
 		this.placeholderValues = placeholderValues;
 	}

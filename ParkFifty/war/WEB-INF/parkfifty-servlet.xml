@@ -75,5 +75,32 @@
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
 	
 	<bean class="com.googlecode.objectify.spring.ObjectifyFactoryBean" p:basePackage="com.leopin.parkfifty.shared.domain" />
+	
+	
+	<!-- <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+   		<property name="supportedMediaTypes" value="application/json" />
+	</bean> -->
+	
+	<!-- <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+  		<property name="autodetectAnnotations" value="true" />
+	</bean> -->
+	
+    <!-- <bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean> -->
+    
+    <!-- Adding JSON MessageHandler for Exception Handling. For regular @ResponseBody it is include by default -->
+    <bean id="exceptionMessageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+        <property name="messageConverters">
+            <list>
+                <!-- Support JSON --> 
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>

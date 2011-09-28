@@ -1,15 +1,21 @@
 package com.leopin.parkfifty.shared.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Id;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Objects;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 
+@Component
+@Scope("prototype")
 @Entity
-public class ContactInfo {
+public class ContactInfo implements Serializable {
 
 	@Id Long id;
 	String street1;
