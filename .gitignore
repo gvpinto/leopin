@@ -1,3 +1,4 @@
 ParkFifty/war/WEB-INF/classes/*
 ParkFifty/war/parkfifty/*
+ParkFifty/gwt-unitCache/*
 !.gitignore
