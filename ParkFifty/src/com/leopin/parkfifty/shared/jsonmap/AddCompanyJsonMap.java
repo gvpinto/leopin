@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.shared.json;
+package com.leopin.parkfifty.shared.jsonmap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -8,7 +8,7 @@ import com.leopin.parkfifty.shared.domain.Company;
 
 @Component
 @Scope("prototype")
-public class AddCompanyContainer {
+public class AddCompanyJsonMap {
 	@Autowired
 	Company company;
 

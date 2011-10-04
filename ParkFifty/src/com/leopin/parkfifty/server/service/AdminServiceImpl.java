@@ -37,9 +37,18 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Company getCompany(String name) {
-//		return getCompany(9);
-		LOGGER.info("getCompany Service");
-		throw new AppException(ERROR_DEFAULT);
+		
+		LOGGER.info("name[" + name + "]");
+		Objectify ofy = objectifyFactory.begin();
+		
+		try {
+			Company company = ofy.query(Company.class).filter("name", name).get();
+			return company;
+		} catch (Exception e) {
+			throw new AppException(e, ERROR_ADMIN_GET_COMPANYBYNAME, new Object[] {name});
+		}
+		
+	
 	}
 
 	@Override
@@ -49,6 +58,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	
 	private Company getCompany(int i) {
+		LOGGER.info("name[" + i + "]");
 		Company company = new Company();
 //		ContactInfo contactInfo = new ContactInfo();
 //		contactInfo.setStreet1("1280" + i + " Baybriar");
@@ -63,19 +73,29 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void addCompany(Company company) {
+		
 		Objectify ofy = objectifyFactory.beginTransaction();
 		
 		try {
 			ofy.put(company);
 			ofy.getTxn().commit();
 		} catch (Exception ex) {
-			throw new AppException(ex, "error.add.company", new Object[] {company.getName()});
+			throw new AppException(ex, ERROR_ADMIN_ADD_COMPANY, new Object[] {company.getName()});
 		} finally {
 			if (ofy.getTxn().isActive())
 				ofy.getTxn().rollback();
 			
 		}
 		
+	}
+	
+	
+	private Objectify getNonTransObjectify() {
+		return objectifyFactory.beginTransaction();
+	}
+	
+	private Objectify getTransObjectify() {
+		return objectifyFactory.begin();
 	}
 
 }
