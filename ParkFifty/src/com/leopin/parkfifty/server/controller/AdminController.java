@@ -2,6 +2,8 @@ package com.leopin.parkfifty.server.controller;
 
 import static org.apache.commons.lang.StringUtils.*;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.*;
+
+import java.net.URLDecoder;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.google.appengine.repackaged.com.google.common.base.CharMatcher;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
@@ -69,11 +72,10 @@ public class AdminController {
 	@RequestMapping(value="/company/{id}", method=RequestMethod.GET, headers="Accept=application/json")
 	public @ResponseBody Company getCompany(@PathVariable String id) {
 		LOGGER.info("ID[" + id + "]");
-		if (isNumeric(id)) 
+		if (CharMatcher.DIGIT.matchesAllOf(id)) 
 			return adminService.getCompany(Long.parseLong(id));
 		else 
-			return adminService.getCompany(id);
-			
+			return adminService.getCompany((CharMatcher.is('+').replaceFrom(id, ' ')));
 		
 	}
 	

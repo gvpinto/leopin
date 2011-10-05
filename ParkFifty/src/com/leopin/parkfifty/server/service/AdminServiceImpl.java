@@ -38,7 +38,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Company getCompany(String name) {
 		
-		LOGGER.info("name[" + name + "]");
 		Objectify ofy = objectifyFactory.begin();
 		
 		try {
@@ -58,7 +57,6 @@ public class AdminServiceImpl implements AdminService {
 	
 	
 	private Company getCompany(int i) {
-		LOGGER.info("name[" + i + "]");
 		Company company = new Company();
 //		ContactInfo contactInfo = new ContactInfo();
 //		contactInfo.setStreet1("1280" + i + " Baybriar");
