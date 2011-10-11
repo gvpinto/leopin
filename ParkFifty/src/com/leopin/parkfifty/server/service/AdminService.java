@@ -12,6 +12,10 @@ public interface AdminService {
 	
 	Company getCompany(Long id);
 
-	void addCompany(Company company);
+	Company addCompany(Company company);
+
+	void deleteCompany(Long id);
+
+	void deleteCompany(String name);
 
 }

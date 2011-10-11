@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<!--<start id="spring_component_scan" /> -->
+	<context:component-scan base-package="com.leopin.parkfifty.server" />
+	<context:component-scan base-package="com.leopin.parkfifty.shared" />
+	<!--<end id="spring_component_scan" /> -->
+
+	<!--<start id="mvc_annotatedcontrollers" /> -->
+	<mvc:annotation-driven />
+	<!--<end id="mvc_annotatedcontrollers" /> -->
+
+	<!--<start id="mvc_resources"/> -->
+	<mvc:resources mapping="/parkfifty/**" location="/parkfifty/" />
+	<!--<end id="mvc_resources"/> -->
+
+	<!-- <bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.tiles2.TilesViewResolver" />
+			</list>
+		</property>
+		
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+			</list>
+		</property>
+		
+		<property name="favorParameter" value="true" />
+		
+	</bean> -->
+
+	<!-- <bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/**/views.xml</value>
+			</list>
+		</property>
+	</bean> -->
+
+	<!-- <util:properties id="s3Properties" location="classpath:s3.properties" /> -->
+	
+	<!-- <util:properties id="pfprops" location="classpath:pf.properties" /> -->
+	
+	<bean id="messages"
+      class="org.springframework.context.support.ResourceBundleMessageSource">
+	  <property name="basenames">
+	    <list>
+	      <value>messages</value>
+	      <!-- <value>exceptions</value>
+	      <value>windows</value> -->
+	    </list>
+	  </property>
+	</bean>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
+	
+	<bean class="com.googlecode.objectify.spring.ObjectifyFactoryBean" p:basePackage="com.leopin.parkfifty.shared.domain" />
+	
+	
+	<!-- <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+   		<property name="supportedMediaTypes" value="application/json" />
+	</bean> -->
+	
+	<!-- <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+  		<property name="autodetectAnnotations" value="true" />
+	</bean> -->
+	
+    <!-- <bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean> -->
+    
+    <!-- Adding JSON MessageHandler for Exception Handling. For regular @ResponseBody it is include by default -->
+    <bean id="exceptionMessageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver">
+        <property name="messageConverters">
+            <list>
+                <!-- Support JSON --> 
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,6 +1,11 @@
 package com.leopin.parkfifty.server.service;
 
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.*;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_EXISTS;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_NOT_FOUND;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_COMPANY;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_DELETE_COMPANY;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_GET_COMPANY;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +18,7 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.exception.AppException;
+import com.leopin.parkfifty.shared.exception.SysException;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -30,55 +36,106 @@ public class AdminServiceImpl implements AdminService {
 	public List<Company> getCompanies() {
 		List<Company> companies = new ArrayList<Company>();
 		for (int i = 0; i < 9; i++) {
-			companies.add(getCompany(i));
+			companies.add(getCompany(Long.valueOf(i)));
 		}
 		return companies;
 	}
 
-	@Override
+	/**
+	 * Retrieve Company by name
+	 * @param name Company name
+	 * @return Company
+	 */
 	public Company getCompany(String name) {
 		
 		Objectify ofy = objectifyFactory.begin();
 		
 		try {
 			Company company = ofy.query(Company.class).filter("name", name).get();
+			if (company == null)
+				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {name});
 			return company;
+		} catch (AppException ae) {
+			throw ae;
 		} catch (Exception e) {
-			throw new AppException(e, ERROR_ADMIN_GET_COMPANYBYNAME, new Object[] {name});
+			throw new SysException(e, ERROR_SYS_ADMIN_GET_COMPANY, new Object[] {name});
 		}
 		
 	
 	}
-
+	
+	/**
+	 * Retrieve Company by Key
+	 * @param id Company Id
+	 * @return Company
+	 */
 	@Override
 	public Company getCompany(Long id) {
-		return getCompany(id.intValue());
-	}
-	
-	
-	private Company getCompany(int i) {
-		Company company = new Company();
-//		ContactInfo contactInfo = new ContactInfo();
-//		contactInfo.setStreet1("1280" + i + " Baybriar");
-//		contactInfo.setCity("Raleigh");
-//		contactInfo.setStateCd("NC");
-//		contactInfo.setCountryCd("USA");
-//		contactInfo.setZipcode("2761" + i);
-		company.setId(i);
-		company.setName("Park Fifty");
-		return company;
+		Objectify ofy = objectifyFactory.begin();
+		
+		try {
+			Company company = ofy.query(Company.class).filter("id", id).get();
+			if (company == null)
+				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {String.valueOf(id)});
+			return company;
+		} catch (AppException ae) {
+			throw ae;
+		} catch (Exception e) {
+			throw new SysException(e, ERROR_SYS_ADMIN_GET_COMPANY, new Object[] {String.valueOf(id)});
+		}
 	}
 
+	/**
+	 * Add a new Company
+	 * @param company Company object
+	 */
 	@Override
-	public void addCompany(Company company) {
+	public Company addCompany(Company company) {
 		
+		Objectify ofyAdd = objectifyFactory.beginTransaction();
+		Objectify ofyGet = objectifyFactory.begin();
+		
+		try {
+			// Look up if a company exists in the datastore with the same name
+			Company c = ofyGet.query(Company.class).filter("name", company.getName()).get();
+			if (c != null) {
+				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {company.getName()});
+			}
+			ofyAdd.put(company);
+			ofyAdd.getTxn().commit();
+			return company;
+		} catch (AppException ae) {
+			throw ae;
+		} catch (Exception ex) {
+			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_COMPANY, new Object[] {company.getName()});
+		} finally {
+			if (ofyAdd.getTxn().isActive())
+				ofyAdd.getTxn().rollback();
+			
+		}
+		
+	}
+
+	/**
+	 * Delete Company from the database by Company id
+	 * @param id Company id
+	 */
+	@Override
+	public void deleteCompany(Long id) {
 		Objectify ofy = objectifyFactory.beginTransaction();
 		
 		try {
-			ofy.put(company);
+			// Look up if a company exists in the datastore with the same name
+			Company c = getCompany(id);
+			if (c == null) {
+				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {id});
+			}
+			ofy.delete(c);
 			ofy.getTxn().commit();
+		} catch (AppException ae) {
+			throw ae;
 		} catch (Exception ex) {
-			throw new AppException(ex, ERROR_ADMIN_ADD_COMPANY, new Object[] {company.getName()});
+			throw new SysException(ex, ERROR_SYS_ADMIN_DELETE_COMPANY, new Object[] {id});
 		} finally {
 			if (ofy.getTxn().isActive())
 				ofy.getTxn().rollback();
@@ -87,13 +144,32 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	
-	
-	private Objectify getNonTransObjectify() {
-		return objectifyFactory.beginTransaction();
-	}
-	
-	private Objectify getTransObjectify() {
-		return objectifyFactory.begin();
-	}
+	/**
+	 * Delete Company from the database by Company id
+	 * @param id Company id
+	 */
+	@Override
+	public void deleteCompany(String name) {
+		Objectify ofy = objectifyFactory.beginTransaction();
+		
+		try {
+			// Look up if a company exists in the datastore with the same name
+			Company c = getCompany(name);
+			if (c == null) {
+				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {name});
+			}
+			ofy.delete(c);
+			ofy.getTxn().commit();
+		} catch (AppException ae) {
+			throw ae;
+		} catch (Exception ex) {
+			throw new SysException(ex, ERROR_SYS_ADMIN_DELETE_COMPANY, new Object[] {name});
+		} finally {
+			if (ofy.getTxn().isActive())
+				ofy.getTxn().rollback();
+			
+		}
+		
+	}	
 
 }

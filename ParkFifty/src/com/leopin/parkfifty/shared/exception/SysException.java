@@ -5,29 +5,29 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Objects;
 
 @Component
-public class AppException extends RuntimeException {
+public class SysException extends RuntimeException {
 
 	private String errorKey;
 	private Object[] placeholderValues;
 
 	
-	public AppException() {
+	public SysException() {
 		this(null, "error.unknown", null);
 	}
 
-	public  AppException(String errorKey) {
+	public  SysException(String errorKey) {
 		this(null, errorKey, null);
 	}
 
-	public  AppException(String errorKey, Object[] placeholderValues) {
+	public  SysException(String errorKey, Object[] placeholderValues) {
 		this(null, errorKey, placeholderValues);
 	}
 	
-	public  AppException(Throwable th, String errorKey) {
+	public  SysException(Throwable th, String errorKey) {
 		this(th, errorKey, null);
 	}
 	
-	public  AppException(Throwable th, String errorKey, Object[] placeholderValues) {
+	public  SysException(Throwable th, String errorKey, Object[] placeholderValues) {
 		super(th);
 		this.errorKey = errorKey;
 		this.placeholderValues = placeholderValues;
@@ -57,9 +57,9 @@ public class AppException extends RuntimeException {
 	@Override
 	public boolean equals(Object object) {
 		
-		if (object instanceof AppException) {
+		if (object instanceof SysException) {
 			
-			AppException that = (AppException) object;
+			SysException that = (SysException) object;
 			return Objects.equal(this.errorKey, that.errorKey);
 			
 		} 
