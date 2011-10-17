@@ -26,11 +26,16 @@ public class AdminServiceImpl implements AdminService {
 	// TODO Replace Logger with AspectJ code
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
-	@Autowired private ObjectifyFactory objectifyFactory;
+	@Autowired 
+	private ObjectifyFactory objectifyFactory;
 	
-	public AdminServiceImpl() {
-		super();
-	}
+//	public void setObjectifyFactory(ObjectifyFactory objectifyFactory) {
+//		this.objectifyFactory = objectifyFactory;
+//	}
+//	
+//	public AdminServiceImpl() {
+//		super();
+//	}
 	
 	@Override
 	public List<Company> getCompanies() {
@@ -81,6 +86,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
 			throw new SysException(e, ERROR_SYS_ADMIN_GET_COMPANY, new Object[] {String.valueOf(id)});
 		}
 	}

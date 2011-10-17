@@ -39,11 +39,16 @@ public class AdminController {
 
 	// TODO Replace LOGGER with Aspects
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
-	private AdminService adminService;
+	private AdminService adminService;	
 	private MessageSource messages;
 	private Locale locale;
 
 	
+	public AdminController() {
+		super();
+	}
+	
+
 	@Autowired
 	public AdminController(AdminService service, 
 			MessageSource messages) {
@@ -153,6 +158,14 @@ public class AdminController {
 	
 	private String getMessage(String key, Object[] placeholderValues) {
 		return this.messages.getMessage(key, placeholderValues, locale);
+	}
+	
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
+	}
+	
+	public void setMessages(MessageSource messages) {
+		this.messages = messages;
 	}
 	
 }

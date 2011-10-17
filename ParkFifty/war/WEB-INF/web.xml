@@ -13,26 +13,31 @@
 			org.springframework.web.context.request.RequestContextListener
 		</listener-class>
 	</listener>
-	<!--<start id="param_contextConfigLocation" /> -->
-	<!-- <context-param>
+	
+	<!-- <start id="param_contextConfigLocation" /> -->
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:service-context.xml</param-value>
-
-	</context-param> -->
+		<param-value>classpath:parkfifty-service.xml</param-value>
+	</context-param>
+	
 	<!--<end id="param_contextConfigLocation" /> -->
 
 	<!-- /WEB-INF/spitter-security.xml classpath:persistence-context.xml classpath:dataSource-context.xml -->
 
 	<!--<start id="listener_ContextLoaderListener" /> -->
-	<!-- <listener>
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener> -->
+	</listener>
 	<!--<end id="listener_ContextLoaderListener" /> -->
 
 	<!--<start id="servlet_DispatcherServlet"/> -->
 	<servlet>
 		<servlet-name>parkfifty</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:parkfifty-servlet.xml</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<!--<end id="servlet_DispatcherServlet"/> -->
