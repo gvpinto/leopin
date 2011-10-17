@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -15,11 +17,15 @@ import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
 import com.leopin.parkfifty.server.controller.AdminController;
+import com.leopin.parkfifty.shared.domain.Company;
 
+//@RunWith(MockitoJUnitRunner.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:parkfifty-servlet.xml" })
+//file:webapp/WEB-INF/applicationContext.xml, classpath:cz/aura/cms/servicesApplicationContext.xml"
+@ContextConfiguration(locations = { "classpath:parkfifty-servlet-test.xml", "classpath:parkfifty-service-test.xml"})
 public class AdminJsonIntegrationtests {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminJsonIntegrationtests.class);
 
 	@Autowired
 	private ApplicationContext appCtx;
@@ -43,6 +49,8 @@ public class AdminJsonIntegrationtests {
 		request.setMethod("GET");
 		handlerAdapter.handle(request, response,
 				appCtx.getBean(AdminController.class));
+
+		LOGGER.debug(">>>>>>>" + response.getContentAsString());
 
 	}
 

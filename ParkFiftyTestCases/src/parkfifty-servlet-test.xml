@@ -11,7 +11,7 @@
 
 
 	<!--<start id="spring_component_scan" /> -->
-	<context:component-scan base-package="com.leopin.parkfifty.server" />
+	<context:component-scan base-package="com.leopin.parkfifty.server.controller" />
 	<context:component-scan base-package="com.leopin.parkfifty.shared" />
 	<!--<end id="spring_component_scan" /> -->
 
@@ -73,9 +73,6 @@
 	</bean>
 	
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver"/>
-	
-	<bean class="com.googlecode.objectify.spring.ObjectifyFactoryBean" p:basePackage="com.leopin.parkfifty.shared.domain" />
-	
 	
 	<!-- <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
    		<property name="supportedMediaTypes" value="application/json" />
