@@ -21,9 +21,10 @@ import java.util.regex.PatternSyntaxException;
 
 import javax.validation.ConstraintViolation;
 
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -48,7 +49,7 @@ import com.leopin.parkfifty.shared.domain.Company;
 
 public class AdminJsonUnitTests {
 
-	private static Logger LOGGER = Logger.getLogger(AdminJsonUnitTests.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminJsonUnitTests.class);
 	AdminService service = null;
 	MessageSource messages = null;
 	Company company = null;
@@ -136,7 +137,7 @@ public class AdminJsonUnitTests {
 		assertEquals(0, result.size());
 		for (ConstraintViolation<Company> cv : result) {
 			String path = cv.getPropertyPath().toString();
-			LOGGER.debug("Property Path[" + path + "]");
+			System.out.println("Property Path[" + path + "]");
 //			if ("name".equals(path) || "address.street".equals(path)) {
 //				assertTrue(cv.getConstraintDescriptor().getAnnotation() instanceof NotNull);
 //			}
@@ -161,7 +162,7 @@ public class AdminJsonUnitTests {
 		
 		Set<ConstraintViolation<Company>> result = validator.validate(company);
 		LOGGER.error("Result Size[" + result.size() + "]");
-		assertEquals(0, result.size());
+		assertEquals(1, result.size());
 		for (ConstraintViolation<Company> cv : result) {
 			String path = cv.getPropertyPath().toString();
 			LOGGER.debug("Property Path[" + path + "]");
