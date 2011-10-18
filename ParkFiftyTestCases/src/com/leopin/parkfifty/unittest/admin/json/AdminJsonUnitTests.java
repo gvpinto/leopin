@@ -1,7 +1,12 @@
 package com.leopin.parkfifty.unittest.admin.json;
 
+//import static org.junit.Assert.*;
+//import static org.mockito.Matchers.*;
+//import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -10,10 +15,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+import javax.validation.ConstraintViolation;
+
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -38,7 +48,7 @@ import com.leopin.parkfifty.shared.domain.Company;
 
 public class AdminJsonUnitTests {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(AdminJsonUnitTests.class);
+	private static Logger LOGGER = Logger.getLogger(AdminJsonUnitTests.class);
 	AdminService service = null;
 	MessageSource messages = null;
 	Company company = null;
@@ -108,8 +118,74 @@ public class AdminJsonUnitTests {
 
 	}
 	
+	@Test
+	public void testGoodCompanyValidation() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		Company company = new Company();
+		company.setName("This is a good  company");
+		company.setUrl("https://www.goodcompany.com");
+		company.setEmail("goodcompany@gmail.com");
+		company.setPriPhone("9194553262");
+		company.setSecPhone("");
+		company.setFax("");
+		
+		
+		Set<ConstraintViolation<Company>> result = validator.validate(company);
+		LOGGER.error("Result Size[" + result.size() + "]");
+		assertEquals(0, result.size());
+		for (ConstraintViolation<Company> cv : result) {
+			String path = cv.getPropertyPath().toString();
+			LOGGER.debug("Property Path[" + path + "]");
+//			if ("name".equals(path) || "address.street".equals(path)) {
+//				assertTrue(cv.getConstraintDescriptor().getAnnotation() instanceof NotNull);
+//			}
+//			else {
+//				fail("Invalid constraint violation with path '" + path + "'");
+//			}
+		}
+	}
 	
 	@Test
+	public void testCompanyInvalidURL() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		Company company = new Company();
+		company.setName("This is a good  company");
+		company.setUrl("https:/goodcompany.com");
+		company.setEmail("goodcompany@gmail.com");
+		company.setPriPhone("9194553262");
+		company.setSecPhone("");
+		company.setFax("");
+		
+		
+		Set<ConstraintViolation<Company>> result = validator.validate(company);
+		LOGGER.error("Result Size[" + result.size() + "]");
+		assertEquals(0, result.size());
+		for (ConstraintViolation<Company> cv : result) {
+			String path = cv.getPropertyPath().toString();
+			LOGGER.debug("Property Path[" + path + "]");
+//			if ("name".equals(path) || "address.street".equals(path)) {
+//				assertTrue(cv.getConstraintDescriptor().getAnnotation() instanceof NotNull);
+//			}
+//			else {
+//				fail("Invalid constraint violation with path '" + path + "'");
+//			}
+		}
+	}
+	
+	@Test
+	public void testPatternValid() {
+		try {
+			String pattern = "(^[0-9]{9,15}$)|()";
+			Pattern.compile(pattern);
+			assertTrue(true);
+		} catch (PatternSyntaxException e) {
+			fail("[" + e.getMessage() + "-" + e.getPattern() + "]");
+		}
+	}
+	
+//	@Test
 	public void commandProvidingFormControllerWithCustomEditor() throws Exception {
 		
 		
@@ -118,10 +194,6 @@ public class AdminJsonUnitTests {
 		company.setEmail("gpinto@bbandt.com");
 		company.setUrl("http://www.bbt.com");
 		company.setPriPhone("9194553262");
-//		when(company.getName()).thenReturn("Company without errors");
-//		when(company.getEmail()).thenReturn("gpinto@bbandt.com");
-//		when(company.getUrl()).thenReturn("http://www.bbt.com");
-//		when(company.getPriPhone()).thenReturn("9194553262");
 
 		when(service.getCompany(anyLong())).thenReturn(company);
 		
@@ -136,11 +208,6 @@ public class AdminJsonUnitTests {
 				controllerDef.getPropertyValues().add("messages", AdminJsonUnitTests.this.messages);
 				wac.registerBeanDefinition("controller",controllerDef);
 //				wac.registerBeanDefinition("viewResolver", new RootBeanDefinition(TestViewResolver.class));		
-//				RootBeanDefinition jsonConverterDef = new RootBeanDefinition(MappingJacksonHttpMessageConverter.class);
-//				MutablePropertyValues mpv = new MutablePropertyValues();
-//				mpv.add("supportedMediaTypes", "application/json");
-//				jsonConverterDef.setPropertyValues(mpv);
-//				wac.registerBeanDefinition("jsonConverter", jsonConverterDef);
 				
 				RootBeanDefinition adapterDef = new RootBeanDefinition(AnnotationMethodHandlerAdapter.class);
 				adapterDef.getPropertyValues().add("webBindingInitializer", new MyWebBindingInitializer());

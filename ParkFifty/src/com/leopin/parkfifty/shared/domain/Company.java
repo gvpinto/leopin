@@ -42,9 +42,9 @@ public class Company implements Serializable {
 	String email;
 	@Pattern(regexp=PHONE_NUM, message="Invalid primary phone number")
 	String priPhone;
-	@Pattern(regexp=PHONE_NUM, message="Invalid secondary phone number")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid secondary phone number")
 	String secPhone;
-	@Pattern(regexp=PHONE_NUM, message="Invalid fax number")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid fax number")
 	String fax;
 	Date timestamp;
 	
