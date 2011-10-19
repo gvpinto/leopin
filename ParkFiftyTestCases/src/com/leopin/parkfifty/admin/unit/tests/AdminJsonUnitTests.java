@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.unittest.admin.json;
+package com.leopin.parkfifty.admin.unit.tests;
 
 //import static org.junit.Assert.*;
 //import static org.mockito.Matchers.*;
@@ -123,6 +123,7 @@ public class AdminJsonUnitTests {
 	public void testGoodCompanyValidation() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
+		
 		Company company = new Company();
 		company.setName("This is a good  company");
 		company.setUrl("https://www.goodcompany.com");
@@ -135,24 +136,108 @@ public class AdminJsonUnitTests {
 		Set<ConstraintViolation<Company>> result = validator.validate(company);
 		LOGGER.error("Result Size[" + result.size() + "]");
 		assertEquals(0, result.size());
-		for (ConstraintViolation<Company> cv : result) {
-			String path = cv.getPropertyPath().toString();
-			System.out.println("Property Path[" + path + "]");
-//			if ("name".equals(path) || "address.street".equals(path)) {
-//				assertTrue(cv.getConstraintDescriptor().getAnnotation() instanceof NotNull);
-//			}
-//			else {
-//				fail("Invalid constraint violation with path '" + path + "'");
-//			}
-		}
 	}
+	
+	
+	@Test
+	public void testCompanyInvalidEmail() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		Company company = new Company();
+		company.setName("This is a good company");
+		company.setUrl("https://www.goodcompany.com");
+		company.setEmail("goodcompany@gmailcom");
+		company.setPriPhone("9194553262");
+		company.setSecPhone("");
+		company.setFax("");
+		
+		
+		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Invalid email address.", constraintViolations.iterator().next().getMessage());
+	}
+
+	@Test
+	public void testCompanyInvalidPhone() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		LOGGER.debug(">>>> " + validator.getClass().getName());
+		validator.afterPropertiesSet();
+		Company company = new Company();
+		company.setName("This is a good company");
+		company.setUrl("https://www.goodcompany.com");
+		company.setEmail("goodcompany@gmail.com");
+		company.setPriPhone("9194553262qwe");
+		company.setSecPhone("");
+		company.setFax("");
+		
+		
+		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+	}
+
+	
+	@Test
+	public void testCompanyInvalidAndShortPhone() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		Company company = new Company();
+		company.setName("This is a good company");
+		company.setUrl("https://www.goodcompany.com");
+		company.setEmail("goodcompany@gmail.com");
+		company.setPriPhone("919455326");
+		company.setSecPhone("");
+		company.setFax("");
+		
+		
+		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+	}
+
+	@Test
+	public void testCompanyInvalidSecPhone() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		Company company = new Company();
+		company.setName("This is a good company");
+		company.setUrl("https://www.goodcompany.com");
+		company.setEmail("goodcompany@gmail.com");
+		company.setPriPhone("9194553262");
+		company.setSecPhone("a");
+		company.setFax("");
+		
+		
+		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Invalid secondary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+	}
+
+	@Test
+	public void testCompanyInvalidFax() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		Company company = new Company();
+		company.setName("This is a good company");
+		company.setUrl("https://www.goodcompany.com");
+		company.setEmail("goodcompany@gmail.com");
+		company.setPriPhone("9194553262");
+		company.setSecPhone("");
+		company.setFax("a");
+		
+		
+		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Invalid fax number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+	}
+
 	
 	@Test
 	public void testCompanyInvalidURL() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
-		company.setName("This is a good  company");
+		company.setName("This is a good company");
 		company.setUrl("https:/goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
 		company.setPriPhone("9194553262");
@@ -160,30 +245,19 @@ public class AdminJsonUnitTests {
 		company.setFax("");
 		
 		
-		Set<ConstraintViolation<Company>> result = validator.validate(company);
-		LOGGER.error("Result Size[" + result.size() + "]");
-		assertEquals(1, result.size());
-		for (ConstraintViolation<Company> cv : result) {
-			String path = cv.getPropertyPath().toString();
-			LOGGER.debug("Property Path[" + path + "]");
-//			if ("name".equals(path) || "address.street".equals(path)) {
-//				assertTrue(cv.getConstraintDescriptor().getAnnotation() instanceof NotNull);
+		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Invalid URL address", constraintViolations.iterator().next().getMessage());
+//		for (ConstraintViolation<Company> cv : result) {
+//			String path = cv.getPropertyPath().toString();
+//
+//			if ("name".equals(path) || "url".equals(path) || "email".equals(path) || "priPhone".equals(path) || "secPhone".equals(path) || "fax".equals(path) ) {
+//				assertTrue(cv.getConstraintDescriptor().);
 //			}
 //			else {
 //				fail("Invalid constraint violation with path '" + path + "'");
 //			}
-		}
-	}
-	
-	@Test
-	public void testPatternValid() {
-		try {
-			String pattern = "(^[0-9]{9,15}$)|()";
-			Pattern.compile(pattern);
-			assertTrue(true);
-		} catch (PatternSyntaxException e) {
-			fail("[" + e.getMessage() + "-" + e.getPattern() + "]");
-		}
+//		}
 	}
 	
 //	@Test
@@ -202,9 +276,9 @@ public class AdminJsonUnitTests {
 			@Override
 			protected WebApplicationContext createWebApplicationContext(WebApplicationContext parent) {
 				GenericWebApplicationContext wac = new GenericWebApplicationContext();
+//				controllerDef.setAutowireMode(RootBeanDefinition.AUTOWIRE_BY_TYPE);
 				RootBeanDefinition controllerDef = new RootBeanDefinition(AdminController.class);
 				controllerDef.setAutowireCandidate(true);
-				controllerDef.setAutowireMode(RootBeanDefinition.AUTOWIRE_BY_TYPE);
 				controllerDef.getPropertyValues().add("adminService", AdminJsonUnitTests.this.service);
 				controllerDef.getPropertyValues().add("messages", AdminJsonUnitTests.this.messages);
 				wac.registerBeanDefinition("controller",controllerDef);

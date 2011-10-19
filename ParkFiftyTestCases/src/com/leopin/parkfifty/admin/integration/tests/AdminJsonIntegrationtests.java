@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.integrationtest.admin.json;
+package com.leopin.parkfifty.admin.integration.tests;
 
 import static org.junit.Assert.*;
 

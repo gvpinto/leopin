@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.unittest.admin.json;
+package com.leopin.parkfifty.admin.unit.tests;
 
 import java.io.IOException;
 import java.io.Writer;

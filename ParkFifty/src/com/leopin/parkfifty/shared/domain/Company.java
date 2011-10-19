@@ -33,19 +33,26 @@ public class Company implements Serializable {
 	// ^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$ - HTML tag
 	
 	@Id Long id;
-	@Pattern(regexp=COMPANY_NAME, message="Not a valid company name")
+	
 	@Indexed
+	@Pattern(regexp=COMPANY_NAME, message="Invalid Company Name Structure. Can be Alphanumeric with dashes, underscore or spaces and should be between 3 and 100 characters long.")
 	String name;
-	@Pattern(regexp=URL, message="Invalid URL address")
+	
+	@Pattern(regexp=URL, message="Invalid URL address.")
 	String url;
-	@Pattern(regexp=EMAIL, message="Invalid email address")
+	
+	@Pattern(regexp=EMAIL, message="Invalid email address.")
 	String email;
-	@Pattern(regexp=PHONE_NUM, message="Invalid primary phone number")
+	
+	@Pattern(regexp=PHONE_NUM, message="Invalid primary phone number. Can be 9 to 15 digits long.")
 	String priPhone;
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid secondary phone number")
+	
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid secondary phone number. Can be 9 to 15 digits long.")
 	String secPhone;
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid fax number")
+	
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid fax number. Can be 9 to 15 digits long.")
 	String fax;
+	
 	Date timestamp;
 	
 	public Company() {

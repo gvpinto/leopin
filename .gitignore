@@ -3,4 +3,5 @@ ParkFifty/war/parkfifty/*
 ParkFifty/gwt-unitCache/*
 ParkFifty/.classpath
 ParkFiftyTestCases/bin/*
+ParkFiftyTestCases/.clover/*
 !.gitignore

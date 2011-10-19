@@ -1,11 +1,11 @@
-package com.leopin.parkfifty.test.admin;
+package com.leopin.parkfifty.admin.alltests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.leopin.parkfifty.unittest.admin.json.AdminJsonUnitTests;
-import com.leopin.parkfifty.webtest.admin.json.AdminJsonWebTests;
+import com.leopin.parkfifty.admin.unit.tests.AdminJsonUnitTests;
+import com.leopin.parkfifty.admin.web.tests.AdminJsonWebTests;
 
 @RunWith(Suite.class)
 @SuiteClasses({
