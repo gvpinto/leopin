@@ -1,17 +1,24 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.shared.AppRegExp.*;
+import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_NAME;
+import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.shared.AppRegExp.URL;
+
 import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
@@ -35,24 +42,31 @@ public class Company implements Serializable {
 	@Id Long id;
 	
 	@Indexed
+	@NotNull
 	@Pattern(regexp=COMPANY_NAME, message="Invalid Company Name Structure. Can be Alphanumeric with dashes, underscore or spaces and should be between 3 and 100 characters long.")
 	String name;
 	
+	@NotNull
 	@Pattern(regexp=URL, message="Invalid URL address.")
 	String url;
 	
+	@NotNull
 	@Pattern(regexp=EMAIL, message="Invalid email address.")
 	String email;
 	
+	@NotNull
 	@Pattern(regexp=PHONE_NUM, message="Invalid primary phone number. Can be 9 to 15 digits long.")
 	String priPhone;
 	
+	@NotNull
 	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid secondary phone number. Can be 9 to 15 digits long.")
 	String secPhone;
 	
+	@NotNull
 	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid fax number. Can be 9 to 15 digits long.")
 	String fax;
 	
+	@NotNull
 	Date timestamp;
 	
 	public Company() {
@@ -105,7 +119,7 @@ public class Company implements Serializable {
 	}
 
 	public void setPriPhone(String priPhone) {
-		this.priPhone = CharMatcher.DIGIT.retainFrom(priPhone);
+		this.priPhone = CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(priPhone));
 	}
 
 	public String getSecPhone() {
@@ -113,7 +127,7 @@ public class Company implements Serializable {
 	}
 
 	public void setSecPhone(String secPhone) {
-		this.secPhone = CharMatcher.DIGIT.retainFrom(secPhone);
+		this.secPhone = CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(secPhone));
 	}
 
 	public String getFax() {
@@ -121,7 +135,7 @@ public class Company implements Serializable {
 	}
 
 	public void setFax(String fax) {
-		this.fax = CharMatcher.DIGIT.retainFrom(fax);
+		this.fax = CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(fax));
 	}
 
 
