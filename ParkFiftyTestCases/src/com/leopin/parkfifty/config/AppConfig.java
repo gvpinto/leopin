@@ -1,7 +1,9 @@
 package com.leopin.parkfifty.config;
 
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.Date;
 
@@ -11,9 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.Query;
-import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
-import com.leopin.parkfifty.test.server.service.AdminServiceImpl;
 
 @Configuration
 public class AppConfig {

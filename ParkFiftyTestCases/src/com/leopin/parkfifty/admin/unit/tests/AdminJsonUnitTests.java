@@ -5,8 +5,6 @@ package com.leopin.parkfifty.admin.unit.tests;
 //import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -16,8 +14,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Set;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import javax.validation.ConstraintViolation;
 
@@ -154,26 +150,34 @@ public class AdminJsonUnitTests {
 		
 		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Invalid email address.", constraintViolations.iterator().next().getMessage());
+		
+		company.setEmail(null);
+		constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());		
+//		assertEquals("Invalid email address.", constraintViolations.iterator().next().getMessage());
 	}
 
 	@Test
-	public void testCompanyInvalidPhone() throws Exception {
+	public void testCompanyInvalidPriPhone() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-		LOGGER.debug(">>>> " + validator.getClass().getName());
 		validator.afterPropertiesSet();
 		Company company = new Company();
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
-		company.setPriPhone("9194553262qwe");
+		company.setPriPhone("919455326aqwe");
 		company.setSecPhone("");
 		company.setFax("");
 		
 		
 		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+		
+		company.setPriPhone(null);
+		constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());		
+
+		//		assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
 	}
 
 	
@@ -193,6 +197,11 @@ public class AdminJsonUnitTests {
 		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
 		assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+		
+		
+		company.setPriPhone(null);
+		constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
 	}
 
 	@Test
@@ -210,7 +219,11 @@ public class AdminJsonUnitTests {
 		
 		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Invalid secondary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+//		assertEquals("Invalid secondary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+		
+		company.setSecPhone(null);
+		constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
 	}
 
 	@Test
@@ -228,7 +241,11 @@ public class AdminJsonUnitTests {
 		
 		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Invalid fax number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+//		assertEquals("Invalid fax number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+		
+		company.setFax(null);
+		constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
 	}
 
 	
@@ -247,7 +264,11 @@ public class AdminJsonUnitTests {
 		
 		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Invalid URL address", constraintViolations.iterator().next().getMessage());
+		
+		company.setUrl(null);
+		constraintViolations = validator.validate(company);
+		assertEquals(1, constraintViolations.size());
+//		assertEquals("Invalid URL address", constraintViolations.iterator().next().getMessage());
 //		for (ConstraintViolation<Company> cv : result) {
 //			String path = cv.getPropertyPath().toString();
 //

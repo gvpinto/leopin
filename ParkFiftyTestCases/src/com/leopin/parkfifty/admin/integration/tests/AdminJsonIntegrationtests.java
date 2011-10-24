@@ -1,7 +1,5 @@
 package com.leopin.parkfifty.admin.integration.tests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 
 import com.leopin.parkfifty.server.controller.AdminController;
-import com.leopin.parkfifty.shared.domain.Company;
 
 //@RunWith(MockitoJUnitRunner.class)
 @RunWith(SpringJUnit4ClassRunner.class)
