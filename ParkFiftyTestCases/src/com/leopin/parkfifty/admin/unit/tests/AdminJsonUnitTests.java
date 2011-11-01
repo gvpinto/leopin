@@ -223,7 +223,7 @@ public class AdminJsonUnitTests {
 		
 		company.setSecPhone(null);
 		constraintViolations = validator.validate(company);
-		assertEquals(1, constraintViolations.size());
+		assertEquals(0, constraintViolations.size());
 	}
 
 	@Test
@@ -245,7 +245,7 @@ public class AdminJsonUnitTests {
 		
 		company.setFax(null);
 		constraintViolations = validator.validate(company);
-		assertEquals(1, constraintViolations.size());
+		assertEquals(0, constraintViolations.size());
 	}
 
 	

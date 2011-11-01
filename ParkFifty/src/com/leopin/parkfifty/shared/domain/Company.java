@@ -12,7 +12,7 @@ import java.util.Date;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.apache.commons.lang.StringUtils;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
