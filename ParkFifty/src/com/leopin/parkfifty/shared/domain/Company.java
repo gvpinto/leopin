@@ -42,31 +42,31 @@ public class Company implements Serializable {
 	@Id Long id;
 	
 	@Indexed
-	@NotNull
-	@Pattern(regexp=COMPANY_NAME, message="Invalid Company Name Structure. Can be Alphanumeric with dashes, underscore or spaces and should be between 3 and 100 characters long.")
+	@NotNull(message="{company.name.invalid}")
+	@Pattern(regexp=COMPANY_NAME, message="{company.name.invalid}")
 	String name;
 	
-	@NotNull
-	@Pattern(regexp=URL, message="Invalid URL address.")
+	@NotNull(message="{url.invalid}")
+	@Pattern(regexp=URL, message="{url.invalid}")
 	String url;
 	
-	@NotNull
-	@Pattern(regexp=EMAIL, message="Invalid email address.")
+	@NotNull(message="{email.invalid}")
+	@Pattern(regexp=EMAIL, message="{email.invalid}")
 	String email;
 	
-	@NotNull
-	@Pattern(regexp=PHONE_NUM, message="Invalid primary phone number. Can be 9 to 15 digits long.")
+	@NotNull(message="{primary.phone.invalid}")
+	@Pattern(regexp=PHONE_NUM, message="{primary.phone.invalid}")
 	String priPhone;
 	
-	@NotNull
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid secondary phone number. Can be 9 to 15 digits long.")
+	@NotNull(message="{secondary.phone.invalid}")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{secondary.phone.invalid}")
 	String secPhone;
 	
-	@NotNull
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="Invalid fax number. Can be 9 to 15 digits long.")
+	@NotNull(message="{fax.invalid}")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{fax.invalid}")
 	String fax;
 	
-	@NotNull
+	@NotNull(message="{timestamp.invalid}")
 	Date timestamp;
 	
 	public Company() {

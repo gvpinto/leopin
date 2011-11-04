@@ -1,12 +1,15 @@
 package com.leopin.parkfifty.server.controller;
 
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.*;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_UNEXPECTED;
 
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +52,9 @@ public class AdminController {
 	}
 	
 
+	@Autowired
+	Validator validator;
+	
 	@Autowired
 	public AdminController(AdminService service, 
 			MessageSource messages) {
@@ -94,16 +100,20 @@ public class AdminController {
 	 */
 	@RequestMapping(value="/company", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody Company addCompany(@Valid @RequestBody Company company, BindingResult bindingResults) {
+	public @ResponseBody Company addCompany(@RequestBody Company company) {
 		LOGGER.debug("Adding Company [" + company.toString() + "]");
-		if(bindingResults.hasErrors()) {
+		Set<ConstraintViolation<Company>> constraints = validator.validate(company);
+		if (!constraints.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
-			for (Iterator<ObjectError> iter = bindingResults.getAllErrors().iterator(); iter.hasNext();) {
-				ObjectError oe = iter.next();
-				sb.append(oe.getDefaultMessage()).append(',');
+			boolean comma = false;
+			for (ConstraintViolation<Company> constraintViolation : constraints) {
+				sb.append((comma? ", " : "") + constraintViolation.getMessageTemplate());
+				comma = true;
 			}
+			LOGGER.debug(sb.toString());
 			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
 		}
+		
 		return adminService.addCompany(company);
 	}
 	
@@ -166,6 +176,10 @@ public class AdminController {
 	
 	public void setMessages(MessageSource messages) {
 		this.messages = messages;
+	}
+	
+	public void setValidator(Validator validator) {
+		this.validator = validator;
 	}
 	
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
@@ -22,8 +23,8 @@ import org.springframework.web.client.RestTemplate;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
 
-@RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration(locations = { "classpath:parkfifty-servlet.xml" }) 
+//@RunWith(SpringJUnit4ClassRunner.class)  
+//@ContextConfiguration(locations = { "classpath:parkfifty-servlet.xml" }) 
 public class AdminJsonWebTests {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminJsonWebTests.class);
@@ -220,6 +221,31 @@ public class AdminJsonWebTests {
 		assertEquals("Delete Company", responseGet.getBody().getName());
 		
 		new RestTemplate().delete("{urlPrefix}/company/{companyName}", urlVars);
+		
+	}
+	
+	@Test
+	public void testaddAGoodCompany() {
+		
+		Map<String, String> urlVars = new HashMap<String, String>();
+		urlVars.put("urlPrefix", adminURL);
+		
+		Random rand = new Random(System.currentTimeMillis());
+		
+		Company company = new Company();
+		int randval = rand.nextInt(99999);
+		company.setName("This is a Good Company " + randval);
+		company.setEmail("gpinto@bbandt.com");
+		company.setUrl("http://www.ashriv.com");
+		company.setPriPhone("(919) 455-3262");
+		company.setSecPhone("");
+		company.setFax("(919) 447-0110");
+		
+		LOGGER.debug(company.toString());
+		
+		ResponseEntity<Company> response = new RestTemplate().postForEntity("{urlPrefix}/company", company, Company.class, urlVars);
+		assertNotNull(response.getBody().getId());
+		assertEquals("This is a Good Company " + randval, response.getBody().getName());
 		
 	}
 	

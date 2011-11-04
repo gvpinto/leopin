@@ -42,6 +42,7 @@ import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMa
 import com.leopin.parkfifty.server.controller.AdminController;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.exception.AppException;
 
 public class AdminJsonUnitTests {
 
@@ -93,28 +94,59 @@ public class AdminJsonUnitTests {
 	}
 
 	@Test
-	public void addCompanyWithoutErrors() {
+	public void testAddCompanyWithoutErrors() {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		company = new Company();
+		company.setId(1L);
+		company.setName("Company without errors");
+		company.setEmail("gpinto@bbandt.com");
+		company.setUrl("http://www.bbt.com");
+		company.setPriPhone("(919) 455-3262");
+		company.setSecPhone("9194553262");
+		company.setFax("");
+//		when(company.getName()).thenReturn("Company without errors");
+//		when(company.getEmail()).thenReturn("gpinto@bbandt.com");
+//		when(company.getUrl()).thenReturn("http://www.bbt.com");
+//		when(company.getPriPhone()).thenReturn("9194553262");
 
-		when(company.getName()).thenReturn("Company without errors");
-		when(company.getEmail()).thenReturn("gpinto@bbandt.com");
-		when(company.getUrl()).thenReturn("http://www.bbt.com");
-		when(company.getPriPhone()).thenReturn("9194553262");
-
-		when(service.getCompany(anyString())).thenReturn(company);
+//		when(service.getCompany(anyString())).thenReturn(company);
 		
-		BindingResult bindingResults = mock(BindingResult.class);
-		when(bindingResults.hasErrors()).thenReturn(false);
 		
-		when(company.getId()).thenReturn(1L);
+//		when(company.getId()).thenReturn(1L);
 		when(service.addCompany(company)).thenReturn(company);
 
 		AdminController controller = new AdminController(this.service, this.messages);
-		assertEquals("Company without errors", controller.addCompany(company, bindingResults).getName());
+		controller.setValidator(validator);
+		assertEquals("Company without errors", controller.addCompany(company).getName());
 		
 		verify(service, times(1)).addCompany(company);
 
 	}
-	
+
+	@Test(expected=AppException.class)
+	public void testAddCompanyWithErrors() {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		company = new Company();
+		company.setId(1L);
+		company.setName("Company with errors");
+		company.setEmail("gpinto@bbandt.com");
+		company.setUrl("http://www.bbt.com");
+		company.setPriPhone("(919) 455-326");
+		company.setSecPhone("9194553262");
+		company.setFax("");
+
+		when(service.addCompany(company)).thenReturn(company);
+
+		AdminController controller = new AdminController(this.service, this.messages);
+		controller.setValidator(validator);
+		assertEquals("Company without errors", controller.addCompany(company).getName());
+		
+		verify(service, times(1)).addCompany(company);
+
+	}
+
 	@Test
 	public void testGoodCompanyValidation() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
