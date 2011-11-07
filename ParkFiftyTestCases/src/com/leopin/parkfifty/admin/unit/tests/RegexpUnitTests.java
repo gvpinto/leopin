@@ -36,6 +36,42 @@ public class RegexpUnitTests {
 		Assert.assertTrue(pattern.matcher("12glennpinto@gmail.com").matches());
 		Assert.assertTrue(pattern.matcher("12glenn.pinto@gmail.com").matches());
 		Assert.assertTrue(pattern.matcher("12glenn-pinto@gmail.com").matches());
+		Assert.assertTrue(pattern.matcher("glenn-pinto@gmail.com").matches());
+		Assert.assertTrue(pattern.matcher("glenn-pinto@gmail.com.in").matches());
+		
+		Assert.assertFalse(pattern.matcher("gv pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("12glenn+pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("12glenn$pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn..pinto@gmailcom").matches());
+		Assert.assertFalse(pattern.matcher("glenn.pinto!@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn$pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn{pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn}pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn*pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn'pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn#pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn!pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn%pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn&pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn%pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn^pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn=pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glenn/pinto@gmail.com").matches());
+		Assert.assertFalse(pattern.matcher("glennpinto@gmail-com").matches());
+		Assert.assertFalse(pattern.matcher("glennpinto@gmail_com").matches());
+		Assert.assertFalse(pattern.matcher("glennpinto@gmailcom").matches());
+
 	}
 
+	public void testURL() {
+		
+		Pattern pattern = Pattern.compile(AppRegExp.URL);
+		Assert.assertTrue(pattern.matcher("http://www.bbt.com").matches());
+		Assert.assertTrue(pattern.matcher("https://www.bbt.com").matches());
+		Assert.assertTrue(pattern.matcher("https://bbt.com").matches());
+		Assert.assertTrue(pattern.matcher("https://bbt-hello.com").matches());
+		Assert.assertTrue(pattern.matcher("https://www.bbt-hello.com").matches());
+		Assert.assertTrue(pattern.matcher("http://www.bbt-hello.com").matches());
+		
+	}
 }
