@@ -6,13 +6,13 @@ import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
 import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
 import static com.leopin.parkfifty.shared.AppRegExp.URL;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +28,7 @@ import com.googlecode.objectify.annotation.Unindexed;
 @Scope("prototype")
 @Entity
 @Unindexed
-public class Company implements Serializable {
+public class Company {
 	
 	// ^[a-z0-9_-]{3,16}$ - User ID
 	// ^[a-z0-9_-]{6,18}$ - Password
@@ -41,11 +41,14 @@ public class Company implements Serializable {
 	
 	@Id Long id;
 	
-	@Indexed
 	@NotNull(message="{company.name.invalid}")
 	@Pattern(regexp=COMPANY_NAME, message="{company.name.invalid}")
 	String name;
 	
+	@Indexed
+	@JsonIgnore
+	String normName;
+
 	@NotNull(message="{url.invalid}")
 	@Pattern(regexp=URL, message="{url.invalid}")
 	String url;
@@ -87,8 +90,17 @@ public class Company implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+		setNormName(name.toLowerCase());
 	}
 
+	
+	public String getNormName() {
+		return normName;
+	}
+
+	public void setNormName(String normName) {
+		this.normName = normName;
+	}
 	
 	public Date getTimestamp() {
 		return timestamp;

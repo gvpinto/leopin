@@ -40,31 +40,8 @@ public class AdminJsonWebTests {
 	public void setUp() throws Exception {
 
 	}
-
-//	@Test
-//	public void testGetCompanyById() {
-//		try {
-//			
-//			HttpClient httpClient = new DefaultHttpClient();
-//			
-//			HttpGet request = new HttpGet(adminURL + "/company/1");
-//			request.setHeader(new BasicHeader("Accept", "application/json"));
-//			
-//			HttpResponse response = httpClient.execute(request);
-//			
-//			HttpEntity entity = response.getEntity();
-//			
-//			ObjectMapper mapper = new ObjectMapper();
-//			Company company = mapper.readValue(entity.getContent(), Company.class);
-//			
-//			assertEquals("Park Fifty", company.getName());
-//			
-//		} catch (Exception e) {
-//			throw new AssertionError("Exception Occurred");
-//		}
-//	}
 	
-	@Test
+//	@Test
 	public void testGetCompanyById() {
 			
 		Map<String, String> urlVars = new HashMap<String, String>();
@@ -103,46 +80,18 @@ public class AdminJsonWebTests {
 
 	}
 	
-//	@Test
-//	public void testGetCompanyByInvalidId() {
-//		try {
-//			
-//			HttpClient httpClient = new DefaultHttpClient();
-//			
-//			HttpGet request = new HttpGet(adminURL + "/company/9999999");
-//			request.setHeader(new BasicHeader("Accept", "application/json"));
-//			
-//			HttpResponse response = httpClient.execute(request);
-//			
-//			HttpEntity entity = response.getEntity();
-//			
-//			assertEquals(HttpStatus.SC_METHOD_FAILURE, response.getStatusLine().getStatusCode());
-//			
-//		
-//			ObjectMapper mapper = new ObjectMapper();
-//			ExceptionInfo ei = mapper.readValue(entity.getContent(), ExceptionInfo.class);
-//			assertEquals("error.app.admin.company.not.found", ei.getKey());
-//			assertEquals("Unable to find company by 9999999.", ei.getDescription());
-//			
-////			Company company = mapper.readValue(entity.getContent(), Company.class);
-////			
-////			assertEquals("Park Fifty", company.getName());
-//			
-//		} catch (Exception e) {
-//			throw new AssertionError("Exception Occurred");
-//		}
-//	}
-	
-
 	@Test
 	public void testGetCompanyByName() {
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
-		urlVars.put("companyName", "Test Company");
+		urlVars.put("companyName", "This is a Good Company 45397");
 		
 		ResponseEntity<Company> response = new RestTemplate().getForEntity("{urlPrefix}/company/{companyName}", Company.class, urlVars);
 		
-		assertEquals("Test Company", response.getBody().getName());
+		assertEquals("This is a Good Company 45397", response.getBody().getName());
+		assertEquals("9194553262", response.getBody().getPriPhone());
+		assertEquals("9194470110", response.getBody().getFax());
+		
 	}
 	
 	@Test(expected=HttpClientErrorException.class)
@@ -164,32 +113,6 @@ public class AdminJsonWebTests {
 			throw e;
 		}
 	}	
-	
-//	@Test
-//	public void testGetCompanyByName() {
-//		try {
-//			
-//			
-//			HttpClient httpClient = new DefaultHttpClient();
-//			String name = encode("Park Fifty", "UTF-8");
-//			HttpGet request = new HttpGet(adminURL + "/company/" + name);
-//			
-//			request.setHeader(new BasicHeader("Accept", "application/json"));
-//			
-//			HttpResponse response = httpClient.execute(request);
-//			
-//			HttpEntity entity = response.getEntity();
-//			
-//			ObjectMapper mapper = new ObjectMapper();
-//			Company company = mapper.readValue(entity.getContent(), Company.class);
-//			
-//			assertEquals("Park Fifty", company.getName());
-//			
-//		} catch (Exception e) {
-//			LOGGER.error(e.getMessage(), e);
-//			throw new AssertionError(e.getMessage());
-//		}
-//	}
 	
 //	@Test
 	public void testAddVerifyDeleteCompany() {
@@ -224,7 +147,7 @@ public class AdminJsonWebTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testaddAGoodCompany() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
@@ -269,4 +192,84 @@ public class AdminJsonWebTests {
 //		assertEquals("Park Fifty", company.getName());
 //			
 //	}
+	
+//	@Test
+//	public void testGetCompanyById() {
+//		try {
+//			
+//			HttpClient httpClient = new DefaultHttpClient();
+//			
+//			HttpGet request = new HttpGet(adminURL + "/company/1");
+//			request.setHeader(new BasicHeader("Accept", "application/json"));
+//			
+//			HttpResponse response = httpClient.execute(request);
+//			
+//			HttpEntity entity = response.getEntity();
+//			
+//			ObjectMapper mapper = new ObjectMapper();
+//			Company company = mapper.readValue(entity.getContent(), Company.class);
+//			
+//			assertEquals("Park Fifty", company.getName());
+//			
+//		} catch (Exception e) {
+//			throw new AssertionError("Exception Occurred");
+//		}
+//	}
+
+//	@Test
+//	public void testGetCompanyByInvalidId() {
+//		try {
+//			
+//			HttpClient httpClient = new DefaultHttpClient();
+//			
+//			HttpGet request = new HttpGet(adminURL + "/company/9999999");
+//			request.setHeader(new BasicHeader("Accept", "application/json"));
+//			
+//			HttpResponse response = httpClient.execute(request);
+//			
+//			HttpEntity entity = response.getEntity();
+//			
+//			assertEquals(HttpStatus.SC_METHOD_FAILURE, response.getStatusLine().getStatusCode());
+//			
+//		
+//			ObjectMapper mapper = new ObjectMapper();
+//			ExceptionInfo ei = mapper.readValue(entity.getContent(), ExceptionInfo.class);
+//			assertEquals("error.app.admin.company.not.found", ei.getKey());
+//			assertEquals("Unable to find company by 9999999.", ei.getDescription());
+//			
+////			Company company = mapper.readValue(entity.getContent(), Company.class);
+////			
+////			assertEquals("Park Fifty", company.getName());
+//			
+//		} catch (Exception e) {
+//			throw new AssertionError("Exception Occurred");
+//		}
+//	}
+//	@Test
+//	public void testGetCompanyByName() {
+//		try {
+//			
+//			
+//			HttpClient httpClient = new DefaultHttpClient();
+//			String name = encode("Park Fifty", "UTF-8");
+//			HttpGet request = new HttpGet(adminURL + "/company/" + name);
+//			
+//			request.setHeader(new BasicHeader("Accept", "application/json"));
+//			
+//			HttpResponse response = httpClient.execute(request);
+//			
+//			HttpEntity entity = response.getEntity();
+//			
+//			ObjectMapper mapper = new ObjectMapper();
+//			Company company = mapper.readValue(entity.getContent(), Company.class);
+//			
+//			assertEquals("Park Fifty", company.getName());
+//			
+//		} catch (Exception e) {
+//			LOGGER.error(e.getMessage(), e);
+//			throw new AssertionError(e.getMessage());
+//		}
+//	}
+	
+	
 }

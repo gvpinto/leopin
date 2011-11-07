@@ -102,6 +102,7 @@ public class AdminServiceImpl implements AdminService {
 		Objectify ofyGet = objectifyFactory.begin();
 		
 		try {
+			LOGGER.debug(company.toString());
 			// Look up if a company exists in the datastore with the same name
 			Company c = ofyGet.query(Company.class).filter("name", company.getName()).get();
 			if (c != null) {
