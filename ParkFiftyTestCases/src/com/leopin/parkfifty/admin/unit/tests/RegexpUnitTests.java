@@ -68,10 +68,32 @@ public class RegexpUnitTests {
 		Pattern pattern = Pattern.compile(AppRegExp.URL);
 		Assert.assertTrue(pattern.matcher("http://www.bbt.com").matches());
 		Assert.assertTrue(pattern.matcher("https://www.bbt.com").matches());
+		Assert.assertTrue(pattern.matcher("https://www.bbt.com/hello/hello.html").matches());
 		Assert.assertTrue(pattern.matcher("https://bbt.com").matches());
 		Assert.assertTrue(pattern.matcher("https://bbt-hello.com").matches());
 		Assert.assertTrue(pattern.matcher("https://www.bbt-hello.com").matches());
 		Assert.assertTrue(pattern.matcher("http://www.bbt-hello.com").matches());
+		Assert.assertFalse(pattern.matcher("http://www.bbt-hello.com/javascript:alert(&quot;XSS&quot;)").matches());
+		Assert.assertFalse(pattern.matcher("http://www.bbt-hello.com/hello?<SCRIPT>alert(“Cookie”+document.cookie)</SCRIPT>").matches());
+		Assert.assertFalse(pattern.matcher("http://www.bbt-hello.com/hello?alert(“Cookie”+document.cookie)").matches());
+		Assert.assertFalse(pattern.matcher("http://www.example.com/malicious-code.js%3e%3c/script%3e").matches());
+		
+		
+	}
+	
+	public void testGeoCode() {
+		Pattern pattern = Pattern.compile(AppRegExp.GEO_CD);
+		Assert.assertTrue(pattern.matcher("-77.2341232").matches());
+		Assert.assertTrue(pattern.matcher("-452.2341232").matches());
+		Assert.assertTrue(pattern.matcher("77.2341232").matches());
+		Assert.assertTrue(pattern.matcher("452.2341232").matches());
+		
+		Assert.assertFalse(pattern.matcher("-7754.2341232").matches());
+		Assert.assertFalse(pattern.matcher("-452.23412322").matches());
+		Assert.assertFalse(pattern.matcher("7754.2341232").matches());
+		Assert.assertFalse(pattern.matcher("452.234123").matches());
+		Assert.assertFalse(pattern.matcher("-452.234123").matches());
+		Assert.assertFalse(pattern.matcher("-4522.234123").matches());
 		
 	}
 }

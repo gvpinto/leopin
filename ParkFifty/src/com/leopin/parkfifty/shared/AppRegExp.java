@@ -16,5 +16,8 @@ public abstract class AppRegExp {
 	public static final String STATE_CD = "^[A-Z]{2}$";
 	public static final String ZIP_CD = "^\\d{5}(\\-\\d{4})?$";
 	public static final String COUNTRY_CD = "^[A-Z]{2,3}$";
+	public static final String GEO_CD = "^\\-?[\\d]{2,3}\\.[\\d]{6,7}";
+	
+	public static final String SIMPLE_DESC = "^[\\w\\s]{1, 128}";
 	
 }

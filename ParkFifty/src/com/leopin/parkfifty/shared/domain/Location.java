@@ -1,8 +1,18 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.shared.AppRegExp.*;
+import static com.leopin.parkfifty.shared.AppRegExp.CITY;
+import static com.leopin.parkfifty.shared.AppRegExp.COUNTRY_CD;
+import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.shared.AppRegExp.GEO_CD;
+import static com.leopin.parkfifty.shared.AppRegExp.LOCATION_DESC;
+import static com.leopin.parkfifty.shared.AppRegExp.LOCATION_NAME;
+import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.shared.AppRegExp.SIMPLE_DESC;
+import static com.leopin.parkfifty.shared.AppRegExp.STATE_CD;
+import static com.leopin.parkfifty.shared.AppRegExp.STREET;
+import static com.leopin.parkfifty.shared.AppRegExp.ZIP_CD;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -10,6 +20,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Strings;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
@@ -18,81 +30,87 @@ import com.googlecode.objectify.annotation.Unindexed;
 @Unindexed
 public class Location {
 	@Id Long id;
+
+	@Indexed
+	Long companyId;
 	
 	@Indexed
 	private String normName;
 	
-	@NotNull(message="{location.name.invalid}")
-	@Pattern(regexp=LOCATION_NAME, message="{location.name.invalid}")		
+	@NotNull(message="{com.leopin.contraints.location.name.invalid}")
+	@Pattern(regexp=LOCATION_NAME, message="{com.leopin.contraints.location.name.invalid}")		
 	private String name;
 
-	@NotNull(message="{location.desc.invalid}")
-	@Pattern(regexp=LOCATION_DESC, message="{location.desc.invalid}")	
+	@NotNull(message="{com.leopin.contraints.location.desc.invalid}")
+	@Pattern(regexp=LOCATION_DESC, message="{com.leopin.contraints.location.desc.invalid}")	
 	private String description;
 		
-	@NotNull(message="{street.invalid}")
-	@Pattern(regexp=STREET, message="{street.invalid}")			
+	@NotNull(message="{com.leopin.contraints.street.invalid}")
+	@Pattern(regexp=STREET, message="{com.leopin.contraints.street.invalid}")			
 	private String street;
 
-	@NotNull(message="{street.invalid}")
-	@Pattern(regexp=STREET + "|" + EMPTY_STRING, message="{street.invalid}")			
+	@NotNull(message="{com.leopin.contraints.street.invalid}")
+	@Pattern(regexp=STREET + "|" + EMPTY_STRING, message="{com.leopin.contraints.street.invalid}")			
 	private String street2;
 
-	@NotNull(message="{city.invalid}")
-	@Pattern(regexp=CITY, message="{city.invalid}")			
+	@NotNull(message="{com.leopin.contraints.city.invalid}")
+	@Pattern(regexp=CITY, message="{com.leopin.contraints.city.invalid}")			
 	private String city;
 	
-	@NotNull(message="{zipCd.invalid}")
-	@Pattern(regexp=ZIP_CD, message="{zipCd.invalid}")				
+	@NotNull(message="{com.leopin.contraints.zipCd.invalid}")
+	@Pattern(regexp=ZIP_CD, message="{com.leopin.contraints.zipCd.invalid}")				
 	private String zipCd;
 	
-	@NotNull(message="{stateCd.invalid}")
-	@Pattern(regexp=STATE_CD, message="{stateCd.invalid}")					
+	@NotNull(message="{com.leopin.contraints.stateCd.invalid}")
+	@Pattern(regexp=STATE_CD, message="{com.leopin.contraints.stateCd.invalid}")					
 	private String stateCd;
 	
-	@NotNull(message="{countryCd.invalid}")
-	@Pattern(regexp=COUNTRY_CD, message="{countryCd.invalid}")						
+	@NotNull(message="{com.leopin.contraints.countryCd.invalid}")
+	@Pattern(regexp=COUNTRY_CD, message="{com.leopin.contraints.countryCd.invalid}")						
 	private String countryCd;
 	
-	@NotNull(message="{gc.latitude.invalid}")
-	// Customer Validator
-	private BigDecimal gcLat;
+	@NotNull(message="{com.leopin.contraints.gc.latitude.invalid}")
+	@Pattern(regexp=GEO_CD, message="{com.leopin.contraints.gc.latitude.invalid}")		
+	private String gcLat;
 	
-	@NotNull(message="{gc.longitude.invalid}")
-	// Customer Validator
-	private BigDecimal gcLng;
+	@NotNull(message="{com.leopin.contraints.gc.longitude.invalid}")
+	@Pattern(regexp=GEO_CD, message="{com.leopin.contraints.gc.longitude.invalid}")
+	private String gcLng;
 	
-	//C -> Covered, O -> Open, S -> Street
-	@NotNull(message="{parking.type.code.invalid}")
+	// C -> Covered, O -> Open, S -> Street
+	@NotNull(message="{com.leopin.contraints.parking.type.code.invalid}")
+	// TODO: Custom validation?
 	private String parkingTypeCd;
 	
-	@NotNull(message="{primary.phone.invalid}")
-	@Pattern(regexp=PHONE_NUM, message="{primary.phone.invalid}")
+	@NotNull(message="{com.leopin.contraints.primary.phone.invalid}")
+	@Pattern(regexp=PHONE_NUM, message="{com.leopin.contraints.primary.phone.invalid}")
 	private String priPhone;
 	
-	@NotNull(message="{secondary.phone.invalid}")
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{secondary.phone.invalid}")
+	@NotNull(message="{com.leopin.contraints.secondary.phone.invalid}")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.secondary.phone.invalid}")
 	private String secPhone;
 	
-	@NotNull(message="{fax.invalid}")
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{fax.phone.invalid}")
+	@NotNull(message="{com.leopin.contraints.fax.invalid}")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.fax.phone.invalid}")
 	private String fax;
 	
-	@NotNull(message="{email.invalid}")
-	@Pattern(regexp=EMAIL, message="{email.invalid}")
+	@NotNull(message="{com.leopin.contraints.email.invalid}")
+	@Pattern(regexp=EMAIL, message="{com.leopin.contraints.email.invalid}")
 	private String email;
 	
-	@Min(value=1)
+	@Min(value=1, message="{com.leopin.constraints.minvalue.invalid}")
 	private int totalCapacity;
 	
-	// Default Rate per/hr
-	@Min(value=100)
+	// Default Rate cents per/hr
 	private long defaultRate;
 	
 	private boolean manned;
+	
+	@NotNull(message="{com.leopin.contraints.manned.desc.invalid}")
+	@Pattern(regexp=SIMPLE_DESC, message="{com.leopin.contraints.manned.desc.invalid}")
 	private String mannedDesc;
 	
-	@NotNull(message="{timestamp.invalid}")
+	@NotNull(message="{com.leopin.contraints.timestamp.invalid}")
 	Date timestamp;
 	
 	public Long getId() {
@@ -165,7 +183,7 @@ public class Location {
 	}
 
 	public void setStateCd(String stateCd) {
-		this.stateCd = stateCd;
+		this.stateCd = Strings.nullToEmpty(stateCd).toUpperCase();
 	}
 
 	public String getCountryCd() {
@@ -173,22 +191,22 @@ public class Location {
 	}
 
 	public void setCountryCd(String countryCd) {
-		this.countryCd = countryCd;
+		this.countryCd = Strings.nullToEmpty(countryCd).toUpperCase();
 	}
 
-	public BigDecimal getGcLat() {
+	public String getGcLat() {
 		return gcLat;
 	}
 
-	public void setGcLat(BigDecimal gcLat) {
+	public void setGcLat(String gcLat) {
 		this.gcLat = gcLat;
 	}
 
-	public BigDecimal getGcLng() {
+	public String getGcLng() {
 		return gcLng;
 	}
 
-	public void setGcLng(BigDecimal gcLng) {
+	public void setGcLng(String gcLng) {
 		this.gcLng = gcLng;
 	}
 
@@ -272,7 +290,50 @@ public class Location {
 		this.timestamp = timestamp;
 	}
 
+	@Override
+	public boolean equals(Object object) {
+		
+		if (object instanceof Location) {
+			Location that = (Location) object;
+			return Objects.equal(this.name, that.name) 
+					&& Objects.equal(this.companyId, that.companyId);
+		}
+		
+		return false;
+		
+	}
 	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(this.name, this.companyId);
+	}
+	
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+				.add("Id", this.id)
+				.add("Name", this.name)
+				.add("Description", this.description)
+				.add("Street", this.street)
+				.add("Street2", this.street2)
+				.add("City", this.city)
+				.add("Zip", this.zipCd)
+				.add("State", this.stateCd)
+				.add("Country", this.countryCd)
+				.add("GeoCode Lat", this.gcLat)
+				.add("GeoCode Lng", this.gcLng)
+				.add("Parking Type Code", this.parkingTypeCd)
+				.add("Pri Phone", this.priPhone)
+				.add("Sec Phone", this.secPhone)
+				.add("Fax", this.fax)
+				.add("Email", this.email)
+				.add("Total Capacity", this.totalCapacity)
+				.add("Default Rate", this.defaultRate)
+				.add("Is Manned", this.manned)
+				.add("Manned Desc", this.mannedDesc)
+				.add("Timestamp", this.timestamp)
+				.toString();
+	}
 	
 	
 }

@@ -1,8 +1,10 @@
 package com.leopin.parkfifty.admin.unit.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +14,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -101,4 +104,15 @@ public class QuickTests {
 		assertEquals(1, constraintViolations.size());
 //		assertEquals("may not be null", constraintViolations.iterator().next().getMessage());		
 	}
+	
+	@Test
+	public void testBigDecimal() {
+		
+		BigDecimal value = new BigDecimal("0.00");
+		Assert.assertNotNull(value);
+		Assert.assertEquals(new BigDecimal("0.0"), value);
+		
+		
+	}
+	
 }

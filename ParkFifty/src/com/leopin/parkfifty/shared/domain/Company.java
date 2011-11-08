@@ -41,35 +41,35 @@ public class Company {
 	
 	@Id Long id;
 	
-	@NotNull(message="{company.name.invalid}")
-	@Pattern(regexp=COMPANY_NAME, message="{company.name.invalid}")
+	@NotNull(message="{com.leopin.contraints.company.name.invalid}")
+	@Pattern(regexp=COMPANY_NAME, message="{com.leopin.contraints.company.name.invalid}")
 	String name;
 	
 	@Indexed
 	@JsonIgnore
 	String normName;
 
-	@NotNull(message="{url.invalid}")
-	@Pattern(regexp=URL, message="{url.invalid}")
+	@NotNull(message="{com.leopin.contraints.url.invalid}")
+	@Pattern(regexp=URL, message="{com.leopin.contraints.url.invalid}")
 	String url;
 	
-	@NotNull(message="{email.invalid}")
-	@Pattern(regexp=EMAIL, message="{email.invalid}")
+	@NotNull(message="{com.leopin.contraints.email.invalid}")
+	@Pattern(regexp=EMAIL, message="{com.leopin.contraints.email.invalid}")
 	String email;
 	
-	@NotNull(message="{primary.phone.invalid}")
-	@Pattern(regexp=PHONE_NUM, message="{primary.phone.invalid}")
+	@NotNull(message="{com.leopin.contraints.primary.phone.invalid}")
+	@Pattern(regexp=PHONE_NUM, message="{com.leopin.contraints.primary.phone.invalid}")
 	String priPhone;
 	
-	@NotNull(message="{secondary.phone.invalid}")
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{secondary.phone.invalid}")
+	@NotNull(message="{com.leopin.contraints.secondary.phone.invalid}")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.secondary.phone.invalid}")
 	String secPhone;
 	
-	@NotNull(message="{fax.invalid}")
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{fax.invalid}")
+	@NotNull(message="{com.leopin.contraints.fax.invalid}")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.fax.invalid}")
 	String fax;
 	
-	@NotNull(message="{timestamp.invalid}")
+	@NotNull(message="{com.leopin.contraints.timestamp.invalid}")
 	Date timestamp;
 	
 	public Company() {
