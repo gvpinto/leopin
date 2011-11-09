@@ -19,5 +19,8 @@ public abstract class AppRegExp {
 	public static final String GEO_CD = "^\\-?[\\d]{2,3}\\.[\\d]{6,7}";
 	
 	public static final String SIMPLE_DESC = "^[\\w\\s]{1, 128}";
+	public static final String PARK_FACILITY_TYPE = "^(C|O|CM|S)$";
+	
+	public static final String COMPANY_CODE = "^[A-Z][\\_\\-0-9A-Z]{4,9}$";
 	
 }

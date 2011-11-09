@@ -1,5 +1,6 @@
 package com.leopin.parkfifty.shared.domain;
 
+import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_CODE;
 import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_NAME;
 import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
 import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
@@ -23,6 +24,12 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
 
+/**
+ * Domain object that defines Company information
+ * @author Glenn Pinto
+ *
+ */
+
 // TODO @Indexed and @UnIndexed on domain Classes and Properties 
 @Component
 @Scope("prototype")
@@ -39,38 +46,44 @@ public class Company {
 	// ^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$ - IP Address
 	// ^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$ - HTML tag
 	
-	@Id Long id;
+	@Id 
+	private Long id;
+	
+	@Indexed
+	@NotNull(message="{com.leopin.contraints.company.code.invalid}")
+	@Pattern(regexp=COMPANY_CODE, message="{com.leopin.contraints.company.code.invalid}")
+	private String code;
 	
 	@NotNull(message="{com.leopin.contraints.company.name.invalid}")
 	@Pattern(regexp=COMPANY_NAME, message="{com.leopin.contraints.company.name.invalid}")
-	String name;
+	private String name;
 	
 	@Indexed
 	@JsonIgnore
-	String normName;
+	private String normName;
 
 	@NotNull(message="{com.leopin.contraints.url.invalid}")
 	@Pattern(regexp=URL, message="{com.leopin.contraints.url.invalid}")
-	String url;
+	private String url;
 	
 	@NotNull(message="{com.leopin.contraints.email.invalid}")
 	@Pattern(regexp=EMAIL, message="{com.leopin.contraints.email.invalid}")
-	String email;
+	private String email;
 	
 	@NotNull(message="{com.leopin.contraints.primary.phone.invalid}")
 	@Pattern(regexp=PHONE_NUM, message="{com.leopin.contraints.primary.phone.invalid}")
-	String priPhone;
+	private String priPhone;
 	
 	@NotNull(message="{com.leopin.contraints.secondary.phone.invalid}")
 	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.secondary.phone.invalid}")
-	String secPhone;
+	private String secPhone;
 	
 	@NotNull(message="{com.leopin.contraints.fax.invalid}")
 	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.fax.invalid}")
-	String fax;
+	private String fax;
 	
 	@NotNull(message="{com.leopin.contraints.timestamp.invalid}")
-	Date timestamp;
+	private Date timestamp;
 	
 	public Company() {
 		this.timestamp = new Date();
@@ -150,6 +163,13 @@ public class Company {
 		this.fax = CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(fax));
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = Strings.nullToEmpty(code).toUpperCase();
+	}
 
 	@Override
 	public boolean equals(Object object) {

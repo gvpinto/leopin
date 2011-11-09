@@ -7,6 +7,7 @@ import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
 import static com.leopin.parkfifty.shared.AppRegExp.GEO_CD;
 import static com.leopin.parkfifty.shared.AppRegExp.LOCATION_DESC;
 import static com.leopin.parkfifty.shared.AppRegExp.LOCATION_NAME;
+import static com.leopin.parkfifty.shared.AppRegExp.PARK_FACILITY_TYPE;
 import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
 import static com.leopin.parkfifty.shared.AppRegExp.SIMPLE_DESC;
 import static com.leopin.parkfifty.shared.AppRegExp.STATE_CD;
@@ -20,19 +21,36 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
+import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Unindexed;
 
+/**
+ * The domain object defines the location of the parking place
+ * @author Glenn Pinto
+ */
 @Entity
 @Unindexed
 public class Location {
+	
+	public Location() {
+		this.timestamp = new Date();
+	}
+	
 	@Id Long id;
 
-	@Indexed
-	Long companyId;
+	/**
+	 * Reference to the Company Entity
+	 */
+	@JsonIgnore
+	@Parent
+	private Key<Company> company;
 	
 	@Indexed
 	private String normName;
@@ -41,6 +59,9 @@ public class Location {
 	@Pattern(regexp=LOCATION_NAME, message="{com.leopin.contraints.location.name.invalid}")		
 	private String name;
 
+	/**
+	 * Location Description
+	 */
 	@NotNull(message="{com.leopin.contraints.location.desc.invalid}")
 	@Pattern(regexp=LOCATION_DESC, message="{com.leopin.contraints.location.desc.invalid}")	
 	private String description;
@@ -77,9 +98,9 @@ public class Location {
 	@Pattern(regexp=GEO_CD, message="{com.leopin.contraints.gc.longitude.invalid}")
 	private String gcLng;
 	
-	// C -> Covered, O -> Open, S -> Street
+	// The type of parking C -> Covered, O -> Open, S -> Street CM -> covered and multi layered
 	@NotNull(message="{com.leopin.contraints.parking.type.code.invalid}")
-	// TODO: Custom validation?
+	@Pattern(regexp=PARK_FACILITY_TYPE, message="{com.leopin.contraints.gc.latitude.invalid}")	
 	private String parkingTypeCd;
 	
 	@NotNull(message="{com.leopin.contraints.primary.phone.invalid}")
@@ -98,14 +119,25 @@ public class Location {
 	@Pattern(regexp=EMAIL, message="{com.leopin.contraints.email.invalid}")
 	private String email;
 	
+	/**
+	 * Total number of parking spaces
+	 */
 	@Min(value=1, message="{com.leopin.constraints.minvalue.invalid}")
 	private int totalCapacity;
 	
-	// Default Rate cents per/hr
+	/**
+	 * Default Rate in Cents per/hr
+	 */
 	private long defaultRate;
 	
+	/**
+	 * Is this a manned facility
+	 */
 	private boolean manned;
 	
+	/**
+	 * Description for the manned facility
+	 */
 	@NotNull(message="{com.leopin.contraints.manned.desc.invalid}")
 	@Pattern(regexp=SIMPLE_DESC, message="{com.leopin.contraints.manned.desc.invalid}")
 	private String mannedDesc;
@@ -296,7 +328,7 @@ public class Location {
 		if (object instanceof Location) {
 			Location that = (Location) object;
 			return Objects.equal(this.name, that.name) 
-					&& Objects.equal(this.companyId, that.companyId);
+					&& Objects.equal(this.company, that.company);
 		}
 		
 		return false;
@@ -305,7 +337,7 @@ public class Location {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(this.name, this.companyId);
+		return Objects.hashCode(this.name, this.company);
 	}
 	
 	@Override

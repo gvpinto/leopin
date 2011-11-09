@@ -96,4 +96,37 @@ public class RegexpUnitTests {
 		Assert.assertFalse(pattern.matcher("-4522.234123").matches());
 		
 	}
+	
+	@Test
+	public void testParkFacilityType() {
+		Pattern pattern = Pattern.compile(AppRegExp.PARK_FACILITY_TYPE);
+		Assert.assertTrue(pattern.matcher("C").matches());
+		Assert.assertTrue(pattern.matcher("O").matches());
+		Assert.assertTrue(pattern.matcher("CM").matches());
+		Assert.assertTrue(pattern.matcher("S").matches());
+		
+		Assert.assertFalse(pattern.matcher("X").matches());
+		Assert.assertFalse(pattern.matcher("c").matches());
+		Assert.assertFalse(pattern.matcher("o").matches());
+		Assert.assertFalse(pattern.matcher("cm").matches());
+		Assert.assertFalse(pattern.matcher("s").matches());
+		Assert.assertFalse(pattern.matcher("x").matches());
+
+	}
+	
+	@Test
+	public void testCompanyCode() {
+		Pattern pattern = Pattern.compile(AppRegExp.COMPANY_CODE);
+		Assert.assertTrue(pattern.matcher("GLEN_PINTO").matches());
+		Assert.assertTrue(pattern.matcher("GLEN-PINTO").matches());
+		Assert.assertTrue(pattern.matcher("GLEN123T4O").matches());
+		Assert.assertTrue(pattern.matcher("GLENPINTO").matches());
+		
+		Assert.assertFalse(pattern.matcher("GLEN PINTO").matches());
+		Assert.assertFalse(pattern.matcher("1GLENPINTO").matches());
+		Assert.assertFalse(pattern.matcher("GLEN@PINTO").matches());
+		Assert.assertFalse(pattern.matcher("GLENNPINTOC").matches());
+		Assert.assertFalse(pattern.matcher("").matches());
+
+	}	
 }
