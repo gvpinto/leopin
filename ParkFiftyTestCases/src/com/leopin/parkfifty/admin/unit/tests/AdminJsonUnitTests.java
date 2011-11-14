@@ -28,7 +28,6 @@ import org.springframework.http.converter.json.MappingJacksonHttpMessageConverte
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebBindingInitializer;
@@ -42,6 +41,7 @@ import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMa
 import com.leopin.parkfifty.server.controller.AdminController;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.exception.AppException;
 
 public class AdminJsonUnitTests {
@@ -369,6 +369,36 @@ public class AdminJsonUnitTests {
 //			dateFormat.setLenient(false);
 //			binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 		}
+	}
+
+	@Test
+	public void testLocationValid() throws Exception {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		Location location = new Location();
+		location.setName("Glenn's parking lot at Raleigh");
+		location.setDescription("This is a beautiful parking lot with ample spaces and a secured place with parking");
+		location.setStreet("12808 Baybriar Dr, Ste 200");
+		location.setStreet2("");
+		location.setCity("Raleigh");
+		location.setStateCd("NC");
+		location.setZipCd("27560-5500");
+		location.setCountryCd("USA");
+		location.setGcLat("35.910126");
+		location.setGcLng("78.717635");
+		location.setParkingTypeCd("O");
+		location.setPriPhone("919-455-3262");
+		location.setSecPhone("(919) 455-3262");
+		location.setFax("919 447 0110");
+		location.setEmail("gvpinto@gmail.co.in");
+		location.setTotalCapacity(100);
+		location.setDefaultRate(556);
+		location.setManned(true);
+		location.setMannedDesc("This is a Manned place with 24hrs of security");
+		
+		Set<ConstraintViolation<Location>> constraintViolations = validator.validate(location);
+		assertEquals(0, constraintViolations.size());
+		
 	}
 
 }
