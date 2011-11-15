@@ -99,6 +99,7 @@ public class AdminJsonUnitTests {
 		validator.afterPropertiesSet();
 		company = new Company();
 		company.setId(1L);
+		company.setCode("CMP1WOERR");
 		company.setName("Company without errors");
 		company.setEmail("gpinto@bbandt.com");
 		company.setUrl("http://www.bbt.com");
@@ -118,7 +119,12 @@ public class AdminJsonUnitTests {
 
 		AdminController controller = new AdminController(this.service, this.messages);
 		controller.setValidator(validator);
-		assertEquals("Company without errors", controller.addCompany(company).getName());
+		try {
+			assertEquals("Company without errors", controller.addCompany(company).getName());	
+		} catch (AppException e) {
+			LOGGER.debug((String)e.getPlaceholderValues()[1]);
+		}
+		
 		
 		verify(service, times(1)).addCompany(company);
 
@@ -153,6 +159,7 @@ public class AdminJsonUnitTests {
 		validator.afterPropertiesSet();
 		
 		Company company = new Company();
+		company.setCode("THIS1SGOOD");
 		company.setName("This is a good  company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -172,6 +179,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
+		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmailcom");
@@ -194,6 +202,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
+		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -218,6 +227,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
+		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -241,6 +251,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
+		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -263,6 +274,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
+		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -286,6 +298,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
+		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https:/goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -397,7 +410,20 @@ public class AdminJsonUnitTests {
 		location.setMannedDesc("This is a Manned place with 24hrs of security");
 		
 		Set<ConstraintViolation<Location>> constraintViolations = validator.validate(location);
-		assertEquals(0, constraintViolations.size());
+		printConstraintViolations(constraintViolations);
+		assertEquals(0, constraintViolations.size());		
+	}
+	
+	
+	
+	private <T> void printConstraintViolations(
+			Set<ConstraintViolation<T>> constraintViolations) {
+		
+		if (constraintViolations.size() > 0) {
+			for (ConstraintViolation<T> constraintViolation : constraintViolations) {
+				LOGGER.debug(">> " + constraintViolation.getMessage());
+			}
+		}
 		
 	}
 

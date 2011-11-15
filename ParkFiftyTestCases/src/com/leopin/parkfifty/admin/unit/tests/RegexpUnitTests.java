@@ -129,4 +129,27 @@ public class RegexpUnitTests {
 		Assert.assertFalse(pattern.matcher("").matches());
 
 	}	
+	
+	@Test
+	public void testLocationDesc() {
+		Pattern pattern = Pattern.compile(AppRegExp.LOCATION_DESC);
+		Assert.assertTrue(pattern.matcher("This is a Test of a good match. I de-finitely want to under_score the reason, that this is the right thing to do.").matches());
+	}
+	
+	@Test
+	public void testStreet() {
+		Pattern pattern = Pattern.compile(AppRegExp.STREET);
+		Assert.assertTrue(pattern.matcher("12808 Baybriar Dr, Ste 200").matches());
+		Assert.assertTrue(pattern.matcher("12808 Baybriar Dr, Ste-200").matches());
+		Assert.assertTrue(pattern.matcher("12808 Baybriar Dr, Ste'200").matches());
+		Assert.assertTrue(pattern.matcher("12808 Baybriar Dr, Ste'200.").matches());
+		Assert.assertTrue(pattern.matcher("1280").matches());
+		
+		Assert.assertFalse(pattern.matcher("12808 Baybriar_Dr, Ste 200").matches());
+		Assert.assertFalse(pattern.matcher("12808 BaybriarDr; Ste 200").matches());
+		Assert.assertFalse(pattern.matcher("12808 Baybriar Dr, Ste200 How Do you do and are you fine An fine ").matches());
+		Assert.assertFalse(pattern.matcher("128").matches());
+		Assert.assertFalse(pattern.matcher("").matches());
+
+	}	
 }

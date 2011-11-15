@@ -30,6 +30,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Unindexed;
+import com.leopin.parkfifty.server.utils.Utils;
 
 /**
  * The domain object defines the location of the parking place
@@ -112,7 +113,7 @@ public class Location {
 	private String secPhone;
 	
 	@NotNull(message="{com.leopin.contraints.fax.invalid}")
-	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.fax.phone.invalid}")
+	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.fax.invalid}")
 	private String fax;
 	
 	@NotNull(message="{com.leopin.contraints.email.invalid}")
@@ -255,7 +256,7 @@ public class Location {
 	}
 
 	public void setPriPhone(String priPhone) {
-		this.priPhone = priPhone;
+		this.priPhone = Utils.scrubPhoneNum(priPhone);
 	}
 
 	public String getSecPhone() {
@@ -263,7 +264,7 @@ public class Location {
 	}
 
 	public void setSecPhone(String secPhone) {
-		this.secPhone = secPhone;
+		this.secPhone = Utils.scrubPhoneNum(secPhone);
 	}
 
 	public String getFax() {
@@ -271,7 +272,7 @@ public class Location {
 	}
 
 	public void setFax(String fax) {
-		this.fax = fax;
+		this.fax = Utils.scrubPhoneNum(fax);
 	}
 
 	public String getEmail() {

@@ -17,12 +17,11 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.CharMatcher;
 import com.google.common.base.Objects;
-import com.google.common.base.Strings;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
+import com.leopin.parkfifty.server.utils.Utils;
 
 /**
  * Domain object that defines Company information
@@ -49,6 +48,11 @@ public class Company {
 	@Id 
 	private Long id;
 	
+	/** 
+	 * Company Code will be used for Quick Search and authentication
+	 * It should be 4 to 10 characters starting from with a character and can include -
+	 * both digits and characters
+	 */
 	@Indexed
 	@NotNull(message="{com.leopin.contraints.company.code.invalid}")
 	@Pattern(regexp=COMPANY_CODE, message="{com.leopin.contraints.company.code.invalid}")
@@ -97,6 +101,17 @@ public class Company {
 		this.id = id;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		// Code can't be null - invalid state
+		assert(code != null);
+		this.code = code.toUpperCase();
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -144,7 +159,7 @@ public class Company {
 	}
 
 	public void setPriPhone(String priPhone) {
-		this.priPhone = CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(priPhone));
+		this.priPhone = Utils.scrubPhoneNum(priPhone);
 	}
 
 	public String getSecPhone() {
@@ -152,7 +167,7 @@ public class Company {
 	}
 
 	public void setSecPhone(String secPhone) {
-		this.secPhone = CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(secPhone));
+		this.secPhone = Utils.scrubPhoneNum(secPhone);
 	}
 
 	public String getFax() {
@@ -160,15 +175,7 @@ public class Company {
 	}
 
 	public void setFax(String fax) {
-		this.fax = CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(fax));
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = Strings.nullToEmpty(code).toUpperCase();
+		this.fax = Utils.scrubPhoneNum(fax);
 	}
 
 	@Override

@@ -107,7 +107,7 @@ public class AdminController {
 			StringBuilder sb = new StringBuilder();
 			boolean comma = false;
 			for (ConstraintViolation<Company> constraintViolation : constraints) {
-				sb.append((comma? ", " : "") + constraintViolation.getMessageTemplate());
+				sb.append((comma? ", " : "") + constraintViolation.getMessage());
 				comma = true;
 			}
 			LOGGER.debug(sb.toString());
