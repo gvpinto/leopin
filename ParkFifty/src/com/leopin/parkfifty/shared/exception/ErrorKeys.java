@@ -11,4 +11,7 @@ public final class ErrorKeys {
 	public static final String ERROR_SYS_ADMIN_ADD_COMPANY = "error.sys.admin.add.company"; // Error occurred when inserting company {0}
 	public static final String ERROR_SYS_ADMIN_GET_COMPANY = "error.sys.admin.get.company";
 	public static final String ERROR_SYS_ADMIN_DELETE_COMPANY = "error.sys.admin.delete.company";
+	
+	public static final String ERROR_APP_ADMIN_LOCATION_EXISTS = "error.app.admin.location.exists";
+	public static final String ERROR_SYS_ADMIN_ADD_LOCATION = "error.sys.admin.add.location";
 }

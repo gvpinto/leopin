@@ -160,6 +160,7 @@ public class Location {
 
 	public void setName(String name) {
 		this.name = name;
+		assert(name != null);
 		this.setNormName(name.toLowerCase());
 	}
 

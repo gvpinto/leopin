@@ -135,6 +135,13 @@ public class RegexpUnitTests {
 		Pattern pattern = Pattern.compile(AppRegExp.LOCATION_DESC);
 		Assert.assertTrue(pattern.matcher("This is a Test of a good match. I de-finitely want to under_score the reason, that this is the right thing to do.").matches());
 	}
+
+	@Test
+	public void testLocationName() {
+		Pattern pattern = Pattern.compile(AppRegExp.LOCATION_NAME);
+		Assert.assertTrue(pattern.matcher("This is a Test of a good match.").matches());
+		Assert.assertTrue(pattern.matcher("This is a Test of a good mat. And This-is a's, a").matches());
+	}
 	
 	@Test
 	public void testStreet() {
@@ -144,12 +151,45 @@ public class RegexpUnitTests {
 		Assert.assertTrue(pattern.matcher("12808 Baybriar Dr, Ste'200").matches());
 		Assert.assertTrue(pattern.matcher("12808 Baybriar Dr, Ste'200.").matches());
 		Assert.assertTrue(pattern.matcher("1280").matches());
+		Assert.assertTrue(pattern.matcher("12808 Baybriar_Dr, Ste 200").matches());
 		
-		Assert.assertFalse(pattern.matcher("12808 Baybriar_Dr, Ste 200").matches());
 		Assert.assertFalse(pattern.matcher("12808 BaybriarDr; Ste 200").matches());
 		Assert.assertFalse(pattern.matcher("12808 Baybriar Dr, Ste200 How Do you do and are you fine An fine ").matches());
 		Assert.assertFalse(pattern.matcher("128").matches());
 		Assert.assertFalse(pattern.matcher("").matches());
 
 	}	
+	
+	@Test
+	public void testUserId() {
+		Pattern pattern = Pattern.compile(AppRegExp.USER_ID);
+		Assert.assertTrue(pattern.matcher("gvpinto").matches());
+		Assert.assertTrue(pattern.matcher("gv_pinto").matches());
+		Assert.assertTrue(pattern.matcher("gv_PINTnto").matches());
+		Assert.assertTrue(pattern.matcher("g2v_PINTn16t").matches());
+		
+		Assert.assertFalse(pattern.matcher("g2v_PINTn16t0").matches());
+		Assert.assertFalse(pattern.matcher("g2_10").matches());
+//		Assert.assertFalse(pattern.matcher("12808 Baybriar_Dr, Ste 200").matches());
+		
+	}
+	
+	@Test
+	public void testPassword() {
+		Pattern pattern = Pattern.compile(AppRegExp.PASSWORD);
+		Assert.assertTrue(pattern.matcher("Re1gin").matches());
+		Assert.assertTrue(pattern.matcher("Re12gin").matches());
+		Assert.assertTrue(pattern.matcher("Re1g2i$n").matches());
+		Assert.assertTrue(pattern.matcher("Refi$n").matches());
+		Assert.assertFalse(pattern.matcher("Regin").matches());
+//		Assert.assertTrue(pattern.matcher("Regina.Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("M1ng1$L4r2").matches());
+//		Assert.assertTrue(pattern.matcher("12%df.$*W^e#2B&g@3s!").matches());
+//		Assert.assertTrue(pattern.matcher("g2v_PINTn16t").matches());
+//		
+//		Assert.assertFalse(pattern.matcher("ReginsPinto").matches());
+//		Assert.assertFalse(pattern.matcher("12808 Baybriar_Dr, Ste 200").matches());
+		
+	}
+
 }

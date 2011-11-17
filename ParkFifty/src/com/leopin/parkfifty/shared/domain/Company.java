@@ -31,7 +31,6 @@ import com.leopin.parkfifty.server.utils.Utils;
 
 // TODO @Indexed and @UnIndexed on domain Classes and Properties 
 @Component
-@Scope("prototype")
 @Entity
 @Unindexed
 public class Company {

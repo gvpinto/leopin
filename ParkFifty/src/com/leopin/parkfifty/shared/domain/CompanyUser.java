@@ -1,8 +1,12 @@
 package com.leopin.parkfifty.shared.domain;
 
+import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_CODE;
+
 import java.util.Date;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -36,6 +40,8 @@ public class CompanyUser {
 	private Key<Company> company;
 	
 	@Indexed
+	@NotNull(message="{com.leopin.contraints.userid.invalid}")
+//	@Pattern(regexp=USER_ID, message="{com.leopin.contraints.userid.invalid}")
 	private String userId;
 	
 	private String password;
@@ -57,8 +63,6 @@ public class CompanyUser {
 	private String secPhone;
 	
 	private String fax;
-	
-	private String email;
 	
 	private Date timestamp;
 
@@ -159,13 +163,13 @@ public class CompanyUser {
 		this.fax = fax;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+//	public String getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(String email) {
+//		this.email = email;
+//	}
 
 	public Date getTimestamp() {
 		return timestamp;
@@ -206,7 +210,7 @@ public class CompanyUser {
 				.add("Pri Phone", this.priPhone)
 				.add("Sec Phone", this.secPhone)
 				.add("Fax", this.fax)
-				.add("Email", this.email)
+//				.add("Email", this.email)
 				.toString();
 	}	
 	

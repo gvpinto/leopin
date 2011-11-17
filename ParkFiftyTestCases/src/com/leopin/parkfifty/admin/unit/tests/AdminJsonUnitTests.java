@@ -238,7 +238,7 @@ public class AdminJsonUnitTests {
 		
 		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+		assertEquals("Invalid primary phone number. Should be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
 		
 		
 		company.setPriPhone(null);
@@ -389,7 +389,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Location location = new Location();
-		location.setName("Glenn's parking lot at Raleigh");
+		location.setName("Glenn's parking lot. this-is a meaning, and_w");
 		location.setDescription("This is a beautiful parking lot with ample spaces and a secured place with parking");
 		location.setStreet("12808 Baybriar Dr, Ste 200");
 		location.setStreet2("");

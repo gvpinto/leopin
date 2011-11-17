@@ -3,7 +3,6 @@ package com.leopin.parkfifty.server.controller;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_UNEXPECTED;
 
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
 
@@ -17,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +30,7 @@ import com.google.appengine.repackaged.com.google.common.base.CharMatcher;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
+import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
 
@@ -116,7 +114,31 @@ public class AdminController {
 		
 		return adminService.addCompany(company);
 	}
+
+	/**
+	 * POST - Insert a new Location
+	 * @param company
+	 */
+	@RequestMapping(value="/location", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody Location addLocation(@RequestBody Location location) {
+		LOGGER.debug("Adding Location [" + location.toString() + "]");
+		Set<ConstraintViolation<Location>> constraints = validator.validate(location);
+		if (!constraints.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			boolean comma = false;
+			for (ConstraintViolation<Location> constraintViolation : constraints) {
+				sb.append((comma? ", " : "") + constraintViolation.getMessage());
+				comma = true;
+			}
+			LOGGER.debug(sb.toString());
+			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
+		}
+		
+		return adminService.addLocation(location);
+	}
 	
+
 	@RequestMapping(value="/company/{id}", method=RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteCompany(@PathVariable String id) {

@@ -2,7 +2,9 @@ package com.leopin.parkfifty.server.service;
 
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_EXISTS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_NOT_FOUND;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_LOCATION_EXISTS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_COMPANY;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_LOCATION;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_DELETE_COMPANY;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_GET_COMPANY;
 
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
 
@@ -104,7 +107,7 @@ public class AdminServiceImpl implements AdminService {
 		try {
 			LOGGER.debug(company.toString());
 			// Look up if a company exists in the datastore with the same name
-			Company c = ofyGet.query(Company.class).filter("name", company.getName()).get();
+			Company c = ofyGet.query(Company.class).filter("normName", company.getNormName()).get();
 			if (c != null) {
 				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {company.getName()});
 			}
@@ -177,6 +180,36 @@ public class AdminServiceImpl implements AdminService {
 			
 		}
 		
+	}
+
+
+	/**
+	 * Add a parking location for a company
+	 */
+	@Override
+	public Location addLocation(Location location) {
+		Objectify ofyAdd = objectifyFactory.beginTransaction();
+		Objectify ofyGet = objectifyFactory.begin();
+		
+		try {
+			LOGGER.debug(location.toString());
+			// Look up if a company exists in the datastore with the same name
+			Location c = ofyGet.query(Location.class).filter("normName", location.getNormName()).get();
+			if (c != null) {
+				throw new AppException(ERROR_APP_ADMIN_LOCATION_EXISTS, new Object[] {location.getName()});
+			}
+			ofyAdd.put(location);
+			ofyAdd.getTxn().commit();
+			return location;
+		} catch (AppException ae) {
+			throw ae;
+		} catch (Exception ex) {
+			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_LOCATION, new Object[] {location.getName()});
+		} finally {
+			if (ofyAdd.getTxn().isActive())
+				ofyAdd.getTxn().rollback();
+			
+		}
 	}	
 
 }
