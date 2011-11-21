@@ -1,0 +1,3 @@
+1. Add recaptcha to the Company enrollment
+2. Add Spring security to the Admin login
+3. Use Memcached

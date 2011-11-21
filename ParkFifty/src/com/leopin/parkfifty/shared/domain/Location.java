@@ -1,18 +1,6 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.shared.AppRegExp.CITY;
-import static com.leopin.parkfifty.shared.AppRegExp.COUNTRY_CD;
-import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
-import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
-import static com.leopin.parkfifty.shared.AppRegExp.GEO_CD;
-import static com.leopin.parkfifty.shared.AppRegExp.LOCATION_DESC;
-import static com.leopin.parkfifty.shared.AppRegExp.LOCATION_NAME;
-import static com.leopin.parkfifty.shared.AppRegExp.PARK_FACILITY_TYPE;
-import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.shared.AppRegExp.SIMPLE_DESC;
-import static com.leopin.parkfifty.shared.AppRegExp.STATE_CD;
-import static com.leopin.parkfifty.shared.AppRegExp.STREET;
-import static com.leopin.parkfifty.shared.AppRegExp.ZIP_CD;
+import static com.leopin.parkfifty.shared.AppRegExp.*;
 
 import java.util.Date;
 
@@ -30,7 +18,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.server.utils.Utils;
+import com.leopin.parkfifty.shared.utils.Utils;
 
 /**
  * The domain object defines the location of the parking place
@@ -90,19 +78,15 @@ public class Location {
 	@NotNull(message="{com.leopin.contraints.countryCd.invalid}")
 	@Pattern(regexp=COUNTRY_CD, message="{com.leopin.contraints.countryCd.invalid}")						
 	private String countryCd;
+			
+	private float gcLat;
 	
-	@NotNull(message="{com.leopin.contraints.gc.latitude.invalid}")
-	@Pattern(regexp=GEO_CD, message="{com.leopin.contraints.gc.latitude.invalid}")		
-	private String gcLat;
+	private float gcLng;
 	
-	@NotNull(message="{com.leopin.contraints.gc.longitude.invalid}")
-	@Pattern(regexp=GEO_CD, message="{com.leopin.contraints.gc.longitude.invalid}")
-	private String gcLng;
-	
-	// The type of parking C -> Covered, O -> Open, S -> Street CM -> covered and multi layered
+	// The type of parking C -> Covered, O -> Open, S -> Street MS -> Multi Storey
 	@NotNull(message="{com.leopin.contraints.parking.type.code.invalid}")
-	@Pattern(regexp=PARK_FACILITY_TYPE, message="{com.leopin.contraints.gc.latitude.invalid}")	
-	private String parkingTypeCd;
+//	@Pattern(regexp=PARK_FACILITY_TYPE, message="{com.leopin.contraints.gc.latitude.invalid}")	
+	private ParkFacilityTypes parkFacilityType;
 	
 	@NotNull(message="{com.leopin.contraints.primary.phone.invalid}")
 	@Pattern(regexp=PHONE_NUM, message="{com.leopin.contraints.primary.phone.invalid}")
@@ -228,28 +212,28 @@ public class Location {
 		this.countryCd = Strings.nullToEmpty(countryCd).toUpperCase();
 	}
 
-	public String getGcLat() {
+	public float getGcLat() {
 		return gcLat;
 	}
 
-	public void setGcLat(String gcLat) {
+	public void setGcLat(float gcLat) {
 		this.gcLat = gcLat;
 	}
 
-	public String getGcLng() {
+	public float getGcLng() {
 		return gcLng;
 	}
 
-	public void setGcLng(String gcLng) {
+	public void setGcLng(float gcLng) {
 		this.gcLng = gcLng;
 	}
 
-	public String getParkingTypeCd() {
-		return parkingTypeCd;
+	public ParkFacilityTypes getParkFacilityType() {
+		return parkFacilityType;
 	}
 
-	public void setParkingTypeCd(String parkingTypeCd) {
-		this.parkingTypeCd = parkingTypeCd;
+	public void setParkFacilityType(ParkFacilityTypes parkFacilityType) {
+		this.parkFacilityType = parkFacilityType;
 	}
 
 	public String getPriPhone() {
@@ -356,7 +340,7 @@ public class Location {
 				.add("Country", this.countryCd)
 				.add("GeoCode Lat", this.gcLat)
 				.add("GeoCode Lng", this.gcLng)
-				.add("Parking Type Code", this.parkingTypeCd)
+				.add("Parking Facility Type", this.parkFacilityType)
 				.add("Pri Phone", this.priPhone)
 				.add("Sec Phone", this.secPhone)
 				.add("Fax", this.fax)

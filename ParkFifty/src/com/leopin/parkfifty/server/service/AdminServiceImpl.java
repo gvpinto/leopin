@@ -3,8 +3,10 @@ package com.leopin.parkfifty.server.service;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_EXISTS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_NOT_FOUND;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_LOCATION_EXISTS;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_USER_EXISTS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_COMPANY;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_LOCATION;
+import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_USER;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_DELETE_COMPANY;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_GET_COMPANY;
 
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
@@ -106,7 +109,8 @@ public class AdminServiceImpl implements AdminService {
 		
 		try {
 			LOGGER.debug(company.toString());
-			// Look up if a company exists in the datastore with the same name
+			// Look up if a company exists in the datastore with the Normalized Name which is all lower characters.
+			// Normalized name is required because datastore does not have query capabilities for lower casing existing data
 			Company c = ofyGet.query(Company.class).filter("normName", company.getNormName()).get();
 			if (c != null) {
 				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {company.getName()});
@@ -205,6 +209,43 @@ public class AdminServiceImpl implements AdminService {
 			throw ae;
 		} catch (Exception ex) {
 			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_LOCATION, new Object[] {location.getName()});
+		} finally {
+			if (ofyAdd.getTxn().isActive())
+				ofyAdd.getTxn().rollback();
+			
+		}
+	}
+
+	/**
+	 * Add a User to a Company
+	 * @param companyUser Company User object with all necessary data required for persisting
+	 * @return CompanyUser returns the updated CompanyUser object which includes a newly created key
+	 */
+	@Override
+	public CompanyUser addCompanyUser(CompanyUser companyUser) {
+		Objectify ofyAdd = objectifyFactory.beginTransaction();
+		Objectify ofyGet = objectifyFactory.begin();
+		
+		try {
+			LOGGER.debug(companyUser.toString());
+			
+			// Check for duplicate userId within a given company.
+//			CompanyUser companyUser = ofyGet.get(companyUser.getCompanyKey()), CompanyUser.class, companyUser.getCompanyId());
+			CompanyUser cu= ofyGet.query(CompanyUser.class)
+					.ancestor(companyUser.getCompanyKey())
+					.filter("userId", companyUser.getUserId())
+					.get();
+			
+			if (cu != null) {
+				throw new AppException(ERROR_APP_ADMIN_USER_EXISTS, new Object[] {companyUser.getUserId()});
+			}
+			ofyAdd.put(companyUser);
+			ofyAdd.getTxn().commit();
+			return companyUser;
+		} catch (AppException ae) {
+			throw ae;
+		} catch (Exception ex) {
+			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_USER, new Object[] {companyUser.getUserId()});
 		} finally {
 			if (ofyAdd.getTxn().isActive())
 				ofyAdd.getTxn().rollback();

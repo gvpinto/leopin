@@ -29,6 +29,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.google.appengine.repackaged.com.google.common.base.CharMatcher;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.exception.AppException;
@@ -119,7 +120,7 @@ public class AdminController {
 	 * POST - Insert a new Location
 	 * @param company
 	 */
-	@RequestMapping(value="/location", method=RequestMethod.POST)
+	@RequestMapping(value="/company/location", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Location addLocation(@RequestBody Location location) {
 		LOGGER.debug("Adding Location [" + location.toString() + "]");
@@ -138,6 +139,29 @@ public class AdminController {
 		return adminService.addLocation(location);
 	}
 	
+
+	/**
+	 * POST - Insert a new Location
+	 * @param company
+	 */
+	@RequestMapping(value="/company/companyUser", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody CompanyUser addLocation(@RequestBody CompanyUser companyUser) {
+		LOGGER.debug("Adding Location [" + companyUser.toString() + "]");
+		Set<ConstraintViolation<CompanyUser>> constraints = validator.validate(companyUser);
+		if (!constraints.isEmpty()) {
+			StringBuilder sb = new StringBuilder();
+			boolean comma = false;
+			for (ConstraintViolation<CompanyUser> constraintViolation : constraints) {
+				sb.append((comma? ", " : "") + constraintViolation.getMessage());
+				comma = true;
+			}
+			LOGGER.debug(sb.toString());
+			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
+		}
+		
+		return adminService.addCompanyUser(companyUser);
+	}
 
 	@RequestMapping(value="/company/{id}", method=RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)

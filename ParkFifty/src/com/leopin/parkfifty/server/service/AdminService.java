@@ -3,6 +3,7 @@ package com.leopin.parkfifty.server.service;
 import java.util.List;
 
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
 
 public interface AdminService {
@@ -20,5 +21,7 @@ public interface AdminService {
 	void deleteCompany(String name);
 
 	Location addLocation(Location location);
+
+	CompanyUser addCompanyUser(CompanyUser companyUser);
 
 }

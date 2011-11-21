@@ -13,6 +13,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Random;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -38,9 +39,11 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
+import com.leopin.parkfifty.admin.domain.AdminDomain;
 import com.leopin.parkfifty.server.controller.AdminController;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.exception.AppException;
 
@@ -388,33 +391,22 @@ public class AdminJsonUnitTests {
 	public void testLocationValid() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		Location location = new Location();
-		location.setName("Glenn's parking lot. this-is a meaning, and_w");
-		location.setDescription("This is a beautiful parking lot with ample spaces and a secured place with parking");
-		location.setStreet("12808 Baybriar Dr, Ste 200");
-		location.setStreet2("");
-		location.setCity("Raleigh");
-		location.setStateCd("NC");
-		location.setZipCd("27560-5500");
-		location.setCountryCd("USA");
-		location.setGcLat("35.910126");
-		location.setGcLng("78.717635");
-		location.setParkingTypeCd("O");
-		location.setPriPhone("919-455-3262");
-		location.setSecPhone("(919) 455-3262");
-		location.setFax("919 447 0110");
-		location.setEmail("gvpinto@gmail.co.in");
-		location.setTotalCapacity(100);
-		location.setDefaultRate(556);
-		location.setManned(true);
-		location.setMannedDesc("This is a Manned place with 24hrs of security");
+		Location location = AdminDomain.getLocation();
 		
 		Set<ConstraintViolation<Location>> constraintViolations = validator.validate(location);
 		printConstraintViolations(constraintViolations);
 		assertEquals(0, constraintViolations.size());		
 	}
 	
-	
+	@Test
+	public void testCompanyUserValid() {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		CompanyUser companyUser = AdminDomain.getCompanyUser(1L);
+		Set<ConstraintViolation<CompanyUser>> constraintViolations = validator.validate(companyUser);
+		printConstraintViolations(constraintViolations);
+		assertEquals(0, constraintViolations.size());		
+	}
 	
 	private <T> void printConstraintViolations(
 			Set<ConstraintViolation<T>> constraintViolations) {

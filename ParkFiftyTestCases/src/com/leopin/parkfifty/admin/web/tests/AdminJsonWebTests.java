@@ -10,17 +10,16 @@ import java.util.Random;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.leopin.parkfifty.admin.domain.AdminDomain;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
 
 //@RunWith(SpringJUnit4ClassRunner.class)  
@@ -167,6 +166,22 @@ public class AdminJsonWebTests {
 		LOGGER.debug(company.toString());
 		
 		ResponseEntity<Company> response = new RestTemplate().postForEntity("{urlPrefix}/company", company, Company.class, urlVars);
+		assertNotNull(response.getBody().getId());
+		assertEquals("This is a Good Company " + randval, response.getBody().getName());
+		
+	}
+	
+	public void testaddCompanyUser() {
+		
+		Map<String, String> urlVars = new HashMap<String, String>();
+		urlVars.put("urlPrefix", adminURL);
+		
+		Random rand = new Random(System.currentTimeMillis());
+		
+		CompanyUser companyUser = AdminDomain.getCompanyUser(25L);
+		LOGGER.debug(companyUser.toString());
+		
+		ResponseEntity<CompanyUser> response = new RestTemplate().postForEntity("{urlPrefix}/company/companyUser", companyUser, CompanyUser.class, urlVars);
 		assertNotNull(response.getBody().getId());
 		assertEquals("This is a Good Company " + randval, response.getBody().getName());
 		

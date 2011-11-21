@@ -1,11 +1,6 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_CODE;
-import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_NAME;
-import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
-import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
-import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.shared.AppRegExp.URL;
+import static com.leopin.parkfifty.shared.AppRegExp.*;
 
 import java.util.Date;
 
@@ -14,14 +9,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Objects;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.server.utils.Utils;
+import com.leopin.parkfifty.shared.utils.Utils;
 
 /**
  * Domain object that defines Company information

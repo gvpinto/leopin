@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.server.utils;
+package com.leopin.parkfifty.shared.utils;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;

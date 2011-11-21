@@ -177,11 +177,29 @@ public class RegexpUnitTests {
 	@Test
 	public void testPassword() {
 		Pattern pattern = Pattern.compile(AppRegExp.PASSWORD);
+		Assert.assertTrue(pattern.matcher("Regin#a").matches());
 		Assert.assertTrue(pattern.matcher("Re1gin").matches());
-		Assert.assertTrue(pattern.matcher("Re12gin").matches());
 		Assert.assertTrue(pattern.matcher("Re1g2i$n").matches());
-		Assert.assertTrue(pattern.matcher("Refi$n").matches());
-		Assert.assertFalse(pattern.matcher("Regin").matches());
+		Assert.assertTrue(pattern.matcher("Re#fi$n").matches());
+		Assert.assertTrue(pattern.matcher("Refi$%n").matches());
+		Assert.assertTrue(pattern.matcher("R,eginaPinto").matches());
+		Assert.assertTrue(pattern.matcher(",ReginaPinto").matches());
+		Assert.assertTrue(pattern.matcher("Veena.RPinto").matches());
+		
+//		Assert.assertTrue(pattern.matcher("Regina.Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina!Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina@Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina#Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina$Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina%Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina&Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina*Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina-Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina_Pinto").matches());
+//		Assert.assertTrue(pattern.matcher("Regina+Pinto").matches());
+
+		Assert.assertFalse(pattern.matcher("VeenaRePinto").matches());
+		Assert.assertFalse(pattern.matcher("Veena.RePinto").matches());
 //		Assert.assertTrue(pattern.matcher("Regina.Pinto").matches());
 //		Assert.assertTrue(pattern.matcher("M1ng1$L4r2").matches());
 //		Assert.assertTrue(pattern.matcher("12%df.$*W^e#2B&g@3s!").matches());
@@ -190,6 +208,39 @@ public class RegexpUnitTests {
 //		Assert.assertFalse(pattern.matcher("ReginsPinto").matches());
 //		Assert.assertFalse(pattern.matcher("12808 Baybriar_Dr, Ste 200").matches());
 		
+	}
+
+	@Test
+	public void testTitle() {
+		Pattern pattern = Pattern.compile(AppRegExp.TITLE);
+		Assert.assertTrue(pattern.matcher("Mr").matches());
+		Assert.assertTrue(pattern.matcher("Mr.").matches());
+		Assert.assertTrue(pattern.matcher("Mrs").matches());
+		Assert.assertTrue(pattern.matcher("Mrs.").matches());
+		
+		Assert.assertFalse(pattern.matcher("MRSAA").matches());
+	}
+	
+	@Test
+	public void testName() {
+		Pattern pattern = Pattern.compile(AppRegExp.NAME);
+		Assert.assertTrue(pattern.matcher("glenn Pint'o").matches());
+	}
+	
+	@Test
+	public void testMI() {
+		Pattern pattern = Pattern.compile(AppRegExp.MIDDLEINITIAL);
+		Assert.assertTrue(pattern.matcher("M").matches());
+		Assert.assertTrue(pattern.matcher("").matches());
+	}
+
+	@Test
+	public void testSuffix() {
+		Pattern pattern = Pattern.compile(AppRegExp.SUFFIX);
+		Assert.assertTrue(pattern.matcher("Jr").matches());
+		Assert.assertTrue(pattern.matcher("Sr").matches());
+		Assert.assertTrue(pattern.matcher("IV").matches());
+		Assert.assertTrue(pattern.matcher("III").matches());
 	}
 
 }
