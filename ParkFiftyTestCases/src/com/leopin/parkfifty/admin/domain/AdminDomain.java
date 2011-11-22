@@ -22,6 +22,7 @@ public class AdminDomain {
 		Company company = new Company();
 		int randval = rand.nextInt(99999);
 		company.setName("This is a Good Company " + randval);
+		company.setCode("AGOODCOMPANY");
 		company.setEmail("gpinto@bbandt.com");
 		company.setUrl("http://www.ashriv.com");
 		company.setPriPhone("(919) 455-3262");
