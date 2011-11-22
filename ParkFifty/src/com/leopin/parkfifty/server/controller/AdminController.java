@@ -97,7 +97,9 @@ public class AdminController {
 	 * POST - Insert a new Company
 	 * @param company
 	 */
-	@RequestMapping(value="/company", method=RequestMethod.POST)
+	@RequestMapping(value="/company", 
+			method=RequestMethod.POST,
+			headers = {"Accept=application/json"})
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody Company addCompany(@RequestBody Company company) {
 		LOGGER.debug("Adding Company [" + company.toString() + "]");
@@ -113,7 +115,8 @@ public class AdminController {
 			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
 		}
 		
-		return adminService.addCompany(company);
+//		return adminService.addCompany(company);
+		return company;
 	}
 
 	/**
@@ -146,8 +149,8 @@ public class AdminController {
 	 */
 	@RequestMapping(value="/company/companyUser", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody CompanyUser addLocation(@RequestBody CompanyUser companyUser) {
-		LOGGER.debug("Adding Location [" + companyUser.toString() + "]");
+	public @ResponseBody CompanyUser addCompanyUser(@RequestBody CompanyUser companyUser) {
+		LOGGER.debug("Adding CompanyUser [" + companyUser.toString() + "]");
 		Set<ConstraintViolation<CompanyUser>> constraints = validator.validate(companyUser);
 		if (!constraints.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
@@ -160,7 +163,8 @@ public class AdminController {
 			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
 		}
 		
-		return adminService.addCompanyUser(companyUser);
+//		return adminService.addCompanyUser(companyUser);
+		return companyUser;
 	}
 
 	@RequestMapping(value="/company/{id}", method=RequestMethod.DELETE)

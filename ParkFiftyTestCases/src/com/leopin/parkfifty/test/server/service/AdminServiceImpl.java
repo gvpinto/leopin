@@ -18,6 +18,7 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
@@ -182,6 +183,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Location addLocation(Location location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CompanyUser addCompanyUser(CompanyUser companyUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}	

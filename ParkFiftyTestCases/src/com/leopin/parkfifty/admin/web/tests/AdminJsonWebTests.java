@@ -28,7 +28,7 @@ public class AdminJsonWebTests {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminJsonWebTests.class);
 	
-	private static final String adminURL = "http://localhost:8888/admin";
+	private static final String adminURL = "http://localhost:8889/admin";
 //	private String scheme = "http";
 //	private String host = "localhost";
 //	private int port = 8888;
@@ -55,7 +55,7 @@ public class AdminJsonWebTests {
 		assertEquals("Test Company", response.getBody().getName());
 	}
 
-	@Test(expected=HttpClientErrorException.class)
+//	@Test(expected=HttpClientErrorException.class)
 	public void testGetCompanyByInvalidId() throws Exception {
 		
 		try {
@@ -79,7 +79,7 @@ public class AdminJsonWebTests {
 
 	}
 	
-	@Test
+//	@Test
 	public void testGetCompanyByName() {
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
@@ -93,7 +93,7 @@ public class AdminJsonWebTests {
 		
 	}
 	
-	@Test(expected=HttpClientErrorException.class)
+//	@Test(expected=HttpClientErrorException.class)
 	public void testGetCompanyByInvalidName() throws Exception {
 		try {
 			Map<String, String> urlVars = new HashMap<String, String>();
@@ -146,44 +146,38 @@ public class AdminJsonWebTests {
 		
 	}
 	
-//	@Test
+	@Test
 	public void testaddAGoodCompany() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
 		
-		Random rand = new Random(System.currentTimeMillis());
-		
-		Company company = new Company();
-		int randval = rand.nextInt(99999);
-		company.setName("This is a Good Company " + randval);
-		company.setEmail("gpinto@bbandt.com");
-		company.setUrl("http://www.ashriv.com");
-		company.setPriPhone("(919) 455-3262");
-		company.setSecPhone("");
-		company.setFax("(919) 447-0110");
-		
+
+		Company company = AdminDomain.getCompany();
+		String name = company.getName();
 		LOGGER.debug(company.toString());
 		
 		ResponseEntity<Company> response = new RestTemplate().postForEntity("{urlPrefix}/company", company, Company.class, urlVars);
+		
+		assertEquals(name, response.getBody().getName());
 		assertNotNull(response.getBody().getId());
-		assertEquals("This is a Good Company " + randval, response.getBody().getName());
 		
 	}
 	
-	public void testaddCompanyUser() {
+	@Test
+	public void testAddCompanyUser() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
 		
-		Random rand = new Random(System.currentTimeMillis());
-		
 		CompanyUser companyUser = AdminDomain.getCompanyUser(25L);
+		String userId = companyUser.getUserId();
 		LOGGER.debug(companyUser.toString());
 		
 		ResponseEntity<CompanyUser> response = new RestTemplate().postForEntity("{urlPrefix}/company/companyUser", companyUser, CompanyUser.class, urlVars);
+		
+		assertEquals(userId, response.getBody().getUserId());
 		assertNotNull(response.getBody().getId());
-		assertEquals("This is a Good Company " + randval, response.getBody().getName());
 		
 	}
 	

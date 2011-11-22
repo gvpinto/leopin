@@ -6,7 +6,6 @@ import static com.leopin.parkfifty.shared.AppRegExp.MIDDLEINITIAL;
 import static com.leopin.parkfifty.shared.AppRegExp.NAME;
 import static com.leopin.parkfifty.shared.AppRegExp.PASSWORD;
 import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.shared.AppRegExp.ROLE;
 import static com.leopin.parkfifty.shared.AppRegExp.SUFFIX;
 import static com.leopin.parkfifty.shared.AppRegExp.TITLE;
 import static com.leopin.parkfifty.shared.AppRegExp.USER_ID;
@@ -15,12 +14,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Embedded;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.google.common.base.Objects;
 import com.googlecode.objectify.Key;
@@ -75,6 +75,7 @@ public class CompanyUser {
 	/**
 	 * Applicable only for Admin and User's
 	 */
+	
 	@Serialized private List<Entitlements> entitlements;
 
 	@NotNull(message="{com.leopin.contraints.title.invalid}")
@@ -240,6 +241,7 @@ public class CompanyUser {
 		this.timestamp = timestamp;
 	}
 
+	@JsonIgnore
 	public Key<Company> getCompanyKey() {
 		if (companyKey == null) {
 			this.companyKey = new Key<Company>(Company.class, companyId);
@@ -251,9 +253,15 @@ public class CompanyUser {
 		this.companyKey = companyKey;
 	}
 
+	@JsonDeserialize(contentAs=Entitlements.class)
+	public void setEntitlements(List<Entitlements> entitlements) {
+		this.entitlements = entitlements;
+	}
+	
 	public void setEntitlements(Entitlements entitlement) {
 		this.entitlements.add(entitlement);
 	}
+	
 	public List<Entitlements> getEntitlements() {
 		return entitlements;
 	}
@@ -278,6 +286,7 @@ public class CompanyUser {
 		return companyId;
 	}
 	
+	@JsonIgnore
 	public Long getCompanyIdFromKey() {
 		return companyKey.getId();
 	}

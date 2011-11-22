@@ -2,7 +2,9 @@ package com.leopin.parkfifty.admin.domain;
 
 import java.util.Random;
 
+import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
+import com.leopin.parkfifty.shared.domain.Entitlements;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.domain.ParkFacilityTypes;
 import com.leopin.parkfifty.shared.domain.Roles;
@@ -10,8 +12,26 @@ import com.leopin.parkfifty.shared.domain.Roles;
 public class AdminDomain {
 
 	/**
+	 * Get Company template
+	 * @return Company
+	 */
+	
+	public static Company getCompany() {
+		Random rand = new Random(System.currentTimeMillis());
+		
+		Company company = new Company();
+		int randval = rand.nextInt(99999);
+		company.setName("This is a Good Company " + randval);
+		company.setEmail("gpinto@bbandt.com");
+		company.setUrl("http://www.ashriv.com");
+		company.setPriPhone("(919) 455-3262");
+		company.setSecPhone("");
+		company.setFax("(919) 447-0110");
+		return company;
+	}
+	/**
 	 * Get Company User template data
-	 * @return
+	 * @return CompanyUser
 	 */
 	public static CompanyUser getCompanyUser(Long companyId) {
 			Random rand = new Random(System.currentTimeMillis());
@@ -19,6 +39,7 @@ public class AdminDomain {
 			CompanyUser companyUser = new CompanyUser();
 			companyUser.setUserId("gvpinto" + userIdSuffix);
 			companyUser.setPassword("M1ng1L4r2");
+			companyUser.setEntitlements(Entitlements.ADD_USER);
 			companyUser.setRole(Roles.OWNER);
 			companyUser.setTitle("Mr.");
 			companyUser.setFirstName("Glenn");
@@ -37,7 +58,7 @@ public class AdminDomain {
 
 	/**
 	 * get Location template data
-	 * @return location
+	 * @return Location
 	 */
 	public static Location getLocation() {
 		Location location = new Location();

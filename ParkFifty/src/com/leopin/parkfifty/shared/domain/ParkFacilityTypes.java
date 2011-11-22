@@ -1,6 +1,8 @@
 package com.leopin.parkfifty.shared.domain;
 
-public enum ParkFacilityTypes {
+import java.io.Serializable;
+
+public enum ParkFacilityTypes implements Serializable {
 
 	COVERED("C"), OPEN("O"), STREET("S"), MULTI_STOREY("MS");
 	

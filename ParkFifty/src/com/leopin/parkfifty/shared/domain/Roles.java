@@ -1,6 +1,8 @@
 package com.leopin.parkfifty.shared.domain;
 
-public enum Roles {
+import java.io.Serializable;
+
+public enum Roles implements Serializable {
 	OWNER(1), SUPER_ADMIN(2), ADMIN(3), USER(4);
 
 	private final int role;
