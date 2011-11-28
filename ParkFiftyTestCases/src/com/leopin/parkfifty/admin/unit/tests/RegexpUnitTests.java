@@ -20,12 +20,33 @@ public class RegexpUnitTests {
 		Pattern pattern = Pattern.compile(AppRegExp.COMPANY_NAME);
 		Assert.assertTrue(pattern.matcher("This is a valid company name").matches());
 		Assert.assertTrue(pattern.matcher("This is a Good Company Nam'e. But I need to Find_out a Company; Name that-matches, such a long name.").matches());
+		Assert.assertTrue(pattern.matcher("This is a Good Company 59326").matches());
+				
 		Assert.assertFalse(pattern.matcher("This is a Good Company Name. But I need to Find_out a Company; Name that-matches, such a long name. A").matches());
 		Assert.assertFalse(pattern.matcher("Th").matches());
 		Assert.assertTrue(pattern.matcher("The").matches());
 		Assert.assertFalse(pattern.matcher("This is a Good Company Nam'e. But I need to Find_out a Company+ Name that-matches, such a long name.").matches());
 		Assert.assertFalse(pattern.matcher("This is a Good Company Nam'e. But I need to Find_out a Company< Name that-matches, such a long name.").matches());
 	}
+
+	@Test
+	public void testCompanyCode() {
+		Pattern pattern = Pattern.compile(AppRegExp.COMPANY_CODE);
+		Assert.assertTrue(pattern.matcher("GLEN_PINTO").matches());
+		Assert.assertTrue(pattern.matcher("GLEN-PINTO").matches());
+		Assert.assertTrue(pattern.matcher("GLEN123T4O").matches());
+		Assert.assertTrue(pattern.matcher("GLENPINTO").matches());
+		Assert.assertTrue(pattern.matcher("AGOODCMPNY").matches());
+		
+		Assert.assertFalse(pattern.matcher("GLEN PINTO").matches());
+		Assert.assertFalse(pattern.matcher("1GLENPINTO").matches());
+		Assert.assertFalse(pattern.matcher("GLEN@PINTO").matches());
+		Assert.assertFalse(pattern.matcher("GLENNPINTOCC").matches());
+		Assert.assertFalse(pattern.matcher("").matches());
+
+	}	
+	
+
 	
 	@Test
 	public void testEmail() {
@@ -113,22 +134,6 @@ public class RegexpUnitTests {
 		Assert.assertFalse(pattern.matcher("x").matches());
 
 	}
-	
-	@Test
-	public void testCompanyCode() {
-		Pattern pattern = Pattern.compile(AppRegExp.COMPANY_CODE);
-		Assert.assertTrue(pattern.matcher("GLEN_PINTO").matches());
-		Assert.assertTrue(pattern.matcher("GLEN-PINTO").matches());
-		Assert.assertTrue(pattern.matcher("GLEN123T4O").matches());
-		Assert.assertTrue(pattern.matcher("GLENPINTO").matches());
-		
-		Assert.assertFalse(pattern.matcher("GLEN PINTO").matches());
-		Assert.assertFalse(pattern.matcher("1GLENPINTO").matches());
-		Assert.assertFalse(pattern.matcher("GLEN@PINTO").matches());
-		Assert.assertFalse(pattern.matcher("GLENNPINTOC").matches());
-		Assert.assertFalse(pattern.matcher("").matches());
-
-	}	
 	
 	@Test
 	public void testLocationDesc() {

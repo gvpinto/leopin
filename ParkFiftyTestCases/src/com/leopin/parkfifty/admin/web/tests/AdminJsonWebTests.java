@@ -3,16 +3,20 @@ package com.leopin.parkfifty.admin.web.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -146,8 +150,8 @@ public class AdminJsonWebTests {
 		
 	}
 	
-	@Test
-	public void testaddAGoodCompany() {
+//	@Test
+	public void testAddCompany() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
@@ -174,7 +178,12 @@ public class AdminJsonWebTests {
 		String userId = companyUser.getUserId();
 		LOGGER.debug(companyUser.toString());
 		
-		ResponseEntity<CompanyUser> response = new RestTemplate().postForEntity("{urlPrefix}/company/companyUser", companyUser, CompanyUser.class, urlVars);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		List<MediaType> mediaTypeList = new ArrayList<MediaType>();
+		mediaTypeList.add(MediaType.APPLICATION_JSON);
+		httpHeaders.setAccept(mediaTypeList);
+		HttpEntity<CompanyUser> httpEntity = new HttpEntity<CompanyUser>(companyUser, httpHeaders);
+		ResponseEntity<CompanyUser> response = new RestTemplate().postForEntity("{urlPrefix}/company/companyUser", httpEntity, CompanyUser.class, urlVars);
 		
 		assertEquals(userId, response.getBody().getUserId());
 		assertNotNull(response.getBody().getId());

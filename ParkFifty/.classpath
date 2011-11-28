@@ -21,7 +21,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/geronimo-jpa_3.0_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/hibernate-validator-4.0.2.GA.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-all-1.8.5.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jcl-over-slf4j-1.6.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jdo2-api-2.3-eb.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jsr107cache-1.1.jar"/>
@@ -55,5 +54,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-3.0.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-appengine-spring-1.1.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jackson-all-1.8.6.jar" sourcepath="/Users/gvpinto/Opensource/jackson-src-1.8.6/src/all/jackson-src-1.8.6.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -12,7 +12,7 @@
 	<classpathentry kind="lib" path="lib/httpclient-cache-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpmime-4.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/jackson-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-all-1.8.5.jar" sourcepath="/Users/gvpinto/Opensource/jackson-src-1.8.6/src/all/jackson-src-1.8.6.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ParkFifty"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.8.5.jar"/>
 	<classpathentry kind="lib" path="/ParkFifty/war/WEB-INF/lib/aopalliance-1.0.jar"/>

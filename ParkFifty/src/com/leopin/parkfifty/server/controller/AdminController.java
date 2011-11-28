@@ -147,7 +147,9 @@ public class AdminController {
 	 * POST - Insert a new Location
 	 * @param company
 	 */
-	@RequestMapping(value="/company/companyUser", method=RequestMethod.POST)
+	@RequestMapping(value="/company/companyUser", 
+			method=RequestMethod.POST,
+			headers = {"Accept=application/json"})
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody CompanyUser addCompanyUser(@RequestBody CompanyUser companyUser) {
 		LOGGER.debug("Adding CompanyUser [" + companyUser.toString() + "]");

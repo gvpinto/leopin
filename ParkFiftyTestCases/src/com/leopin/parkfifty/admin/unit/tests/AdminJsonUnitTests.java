@@ -13,11 +13,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.Random;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.TypeFactory;
+import org.codehaus.jackson.type.JavaType;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -408,6 +411,27 @@ public class AdminJsonUnitTests {
 		assertEquals(0, constraintViolations.size());		
 	}
 	
+	
+	@Test
+	public void canDeserializeCompany() {
+		ObjectMapper mapper = new ObjectMapper();
+		JavaType javaType = TypeFactory.defaultInstance().constructType(Company.class);
+		Assert.assertTrue(mapper.canDeserialize(javaType));
+	}
+	
+	@Test
+	public void canDeserializeLocation() {
+		ObjectMapper mapper = new ObjectMapper();
+		JavaType javaType = TypeFactory.defaultInstance().constructType(Location.class);
+		Assert.assertTrue(mapper.canDeserialize(javaType));
+	}
+	
+	@Test
+	public void canDeserializeCompanyUser() {
+		ObjectMapper mapper = new ObjectMapper();
+		JavaType javaType = TypeFactory.defaultInstance().constructType(CompanyUser.class);
+		Assert.assertTrue(mapper.canDeserialize(javaType));
+	}
 	private <T> void printConstraintViolations(
 			Set<ConstraintViolation<T>> constraintViolations) {
 		

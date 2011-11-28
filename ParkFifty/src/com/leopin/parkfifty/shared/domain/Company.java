@@ -57,6 +57,8 @@ public class Company {
 	
 	@Indexed
 	@JsonIgnore
+	@NotNull(message="{com.leopin.contraints.company.name.invalid}")
+	@Pattern(regexp=COMPANY_NAME, message="{com.leopin.contraints.company.name.invalid}")
 	private String normName;
 
 	@NotNull(message="{com.leopin.contraints.url.invalid}")
@@ -192,7 +194,9 @@ public class Company {
 	public String toString() {
 		return Objects.toStringHelper(this)
 				.add("Id", this.id)
+				.add("Code", this.code)
 				.add("Name", this.name)
+				.add("Normalized Name", this.normName)
 				.add("URL", this.url)
 				.add("Email", this.email)
 				.add("Pri Phone", this.priPhone)
