@@ -53,6 +53,7 @@ public class CompanyUser {
 	 * Reference to the Company Entity
 	 */
 	@JsonIgnore
+	@Indexed
 	@Parent
 	private Key<Company> companyKey;
 	
@@ -242,14 +243,14 @@ public class CompanyUser {
 	}
 
 	@JsonIgnore
-	public Key<Company> getCompanyKey() {
+	public Key<Company> getCompanyIdKey() {
 		if (companyKey == null) {
 			this.companyKey = new Key<Company>(Company.class, companyId);
 		}
 		return companyKey;
 	}
 
-	public void setCompanyKey(Key<Company> companyKey) {
+	public void setCompanyIdKey(Key<Company> companyKey) {
 		this.companyKey = companyKey;
 	}
 
@@ -258,7 +259,7 @@ public class CompanyUser {
 		this.entitlements = entitlements;
 	}
 	
-	public void setEntitlements(Entitlements entitlement) {
+	public void addEntitlement(Entitlements entitlement) {
 		this.entitlements.add(entitlement);
 	}
 	

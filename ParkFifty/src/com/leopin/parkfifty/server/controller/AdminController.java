@@ -115,8 +115,8 @@ public class AdminController {
 			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
 		}
 		
-//		return adminService.addCompany(company);
-		return company;
+		return adminService.addCompany(company);
+
 	}
 
 	/**
@@ -165,8 +165,8 @@ public class AdminController {
 			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
 		}
 		
-//		return adminService.addCompanyUser(companyUser);
-		return companyUser;
+		return adminService.addCompanyUser(companyUser);
+
 	}
 
 	@RequestMapping(value="/company/{id}", method=RequestMethod.DELETE)

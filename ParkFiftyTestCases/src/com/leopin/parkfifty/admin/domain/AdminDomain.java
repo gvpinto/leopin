@@ -40,7 +40,7 @@ public class AdminDomain {
 			CompanyUser companyUser = new CompanyUser();
 			companyUser.setUserId("gvpinto" + userIdSuffix);
 			companyUser.setPassword("M1ng1L4r2");
-			companyUser.setEntitlements(Entitlements.ADD_USER);
+			companyUser.addEntitlement(Entitlements.ADD_USER);
 			companyUser.setRole(Roles.OWNER);
 			companyUser.setTitle("Mr.");
 			companyUser.setFirstName("Glenn");

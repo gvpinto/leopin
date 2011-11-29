@@ -4,4 +4,6 @@ ParkFifty/gwt-unitCache/*
 ParkFifty/.classpath
 ParkFiftyTestCases/bin/*
 ParkFiftyTestCases/.clover/*
+ParkFiftyTestCases/.classpath
+ParkFifty/war/WEB-INF/appengine-generated/local_db.bin
 !.gitignore
