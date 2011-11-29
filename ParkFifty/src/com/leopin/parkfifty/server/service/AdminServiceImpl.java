@@ -108,7 +108,7 @@ public class AdminServiceImpl implements AdminService {
 		Objectify ofyGet = objectifyFactory.begin();
 		
 		try {
-			LOGGER.debug(company.toString());
+			
 			// Look up if a company exists in the datastore with the Normalized Name which is all lower characters.
 			// Normalized name is required because datastore does not have query capabilities for lower casing existing data
 			Company c = ofyGet.query(Company.class).filter("normName", company.getNormName()).get();
@@ -117,6 +117,7 @@ public class AdminServiceImpl implements AdminService {
 			}
 			ofyAdd.put(company);
 			ofyAdd.getTxn().commit();
+			LOGGER.debug("After adding company {}", company);
 			return company;
 		} catch (AppException ae) {
 			throw ae;
@@ -227,12 +228,12 @@ public class AdminServiceImpl implements AdminService {
 		Objectify ofyGet = objectifyFactory.begin();
 		
 		try {
-			LOGGER.debug(companyUser.toString());
+			
 			
 			// Check for duplicate userId within a given company.
 //			CompanyUser companyUser = ofyGet.get(companyUser.getCompanyKey()), CompanyUser.class, companyUser.getCompanyId());
 			CompanyUser cu= ofyGet.query(CompanyUser.class)
-					.ancestor(companyUser.getCompanyKey())
+					.ancestor(companyUser.getCompanyIdKey())
 					.filter("userId", companyUser.getUserId())
 					.get();
 			
@@ -241,6 +242,7 @@ public class AdminServiceImpl implements AdminService {
 			}
 			ofyAdd.put(companyUser);
 			ofyAdd.getTxn().commit();
+			LOGGER.debug("Company User After Insert {}", companyUser);
 			return companyUser;
 		} catch (AppException ae) {
 			throw ae;

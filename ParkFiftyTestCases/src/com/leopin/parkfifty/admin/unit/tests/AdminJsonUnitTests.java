@@ -56,6 +56,7 @@ public class AdminJsonUnitTests {
 	AdminService service = null;
 	MessageSource messages = null;
 	Company company = null;
+	CompanyUser companyUser = null;
 	DispatcherServlet servlet;
 
 	@Before
@@ -64,6 +65,8 @@ public class AdminJsonUnitTests {
 		service = mock(AdminService.class);
 		messages = mock(ResourceBundleMessageSource.class);
 		company = mock(Company.class);
+		companyUser = mock(CompanyUser.class);
+		
 	}
 
 	@Test
@@ -100,7 +103,7 @@ public class AdminJsonUnitTests {
 	}
 
 	@Test
-	public void testAddCompanyWithoutErrors() {
+	public void testForAddCompanyService() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		company = new Company();
@@ -133,6 +136,28 @@ public class AdminJsonUnitTests {
 		
 		
 		verify(service, times(1)).addCompany(company);
+
+	}
+	
+	
+	@Test
+	public void testForAddCompanyUserService() {
+		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
+		validator.afterPropertiesSet();
+		companyUser = AdminDomain.getCompanyUser(1L);
+
+		when(service.addCompanyUser(companyUser)).thenReturn(companyUser);
+
+		AdminController controller = new AdminController(this.service, this.messages);
+		controller.setValidator(validator);
+		try {
+			assertEquals(companyUser.getUserId(), controller.addCompanyUser(companyUser).getUserId());	
+		} catch (AppException e) {
+			LOGGER.debug((String)e.getPlaceholderValues()[1]);
+		}
+		
+		
+		verify(service, times(1)).addCompanyUser(companyUser);
 
 	}
 

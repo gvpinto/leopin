@@ -186,6 +186,7 @@ public class AdminJsonWebTests {
 		ResponseEntity<CompanyUser> response = new RestTemplate().postForEntity("{urlPrefix}/company/companyUser", httpEntity, CompanyUser.class, urlVars);
 		
 		assertEquals(userId, response.getBody().getUserId());
+		LOGGER.debug(response.getBody().toString());
 		assertNotNull(response.getBody().getId());
 		
 	}

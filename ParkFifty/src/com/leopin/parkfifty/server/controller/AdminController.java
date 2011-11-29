@@ -150,7 +150,7 @@ public class AdminController {
 	@RequestMapping(value="/company/companyUser", 
 			method=RequestMethod.POST,
 			headers = {"Accept=application/json"})
-	@ResponseStatus(HttpStatus.OK)
+//	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody CompanyUser addCompanyUser(@RequestBody CompanyUser companyUser) {
 		LOGGER.debug("Adding CompanyUser [" + companyUser.toString() + "]");
 		Set<ConstraintViolation<CompanyUser>> constraints = validator.validate(companyUser);
