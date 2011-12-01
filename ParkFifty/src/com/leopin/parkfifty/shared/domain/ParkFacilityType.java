@@ -2,13 +2,13 @@ package com.leopin.parkfifty.shared.domain;
 
 import java.io.Serializable;
 
-public enum ParkFacilityTypes implements Serializable {
+public enum ParkFacilityType implements Serializable {
 
 	COVERED("C"), OPEN("O"), STREET("S"), MULTI_STOREY("MS");
 	
 	String parkFacilityType;
 	
-	ParkFacilityTypes(String type) {
+	ParkFacilityType(String type) {
 		this.parkFacilityType = type;
 	}
 	

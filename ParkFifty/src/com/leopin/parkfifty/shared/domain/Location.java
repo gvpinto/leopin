@@ -86,7 +86,7 @@ public class Location {
 	// The type of parking C -> Covered, O -> Open, S -> Street MS -> Multi Storey
 	@NotNull(message="{com.leopin.contraints.parking.type.code.invalid}")
 //	@Pattern(regexp=PARK_FACILITY_TYPE, message="{com.leopin.contraints.gc.latitude.invalid}")	
-	private ParkFacilityTypes parkFacilityType;
+	private ParkFacilityType parkFacilityType;
 	
 	@NotNull(message="{com.leopin.contraints.primary.phone.invalid}")
 	@Pattern(regexp=PHONE_NUM, message="{com.leopin.contraints.primary.phone.invalid}")
@@ -228,11 +228,11 @@ public class Location {
 		this.gcLng = gcLng;
 	}
 
-	public ParkFacilityTypes getParkFacilityType() {
+	public ParkFacilityType getParkFacilityType() {
 		return parkFacilityType;
 	}
 
-	public void setParkFacilityType(ParkFacilityTypes parkFacilityType) {
+	public void setParkFacilityType(ParkFacilityType parkFacilityType) {
 		this.parkFacilityType = parkFacilityType;
 	}
 

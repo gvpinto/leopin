@@ -6,8 +6,8 @@ import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Entitlements;
 import com.leopin.parkfifty.shared.domain.Location;
-import com.leopin.parkfifty.shared.domain.ParkFacilityTypes;
-import com.leopin.parkfifty.shared.domain.Roles;
+import com.leopin.parkfifty.shared.domain.ParkFacilityType;
+import com.leopin.parkfifty.shared.domain.Role;
 
 public class AdminDomain {
 
@@ -41,7 +41,7 @@ public class AdminDomain {
 			companyUser.setUserId("gvpinto" + userIdSuffix);
 			companyUser.setPassword("M1ng1L4r2");
 			companyUser.addEntitlement(Entitlements.ADD_USER);
-			companyUser.setRole(Roles.OWNER);
+			companyUser.setRole(Role.OWNER);
 			companyUser.setTitle("Mr.");
 			companyUser.setFirstName("Glenn");
 			companyUser.setMiddleInitial("J");
@@ -73,7 +73,7 @@ public class AdminDomain {
 		location.setCountryCd("USA");
 		location.setGcLat(35.910126f);
 		location.setGcLng(78.717635f);
-		location.setParkFacilityType(ParkFacilityTypes.COVERED);
+		location.setParkFacilityType(ParkFacilityType.COVERED);
 		location.setPriPhone("919-455-3262");
 		location.setSecPhone("(919) 455-3262");
 		location.setFax("919 447 0110");

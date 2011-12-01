@@ -11,6 +11,7 @@ import static com.leopin.parkfifty.shared.AppRegExp.TITLE;
 import static com.leopin.parkfifty.shared.AppRegExp.USER_ID;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,6 @@ import javax.validation.constraints.Pattern;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.google.common.base.Objects;
 import com.googlecode.objectify.Key;
@@ -38,11 +38,6 @@ import com.leopin.parkfifty.shared.utils.Utils;
 @Entity
 @Unindexed
 public class CompanyUser {
-
-	public CompanyUser() {
-		this.timestamp = new Date();
-		this.entitlements = new ArrayList<Entitlements>();
-	}
 	
 	@Id
 	private Long id;
@@ -71,13 +66,14 @@ public class CompanyUser {
 	 */
 //	@NotNull(message="{com.leopin.contraints.role.invalid}")
 //	@Pattern(regexp=ROLE, message="{com.leopin.contraints.role.invalid}")
-	private Roles role;
+	@Indexed
+	private Role role;
 	
 	/**
 	 * Applicable only for Admin and User's
 	 */
 	
-	@Serialized private List<Entitlements> entitlements;
+	@Serialized private List<Entitlement> entitlements;
 
 	@NotNull(message="{com.leopin.contraints.title.invalid}")
 	@Pattern(regexp=TITLE, message="{com.leopin.contraints.title.invalid}")	
@@ -129,6 +125,14 @@ public class CompanyUser {
 	@NotNull(message="{com.leopin.contraints.timestamp.invalid}")
 	private Date timestamp;
 
+	public CompanyUser() {
+		this.timestamp = new Date();
+		this.entitlements = new ArrayList<Entitlement>();
+		this.entitlements.add(Entitlement.NONE);
+		this.role = Role.USER;
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -154,11 +158,11 @@ public class CompanyUser {
 		this.password = password;
 	}
 
-	public Roles getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(Roles role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
@@ -254,16 +258,21 @@ public class CompanyUser {
 		this.companyKey = companyKey;
 	}
 
-	@JsonDeserialize(contentAs=Entitlements.class)
-	public void setEntitlements(List<Entitlements> entitlements) {
-		this.entitlements = entitlements;
+	@JsonDeserialize(contentAs=Entitlement.class)
+	public void setEntitlements(List<Entitlement> entitlements) {
+		if (entitlements != null && entitlements.size() > 0) {
+			this.entitlements.clear();
+			Collections.copy(this.entitlements, entitlements);
+		}
 	}
 	
-	public void addEntitlement(Entitlements entitlement) {
-		this.entitlements.add(entitlement);
+	public void addEntitlement(Entitlement entitlement) {
+		if (entitlement != null) {
+			this.entitlements.add(entitlement);
+		}
 	}
 	
-	public List<Entitlements> getEntitlements() {
+	public List<Entitlement> getEntitlements() {
 		return entitlements;
 	}
 
