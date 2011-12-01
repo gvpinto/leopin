@@ -1,13 +1,15 @@
 package com.leopin.parkfifty.admin.domain;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
-import com.leopin.parkfifty.shared.domain.Entitlements;
+import com.leopin.parkfifty.shared.domain.Entitlement;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.domain.ParkFacilityType;
 import com.leopin.parkfifty.shared.domain.Role;
+import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 
 public class AdminDomain {
 
@@ -20,9 +22,12 @@ public class AdminDomain {
 		Random rand = new Random(System.currentTimeMillis());
 		
 		Company company = new Company();
-		int randval = rand.nextInt(99999);
-		company.setName("This is a Good Company " + randval);
-		company.setCode("AGOODCMPNY");
+		int randval = rand.nextInt(9999);
+		String val = new DecimalFormat("0000").format(randval);
+		
+		company.setName("This is a Good Company " + val);
+		
+		company.setCode("AGOODC" + val);
 		company.setEmail("gpinto@bbandt.com");
 		company.setUrl("http://www.ashriv.com");
 		company.setPriPhone("(919) 455-3262");
@@ -40,7 +45,7 @@ public class AdminDomain {
 			CompanyUser companyUser = new CompanyUser();
 			companyUser.setUserId("gvpinto" + userIdSuffix);
 			companyUser.setPassword("M1ng1L4r2");
-			companyUser.addEntitlement(Entitlements.ADD_USER);
+			companyUser.addEntitlement(Entitlement.ADD_USER);
 			companyUser.setRole(Role.OWNER);
 			companyUser.setTitle("Mr.");
 			companyUser.setFirstName("Glenn");
@@ -53,8 +58,17 @@ public class AdminDomain {
 			companyUser.setEmail("gvpinto@gmail.com");
 			companyUser.setActive(true);
 			companyUser.setApproved(true);
-			companyUser.setCompanyId(companyId);
+			if (companyId > 0)
+				companyUser.setCompanyId(companyId);
 			return companyUser;
+	}
+	
+	
+	public static NewCompanyWrapper getNewCompanyWrapper() {
+		NewCompanyWrapper newCompanyWrapper = new NewCompanyWrapper();
+		newCompanyWrapper.setCompany(getCompany());
+		newCompanyWrapper.setCompanyUser(getCompanyUser(0L));
+		return newCompanyWrapper;
 	}
 
 	/**

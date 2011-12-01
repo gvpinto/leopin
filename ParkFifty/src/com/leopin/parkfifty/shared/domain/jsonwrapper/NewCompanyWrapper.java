@@ -5,7 +5,7 @@ import javax.validation.Valid;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 
-public class AddCompanyJsonWrapper {
+public class NewCompanyWrapper {
 	
 	@Valid
 	private Company company;

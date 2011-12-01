@@ -30,11 +30,9 @@ import com.google.appengine.repackaged.com.google.common.base.CharMatcher;
 import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
-import com.leopin.parkfifty.shared.domain.Entitlement;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
 import com.leopin.parkfifty.shared.domain.Location;
-import com.leopin.parkfifty.shared.domain.Role;
-import com.leopin.parkfifty.shared.domain.jsonwrapper.AddCompanyJsonWrapper;
+import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
 
@@ -104,28 +102,24 @@ public class AdminController {
 			method=RequestMethod.POST,
 			headers = {"Accept=application/json"})
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody AddCompanyJsonWrapper addCompany(@RequestBody AddCompanyJsonWrapper addCompany) {
+	public @ResponseBody NewCompanyWrapper addCompany(@RequestBody NewCompanyWrapper newCompanyWrapper) {
 		
-		LOGGER.debug("Adding Company [" + addCompany.toString() + "]");
-		Set<ConstraintViolation<AddCompanyJsonWrapper>> constraints = validator.validate(addCompany);
+		LOGGER.debug("Adding Company [" + newCompanyWrapper.toString() + "]");
+		Set<ConstraintViolation<NewCompanyWrapper>> constraints = validator.validate(newCompanyWrapper);
 		if (!constraints.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			boolean comma = false;
-			for (ConstraintViolation<AddCompanyJsonWrapper> constraintViolation : constraints) {
+			for (ConstraintViolation<NewCompanyWrapper> constraintViolation : constraints) {
 				sb.append((comma? ", " : "") + constraintViolation.getMessage());
 				comma = true;
 			}
 			LOGGER.debug(sb.toString());
 			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
 		}
+
+		newCompanyWrapper = adminService.addNewCompany(newCompanyWrapper);
 		
-		addCompany.getCompanyUser().setRole(Role.OWNER);
-		addCompany.getCompanyUser().addEntitlement(Entitlement.NOT_APPLICABLE);
-		
-		addCompany.setCompany(adminService.addCompany(addCompany.getCompany()));
-		addCompany.setCompanyUser(adminService.addCompanyUser(addCompany.getCompanyUser()));
-		
-		return addCompany;
+		return newCompanyWrapper;
 
 	}
 

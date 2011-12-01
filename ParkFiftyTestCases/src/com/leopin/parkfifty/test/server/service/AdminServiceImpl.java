@@ -20,6 +20,7 @@ import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
+import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
 
@@ -189,6 +190,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public CompanyUser addCompanyUser(CompanyUser companyUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NewCompanyWrapper addNewCompany(NewCompanyWrapper addCompany) {
 		// TODO Auto-generated method stub
 		return null;
 	}	

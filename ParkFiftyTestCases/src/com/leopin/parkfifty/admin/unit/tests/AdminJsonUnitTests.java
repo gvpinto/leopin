@@ -48,6 +48,7 @@ import com.leopin.parkfifty.server.service.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
+import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 import com.leopin.parkfifty.shared.exception.AppException;
 
 public class AdminJsonUnitTests {
@@ -106,36 +107,22 @@ public class AdminJsonUnitTests {
 	public void testForAddCompanyService() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		company = new Company();
-		company.setId(1L);
-		company.setCode("CMP1WOERR");
-		company.setName("Company without errors");
-		company.setEmail("gpinto@bbandt.com");
-		company.setUrl("http://www.bbt.com");
-		company.setPriPhone("(919) 455-3262");
-		company.setSecPhone("9194553262");
-		company.setFax("");
-//		when(company.getName()).thenReturn("Company without errors");
-//		when(company.getEmail()).thenReturn("gpinto@bbandt.com");
-//		when(company.getUrl()).thenReturn("http://www.bbt.com");
-//		when(company.getPriPhone()).thenReturn("9194553262");
-
-//		when(service.getCompany(anyString())).thenReturn(company);
+		NewCompanyWrapper newCompanyWrapper = AdminDomain.getNewCompanyWrapper();
 		
-		
-//		when(company.getId()).thenReturn(1L);
-		when(service.addCompany(company)).thenReturn(company);
+		when(service.addNewCompany(newCompanyWrapper)).thenReturn(newCompanyWrapper);
 
 		AdminController controller = new AdminController(this.service, this.messages);
 		controller.setValidator(validator);
+		
+		newCompanyWrapper = controller.addCompany(newCompanyWrapper);
 		try {
-			assertEquals("Company without errors", controller.addCompany(company).getName());	
+			assertEquals(newCompanyWrapper.getCompany().getName(), newCompanyWrapper.getCompany().getName());
+			assertEquals(newCompanyWrapper.getCompanyUser().getFirstName(), newCompanyWrapper.getCompanyUser().getFirstName());
 		} catch (AppException e) {
 			LOGGER.debug((String)e.getPlaceholderValues()[1]);
 		}
 		
-		
-		verify(service, times(1)).addCompany(company);
+		verify(service, times(1)).addNewCompany(newCompanyWrapper);
 
 	}
 	
@@ -165,22 +152,17 @@ public class AdminJsonUnitTests {
 	public void testAddCompanyWithErrors() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		company = new Company();
-		company.setId(1L);
-		company.setName("Company with errors");
-		company.setEmail("gpinto@bbandt.com");
-		company.setUrl("http://www.bbt.com");
-		company.setPriPhone("(919) 455-326");
-		company.setSecPhone("9194553262");
-		company.setFax("");
+		
+		NewCompanyWrapper newCompanyWrapper = AdminDomain.getNewCompanyWrapper();
+		newCompanyWrapper.getCompany().setEmail("gpintobbant.com");
 
-		when(service.addCompany(company)).thenReturn(company);
+		when(service.addNewCompany(newCompanyWrapper)).thenReturn(newCompanyWrapper);
 
 		AdminController controller = new AdminController(this.service, this.messages);
 		controller.setValidator(validator);
-		assertEquals("Company without errors", controller.addCompany(company).getName());
+		assertEquals(newCompanyWrapper.getCompany().getName(), controller.addCompany(newCompanyWrapper).getCompany().getName());
 		
-		verify(service, times(1)).addCompany(company);
+		verify(service, times(0)).addNewCompany(newCompanyWrapper);
 
 	}
 

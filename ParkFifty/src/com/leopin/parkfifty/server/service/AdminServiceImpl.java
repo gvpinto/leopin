@@ -22,7 +22,10 @@ import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
+import com.leopin.parkfifty.shared.domain.Entitlement;
 import com.leopin.parkfifty.shared.domain.Location;
+import com.leopin.parkfifty.shared.domain.Role;
+import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
 
@@ -248,6 +251,60 @@ public class AdminServiceImpl implements AdminService {
 			throw ae;
 		} catch (Exception ex) {
 			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_USER, new Object[] {companyUser.getUserId()});
+		} finally {
+			if (ofyAdd.getTxn().isActive())
+				ofyAdd.getTxn().rollback();
+			
+		}
+	}
+
+	@Override
+	public NewCompanyWrapper addNewCompany(NewCompanyWrapper newCompanyWrapper) {
+		
+		Objectify ofyAdd = objectifyFactory.beginTransaction();
+		Objectify ofyGet = objectifyFactory.begin();
+		
+		try {
+			
+			// Adding the new company
+			Company c = ofyGet.query(Company.class).filter("normName", newCompanyWrapper.getCompany().getNormName()).get();
+			if (c != null) {
+				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {newCompanyWrapper.getCompany().getName()});
+			}
+			ofyAdd.put(newCompanyWrapper.getCompany());
+
+			LOGGER.debug("Added Company {} Sucessfully before commit", newCompanyWrapper.getCompany());
+
+			// Adding the owner of the company
+//			CompanyUser cu= ofyGet.query(CompanyUser.class)
+//					.ancestor(companyUser.getCompanyIdKey())
+//					.filter("userId", companyUser.getUserId())
+//					.get();
+			
+//			if (cu != null) {
+//				throw new AppException(ERROR_APP_ADMIN_USER_EXISTS, new Object[] {companyUser.getUserId()});
+//			}
+			
+			newCompanyWrapper.getCompanyUser().setRole(Role.OWNER);
+			newCompanyWrapper.getCompanyUser().addEntitlement(Entitlement.NOT_APPLICABLE);
+			newCompanyWrapper.getCompanyUser().setCompanyId(newCompanyWrapper.getCompany().getId());
+			newCompanyWrapper.getCompanyUser().setActive(true);
+			newCompanyWrapper.getCompanyUser().setApproved(true);
+			
+			ofyAdd.put(newCompanyWrapper.getCompanyUser());
+
+			LOGGER.debug("Added Company Owner {} successfully before commit", newCompanyWrapper.getCompanyUser());
+			
+			ofyAdd.getTxn().commit();
+			
+			
+			LOGGER.info("Added the new company {} successfully with id {}",  newCompanyWrapper.getCompany().getName(),  newCompanyWrapper.getCompany().getId());
+			return newCompanyWrapper;
+			
+		} catch (AppException ae) {
+			throw ae;
+		} catch (Exception ex) {
+			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_COMPANY, new Object[] {newCompanyWrapper.getCompany().getName()});
 		} finally {
 			if (ofyAdd.getTxn().isActive())
 				ofyAdd.getTxn().rollback();
