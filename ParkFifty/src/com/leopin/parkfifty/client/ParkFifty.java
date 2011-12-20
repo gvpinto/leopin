@@ -1,5 +1,6 @@
 package com.leopin.parkfifty.client;
 
+import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -26,5 +27,10 @@ public class ParkFifty implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
-	public void onModuleLoad() {}
+	public void onModuleLoad() {
+		
+		MainView mainView = new MainView();
+		RootPanel.get().add(mainView);
+		ParkFiftyResources.INSTANCE.style().ensureInjected();
+	}
 }

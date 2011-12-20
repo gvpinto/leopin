@@ -1,0 +1,33 @@
+/** Add css rules here for your application. */
+
+
+@sprite body {
+	gwt-image: "pfbg";
+	background-color: #efefef;
+}
+
+#wrapper {
+	margin: 0 auto;
+	width: 960px;
+}
+
+#header {
+	margin: 10px 0 0 0;
+}
+
+#content {
+	margin: 30px 0 0 0;
+}
+
+#footer {
+	
+}
+
+.serverResponseLabelError {
+  color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+  margin: 15px 6px 6px;
+}
