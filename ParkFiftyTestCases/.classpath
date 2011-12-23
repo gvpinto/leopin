@@ -66,5 +66,6 @@
 	<classpathentry kind="lib" path="/ParkFifty/war/WEB-INF/lib/appengine-api-1.0-sdk-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/ParkFifty/war/WEB-INF/lib/appengine-api-labs-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/ParkFifty/war/WEB-INF/lib/appengine-jsr107cache-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/ParkFifty/war/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

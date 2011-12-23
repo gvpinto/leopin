@@ -260,10 +260,11 @@ public class CompanyUser {
 
 	@JsonDeserialize(contentAs=Entitlement.class)
 	public void setEntitlements(List<Entitlement> entitlements) {
-		if (entitlements != null && entitlements.size() > 0) {
-			this.entitlements.clear();
-			Collections.copy(this.entitlements, entitlements);
-		}
+//		if (entitlements != null && entitlements.size() > 0) {
+//			this.entitlements.clear();
+//			Collections.copy(this.entitlements, entitlements);
+//		}
+		this.entitlements = entitlements;
 	}
 	
 	public void addEntitlement(Entitlement entitlement) {
@@ -316,8 +317,26 @@ public class CompanyUser {
 	public boolean equals(Object object) {
 		
 		if (object instanceof CompanyUser) {
+			
 			CompanyUser that = (CompanyUser) object;
-			return Objects.equal(this.userId, that.companyId);
+			return Objects.equal(this.companyId, that.companyId)
+					&& Objects.equal(this.userId, that.userId)
+					&& Objects.equal(this.password, that.password)
+					&& Objects.equal(this.role, that.role)
+					&& Objects.equal(this.entitlements, that.entitlements)
+					&& Objects.equal(this.title, that.title)
+					&& Objects.equal(this.firstName, that.firstName)
+					&& Objects.equal(this.lastName, that.lastName)
+					&& Objects.equal(this.middleInitial, that.middleInitial)
+					&& Objects.equal(this.suffix, that.suffix)
+					&& Objects.equal(this.priPhone, that.priPhone)
+					&& Objects.equal(this.secPhone, that.secPhone)
+					&& Objects.equal(this.fax, that.fax)
+					&& Objects.equal(this.active, that.active)
+					&& Objects.equal(this.approved, that.approved)
+					&& Objects.equal(this.email, that.email)
+					&& Objects.equal(this.timestamp, that.timestamp);
+			
 		}
 		
 		return false;
@@ -326,7 +345,7 @@ public class CompanyUser {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(this.userId, this.companyId);
+		return Objects.hashCode(this.companyId, this.userId);
 	}
 	
 	@Override

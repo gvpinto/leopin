@@ -20,9 +20,11 @@ import com.leopin.parkfifty.server.controllers.AdminController;
 @RunWith(SpringJUnit4ClassRunner.class)
 //file:webapp/WEB-INF/applicationContext.xml, classpath:cz/aura/cms/servicesApplicationContext.xml"
 @ContextConfiguration(locations = { "classpath:parkfifty-servlet-test.xml", "classpath:parkfifty-service-test.xml"})
-public class AdminJsonIntegrationtests {
+//@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={DataAccessConfig.class,ServiceConfig.class})
+//@ActiveProfiles("dev")
+public class AdminIntegrationTests {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AdminJsonIntegrationtests.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminIntegrationTests.class);
 
 	@Autowired
 	private ApplicationContext appCtx;

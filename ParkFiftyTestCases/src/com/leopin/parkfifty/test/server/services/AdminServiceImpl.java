@@ -1,12 +1,8 @@
-package com.leopin.parkfifty.server.service;
+package com.leopin.parkfifty.test.server.services;
 
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_EXISTS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_NOT_FOUND;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_LOCATION_EXISTS;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_USER_EXISTS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_COMPANY;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_LOCATION;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_USER;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_DELETE_COMPANY;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_GET_COMPANY;
 
@@ -20,11 +16,10 @@ import org.springframework.stereotype.Service;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
+import com.leopin.parkfifty.server.services.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
-import com.leopin.parkfifty.shared.domain.Entitlement;
 import com.leopin.parkfifty.shared.domain.Location;
-import com.leopin.parkfifty.shared.domain.Role;
 import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysException;
@@ -111,16 +106,13 @@ public class AdminServiceImpl implements AdminService {
 		Objectify ofyGet = objectifyFactory.begin();
 		
 		try {
-			
-			// Look up if a company exists in the datastore with the Normalized Name which is all lower characters.
-			// Normalized name is required because datastore does not have query capabilities for lower casing existing data
-			Company c = ofyGet.query(Company.class).filter("normName", company.getNormName()).get();
+			// Look up if a company exists in the datastore with the same name
+			Company c = ofyGet.query(Company.class).filter("name", company.getName()).get();
 			if (c != null) {
 				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {company.getName()});
 			}
 			ofyAdd.put(company);
 			ofyAdd.getTxn().commit();
-			LOGGER.debug("After adding company {}", company);
 			return company;
 		} catch (AppException ae) {
 			throw ae;
@@ -190,126 +182,22 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
-
-	/**
-	 * Add a parking location for a company
-	 */
 	@Override
 	public Location addLocation(Location location) {
-		Objectify ofyAdd = objectifyFactory.beginTransaction();
-		Objectify ofyGet = objectifyFactory.begin();
-		
-		try {
-			LOGGER.debug(location.toString());
-			// Look up if a company exists in the datastore with the same name
-			Location c = ofyGet.query(Location.class).filter("normName", location.getNormName()).get();
-			if (c != null) {
-				throw new AppException(ERROR_APP_ADMIN_LOCATION_EXISTS, new Object[] {location.getName()});
-			}
-			ofyAdd.put(location);
-			ofyAdd.getTxn().commit();
-			return location;
-		} catch (AppException ae) {
-			throw ae;
-		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_LOCATION, new Object[] {location.getName()});
-		} finally {
-			if (ofyAdd.getTxn().isActive())
-				ofyAdd.getTxn().rollback();
-			
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	/**
-	 * Add a User to a Company
-	 * @param companyUser Company User object with all necessary data required for persisting
-	 * @return CompanyUser returns the updated CompanyUser object which includes a newly created key
-	 */
 	@Override
 	public CompanyUser addCompanyUser(CompanyUser companyUser) {
-		Objectify ofyAdd = objectifyFactory.beginTransaction();
-		Objectify ofyGet = objectifyFactory.begin();
-		
-		try {
-			
-			
-			// Check for duplicate userId within a given company.
-//			CompanyUser companyUser = ofyGet.get(companyUser.getCompanyKey()), CompanyUser.class, companyUser.getCompanyId());
-			CompanyUser cu= ofyGet.query(CompanyUser.class)
-					.ancestor(companyUser.getCompanyIdKey())
-					.filter("userId", companyUser.getUserId())
-					.get();
-			
-			if (cu != null) {
-				throw new AppException(ERROR_APP_ADMIN_USER_EXISTS, new Object[] {companyUser.getUserId()});
-			}
-			ofyAdd.put(companyUser);
-			ofyAdd.getTxn().commit();
-			LOGGER.debug("Company User After Insert {}", companyUser);
-			return companyUser;
-		} catch (AppException ae) {
-			throw ae;
-		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_USER, new Object[] {companyUser.getUserId()});
-		} finally {
-			if (ofyAdd.getTxn().isActive())
-				ofyAdd.getTxn().rollback();
-			
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public NewCompanyWrapper addNewCompany(NewCompanyWrapper newCompanyWrapper) {
-		
-		Objectify ofyAdd = objectifyFactory.beginTransaction();
-		Objectify ofyGet = objectifyFactory.begin();
-		
-		try {
-			
-			// Adding the new company
-			Company c = ofyGet.query(Company.class).filter("normName", newCompanyWrapper.getCompany().getNormName()).get();
-			if (c != null) {
-				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {newCompanyWrapper.getCompany().getName()});
-			}
-			ofyAdd.put(newCompanyWrapper.getCompany());
-
-			LOGGER.debug("Added Company {} Sucessfully before commit", newCompanyWrapper.getCompany());
-
-			// Adding the owner of the company
-//			CompanyUser cu= ofyGet.query(CompanyUser.class)
-//					.ancestor(companyUser.getCompanyIdKey())
-//					.filter("userId", companyUser.getUserId())
-//					.get();
-			
-//			if (cu != null) {
-//				throw new AppException(ERROR_APP_ADMIN_USER_EXISTS, new Object[] {companyUser.getUserId()});
-//			}
-			
-			newCompanyWrapper.getCompanyUser().setRole(Role.OWNER);
-			newCompanyWrapper.getCompanyUser().addEntitlement(Entitlement.NOT_APPLICABLE);
-			newCompanyWrapper.getCompanyUser().setCompanyId(newCompanyWrapper.getCompany().getId());
-			newCompanyWrapper.getCompanyUser().setActive(true);
-			newCompanyWrapper.getCompanyUser().setApproved(true);
-			
-			ofyAdd.put(newCompanyWrapper.getCompanyUser());
-
-			LOGGER.debug("Added Company Owner {} successfully before commit", newCompanyWrapper.getCompanyUser());
-			
-			ofyAdd.getTxn().commit();
-			
-			
-			LOGGER.info("Added the new company {} successfully with id {}",  newCompanyWrapper.getCompany().getName(),  newCompanyWrapper.getCompany().getId());
-			return newCompanyWrapper;
-			
-		} catch (AppException ae) {
-			throw ae;
-		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_COMPANY, new Object[] {newCompanyWrapper.getCompany().getName()});
-		} finally {
-			if (ofyAdd.getTxn().isActive())
-				ofyAdd.getTxn().rollback();
-			
-		}
+	public NewCompanyWrapper addNewCompany(NewCompanyWrapper addCompany) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 
 }

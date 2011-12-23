@@ -178,7 +178,14 @@ public class Company {
 		
 		if (object instanceof Company) {
 			Company that = (Company) object;
-			return Objects.equal(this.name, that.name);
+			return Objects.equal(this.name, that.name)
+					&& Objects.equal(this.code, that.code)
+					&& Objects.equal(this.url, that.url)
+					&& Objects.equal(this.email, that.email)
+					&& Objects.equal(this.priPhone, that.priPhone)
+					&& Objects.equal(this.secPhone, that.secPhone)
+					&& Objects.equal(this.fax, that.fax)
+					&& Objects.equal(this.timestamp, that.timestamp);
 		}
 		
 		return false;
@@ -187,7 +194,7 @@ public class Company {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(this.name);
+		return Objects.hashCode(this.name, this.code);
 	}
 	
 	@Override
@@ -202,6 +209,7 @@ public class Company {
 				.add("Pri Phone", this.priPhone)
 				.add("Sec Phone", this.secPhone)
 				.add("Fax", this.fax)
+				.add("Timestamp", this.timestamp)
 				.toString();
 	}
 }

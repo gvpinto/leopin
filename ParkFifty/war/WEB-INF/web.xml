@@ -7,47 +7,54 @@
 	<!-- Servlets -->
 	<display-name>ParkFifty</display-name>
 	
-	
-	<listener>
-		<listener-class>
-			org.springframework.web.context.request.RequestContextListener
-		</listener-class>
-	</listener>
-	
-	<!-- <start id="param_contextConfigLocation" /> -->
+		<!-- Java-based annotation-driven Spring container definition -->
+	<context-param>
+    	<param-name>contextClass</param-name>
+    	<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	</context-param>
+		
+	<!-- Location of Java @Configuration classes that configure the components that makeup this application -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:parkfifty-service.xml</param-value>
+		<!-- Can be class of package names -->
+		<param-value>com.leopin.parkfifty.server.config.WebConfig</param-value>
 	</context-param>
 	
-	<!--<end id="param_contextConfigLocation" /> -->
-
-	<!-- /WEB-INF/spitter-security.xml classpath:persistence-context.xml classpath:dataSource-context.xml -->
-
-	<!--<start id="listener_ContextLoaderListener" /> -->
+	<!-- Specifies the default mode of this application, to be activated if no other profile (or mode) is specified -->
+	<!-- ctx.getEnvironment().setActiveProfiles("profile1", "profile2");
+	-Dspring.profiles.active="profile1,profile2" -->
+	<context-param>
+    	<param-name>spring.profiles.default</param-name>
+    	<param-value>production</param-value>
+	</context-param>
+	
+		<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<!--<end id="listener_ContextLoaderListener" /> -->
 
-	<!--<start id="servlet_DispatcherServlet"/> -->
+	<!-- Handles requests into the application -->
 	<servlet>
 		<servlet-name>parkfifty</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
+			<!-- No explicit configuration file reference here: everything is configured in the root container for simplicity -->
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:parkfifty-servlet.xml</param-value>
+			<param-value></param-value>
 		</init-param>
+		
+	    <!-- <init-param>
+	        <param-name>spring.profiles.active</param-name>
+	        <param-value>production</param-value>
+	    </init-param> -->
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!--<end id="servlet_DispatcherServlet"/> -->
 
-	<!--<start id="servletmapping_DispatcherServlet" /> -->
 	<servlet-mapping>
 		<servlet-name>parkfifty</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	<!--<end id="servletmapping_DispatcherServlet" /> -->
+
 
 	<!-- Default page to serve -->
 	<!-- <welcome-file-list>

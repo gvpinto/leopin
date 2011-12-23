@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.server.service;
+package com.leopin.parkfifty.server.services;
 
 import java.util.List;
 

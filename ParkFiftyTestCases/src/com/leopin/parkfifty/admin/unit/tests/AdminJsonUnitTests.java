@@ -6,6 +6,7 @@ package com.leopin.parkfifty.admin.unit.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -43,8 +44,8 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
 import com.leopin.parkfifty.admin.domain.AdminDomain;
-import com.leopin.parkfifty.server.controller.AdminController;
-import com.leopin.parkfifty.server.service.AdminService;
+import com.leopin.parkfifty.server.controllers.AdminController;
+import com.leopin.parkfifty.server.services.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
@@ -53,7 +54,8 @@ import com.leopin.parkfifty.shared.exception.AppException;
 
 public class AdminJsonUnitTests {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(AdminJsonUnitTests.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(AdminJsonUnitTests.class);
 	AdminService service = null;
 	MessageSource messages = null;
 	Company company = null;
@@ -67,7 +69,7 @@ public class AdminJsonUnitTests {
 		messages = mock(ResourceBundleMessageSource.class);
 		company = mock(Company.class);
 		companyUser = mock(CompanyUser.class);
-		
+
 	}
 
 	@Test
@@ -77,9 +79,12 @@ public class AdminJsonUnitTests {
 
 		when(service.getCompany(anyLong())).thenReturn(company);
 
-		AdminController controller = new AdminController(this.service, this.messages);
-//		ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class, "adminService"), controller, service);
-//		ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class, "messages"), controller, messages);
+		AdminController controller = new AdminController(this.service,
+				this.messages);
+		// ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class,
+		// "adminService"), controller, service);
+		// ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class,
+		// "messages"), controller, messages);
 		assertEquals("Park Fifty", controller.getCompany("1").getName());
 		verify(service, times(1)).getCompany(anyLong());
 		verify(service, never()).getCompany(anyString());
@@ -93,9 +98,12 @@ public class AdminJsonUnitTests {
 
 		when(service.getCompany(anyString())).thenReturn(company);
 
-		AdminController controller = new AdminController(this.service, this.messages);
-//		ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class, "adminService"), controller, service);
-//		ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class, "messages"), controller, messages);
+		AdminController controller = new AdminController(this.service,
+				this.messages);
+		// ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class,
+		// "adminService"), controller, service);
+		// ReflectionUtils.setField(ReflectionUtils.findField(AdminController.class,
+		// "messages"), controller, messages);
 		assertEquals("Park Fifty", controller.getCompany("Park Fifty")
 				.getName());
 		verify(service, never()).getCompany(anyLong());
@@ -107,61 +115,71 @@ public class AdminJsonUnitTests {
 	public void testForAddCompanyService() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		NewCompanyWrapper newCompanyWrapper = AdminDomain.getNewCompanyWrapper();
-		
-		when(service.addNewCompany(newCompanyWrapper)).thenReturn(newCompanyWrapper);
+		NewCompanyWrapper newCompanyWrapper = AdminDomain
+				.getNewCompanyWrapper();
 
-		AdminController controller = new AdminController(this.service, this.messages);
+		when(service.addNewCompany(newCompanyWrapper)).thenReturn(
+				newCompanyWrapper);
+
+		AdminController controller = new AdminController(this.service,
+				this.messages);
 		controller.setValidator(validator);
-		
+
 		newCompanyWrapper = controller.addCompany(newCompanyWrapper);
 		try {
-			assertEquals(newCompanyWrapper.getCompany().getName(), newCompanyWrapper.getCompany().getName());
-			assertEquals(newCompanyWrapper.getCompanyUser().getFirstName(), newCompanyWrapper.getCompanyUser().getFirstName());
+			assertEquals(newCompanyWrapper.getCompany().getName(),
+					newCompanyWrapper.getCompany().getName());
+			assertEquals(newCompanyWrapper.getCompanyUser().getFirstName(),
+					newCompanyWrapper.getCompanyUser().getFirstName());
 		} catch (AppException e) {
-			LOGGER.debug((String)e.getPlaceholderValues()[1]);
+			LOGGER.debug((String) e.getPlaceholderValues()[1]);
 		}
-		
+
 		verify(service, times(1)).addNewCompany(newCompanyWrapper);
 
 	}
-	
-	
+
 	@Test
 	public void testForAddCompanyUserService() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		companyUser = AdminDomain.getCompanyUser(1L);
 
-		when(service.addCompanyUser(companyUser)).thenReturn(companyUser);
+		when(service.addCompanyUser((CompanyUser) anyObject())).thenReturn(
+				companyUser);
 
-		AdminController controller = new AdminController(this.service, this.messages);
+		AdminController controller = new AdminController(this.service,
+				this.messages);
 		controller.setValidator(validator);
 		try {
-			assertEquals(companyUser.getUserId(), controller.addCompanyUser(companyUser).getUserId());	
+			assertEquals(companyUser.getUserId(),
+					controller.addCompanyUser(companyUser).getUserId());
 		} catch (AppException e) {
-			LOGGER.debug((String)e.getPlaceholderValues()[1]);
+			LOGGER.debug((String) e.getPlaceholderValues()[1]);
 		}
-		
-		
-		verify(service, times(1)).addCompanyUser(companyUser);
+
+		verify(service, times(1)).addCompanyUser((CompanyUser) anyObject());
 
 	}
 
-	@Test(expected=AppException.class)
+	@Test(expected = AppException.class)
 	public void testAddCompanyWithErrors() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		
-		NewCompanyWrapper newCompanyWrapper = AdminDomain.getNewCompanyWrapper();
+
+		NewCompanyWrapper newCompanyWrapper = AdminDomain
+				.getNewCompanyWrapper();
 		newCompanyWrapper.getCompany().setEmail("gpintobbant.com");
 
-		when(service.addNewCompany(newCompanyWrapper)).thenReturn(newCompanyWrapper);
+		when(service.addNewCompany(newCompanyWrapper)).thenReturn(
+				newCompanyWrapper);
 
-		AdminController controller = new AdminController(this.service, this.messages);
+		AdminController controller = new AdminController(this.service,
+				this.messages);
 		controller.setValidator(validator);
-		assertEquals(newCompanyWrapper.getCompany().getName(), controller.addCompany(newCompanyWrapper).getCompany().getName());
-		
+		assertEquals(newCompanyWrapper.getCompany().getName(), controller
+				.addCompany(newCompanyWrapper).getCompany().getName());
+
 		verify(service, times(0)).addNewCompany(newCompanyWrapper);
 
 	}
@@ -170,7 +188,7 @@ public class AdminJsonUnitTests {
 	public void testGoodCompanyValidation() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		
+
 		Company company = new Company();
 		company.setCode("THIS1SGOOD");
 		company.setName("This is a good  company");
@@ -179,14 +197,12 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("9194553262");
 		company.setSecPhone("");
 		company.setFax("");
-		
-		
+
 		Set<ConstraintViolation<Company>> result = validator.validate(company);
 		LOGGER.error("Result Size[" + result.size() + "]");
 		assertEquals(0, result.size());
 	}
-	
-	
+
 	@Test
 	public void testCompanyInvalidEmail() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
@@ -199,15 +215,16 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("9194553262");
 		company.setSecPhone("");
 		company.setFax("");
-		
-		
-		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+
+		Set<ConstraintViolation<Company>> constraintViolations = validator
+				.validate(company);
 		assertEquals(1, constraintViolations.size());
-		
+
 		company.setEmail(null);
 		constraintViolations = validator.validate(company);
-		assertEquals(1, constraintViolations.size());		
-//		assertEquals("Invalid email address.", constraintViolations.iterator().next().getMessage());
+		assertEquals(1, constraintViolations.size());
+		// assertEquals("Invalid email address.",
+		// constraintViolations.iterator().next().getMessage());
 	}
 
 	@Test
@@ -222,19 +239,19 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("919455326aqwe");
 		company.setSecPhone("");
 		company.setFax("");
-		
-		
-		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+
+		Set<ConstraintViolation<Company>> constraintViolations = validator
+				.validate(company);
 		assertEquals(1, constraintViolations.size());
-		
+
 		company.setPriPhone(null);
 		constraintViolations = validator.validate(company);
-		assertEquals(1, constraintViolations.size());		
+		assertEquals(1, constraintViolations.size());
 
-		//		assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
+		// assertEquals("Invalid primary phone number. Can be 9 to 15 digits long.",
+		// constraintViolations.iterator().next().getMessage());
 	}
 
-	
 	@Test
 	public void testCompanyInvalidAndShortPhone() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
@@ -247,13 +264,14 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("919455326");
 		company.setSecPhone("");
 		company.setFax("");
-		
-		
-		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+
+		Set<ConstraintViolation<Company>> constraintViolations = validator
+				.validate(company);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Invalid primary phone number. Should be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
-		
-		
+		assertEquals(
+				"Invalid primary phone number. Should be 9 to 15 digits long.",
+				constraintViolations.iterator().next().getMessage());
+
 		company.setPriPhone(null);
 		constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
@@ -271,12 +289,13 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("9194553262");
 		company.setSecPhone("a");
 		company.setFax("");
-		
-		
-		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+
+		Set<ConstraintViolation<Company>> constraintViolations = validator
+				.validate(company);
 		assertEquals(1, constraintViolations.size());
-//		assertEquals("Invalid secondary phone number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
-		
+		// assertEquals("Invalid secondary phone number. Can be 9 to 15 digits long.",
+		// constraintViolations.iterator().next().getMessage());
+
 		company.setSecPhone(null);
 		constraintViolations = validator.validate(company);
 		assertEquals(0, constraintViolations.size());
@@ -294,18 +313,18 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("9194553262");
 		company.setSecPhone("");
 		company.setFax("a");
-		
-		
-		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+
+		Set<ConstraintViolation<Company>> constraintViolations = validator
+				.validate(company);
 		assertEquals(1, constraintViolations.size());
-//		assertEquals("Invalid fax number. Can be 9 to 15 digits long.", constraintViolations.iterator().next().getMessage());
-		
+		// assertEquals("Invalid fax number. Can be 9 to 15 digits long.",
+		// constraintViolations.iterator().next().getMessage());
+
 		company.setFax(null);
 		constraintViolations = validator.validate(company);
 		assertEquals(0, constraintViolations.size());
 	}
 
-	
 	@Test
 	public void testCompanyInvalidURL() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
@@ -318,31 +337,34 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("9194553262");
 		company.setSecPhone("");
 		company.setFax("");
-		
-		
-		Set<ConstraintViolation<Company>> constraintViolations = validator.validate(company);
+
+		Set<ConstraintViolation<Company>> constraintViolations = validator
+				.validate(company);
 		assertEquals(1, constraintViolations.size());
-		
+
 		company.setUrl(null);
 		constraintViolations = validator.validate(company);
 		assertEquals(1, constraintViolations.size());
-//		assertEquals("Invalid URL address", constraintViolations.iterator().next().getMessage());
-//		for (ConstraintViolation<Company> cv : result) {
-//			String path = cv.getPropertyPath().toString();
-//
-//			if ("name".equals(path) || "url".equals(path) || "email".equals(path) || "priPhone".equals(path) || "secPhone".equals(path) || "fax".equals(path) ) {
-//				assertTrue(cv.getConstraintDescriptor().);
-//			}
-//			else {
-//				fail("Invalid constraint violation with path '" + path + "'");
-//			}
-//		}
+		// assertEquals("Invalid URL address",
+		// constraintViolations.iterator().next().getMessage());
+		// for (ConstraintViolation<Company> cv : result) {
+		// String path = cv.getPropertyPath().toString();
+		//
+		// if ("name".equals(path) || "url".equals(path) || "email".equals(path)
+		// || "priPhone".equals(path) || "secPhone".equals(path) ||
+		// "fax".equals(path) ) {
+		// assertTrue(cv.getConstraintDescriptor().);
+		// }
+		// else {
+		// fail("Invalid constraint violation with path '" + path + "'");
+		// }
+		// }
 	}
-	
-//	@Test
-	public void commandProvidingFormControllerWithCustomEditor() throws Exception {
-		
-		
+
+	// @Test
+	public void commandProvidingFormControllerWithCustomEditor()
+			throws Exception {
+
 		Company company = new Company();
 		company.setName("Company without errors");
 		company.setEmail("gpinto@bbandt.com");
@@ -350,25 +372,35 @@ public class AdminJsonUnitTests {
 		company.setPriPhone("9194553262");
 
 		when(service.getCompany(anyLong())).thenReturn(company);
-		
-		@SuppressWarnings("serial") DispatcherServlet servlet = new DispatcherServlet() {
+
+		@SuppressWarnings("serial")
+		DispatcherServlet servlet = new DispatcherServlet() {
 			@Override
-			protected WebApplicationContext createWebApplicationContext(WebApplicationContext parent) {
+			protected WebApplicationContext createWebApplicationContext(
+					WebApplicationContext parent) {
 				GenericWebApplicationContext wac = new GenericWebApplicationContext();
-//				controllerDef.setAutowireMode(RootBeanDefinition.AUTOWIRE_BY_TYPE);
-				RootBeanDefinition controllerDef = new RootBeanDefinition(AdminController.class);
+				// controllerDef.setAutowireMode(RootBeanDefinition.AUTOWIRE_BY_TYPE);
+				RootBeanDefinition controllerDef = new RootBeanDefinition(
+						AdminController.class);
 				controllerDef.setAutowireCandidate(true);
-				controllerDef.getPropertyValues().add("adminService", AdminJsonUnitTests.this.service);
-				controllerDef.getPropertyValues().add("messages", AdminJsonUnitTests.this.messages);
-				wac.registerBeanDefinition("controller",controllerDef);
-//				wac.registerBeanDefinition("viewResolver", new RootBeanDefinition(TestViewResolver.class));		
-				
-				RootBeanDefinition adapterDef = new RootBeanDefinition(AnnotationMethodHandlerAdapter.class);
-				adapterDef.getPropertyValues().add("webBindingInitializer", new MyWebBindingInitializer());
-				adapterDef.getPropertyValues().add("messageConverters", new MappingJacksonHttpMessageConverter());
+				controllerDef.getPropertyValues().add("adminService",
+						AdminJsonUnitTests.this.service);
+				controllerDef.getPropertyValues().add("messages",
+						AdminJsonUnitTests.this.messages);
+				wac.registerBeanDefinition("controller", controllerDef);
+				// wac.registerBeanDefinition("viewResolver", new
+				// RootBeanDefinition(TestViewResolver.class));
+
+				RootBeanDefinition adapterDef = new RootBeanDefinition(
+						AnnotationMethodHandlerAdapter.class);
+				adapterDef.getPropertyValues().add("webBindingInitializer",
+						new MyWebBindingInitializer());
+				adapterDef.getPropertyValues().add("messageConverters",
+						new MappingJacksonHttpMessageConverter());
 				wac.registerBeanDefinition("handlerAdapter", adapterDef);
-				
-				RootBeanDefinition mappingDef = new RootBeanDefinition(DefaultAnnotationHandlerMapping.class);
+
+				RootBeanDefinition mappingDef = new RootBeanDefinition(
+						DefaultAnnotationHandlerMapping.class);
 				wac.registerBeanDefinition("handlerMapping", mappingDef);
 
 				wac.refresh();
@@ -377,23 +409,26 @@ public class AdminJsonUnitTests {
 		};
 		servlet.init(new MockServletConfig());
 
-		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/admin/company/1");
+		MockHttpServletRequest request = new MockHttpServletRequest("GET",
+				"/admin/company/1");
 		request.addHeader("Accept", "application/json");
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		servlet.service(request, response);
 		LOGGER.info(response.getContentAsString());
 	}
-	
-	private static class MyWebBindingInitializer implements WebBindingInitializer {
+
+	private static class MyWebBindingInitializer implements
+			WebBindingInitializer {
 
 		public void initBinder(WebDataBinder binder, WebRequest request) {
 			LocalValidatorFactoryBean vf = new LocalValidatorFactoryBean();
 			vf.afterPropertiesSet();
 			binder.setValidator(vf);
 			assertNotNull(request.getLocale());
-//			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//			dateFormat.setLenient(false);
-//			binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+			// SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			// dateFormat.setLenient(false);
+			// binder.registerCustomEditor(Date.class, new
+			// CustomDateEditor(dateFormat, false));
 		}
 	}
 
@@ -402,52 +437,177 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Location location = AdminDomain.getLocation();
-		
-		Set<ConstraintViolation<Location>> constraintViolations = validator.validate(location);
+
+		Set<ConstraintViolation<Location>> constraintViolations = validator
+				.validate(location);
 		printConstraintViolations(constraintViolations);
-		assertEquals(0, constraintViolations.size());		
+		assertEquals(0, constraintViolations.size());
 	}
-	
+
 	@Test
 	public void testCompanyUserValid() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		CompanyUser companyUser = AdminDomain.getCompanyUser(1L);
-		Set<ConstraintViolation<CompanyUser>> constraintViolations = validator.validate(companyUser);
+		Set<ConstraintViolation<CompanyUser>> constraintViolations = validator
+				.validate(companyUser);
 		printConstraintViolations(constraintViolations);
-		assertEquals(0, constraintViolations.size());		
+		assertEquals(0, constraintViolations.size());
 	}
-	
-	
+
+	/**
+	 * testing for serializing and deserializing from a Jackson standpoint
+	 */
+
 	@Test
-	public void canDeserializeCompany() {
-		ObjectMapper mapper = new ObjectMapper();
-		JavaType javaType = TypeFactory.defaultInstance().constructType(Company.class);
-		Assert.assertTrue(mapper.canDeserialize(javaType));
+	public void testSerializeCompany() {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			Company company = AdminDomain.getCompany();
+			Assert.assertTrue(mapper.canSerialize(Company.class));
+			// LOGGER.info(mapper.writeValueAsString(company));
+			Assert.assertEquals(
+					"{\"name\":\""
+							+ company.getName()
+							+ "\",\"id\":null,\"timestamp\":"
+							+ company.getTimestamp().getTime()
+							+ ",\"code\":\""
+							+ company.getCode()
+							+ "\",\"normName\":\""
+							+ company.getNormName()
+							+ "\",\"url\":\"http://www.ashriv.com\",\"email\":\"gpinto@bbandt.com\",\"priPhone\":\"9194553262\",\"fax\":\"9194470110\",\"secPhone\":\"\"}",
+					mapper.writeValueAsString(company));
+		} catch (Exception e) {
+			Assert.fail("Exception occurred: " + e.getMessage());
+		}
 	}
-	
+
 	@Test
-	public void canDeserializeLocation() {
-		ObjectMapper mapper = new ObjectMapper();
-		JavaType javaType = TypeFactory.defaultInstance().constructType(Location.class);
-		Assert.assertTrue(mapper.canDeserialize(javaType));
+	public void testDeserializeCompany() {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			JavaType companyType = TypeFactory.defaultInstance().constructType(
+					Company.class);
+			Assert.assertTrue(mapper.canDeserialize(companyType));
+			String content = "{\"name\":\"This is a Good Company 0337\",\"id\":null,\"timestamp\":1324590685439,\"code\":\"AGOODC0337\",\"normName\":\"this is a good company 0337\",\"url\":\"http://www.ashriv.com\",\"email\":\"gpinto@bbandt.com\",\"priPhone\":\"9194553262\",\"secPhone\":\"\",\"fax\":\"9194470110\"}";
+			Company company = mapper.readValue(content, companyType);
+			assertEquals("This is a Good Company 0337", company.getName());
+			assertEquals("AGOODC0337", company.getCode());
+			assertEquals("http://www.ashriv.com", company.getUrl());
+			assertEquals("gpinto@bbandt.com", company.getEmail());
+			assertEquals("9194553262", company.getPriPhone());
+			assertEquals("9194470110", company.getFax());
+
+		} catch (Exception e) {
+			Assert.fail("canDeserializeCompany failed: " + e.getMessage());
+		}
 	}
-	
+
 	@Test
-	public void canDeserializeCompanyUser() {
-		ObjectMapper mapper = new ObjectMapper();
-		JavaType javaType = TypeFactory.defaultInstance().constructType(CompanyUser.class);
-		Assert.assertTrue(mapper.canDeserialize(javaType));
+	public void testSerializeCompanyUser() {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			CompanyUser companyUser = AdminDomain.getCompanyUser(1L);
+			Assert.assertTrue(mapper.canSerialize(CompanyUser.class));
+			// LOGGER.info(mapper.writeValueAsString(companyUser));
+			// String expectedValue = "{\"id\":null,\"timestamp\":" +
+			// companyUser.getTimestamp().getTime() +
+			// ",\"suffix\":\"III\",\"password\":\"M1ng1L4r2\",\"firstName\":\"Glenn\",\"userId\":\""+
+			// companyUser.getUserId()
+			// +"\",\"email\":\"gvpinto@gmail.com\",\"priPhone\":\"9194553262\",\"fax\":\"\",\"active\":true,\"secPhone\":\"9194553263\",\"role\":\"OWNER\",\"title\":\"Mr.\",\"lastName\":\"Pinto\",\"middleInitial\":\"J\",\"entitlements\":[\"NONE\",\"ADD_USER\"],\"approved\":true,\"companyId\":1}";
+			// String expectedValue = "{\"id\":null,\"timestamp\":" +
+			// companyUser.getTimestamp().getTime() +
+			// ",\"suffix\":\"III\",\"password\":\"M1ng1L4r2\",\"firstName\":\"Glenn\",\"userId\":\""+
+			// companyUser.getUserId()
+			// +"\",\"email\":\"gvpinto@gmail.com\",\"priPhone\":\"9194553262\",\"fax\":\"\",\"lastName\":\"Pinto\",\"entitlements\":[\"NONE\",\"ADD_USER\"],\"active\":true,\"secPhone\":\"9194553263\",\"role\":\"OWNER\",\"title\":\"Mr.\",\"middleInitial\":\"J\",\"approved\":true,\"companyId\":1}";
+			// assertEquals(expectedValue,
+			// mapper.writeValueAsString(companyUser));
+			String actualValue = mapper.writeValueAsString(companyUser);
+			Assert.assertTrue(actualValue.indexOf(companyUser.getUserId()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(companyUser.getPassword()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(companyUser.getFirstName()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(companyUser.getLastName()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(companyUser
+					.getMiddleInitial()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(String.valueOf(companyUser
+					.getTimestamp().getTime())) >= 0);
+			Assert.assertTrue(actualValue.indexOf(companyUser.getPriPhone()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(companyUser.getSecPhone()) >= 0);
+			Assert.assertTrue(actualValue.indexOf("\"approved\":true") >= 0);
+			Assert.assertTrue(actualValue.indexOf("\"role\":\"OWNER\"") >= 0);
+
+		} catch (Exception e) {
+			Assert.fail("Exception occurred: " + e.getMessage());
+		}
 	}
+
+	@Test
+	public void testDeserializeCompanyUser() {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			JavaType companyUserType = TypeFactory.defaultInstance()
+					.constructType(CompanyUser.class);
+			Assert.assertTrue(mapper.canDeserialize(companyUserType));
+			String content = "{\"id\":null,\"timestamp\":1324593749084,\"suffix\":\"III\",\"password\":\"M1ng1L4r2\",\"firstName\":\"Glenn\",\"userId\":\"gvpinto591\",\"email\":\"gvpinto@gmail.com\",\"priPhone\":\"9194553262\",\"fax\":\"\",\"lastName\":\"Pinto\",\"active\":true,\"secPhone\":\"9194553263\",\"role\":\"OWNER\",\"title\":\"Mr.\",\"middleInitial\":\"J\",\"entitlements\":[\"NONE\",\"ADD_USER\"],\"approved\":true,\"companyId\":1}";
+			CompanyUser companyUser = mapper
+					.readValue(content, companyUserType);
+			assertEquals("gvpinto591", companyUser.getUserId());
+			assertEquals("Glenn", companyUser.getFirstName());
+			assertEquals("Pinto", companyUser.getLastName());
+			// LOGGER.debug(companyUser.getEntitlements().toString());
+			assertEquals("[NONE, ADD_USER]", companyUser.getEntitlements()
+					.toString());
+
+		} catch (Exception e) {
+			Assert.fail("canDeserializeCompanyUser failed: " + e.getMessage());
+		}
+	}
+
+	@Test
+	public void testSerializeLocation() {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			Location location = AdminDomain.getLocation();
+			Assert.assertTrue(mapper.canSerialize(Location.class));
+			// LOGGER.info(mapper.writeValueAsString(location));
+			String actualValue = mapper.writeValueAsString(location);
+			Assert.assertTrue(actualValue.indexOf(location.getName()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(location.getEmail()) >= 0);
+			Assert.assertTrue(actualValue.indexOf(location.getDescription()) >= 0);
+			Assert.assertTrue(actualValue
+					.indexOf("\"parkFacilityType\":\"COVERED\"") >= 0);
+			Assert.assertTrue(actualValue.indexOf(location.getStreet()) >= 0);
+
+		} catch (Exception e) {
+			Assert.fail("Exception occurred: " + e.getMessage());
+		}
+	}
+
+	@Test
+	public void testDeserializeLocation() {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			JavaType locationType = TypeFactory.defaultInstance()
+					.constructType(Location.class);
+			Assert.assertTrue(mapper.canDeserialize(locationType));
+			String content = "{\"name\":\"Glenn's parking lot. this-is a meaning, and_w\",\"id\":null,\"timestamp\":1324598045937,\"normName\":\"glenn's parking lot. this-is a meaning, and_w\",\"email\":\"gvpinto@gmail.co.in\",\"priPhone\":\"9194553262\",\"fax\":\"9194470110\",\"secPhone\":\"9194553262\",\"description\":\"This is a beautiful parking lot with ample spaces and a secured place with parking\",\"street\":\"12808 Baybriar Dr, Ste 200\",\"street2\":\"\",\"city\":\"Raleigh\",\"zipCd\":\"27560-5500\",\"stateCd\":\"NC\",\"countryCd\":\"USA\",\"gcLat\":35.910126,\"gcLng\":78.717636,\"parkFacilityType\":\"COVERED\",\"totalCapacity\":100,\"defaultRate\":556,\"manned\":true,\"mannedDesc\":\"This is a Manned place with 24hrs of security\"}";
+			Location location = mapper.readValue(content, locationType);
+			assertEquals("Glenn's parking lot. this-is a meaning, and_w", location.getName());
+		} catch (Exception e) {
+			Assert.fail("Exception occurred: " + e.getMessage());
+		}
+
+	}
+
 	private <T> void printConstraintViolations(
 			Set<ConstraintViolation<T>> constraintViolations) {
-		
+
 		if (constraintViolations.size() > 0) {
 			for (ConstraintViolation<T> constraintViolation : constraintViolations) {
 				LOGGER.debug(">> " + constraintViolation.getMessage());
 			}
 		}
-		
+
 	}
 
 }

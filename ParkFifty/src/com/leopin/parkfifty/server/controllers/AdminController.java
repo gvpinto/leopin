@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.server.controller;
+package com.leopin.parkfifty.server.controllers;
 
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS;
 import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_UNEXPECTED;
@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.google.appengine.repackaged.com.google.common.base.CharMatcher;
-import com.leopin.parkfifty.server.service.AdminService;
+import com.google.common.base.CharMatcher;
+import com.leopin.parkfifty.server.services.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
