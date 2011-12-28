@@ -4,12 +4,12 @@ import java.text.DecimalFormat;
 import java.util.Random;
 
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Entitlement;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.domain.ParkFacilityType;
 import com.leopin.parkfifty.shared.domain.Role;
-import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 
 public class AdminDomain {
 
@@ -58,14 +58,13 @@ public class AdminDomain {
 			companyUser.setEmail("gvpinto@gmail.com");
 			companyUser.setActive(true);
 			companyUser.setApproved(true);
-			if (companyId > 0)
-				companyUser.setCompanyId(companyId);
+			companyUser.setCompanyKey(companyId);
 			return companyUser;
 	}
 	
 	
-	public static NewCompanyWrapper getNewCompanyWrapper() {
-		NewCompanyWrapper newCompanyWrapper = new NewCompanyWrapper();
+	public static CompanyAndUser getCompanyAndUser() {
+		CompanyAndUser newCompanyWrapper = new CompanyAndUser();
 		newCompanyWrapper.setCompany(getCompany());
 		newCompanyWrapper.setCompanyUser(getCompanyUser(0L));
 		return newCompanyWrapper;

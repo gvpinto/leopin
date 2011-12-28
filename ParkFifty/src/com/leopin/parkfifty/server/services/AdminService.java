@@ -3,9 +3,9 @@ package com.leopin.parkfifty.server.services;
 import java.util.List;
 
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
-import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 
 public interface AdminService {
 	
@@ -25,6 +25,6 @@ public interface AdminService {
 
 	CompanyUser addCompanyUser(CompanyUser companyUser);
 	
-	NewCompanyWrapper addNewCompany(NewCompanyWrapper addCompany);
+	CompanyAndUser addNewCompany(CompanyAndUser addCompany);
 
 }

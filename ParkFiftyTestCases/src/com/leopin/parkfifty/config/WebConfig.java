@@ -1,5 +1,7 @@
 package com.leopin.parkfifty.config;
 
+import javax.validation.Validator;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -54,6 +57,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		
 		amher.setMessageConverters(hmc);
 		return amher;
+	}
+	
+	@Bean
+	public Validator validator() {
+		return  new LocalValidatorFactoryBean();
 	}
 }
 

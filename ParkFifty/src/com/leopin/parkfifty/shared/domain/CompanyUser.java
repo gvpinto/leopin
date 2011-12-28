@@ -42,8 +42,6 @@ public class CompanyUser {
 	@Id
 	private Long id;
 	
-	private Long companyId;
-	
 	/**
 	 * Reference to the Company Entity
 	 */
@@ -246,18 +244,6 @@ public class CompanyUser {
 		this.timestamp = timestamp;
 	}
 
-	@JsonIgnore
-	public Key<Company> getCompanyIdKey() {
-		if (companyKey == null) {
-			this.companyKey = new Key<Company>(Company.class, companyId);
-		}
-		return companyKey;
-	}
-
-	public void setCompanyIdKey(Key<Company> companyKey) {
-		this.companyKey = companyKey;
-	}
-
 	@JsonDeserialize(contentAs=Entitlement.class)
 	public void setEntitlements(List<Entitlement> entitlements) {
 //		if (entitlements != null && entitlements.size() > 0) {
@@ -293,22 +279,29 @@ public class CompanyUser {
 		this.approved = approved;
 	}
 	
+	@JsonIgnore
 	public Long getCompanyId() {
-		return companyId;
+		return companyKey.getId();
 	}
 	
+	@JsonIgnore
+	public Key<Company> getCompanyKey() {
+		return companyKey;
+	}
+
 	@JsonIgnore
 	public Long getCompanyIdFromKey() {
 		return companyKey.getId();
 	}
-
-	public void setCompanyId(Long companyId) {
-		this.companyId = companyId;
+	
+	@JsonIgnore
+	public void setCompanyKey(Key<Company> key) {
+		this.companyKey = key;
 	}
 	
-	public void setCompanyKey() {
-		if (this.companyId > 0L) {
-			this.companyKey = new Key<Company>(Company.class, this.companyId);
+	public void setCompanyKey(Long id) {
+		if (id > 0L) {
+			this.companyKey = new Key<Company>(Company.class, id);
 		}
 	}
 
@@ -319,7 +312,7 @@ public class CompanyUser {
 		if (object instanceof CompanyUser) {
 			
 			CompanyUser that = (CompanyUser) object;
-			return Objects.equal(this.companyId, that.companyId)
+			return Objects.equal((this.companyKey != null ? this.companyKey.getId() : 0L), (that.companyKey != null ? that.companyKey.getId() : 1L))
 					&& Objects.equal(this.userId, that.userId)
 					&& Objects.equal(this.password, that.password)
 					&& Objects.equal(this.role, that.role)
@@ -345,14 +338,14 @@ public class CompanyUser {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(this.companyId, this.userId);
+		return Objects.hashCode(this.companyKey, this.userId);
 	}
 	
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
 				.add("Id", this.id)
-				.add("Company Id", this.companyId)				
+				.add("Company Id",(this.companyKey != null ? this.companyKey.getId() : 0L))				
 				.add("User Id", this.userId)
 				.add("Role", this.role)
 				.add("Title", this.title)

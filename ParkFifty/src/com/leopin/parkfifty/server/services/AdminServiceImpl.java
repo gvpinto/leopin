@@ -1,15 +1,5 @@
 package com.leopin.parkfifty.server.services;
 
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_EXISTS;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_NOT_FOUND;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_LOCATION_EXISTS;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_USER_EXISTS;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_COMPANY;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_LOCATION;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_ADD_USER;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_DELETE_COMPANY;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_SYS_ADMIN_GET_COMPANY;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +8,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Entitlement;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.domain.Role;
-import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
+import com.leopin.parkfifty.shared.exception.AppErrorKey;
 import com.leopin.parkfifty.shared.exception.AppException;
+import com.leopin.parkfifty.shared.exception.SysErrorKey;
 import com.leopin.parkfifty.shared.exception.SysException;
 
 @Service("adminService")
@@ -35,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
 	// TODO Replace Logger with AspectJ code
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminServiceImpl.class);
 	
-	@Autowired 
+	@Autowired
 	private ObjectifyFactory objectifyFactory;
 	
 //	public void setObjectifyFactory(ObjectifyFactory objectifyFactory) {
@@ -67,12 +60,12 @@ public class AdminServiceImpl implements AdminService {
 		try {
 			Company company = ofy.query(Company.class).filter("name", name).get();
 			if (company == null)
-				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {name});
+				throw new AppException(AppErrorKey.ADMIN_COMPANY_NOT_FOUND.getErrorKey(), new Object[] {name});
 			return company;
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception e) {
-			throw new SysException(e, ERROR_SYS_ADMIN_GET_COMPANY, new Object[] {name});
+			throw new SysException(e, SysErrorKey.ADMIN_GET_COMPANY.getErrorKey(), new Object[] {name});
 		}
 		
 	
@@ -90,13 +83,13 @@ public class AdminServiceImpl implements AdminService {
 		try {
 			Company company = ofy.query(Company.class).filter("id", id).get();
 			if (company == null)
-				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {String.valueOf(id)});
+				throw new AppException(AppErrorKey.ADMIN_COMPANY_NOT_FOUND.getErrorKey(), new Object[] {String.valueOf(id)});
 			return company;
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
-			throw new SysException(e, ERROR_SYS_ADMIN_GET_COMPANY, new Object[] {String.valueOf(id)});
+			throw new SysException(e, SysErrorKey.ADMIN_GET_COMPANY.getErrorKey(), new Object[] {String.valueOf(id)});
 		}
 	}
 
@@ -116,7 +109,7 @@ public class AdminServiceImpl implements AdminService {
 			// Normalized name is required because datastore does not have query capabilities for lower casing existing data
 			Company c = ofyGet.query(Company.class).filter("normName", company.getNormName()).get();
 			if (c != null) {
-				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {company.getName()});
+				throw new AppException(AppErrorKey.ADMIN_COMPANY_EXISTS.getErrorKey(), new Object[] {company.getName()});
 			}
 			ofyAdd.put(company);
 			ofyAdd.getTxn().commit();
@@ -125,7 +118,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_COMPANY, new Object[] {company.getName()});
+			throw new SysException(ex, SysErrorKey.ADMIN_ADD_COMPANY.getErrorKey(), new Object[] {company.getName()});
 		} finally {
 			if (ofyAdd.getTxn().isActive())
 				ofyAdd.getTxn().rollback();
@@ -146,14 +139,14 @@ public class AdminServiceImpl implements AdminService {
 			// Look up if a company exists in the datastore with the same name
 			Company c = getCompany(id);
 			if (c == null) {
-				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {id});
+				throw new AppException(AppErrorKey.ADMIN_COMPANY_NOT_FOUND.getErrorKey(), new Object[] {id});
 			}
 			ofy.delete(c);
 			ofy.getTxn().commit();
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_DELETE_COMPANY, new Object[] {id});
+			throw new SysException(ex, SysErrorKey.ADMIN_DELETE_COMPANY.getErrorKey(), new Object[] {id});
 		} finally {
 			if (ofy.getTxn().isActive())
 				ofy.getTxn().rollback();
@@ -174,14 +167,14 @@ public class AdminServiceImpl implements AdminService {
 			// Look up if a company exists in the datastore with the same name
 			Company c = getCompany(name);
 			if (c == null) {
-				throw new AppException(ERROR_APP_ADMIN_COMPANY_NOT_FOUND, new Object[] {name});
+				throw new AppException(AppErrorKey.ADMIN_COMPANY_NOT_FOUND.getErrorKey(), new Object[] {name});
 			}
 			ofy.delete(c);
 			ofy.getTxn().commit();
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_DELETE_COMPANY, new Object[] {name});
+			throw new SysException(ex, SysErrorKey.ADMIN_DELETE_COMPANY.getErrorKey(), new Object[] {name});
 		} finally {
 			if (ofy.getTxn().isActive())
 				ofy.getTxn().rollback();
@@ -204,7 +197,7 @@ public class AdminServiceImpl implements AdminService {
 			// Look up if a company exists in the datastore with the same name
 			Location c = ofyGet.query(Location.class).filter("normName", location.getNormName()).get();
 			if (c != null) {
-				throw new AppException(ERROR_APP_ADMIN_LOCATION_EXISTS, new Object[] {location.getName()});
+				throw new AppException(AppErrorKey.ADMIN_LOCATION_EXISTS.getErrorKey(), new Object[] {location.getName()});
 			}
 			ofyAdd.put(location);
 			ofyAdd.getTxn().commit();
@@ -212,7 +205,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_LOCATION, new Object[] {location.getName()});
+			throw new SysException(ex, SysErrorKey.ADMIN_ADD_LOCATION.getErrorKey(), new Object[] {location.getName()});
 		} finally {
 			if (ofyAdd.getTxn().isActive())
 				ofyAdd.getTxn().rollback();
@@ -236,12 +229,12 @@ public class AdminServiceImpl implements AdminService {
 			// Check for duplicate userId within a given company.
 //			CompanyUser companyUser = ofyGet.get(companyUser.getCompanyKey()), CompanyUser.class, companyUser.getCompanyId());
 			CompanyUser cu= ofyGet.query(CompanyUser.class)
-					.ancestor(companyUser.getCompanyIdKey())
+					.ancestor(companyUser.getCompanyKey())
 					.filter("userId", companyUser.getUserId())
 					.get();
 			
 			if (cu != null) {
-				throw new AppException(ERROR_APP_ADMIN_USER_EXISTS, new Object[] {companyUser.getUserId()});
+				throw new AppException(AppErrorKey.ADMIN_USER_EXISTS.getErrorKey(), new Object[] {companyUser.getUserId()});
 			}
 			ofyAdd.put(companyUser);
 			ofyAdd.getTxn().commit();
@@ -250,7 +243,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_USER, new Object[] {companyUser.getUserId()});
+			throw new SysException(ex, SysErrorKey.ADMIN_ADD_USER.getErrorKey(), new Object[] {companyUser.getUserId()});
 		} finally {
 			if (ofyAdd.getTxn().isActive())
 				ofyAdd.getTxn().rollback();
@@ -259,7 +252,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public NewCompanyWrapper addNewCompany(NewCompanyWrapper newCompanyWrapper) {
+	public CompanyAndUser addNewCompany(CompanyAndUser companyAndUser) {
 		
 		Objectify ofyAdd = objectifyFactory.beginTransaction();
 		Objectify ofyGet = objectifyFactory.begin();
@@ -267,13 +260,13 @@ public class AdminServiceImpl implements AdminService {
 		try {
 			
 			// Adding the new company
-			Company c = ofyGet.query(Company.class).filter("normName", newCompanyWrapper.getCompany().getNormName()).get();
+			Company c = ofyGet.query(Company.class).filter("normName", companyAndUser.getCompany().getNormName()).get();
 			if (c != null) {
-				throw new AppException(ERROR_APP_ADMIN_COMPANY_EXISTS, new Object[] {newCompanyWrapper.getCompany().getName()});
+				throw new AppException(AppErrorKey.ADMIN_COMPANY_EXISTS.getErrorKey(), new Object[] {companyAndUser.getCompany().getName()});
 			}
-			ofyAdd.put(newCompanyWrapper.getCompany());
+			ofyAdd.put(companyAndUser.getCompany());
 
-			LOGGER.debug("Added Company {} Sucessfully before commit", newCompanyWrapper.getCompany());
+			LOGGER.debug("Added Company {} Sucessfully before commit", companyAndUser.getCompany());
 
 			// Adding the owner of the company
 //			CompanyUser cu= ofyGet.query(CompanyUser.class)
@@ -282,29 +275,30 @@ public class AdminServiceImpl implements AdminService {
 //					.get();
 			
 //			if (cu != null) {
-//				throw new AppException(ERROR_APP_ADMIN_USER_EXISTS, new Object[] {companyUser.getUserId()});
+//				throw new AppException(ERROR_APP_ADMIN_USER_EXISTS.getErrorKey(), new Object[] {companyUser.getUserId()});
 //			}
 			
-			newCompanyWrapper.getCompanyUser().setRole(Role.OWNER);
-			newCompanyWrapper.getCompanyUser().addEntitlement(Entitlement.NOT_APPLICABLE);
-			newCompanyWrapper.getCompanyUser().setCompanyId(newCompanyWrapper.getCompany().getId());
-			newCompanyWrapper.getCompanyUser().setActive(true);
-			newCompanyWrapper.getCompanyUser().setApproved(true);
+			companyAndUser.getCompanyUser().setRole(Role.OWNER);
+			companyAndUser.getCompanyUser().addEntitlement(Entitlement.NOT_APPLICABLE);
+//			companyAndUser.getCompanyUser().setCompanyId(companyAndUser.getCompany().getId());
+			companyAndUser.getCompanyUser().setCompanyKey(companyAndUser.getCompany().getId());
+			companyAndUser.getCompanyUser().setActive(true);
+			companyAndUser.getCompanyUser().setApproved(true);
 			
-			ofyAdd.put(newCompanyWrapper.getCompanyUser());
+			ofyAdd.put(companyAndUser.getCompanyUser());
 
-			LOGGER.debug("Added Company Owner {} successfully before commit", newCompanyWrapper.getCompanyUser());
+			LOGGER.debug("Added Company Owner {} successfully before commit", companyAndUser.getCompanyUser());
 			
 			ofyAdd.getTxn().commit();
 			
 			
-			LOGGER.info("Added the new company {} successfully with id {}",  newCompanyWrapper.getCompany().getName(),  newCompanyWrapper.getCompany().getId());
-			return newCompanyWrapper;
+			LOGGER.info("Added the new company {} successfully with id {}",  companyAndUser.getCompany().getName(),  companyAndUser.getCompany().getId());
+			return companyAndUser;
 			
 		} catch (AppException ae) {
 			throw ae;
 		} catch (Exception ex) {
-			throw new SysException(ex, ERROR_SYS_ADMIN_ADD_COMPANY, new Object[] {newCompanyWrapper.getCompany().getName()});
+			throw new SysException(ex, SysErrorKey.ADMIN_ADD_COMPANY.getErrorKey(), new Object[] {companyAndUser.getCompany().getName()});
 		} finally {
 			if (ofyAdd.getTxn().isActive())
 				ofyAdd.getTxn().rollback();

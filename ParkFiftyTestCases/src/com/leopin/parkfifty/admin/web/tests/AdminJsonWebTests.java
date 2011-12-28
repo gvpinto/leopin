@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.leopin.parkfifty.admin.domain.AdminDomain;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
 
@@ -146,29 +147,31 @@ public class AdminJsonWebTests {
 		ResponseEntity<Company> responseGet = new RestTemplate().getForEntity("{urlPrefix}/company/{companyName}", Company.class, urlVars);
 		assertEquals("Delete Company", responseGet.getBody().getName());
 		
-		new RestTemplate().delete("{urlPrefix}/company/{companyName}", urlVars);
+		new RestTemplate().delete("{urlPre`fix}/company/{companyName}", urlVars);
 		
 	}
 	
-//	@Test
-	public void testAddCompany() {
+	@Test
+	public void testAddCompanyAndUser() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
 		
 
-		Company company = AdminDomain.getCompany();
-		String name = company.getName();
-		LOGGER.debug(company.toString());
+		CompanyAndUser companyAndUser = AdminDomain.getCompanyAndUser();
+		String companyName = companyAndUser.getCompany().getName();
+		String userId = companyAndUser.getCompanyUser().getUserId();
 		
-		ResponseEntity<Company> response = new RestTemplate().postForEntity("{urlPrefix}/company", company, Company.class, urlVars);
+		ResponseEntity<CompanyAndUser> response = new RestTemplate().postForEntity("{urlPrefix}/company", companyAndUser, CompanyAndUser.class, urlVars);
 		
-		assertEquals(name, response.getBody().getName());
-		assertNotNull(response.getBody().getId());
+		assertEquals(companyName, response.getBody().getCompany().getName());
+		assertEquals(userId, response.getBody().getCompanyUser().getUserId());
+		assertNotNull(response.getBody().getCompany().getId());
+		assertNotNull(response.getBody().getCompanyUser().getId());
 		
 	}
 	
-	@Test
+//	@Test
 	public void testAddCompanyUser() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
@@ -192,8 +195,7 @@ public class AdminJsonWebTests {
 	}
 	
 //	@Test
-//	public void testAddVerifyDeleteCompany() throws Exception {
-//
+//	public void testAddVerifyDeleteCompany() throws Exception 
 //		HttpClient httpClient = new DefaultHttpClient();
 //		
 //		HttpPost request = new HttpPost(adminURL + "/company");

@@ -1,8 +1,5 @@
 package com.leopin.parkfifty.server.controllers;
 
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS;
-import static com.leopin.parkfifty.shared.exception.ErrorKeys.ERROR_UNEXPECTED;
-
 import java.util.Locale;
 import java.util.Set;
 
@@ -29,11 +26,13 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.google.common.base.CharMatcher;
 import com.leopin.parkfifty.server.services.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.ExceptionInfo;
 import com.leopin.parkfifty.shared.domain.Location;
-import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
+import com.leopin.parkfifty.shared.exception.AppErrorKey;
 import com.leopin.parkfifty.shared.exception.AppException;
+import com.leopin.parkfifty.shared.exception.SysErrorKey;
 import com.leopin.parkfifty.shared.exception.SysException;
 
 @Controller
@@ -83,13 +82,17 @@ public class AdminController {
 	 * @param id Identifier that can be an Record ID or Name
 	 * @return
 	 */
-	@RequestMapping(value="/company/{id}", method=RequestMethod.GET, headers="Accept=application/json")
+	@RequestMapping(value="/company/{id}", method=RequestMethod.GET, produces="application/json")
 	public @ResponseBody Company getCompany(@PathVariable String id) {
 		LOGGER.debug("Retrieving [" + id + "]");
-		if (CharMatcher.DIGIT.matchesAllOf(id)) 
+		if (CharMatcher.DIGIT.matchesAllOf(id)) {
+			LOGGER.debug("IF");
 			return adminService.getCompany(Long.parseLong(id));
-		else 
+		}
+		else {
+			LOGGER.debug("ELSE");
 			return adminService.getCompany(id);
+		}
 //		(CharMatcher.is('+').replaceFrom(id, ' '))
 		
 	}
@@ -102,24 +105,24 @@ public class AdminController {
 			method=RequestMethod.POST,
 			headers = {"Accept=application/json"})
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody NewCompanyWrapper addCompany(@RequestBody NewCompanyWrapper newCompanyWrapper) {
+	public @ResponseBody CompanyAndUser addCompany(@RequestBody CompanyAndUser companyAndUser) {
 		
-		LOGGER.debug("Adding Company [" + newCompanyWrapper.toString() + "]");
-		Set<ConstraintViolation<NewCompanyWrapper>> constraints = validator.validate(newCompanyWrapper);
+		LOGGER.debug("Adding Company [" + companyAndUser.toString() + "]");
+		Set<ConstraintViolation<CompanyAndUser>> constraints = validator.validate(companyAndUser);
 		if (!constraints.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
 			boolean comma = false;
-			for (ConstraintViolation<NewCompanyWrapper> constraintViolation : constraints) {
+			for (ConstraintViolation<CompanyAndUser> constraintViolation : constraints) {
 				sb.append((comma? ", " : "") + constraintViolation.getMessage());
 				comma = true;
 			}
 			LOGGER.debug(sb.toString());
-			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
+			throw new AppException(AppErrorKey.ADMIN_COMPANY_BINDING_ERRORS.getErrorKey(), new Object[]{sb.toString()});
 		}
 
-		newCompanyWrapper = adminService.addNewCompany(newCompanyWrapper);
+		companyAndUser = adminService.addNewCompany(companyAndUser);
 		
-		return newCompanyWrapper;
+		return companyAndUser;
 
 	}
 
@@ -140,7 +143,7 @@ public class AdminController {
 				comma = true;
 			}
 			LOGGER.debug(sb.toString());
-			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
+			throw new AppException(AppErrorKey.ADMIN_COMPANY_BINDING_ERRORS.getErrorKey(), new Object[]{sb.toString()});
 		}
 		
 		return adminService.addLocation(location);
@@ -166,7 +169,7 @@ public class AdminController {
 				comma = true;
 			}
 			LOGGER.debug(sb.toString());
-			throw new AppException(ERROR_APP_ADMIN_COMPANY_BINDING_ERRORS, new Object[]{sb.toString()});
+			throw new AppException(AppErrorKey.ADMIN_COMPANY_BINDING_ERRORS.getErrorKey(), new Object[]{sb.toString()});
 		}
 		
 		return adminService.addCompanyUser(companyUser);
@@ -218,7 +221,7 @@ public class AdminController {
 	@ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
 	public @ResponseBody ExceptionInfo handleThrowable(Exception ex) {
 		LOGGER.error("Exception", ex);
-		return new ExceptionInfo(ERROR_UNEXPECTED, getMessage(ERROR_UNEXPECTED, new Object[]{}));
+		return new ExceptionInfo(SysErrorKey.UNEXPECTED.getErrorKey(), getMessage(SysErrorKey.UNEXPECTED.getErrorKey(), new Object[]{}));
 	}
 	
 	

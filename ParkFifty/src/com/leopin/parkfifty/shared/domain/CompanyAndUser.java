@@ -1,11 +1,11 @@
-package com.leopin.parkfifty.shared.domain.jsonwrapper;
+package com.leopin.parkfifty.shared.domain;
 
 import javax.validation.Valid;
 
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 
-public class NewCompanyWrapper {
+public class CompanyAndUser {
 	
 	@Valid
 	private Company company;

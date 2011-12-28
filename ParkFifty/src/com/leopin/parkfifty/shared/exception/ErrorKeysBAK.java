@@ -1,6 +1,6 @@
 package com.leopin.parkfifty.shared.exception;
 
-public final class ErrorKeys {
+public final class ErrorKeysBAK {
 	
 	public static final String ERROR_DEFAULT = "error.default"; // Exception Occurred
 	public static final String ERROR_UNEXPECTED = "error.unexpected"; // Unexpected Error Occurred

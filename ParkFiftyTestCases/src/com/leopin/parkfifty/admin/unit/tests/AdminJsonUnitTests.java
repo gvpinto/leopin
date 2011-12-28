@@ -47,9 +47,9 @@ import com.leopin.parkfifty.admin.domain.AdminDomain;
 import com.leopin.parkfifty.server.controllers.AdminController;
 import com.leopin.parkfifty.server.services.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.domain.Location;
-import com.leopin.parkfifty.shared.domain.jsonwrapper.NewCompanyWrapper;
 import com.leopin.parkfifty.shared.exception.AppException;
 
 public class AdminJsonUnitTests {
@@ -115,8 +115,8 @@ public class AdminJsonUnitTests {
 	public void testForAddCompanyService() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		NewCompanyWrapper newCompanyWrapper = AdminDomain
-				.getNewCompanyWrapper();
+		CompanyAndUser newCompanyWrapper = AdminDomain
+				.getCompanyAndUser();
 
 		when(service.addNewCompany(newCompanyWrapper)).thenReturn(
 				newCompanyWrapper);
@@ -167,8 +167,8 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 
-		NewCompanyWrapper newCompanyWrapper = AdminDomain
-				.getNewCompanyWrapper();
+		CompanyAndUser newCompanyWrapper = AdminDomain
+				.getCompanyAndUser();
 		newCompanyWrapper.getCompany().setEmail("gpintobbant.com");
 
 		when(service.addNewCompany(newCompanyWrapper)).thenReturn(
