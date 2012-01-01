@@ -27,4 +27,6 @@ public interface AdminService {
 	
 	CompanyAndUser addNewCompany(CompanyAndUser addCompany);
 
+	CompanyUser getCompanyUser(String userId);
+
 }

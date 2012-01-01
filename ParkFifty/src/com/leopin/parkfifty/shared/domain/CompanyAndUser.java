@@ -2,10 +2,13 @@ package com.leopin.parkfifty.shared.domain;
 
 import javax.validation.Valid;
 
+import com.leopin.parkfifty.shared.ApplicationVersion;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 
 public class CompanyAndUser {
+	
+	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
 	
 	@Valid
 	private Company company;

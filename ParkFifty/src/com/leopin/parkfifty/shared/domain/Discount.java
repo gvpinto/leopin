@@ -11,11 +11,14 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Unindexed;
+import com.leopin.parkfifty.shared.ApplicationVersion;
 
 
 @Entity
 @Unindexed
 public class Discount {
+	
+	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
 	
 	@Id
 	private Long id;

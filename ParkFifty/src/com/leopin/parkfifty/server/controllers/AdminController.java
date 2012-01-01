@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -103,7 +104,7 @@ public class AdminController {
 	 */
 	@RequestMapping(value="/company", 
 			method=RequestMethod.POST,
-			headers = {"Accept=application/json"})
+			produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody CompanyAndUser addCompany(@RequestBody CompanyAndUser companyAndUser) {
 		
@@ -156,7 +157,7 @@ public class AdminController {
 	 */
 	@RequestMapping(value="/company/companyUser", 
 			method=RequestMethod.POST,
-			headers = {"Accept=application/json"})
+			produces=MediaType.APPLICATION_JSON_VALUE)
 //	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody CompanyUser addCompanyUser(@RequestBody CompanyUser companyUser) {
 		LOGGER.debug("Adding CompanyUser [" + companyUser.toString() + "]");
@@ -173,6 +174,21 @@ public class AdminController {
 		}
 		
 		return adminService.addCompanyUser(companyUser);
+
+	}
+	
+	/**
+	 * POST - Insert a new Location
+	 * @param company
+	 */
+	@RequestMapping(value="/company/companyUser/{userId}", 
+			method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_JSON_VALUE)
+//	@ResponseStatus(HttpStatus.OK)
+	public @ResponseBody CompanyUser getCompanyUser(@PathVariable String userId) {
+		LOGGER.debug("Get CompanyUser by [" + userId + "]");
+		//TODO: Validation for the User Id
+		return adminService.getCompanyUser(userId);
 
 	}
 

@@ -1,17 +1,21 @@
 package com.leopin.parkfifty.admin.domain;
 
 import java.text.DecimalFormat;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
+import org.springframework.security.core.GrantedAuthority;
+
+import com.ashriv.security.server.GrantedRole;
+import com.ashriv.security.server.Role;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
-import com.leopin.parkfifty.shared.domain.Entitlement;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.domain.ParkFacilityType;
-import com.leopin.parkfifty.shared.domain.Role;
 
-public class AdminDomain {
+public class AdminDomainData {
 
 	/**
 	 * Get Company template
@@ -27,12 +31,13 @@ public class AdminDomain {
 		
 		company.setName("This is a Good Company " + val);
 		
-		company.setCode("AGOODC" + val);
+//		company.setCode("AGOODC" + val);
 		company.setEmail("gpinto@bbandt.com");
 		company.setUrl("http://www.ashriv.com");
 		company.setPriPhone("(919) 455-3262");
 		company.setSecPhone("");
 		company.setFax("(919) 447-0110");
+		company.setUpdateUid("gvpinto");
 		return company;
 	}
 	/**
@@ -43,10 +48,14 @@ public class AdminDomain {
 			Random rand = new Random(System.currentTimeMillis());
 			int userIdSuffix = rand.nextInt(999);
 			CompanyUser companyUser = new CompanyUser();
-			companyUser.setUserId("gvpinto" + userIdSuffix);
+			companyUser.setUsername("gvpinto" + userIdSuffix);
 			companyUser.setPassword("M1ng1L4r2");
-			companyUser.addEntitlement(Entitlement.ADD_USER);
-			companyUser.setRole(Role.OWNER);
+//			companyUser.addEntitlement(Entitlement.ADD_USER);
+//			companyUser.setRole(Role.OWNER);
+			Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+			authorities.add(new GrantedRole(Role.ROLE_OWNER));
+//			authorities.add(new GrantedRole(Role.ADD_LOCATION));
+			companyUser.setAuthorities(authorities);
 			companyUser.setTitle("Mr.");
 			companyUser.setFirstName("Glenn");
 			companyUser.setMiddleInitial("J");
@@ -56,9 +65,12 @@ public class AdminDomain {
 			companyUser.setSecPhone("919 455-3263");
 			companyUser.setFax("");
 			companyUser.setEmail("gvpinto@gmail.com");
-			companyUser.setActive(true);
-			companyUser.setApproved(true);
-			companyUser.setCompanyKey(companyId);
+			companyUser.setUpdateUid(companyUser.getUsername());
+			companyUser.setAccountNonExpired(true);
+			companyUser.setAccountNonLocked(true);
+			companyUser.setCredentialsNonExpired(true);
+			companyUser.setEnabled(true);
+			companyUser.setCompanyId(companyId);
 			return companyUser;
 	}
 	

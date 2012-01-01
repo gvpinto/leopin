@@ -1,7 +1,13 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.shared.AppRegExp.*;
+import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_CODE;
+import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_NAME;
+import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.shared.AppRegExp.URL;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -15,6 +21,7 @@ import com.google.common.base.Objects;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
+import com.leopin.parkfifty.shared.ApplicationVersion;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 /**
@@ -27,7 +34,9 @@ import com.leopin.parkfifty.shared.utils.Utils;
 @Component
 @Entity
 @Unindexed
-public class Company {
+public class Company implements Serializable {
+	
+	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
 	
 	// ^[a-z0-9_-]{3,16}$ - User ID
 	// ^[a-z0-9_-]{6,18}$ - Password
@@ -39,53 +48,55 @@ public class Company {
 	// ^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$ - HTML tag
 	
 	@Id 
-	private Long id;
+	Long id;
 	
-	/** 
-	 * Company Code will be used for Quick Search and authentication
-	 * It should be 4 to 10 characters starting from with a character and can include -
-	 * both digits and characters
-	 */
-	@Indexed
-	@NotNull(message="{com.leopin.contraints.company.code.invalid}")
-	@Pattern(regexp=COMPANY_CODE, message="{com.leopin.contraints.company.code.invalid}")
-	private String code;
+//	/** 
+//	 * Company Code will be used for Quick Search and authentication
+//	 * It should be 4 to 10 characters starting from with a character and can include -
+//	 * both digits and characters
+//	 */
+//	@Indexed
+//	@NotNull(message="{com.leopin.contraints.company.code.invalid}")
+//	@Pattern(regexp=COMPANY_CODE, message="{com.leopin.contraints.company.code.invalid}")
+//	String code;
 	
 	@NotNull(message="{com.leopin.contraints.company.name.invalid}")
 	@Pattern(regexp=COMPANY_NAME, message="{com.leopin.contraints.company.name.invalid}")
-	private String name;
+	String name;
 	
 	@Indexed
 	@JsonIgnore
 	@NotNull(message="{com.leopin.contraints.company.name.invalid}")
 	@Pattern(regexp=COMPANY_NAME, message="{com.leopin.contraints.company.name.invalid}")
-	private String normName;
+	String normName;
 
 	@NotNull(message="{com.leopin.contraints.url.invalid}")
 	@Pattern(regexp=URL, message="{com.leopin.contraints.url.invalid}")
-	private String url;
+	String url;
 	
 	@NotNull(message="{com.leopin.contraints.email.invalid}")
 	@Pattern(regexp=EMAIL, message="{com.leopin.contraints.email.invalid}")
-	private String email;
+	String email;
 	
 	@NotNull(message="{com.leopin.contraints.primary.phone.invalid}")
 	@Pattern(regexp=PHONE_NUM, message="{com.leopin.contraints.primary.phone.invalid}")
-	private String priPhone;
+	String priPhone;
 	
 	@NotNull(message="{com.leopin.contraints.secondary.phone.invalid}")
 	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.secondary.phone.invalid}")
-	private String secPhone;
+	String secPhone;
 	
 	@NotNull(message="{com.leopin.contraints.fax.invalid}")
 	@Pattern(regexp=PHONE_NUM + "|" + EMPTY_STRING, message="{com.leopin.contraints.fax.invalid}")
-	private String fax;
+	String fax;
 	
 	@NotNull(message="{com.leopin.contraints.timestamp.invalid}")
-	private Date timestamp;
+	Date updateTs;
 	
+	String updateUid;
+
 	public Company() {
-		this.timestamp = new Date();
+		this.updateTs = new Date();
 	}
 	
 	public Long getId() {
@@ -96,15 +107,15 @@ public class Company {
 		this.id = id;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		// Code can't be null - invalid state
-		assert(code != null);
-		this.code = code.toUpperCase();
-	}
+//	public String getCode() {
+//		return code;
+//	}
+//
+//	public void setCode(String code) {
+//		// Code can't be null - invalid state
+//		assert(code != null);
+//		this.code = code.toUpperCase();
+//	}
 
 
 	public String getName() {
@@ -123,14 +134,6 @@ public class Company {
 
 	public void setNormName(String normName) {
 		this.normName = normName;
-	}
-	
-	public Date getTimestamp() {
-		return timestamp;
-	}
-	
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
 	}
 	
 	public String getUrl() {
@@ -172,20 +175,37 @@ public class Company {
 	public void setFax(String fax) {
 		this.fax = Utils.scrubPhoneNum(fax);
 	}
+	
+	
+	public Date getUpdateTs() {
+		return updateTs;
+	}
+
+	public void setUpdateTs(Date updateTs) {
+		this.updateTs = updateTs;
+	}
+
+	public String getUpdateUid() {
+		return updateUid;
+	}
+
+	public void setUpdateUid(String updateUid) {
+		this.updateUid = updateUid;
+	}
 
 	@Override
 	public boolean equals(Object object) {
 		
 		if (object instanceof Company) {
 			Company that = (Company) object;
-			return Objects.equal(this.name, that.name)
-					&& Objects.equal(this.code, that.code)
-					&& Objects.equal(this.url, that.url)
-					&& Objects.equal(this.email, that.email)
-					&& Objects.equal(this.priPhone, that.priPhone)
-					&& Objects.equal(this.secPhone, that.secPhone)
-					&& Objects.equal(this.fax, that.fax)
-					&& Objects.equal(this.timestamp, that.timestamp);
+			return Objects.equal(this.name, that.name);
+//					&& Objects.equal(this.code, that.code)
+//					&& Objects.equal(this.url, that.url)
+//					&& Objects.equal(this.email, that.email)
+//					&& Objects.equal(this.priPhone, that.priPhone)
+//					&& Objects.equal(this.secPhone, that.secPhone)
+//					&& Objects.equal(this.fax, that.fax)
+//					&& Objects.equal(this.updateTs, that.updateTs);
 		}
 		
 		return false;
@@ -194,14 +214,14 @@ public class Company {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(this.name, this.code);
+		return Objects.hashCode(this.name);
 	}
 	
 	@Override
 	public String toString() {
 		return Objects.toStringHelper(this)
 				.add("Id", this.id)
-				.add("Code", this.code)
+//				.add("Code", this.code)
 				.add("Name", this.name)
 				.add("Normalized Name", this.normName)
 				.add("URL", this.url)
@@ -209,7 +229,7 @@ public class Company {
 				.add("Pri Phone", this.priPhone)
 				.add("Sec Phone", this.secPhone)
 				.add("Fax", this.fax)
-				.add("Timestamp", this.timestamp)
+				.add("Update TS", this.updateTs)
 				.toString();
 	}
 }

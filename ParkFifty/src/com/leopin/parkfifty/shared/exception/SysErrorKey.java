@@ -8,7 +8,8 @@ public enum SysErrorKey {
 	ADMIN_GET_COMPANY("error.sys.admin.get.company"),
 	ADMIN_DELETE_COMPANY("error.sys.admin.delete.company"),
 	ADMIN_ADD_LOCATION("error.sys.admin.add.location"),	
-	ADMIN_ADD_USER("error.sys.admin.add.user");
+	ADMIN_ADD_USER("error.sys.admin.add.user"),
+	ADMIN_GET_USER("error.sys.admin.get.user");
 
 
 	private String errorKey;

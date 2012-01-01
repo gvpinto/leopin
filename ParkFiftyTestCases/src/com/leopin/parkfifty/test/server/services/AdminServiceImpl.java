@@ -195,5 +195,9 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return null;
 	}	
+	
+	public CompanyUser getCompanyUser(String userId) {
+		return null;
+	}
 
 }

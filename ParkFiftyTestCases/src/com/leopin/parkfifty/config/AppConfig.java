@@ -32,7 +32,7 @@ public class AppConfig {
 		company.setPriPhone("9194553262");
 		company.setFax("9194553263");
 		company.setId(10L);
-		company.setTimestamp(new Date());
+		company.setUpdateTs(new Date());
 		
 		when(objectifyFactory.begin()).thenReturn(ofy);
 		

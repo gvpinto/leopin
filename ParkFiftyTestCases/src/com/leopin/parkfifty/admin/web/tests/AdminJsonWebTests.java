@@ -2,11 +2,14 @@ package com.leopin.parkfifty.admin.web.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Before;
@@ -18,10 +21,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.leopin.parkfifty.admin.domain.AdminDomain;
+import com.ashriv.security.server.GrantedRole;
+import com.ashriv.security.server.Role;
+import com.leopin.parkfifty.admin.domain.AdminDomainData;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
@@ -45,19 +51,19 @@ public class AdminJsonWebTests {
 
 	}
 	
-//	@Test
+	@Test
 	public void testGetCompanyById() {
 			
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
-		urlVars.put("companyId", "14");
+		urlVars.put("companyId", "1");
 		ResponseEntity<Company> response = new RestTemplate().getForEntity("{urlPrefix}/company/{companyId}", Company.class, urlVars);
 		
 		if (response.getStatusCode() != HttpStatus.OK) {
 			throw new AssertionError("Exception Occurred. Http Status code: " + response.getStatusCode());
 		}
 		
-		assertEquals("Test Company", response.getBody().getName());
+		assertEquals("This is a Good Company 2417", response.getBody().getName());
 	}
 
 //	@Test(expected=HttpClientErrorException.class)
@@ -151,34 +157,38 @@ public class AdminJsonWebTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testAddCompanyAndUser() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
 		
 
-		CompanyAndUser companyAndUser = AdminDomain.getCompanyAndUser();
+		CompanyAndUser companyAndUser = AdminDomainData.getCompanyAndUser();
 		String companyName = companyAndUser.getCompany().getName();
-		String userId = companyAndUser.getCompanyUser().getUserId();
+		String userId = companyAndUser.getCompanyUser().getUsername();
 		
 		ResponseEntity<CompanyAndUser> response = new RestTemplate().postForEntity("{urlPrefix}/company", companyAndUser, CompanyAndUser.class, urlVars);
 		
 		assertEquals(companyName, response.getBody().getCompany().getName());
-		assertEquals(userId, response.getBody().getCompanyUser().getUserId());
+		assertEquals(userId, response.getBody().getCompanyUser().getUsername());
 		assertNotNull(response.getBody().getCompany().getId());
 		assertNotNull(response.getBody().getCompanyUser().getId());
 		
 	}
 	
-//	@Test
+	@Test
 	public void testAddCompanyUser() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
 		
-		CompanyUser companyUser = AdminDomain.getCompanyUser(25L);
-		String userId = companyUser.getUserId();
+		CompanyUser companyUser = AdminDomainData.getCompanyUser(1L);
+		String userId = companyUser.getUsername();
+//		companyUser.setRole(Role.SUPER_ADMIN);
+		Set<GrantedAuthority> authorities =  new HashSet<GrantedAuthority>();
+		authorities.add(new GrantedRole(Role.ROLE_SUPER_ADMIN));
+		companyUser.setAuthorities(authorities);
 		LOGGER.debug(companyUser.toString());
 		
 		HttpHeaders httpHeaders = new HttpHeaders();
@@ -188,10 +198,49 @@ public class AdminJsonWebTests {
 		HttpEntity<CompanyUser> httpEntity = new HttpEntity<CompanyUser>(companyUser, httpHeaders);
 		ResponseEntity<CompanyUser> response = new RestTemplate().postForEntity("{urlPrefix}/company/companyUser", httpEntity, CompanyUser.class, urlVars);
 		
-		assertEquals(userId, response.getBody().getUserId());
+		assertEquals(userId, response.getBody().getUsername());
 		LOGGER.debug(response.getBody().toString());
 		assertNotNull(response.getBody().getId());
 		
+	}
+	
+	@Test(expected=HttpClientErrorException.class)
+	public void testAddCompanyUserErrorNotMoreThanOneOwner() {
+		
+		Map<String, String> urlVars = new HashMap<String, String>();
+		urlVars.put("urlPrefix", adminURL);
+		
+		CompanyUser companyUser = AdminDomainData.getCompanyUser(1L);
+		String userId = companyUser.getUsername();
+		LOGGER.debug(companyUser.toString());
+		
+		HttpHeaders httpHeaders = new HttpHeaders();
+		List<MediaType> mediaTypeList = new ArrayList<MediaType>();
+		mediaTypeList.add(MediaType.APPLICATION_JSON);
+		httpHeaders.setAccept(mediaTypeList);
+		HttpEntity<CompanyUser> httpEntity = new HttpEntity<CompanyUser>(companyUser, httpHeaders);
+		ResponseEntity<?> response = new RestTemplate().postForEntity("{urlPrefix}/company/companyUser", httpEntity, CompanyUser.class, urlVars);
+		
+		assertEquals(HttpStatus.METHOD_FAILURE, response.getStatusCode());
+		assertEquals("error.app.admin.companyuser.owner.exists", ((ExceptionInfo)response.getBody()).getKey());
+		
+	}
+	
+	
+	@Test
+	public void testGetCompanyUserByUserID() {
+			
+		Map<String, String> urlVars = new HashMap<String, String>();
+		urlVars.put("urlPrefix", adminURL);
+		urlVars.put("userId", "gvpinto100");
+		ResponseEntity<CompanyUser> response = new RestTemplate().getForEntity("{urlPrefix}/company/companyUser/{userId}", CompanyUser.class, urlVars);
+		
+		if (response.getStatusCode() != HttpStatus.OK) {
+			throw new AssertionError("Exception Occurred. Http Status code: " + response.getStatusCode());
+		}
+		
+		assertTrue(response.getBody().getCompanyId() ==  1L);
+		assertEquals("9194553262", response.getBody().getPriPhone());
 	}
 	
 //	@Test

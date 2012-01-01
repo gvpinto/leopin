@@ -18,6 +18,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Unindexed;
+import com.leopin.parkfifty.shared.ApplicationVersion;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 /**
@@ -27,6 +28,8 @@ import com.leopin.parkfifty.shared.utils.Utils;
 @Entity
 @Unindexed
 public class Location {
+	
+	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
 	
 	public Location() {
 		this.timestamp = new Date();

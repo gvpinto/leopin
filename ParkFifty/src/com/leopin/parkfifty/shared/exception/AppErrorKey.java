@@ -8,7 +8,9 @@ public enum AppErrorKey {
 	ADMIN_LOCATION_EXISTS("error.app.admin.location.exists"),
 	ADMIN_LOCATION_BINDING_ERRORS("error.app.admin.location.binding.errors"),
 	ADMIN_USER_EXISTS("error.app.admin.user.exists"),
-	ADMIN_COMPANYUSER_BINDING_ERRORS("error.app.admin.companyuser.binding.errors");
+	ADMIN_COMPANYUSER_BINDING_ERRORS("error.app.admin.companyuser.binding.errors"),
+	ADMIN_COMPANYUSER_OWNER_EXISTS("error.app.admin.companyuser.owner.exists"),
+	ADMIN_COMPANYUSER_USER_NOT_FOUND("error.app.admin.companyuser.user.not.found");
 
 	private String errorKey;
 	

@@ -4,7 +4,9 @@ package com.leopin.parkfifty.admin.unit.tests;
 //import static org.mockito.Matchers.*;
 //import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
@@ -14,6 +16,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -33,6 +36,7 @@ import org.springframework.http.converter.json.MappingJacksonHttpMessageConverte
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebBindingInitializer;
@@ -43,7 +47,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
-import com.leopin.parkfifty.admin.domain.AdminDomain;
+import com.ashriv.security.server.GrantedRole;
+import com.ashriv.security.server.Role;
+import com.leopin.parkfifty.admin.domain.AdminDomainData;
 import com.leopin.parkfifty.server.controllers.AdminController;
 import com.leopin.parkfifty.server.services.AdminService;
 import com.leopin.parkfifty.shared.domain.Company;
@@ -64,7 +70,14 @@ public class AdminJsonUnitTests {
 
 	@Before
 	public void setUp() throws Exception {
+//		ShaPasswordEncoder
+//		DaoAuthenticationProvider
+//		Md5PasswordEncoder
+//		SystemWideSaltSource
+//		User
+//		ReflectionSaltSource
 
+		
 		service = mock(AdminService.class);
 		messages = mock(ResourceBundleMessageSource.class);
 		company = mock(Company.class);
@@ -115,7 +128,7 @@ public class AdminJsonUnitTests {
 	public void testForAddCompanyService() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		CompanyAndUser newCompanyWrapper = AdminDomain
+		CompanyAndUser newCompanyWrapper = AdminDomainData
 				.getCompanyAndUser();
 
 		when(service.addNewCompany(newCompanyWrapper)).thenReturn(
@@ -143,7 +156,7 @@ public class AdminJsonUnitTests {
 	public void testForAddCompanyUserService() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		companyUser = AdminDomain.getCompanyUser(1L);
+		companyUser = AdminDomainData.getCompanyUser(1L);
 
 		when(service.addCompanyUser((CompanyUser) anyObject())).thenReturn(
 				companyUser);
@@ -152,8 +165,8 @@ public class AdminJsonUnitTests {
 				this.messages);
 		controller.setValidator(validator);
 		try {
-			assertEquals(companyUser.getUserId(),
-					controller.addCompanyUser(companyUser).getUserId());
+			assertEquals(companyUser.getUsername(),
+					controller.addCompanyUser(companyUser).getUsername());
 		} catch (AppException e) {
 			LOGGER.debug((String) e.getPlaceholderValues()[1]);
 		}
@@ -167,7 +180,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 
-		CompanyAndUser newCompanyWrapper = AdminDomain
+		CompanyAndUser newCompanyWrapper = AdminDomainData
 				.getCompanyAndUser();
 		newCompanyWrapper.getCompany().setEmail("gpintobbant.com");
 
@@ -190,7 +203,7 @@ public class AdminJsonUnitTests {
 		validator.afterPropertiesSet();
 
 		Company company = new Company();
-		company.setCode("THIS1SGOOD");
+//		company.setCode("THIS1SGOOD");
 		company.setName("This is a good  company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -208,7 +221,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
-		company.setCode("THIS1SGOOD");
+//		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmailcom");
@@ -232,7 +245,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
-		company.setCode("THIS1SGOOD");
+//		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -257,7 +270,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
-		company.setCode("THIS1SGOOD");
+//		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -282,7 +295,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
-		company.setCode("THIS1SGOOD");
+//		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -306,7 +319,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
-		company.setCode("THIS1SGOOD");
+//		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https://www.goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -330,7 +343,7 @@ public class AdminJsonUnitTests {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
 		Company company = new Company();
-		company.setCode("THIS1SGOOD");
+//		company.setCode("THIS1SGOOD");
 		company.setName("This is a good company");
 		company.setUrl("https:/goodcompany.com");
 		company.setEmail("goodcompany@gmail.com");
@@ -436,7 +449,7 @@ public class AdminJsonUnitTests {
 	public void testLocationValid() throws Exception {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		Location location = AdminDomain.getLocation();
+		Location location = AdminDomainData.getLocation();
 
 		Set<ConstraintViolation<Location>> constraintViolations = validator
 				.validate(location);
@@ -448,7 +461,7 @@ public class AdminJsonUnitTests {
 	public void testCompanyUserValid() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.afterPropertiesSet();
-		CompanyUser companyUser = AdminDomain.getCompanyUser(1L);
+		CompanyUser companyUser = AdminDomainData.getCompanyUser(1L);
 		Set<ConstraintViolation<CompanyUser>> constraintViolations = validator
 				.validate(companyUser);
 		printConstraintViolations(constraintViolations);
@@ -463,20 +476,16 @@ public class AdminJsonUnitTests {
 	public void testSerializeCompany() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			Company company = AdminDomain.getCompany();
+			Company company = AdminDomainData.getCompany();
 			Assert.assertTrue(mapper.canSerialize(Company.class));
 			// LOGGER.info(mapper.writeValueAsString(company));
-			Assert.assertEquals(
-					"{\"name\":\""
-							+ company.getName()
-							+ "\",\"id\":null,\"timestamp\":"
-							+ company.getTimestamp().getTime()
-							+ ",\"code\":\""
-							+ company.getCode()
-							+ "\",\"normName\":\""
-							+ company.getNormName()
-							+ "\",\"url\":\"http://www.ashriv.com\",\"email\":\"gpinto@bbandt.com\",\"priPhone\":\"9194553262\",\"fax\":\"9194470110\",\"secPhone\":\"\"}",
-					mapper.writeValueAsString(company));
+			String actualValue = mapper.writeValueAsString(company);
+			System.out.println(actualValue);
+			assertTrue(actualValue.indexOf(company.getName()) > 0);
+			assertTrue(actualValue.indexOf(company.getEmail()) > 0);
+			assertTrue(actualValue.indexOf(company.getPriPhone()) > 0);
+			assertTrue(actualValue.indexOf(company.getUpdateUid()) > 0);
+
 		} catch (Exception e) {
 			Assert.fail("Exception occurred: " + e.getMessage());
 		}
@@ -489,10 +498,9 @@ public class AdminJsonUnitTests {
 			JavaType companyType = TypeFactory.defaultInstance().constructType(
 					Company.class);
 			Assert.assertTrue(mapper.canDeserialize(companyType));
-			String content = "{\"name\":\"This is a Good Company 0337\",\"id\":null,\"timestamp\":1324590685439,\"code\":\"AGOODC0337\",\"normName\":\"this is a good company 0337\",\"url\":\"http://www.ashriv.com\",\"email\":\"gpinto@bbandt.com\",\"priPhone\":\"9194553262\",\"secPhone\":\"\",\"fax\":\"9194470110\"}";
+			String content = "{\"name\":\"This is a Good Company 9943\",\"id\":null,\"email\":\"gpinto@bbandt.com\",\"priPhone\":\"9194553262\",\"url\":\"http://www.ashriv.com\",\"fax\":\"9194470110\",\"updateTs\":1325451862628,\"secPhone\":\"\",\"normName\":\"this is a good company 9943\",\"updateUid\":\"gvpinto\"}";
 			Company company = mapper.readValue(content, companyType);
-			assertEquals("This is a Good Company 0337", company.getName());
-			assertEquals("AGOODC0337", company.getCode());
+			assertEquals("This is a Good Company 9943", company.getName());
 			assertEquals("http://www.ashriv.com", company.getUrl());
 			assertEquals("gpinto@bbandt.com", company.getEmail());
 			assertEquals("9194553262", company.getPriPhone());
@@ -507,7 +515,7 @@ public class AdminJsonUnitTests {
 	public void testSerializeCompanyUser() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			CompanyUser companyUser = AdminDomain.getCompanyUser(1L);
+			CompanyUser companyUser = AdminDomainData.getCompanyUser(1L);
 			Assert.assertTrue(mapper.canSerialize(CompanyUser.class));
 			// LOGGER.info(mapper.writeValueAsString(companyUser));
 			// String expectedValue = "{\"id\":null,\"timestamp\":" +
@@ -523,18 +531,23 @@ public class AdminJsonUnitTests {
 			// assertEquals(expectedValue,
 			// mapper.writeValueAsString(companyUser));
 			String actualValue = mapper.writeValueAsString(companyUser);
-			Assert.assertTrue(actualValue.indexOf(companyUser.getUserId()) >= 0);
+//			System.out.println(actualValue);
+			Assert.assertTrue(actualValue.indexOf(companyUser.getUsername()) >= 0);
 			Assert.assertTrue(actualValue.indexOf(companyUser.getPassword()) >= 0);
 			Assert.assertTrue(actualValue.indexOf(companyUser.getFirstName()) >= 0);
 			Assert.assertTrue(actualValue.indexOf(companyUser.getLastName()) >= 0);
 			Assert.assertTrue(actualValue.indexOf(companyUser
 					.getMiddleInitial()) >= 0);
 			Assert.assertTrue(actualValue.indexOf(String.valueOf(companyUser
-					.getTimestamp().getTime())) >= 0);
+					.getUpdateTs().getTime())) >= 0);
 			Assert.assertTrue(actualValue.indexOf(companyUser.getPriPhone()) >= 0);
 			Assert.assertTrue(actualValue.indexOf(companyUser.getSecPhone()) >= 0);
-			Assert.assertTrue(actualValue.indexOf("\"approved\":true") >= 0);
-			Assert.assertTrue(actualValue.indexOf("\"role\":\"OWNER\"") >= 0);
+//			Assert.assertTrue(actualValue.indexOf("\"approved\":true") >= 0);
+			Assert.assertTrue(actualValue.indexOf("\"enabled\":true") >= 0);
+			Assert.assertTrue(actualValue.indexOf("\"accountNonExpired\":true") >= 0);
+			Assert.assertTrue(actualValue.indexOf("\"credentialsNonExpired\":true") >= 0);
+			Assert.assertTrue(actualValue.indexOf("\"accountNonLocked\":true") >= 0);
+			Assert.assertTrue(actualValue.indexOf("\"authorities\":[{\"authority\":\"ROLE_OWNER\"}]") >= 0);
 
 		} catch (Exception e) {
 			Assert.fail("Exception occurred: " + e.getMessage());
@@ -548,17 +561,24 @@ public class AdminJsonUnitTests {
 			JavaType companyUserType = TypeFactory.defaultInstance()
 					.constructType(CompanyUser.class);
 			Assert.assertTrue(mapper.canDeserialize(companyUserType));
-			String content = "{\"id\":null,\"timestamp\":1324593749084,\"suffix\":\"III\",\"password\":\"M1ng1L4r2\",\"firstName\":\"Glenn\",\"userId\":\"gvpinto591\",\"email\":\"gvpinto@gmail.com\",\"priPhone\":\"9194553262\",\"fax\":\"\",\"lastName\":\"Pinto\",\"active\":true,\"secPhone\":\"9194553263\",\"role\":\"OWNER\",\"title\":\"Mr.\",\"middleInitial\":\"J\",\"entitlements\":[\"NONE\",\"ADD_USER\"],\"approved\":true,\"companyId\":1}";
+			String content = "{\"id\":null,\"suffix\":\"III\",\"password\":\"M1ng1L4r2\",\"firstName\":\"Glenn\",\"username\":\"gvpinto571\",\"email\":\"gvpinto@gmail.com\",\"priPhone\":\"9194553262\",\"fax\":\"\",\"lastName\":\"Pinto\",\"middleInitial\":\"J\",\"updateTs\":1325438740341,\"secPhone\":\"9194553263\",\"title\":\"Mr.\",\"deleteTs\":null,\"updateUid\":\"gvpinto571\",\"companyId\":1,\"authorities\":[{\"authority\":\"ROLE_USER\"},{\"authority\":\"ROLE_ADD_LOCATION\"}],\"accountNonExpired\":true,\"accountNonLocked\":true,\"credentialsNonExpired\":true,\"enabled\":true}";
 			CompanyUser companyUser = mapper
 					.readValue(content, companyUserType);
-			assertEquals("gvpinto591", companyUser.getUserId());
+			assertEquals("gvpinto571", companyUser.getUsername());
 			assertEquals("Glenn", companyUser.getFirstName());
 			assertEquals("Pinto", companyUser.getLastName());
+			assertTrue(companyUser.getAuthorities().contains(new GrantedRole(Role.ROLE_USER)));
+			assertTrue(companyUser.getAuthorities().contains(new GrantedRole(Role.ROLE_ADD_LOCATION)));
+			assertTrue(companyUser.isAccountNonExpired());
+			assertTrue(companyUser.isAccountNonLocked());
+			assertTrue(companyUser.isCredentialsNonExpired());
+			assertTrue(companyUser.isEnabled());
 			// LOGGER.debug(companyUser.getEntitlements().toString());
-			assertEquals("[NONE, ADD_USER]", companyUser.getEntitlements()
-					.toString());
+//			assertEquals("[NONE, ADD_USER]", companyUser.getEntitlements()
+//					.toString());
 
 		} catch (Exception e) {
+			System.out.println(">>>> " + e.getLocalizedMessage());
 			Assert.fail("canDeserializeCompanyUser failed: " + e.getMessage());
 		}
 	}
@@ -567,7 +587,7 @@ public class AdminJsonUnitTests {
 	public void testSerializeLocation() {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			Location location = AdminDomain.getLocation();
+			Location location = AdminDomainData.getLocation();
 			Assert.assertTrue(mapper.canSerialize(Location.class));
 			// LOGGER.info(mapper.writeValueAsString(location));
 			String actualValue = mapper.writeValueAsString(location);
@@ -598,6 +618,34 @@ public class AdminJsonUnitTests {
 		}
 
 	}
+	
+	@Test
+	public void testGrantedAuthoritySetContainsConditions() {
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		authorities.add(new GrantedRole(Role.ROLE_ADMIN));
+		authorities.add(new GrantedRole(Role.ROLE_ADD_USER));
+		assertFalse(authorities.contains(new GrantedRole(Role.ROLE_OWNER)));
+		authorities.add(new GrantedRole(Role.ROLE_OWNER));
+		assertTrue(authorities.contains(new GrantedRole(Role.ROLE_OWNER)));
+	}
+	
+	@Test
+	public void testCompanyAndCompanyUserSplit() {
+		String username = "GOODCOMP@gvpinto";
+		String[] tokens = username.split("@");
+		assertTrue(tokens.length == 2);
+		assertEquals("GOODCOMP", tokens[0]);
+		assertEquals("gvpinto", tokens[1]);
+		
+		username = "GOODCOMPgvpinto";
+		tokens = username.split("@");
+		assertTrue(tokens.length == 1);
+		
+		username = "";
+		tokens = username.split("@");
+		assertTrue(tokens.length == 1);
+		
+	}
 
 	private <T> void printConstraintViolations(
 			Set<ConstraintViolation<T>> constraintViolations) {
@@ -607,7 +655,9 @@ public class AdminJsonUnitTests {
 				LOGGER.debug(">> " + constraintViolation.getMessage());
 			}
 		}
-
 	}
+	
+	
+	
 
 }

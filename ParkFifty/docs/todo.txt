@@ -1,3 +1,5 @@
 1. Add recaptcha to the Company enrollment
 2. Add Spring security to the Admin login
 3. Use Memcached
+4. Move all the bean properties from parkfifty-security to a javaconfig. Do a import in parkfifty
+5. Re-define the Salt
