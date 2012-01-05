@@ -36,10 +36,10 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private ObjectifyFactory objectifyFactory;
 	
-	@Autowired
+//	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-	@Autowired
+//	@Autowired
 	String passwordSalt;
 	
 //	public void setObjectifyFactory(ObjectifyFactory objectifyFactory) {

@@ -6,28 +6,44 @@
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<!-- <http pattern="/css/**" security="none"/> -->
-	<http pattern="/login.htm*" security="none" />
-	<http auto-config='true'>
-		<!-- <intercept-url pattern="/parkfifty.html#login" access="IS_AUTHENTICATED_ANONYMOUSLY"/> -->
-		<intercept-url pattern="/**" access="USER" />
-		<form-login login-page="/login.html"
-			authentication-failure-url="/parkfifty.html#error" />
+
+	<global-method-security secured-annotations="enabled" />
+	<!-- <global-method-security pre-post-annotations="enabled" /> -->
+	
+	
+	<!-- <http pattern="/resources/**" security="none"/>
+	<http pattern="/login.html" security="none" /> -->
+	
+	<http auto-config='true'  use-expressions="true">
+		<!-- <intercept-url pattern="/login.html" access="IS_AUTHENTICATED_ANONYMOUSLY"/> -->
+		<intercept-url pattern="/**" access="ROLE_OWNER" />
+		<!-- requires-channel="https" -->
+		<!-- <form-login login-page="/login.html" authentication-failure-url="/logout.html" /> -->
+		<!-- method for GET POST PUT DELETE -->
 		<!-- logout page? -->
 		<!-- <intercept-url pattern="/spitter/form" requires-channel="https"/> -->
 		<!-- <intercept-url pattern="/home" requires-channel="http"/> -->
+		<!-- Uncomment to limit the number of sessions a user can have -->
+        <session-management invalid-session-url="/timeout.jsp">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+        
 	</http>
 
-	<beans:bean id="authenticationManager"
+  <authentication-manager  alias="authenticationManager">
+    <authentication-provider ref="daoAuthenticationProvider"/>
+  </authentication-manager>
+  
+	<!-- <beans:bean id="authenticationManager"
 		class="org.springframework.security.authentication.ProviderManager">
 		<beans:property name="providers">
 			<beans:list>
 				<beans:ref local="daoAuthenticationProvider" />
 			</beans:list>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 
-	<beans:bean id="daoAuthenticationProvider"
+	<!-- <beans:bean id="daoAuthenticationProvider"
 		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<beans:property name="userDetailsService" ref="userDetailsService" />
 		<beans:property name="passwordEncoder" ref="passwordEncoder" />
@@ -44,12 +60,12 @@
 	
 	<beans:bean id="systemWideSaltSource"
 		class="org.springframework.security.authentication.dao.SystemWideSaltSource">
-		<!-- <beans:property name="systemWideSalt" value="" /> -->
+		<beans:property name="systemWideSalt" value="" />
 		<beans:property name="systemWideSalt" ref="passwordSalt"/>
 	</beans:bean>
 	
 	<beans:bean id="passwordSalt" class="java.lang.String">
 		<beans:constructor-arg value="AB#@SA123SLJasd%%TKLS"/>
-	</beans:bean>
+	</beans:bean> -->
 	
 </beans:beans>

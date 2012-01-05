@@ -8,13 +8,19 @@
 	<display-name>ParkFifty</display-name>
 	
 	<filter>
+		<!-- <filter-name>securityFilter</filter-name> -->
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>
 			org.springframework.web.filter.DelegatingFilterProxy
  		</filter-class>
+ 		<!-- <init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>springSecurityFilterChain</param-value>
+		</init-param> -->
 	</filter>
 	
 	<filter-mapping>
+		<!-- <filter-name>securityFilter</filter-name> -->
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
@@ -29,14 +35,17 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<!-- Can be class of package names -->
-		<param-value>com.leopin.parkfifty.server.config.WebConfig</param-value>
+		<param-value>
+			com.leopin.parkfifty.server.config.WebConfig
+		</param-value>
 	</context-param>
 	
 	<!-- Specifies the default mode of this application, to be activated if no other profile (or mode) is specified -->
 	<!-- ctx.getEnvironment().setActiveProfiles("profile1", "profile2");
 	-Dspring.profiles.active="profile1,profile2" -->
 	<context-param>
-    	<param-name>spring.profiles.default</param-name>
+    	<!-- <param-name>spring.profiles.default</param-name> -->
+    	<param-name>spring.profiles.active</param-name>
     	<param-value>production</param-value>
 	</context-param>
 	
@@ -66,6 +75,10 @@
 		<servlet-name>parkfifty</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
 
 
 	<!-- Default page to serve -->

@@ -3,7 +3,7 @@
   <!-- Inherit the core Web Toolkit stuff.                        -->
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.googlecode.objectify.Objectify" />
-  <inherits name="com.leopin.parkfifty.auth.Authentication" />
+  <inherits name="com.ashriv.security.Authentication" />
 
   <!-- Inherit the default GWT style sheet.  You can change       -->
   <!-- the theme of your GWT application by uncommenting          -->

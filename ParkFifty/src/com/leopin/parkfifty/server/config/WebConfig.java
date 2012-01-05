@@ -25,10 +25,9 @@ import com.leopin.parkfifty.shared.Shared;
 @Profile("production")
 @Configuration
 @EnableWebMvc
-@Import(value={ServiceConfig.class})
-@ImportResource("classpath:parkfifty-security.xml")
+@Import(value={ServiceConfig.class,SecurityConfig.class})
 @ComponentScan(basePackageClasses={Controllers.class, Shared.class})
-@PropertySource(value={})
+//@PropertySource(value={})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
