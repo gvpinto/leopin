@@ -30,7 +30,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import com.ashriv.security.server.GrantedRole;
+import com.ashriv.security.server.Role;
 import com.google.common.base.Objects;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
@@ -104,8 +104,15 @@ public class CompanyUser implements UserDetails, CredentialsContainer, Serializa
 	String password;
 	
 	/**
-	 * OWNER(1) - Owner, SUPER_ADMIN(2) - Super Admin, ADMIN(3)- Admin, USER(4) - User
+	 * OWNER(0), 			// 1
+	 * SUPER_ADMIN(1)		// 2
+	 * ADMIN(2), 			// 4
+	 * USER(3), 			// 8
+	 * ADD_LOCATION(4), 	// 16
+	 * ADD_RATE(5), 		// 32
+	 * ADD_DISCOUNT(6);		// 64
 	 */
+	
 //	@NotNull(message="{com.leopin.contraints.role.invalid}")
 //	@Pattern(regexp=ROLE, message="{com.leopin.contraints.role.invalid}")
 	@Indexed
@@ -368,7 +375,7 @@ public class CompanyUser implements UserDetails, CredentialsContainer, Serializa
 		return this.authorities;
 	}
 	
-    @JsonDeserialize(contentAs=GrantedRole.class)
+    @JsonDeserialize(contentAs=Role.class)
 	public void setAuthorities(Set<GrantedAuthority> authorities) {
 		this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));;
 	}

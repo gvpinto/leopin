@@ -1,24 +1,32 @@
 package com.ashriv.security.server;
 
-import java.io.Serializable;
+import org.springframework.security.core.GrantedAuthority;
 
-public enum Role implements Serializable {
-	ROLE_OWNER("ROLE_OWNER"), // Can do everything
-	ROLE_SUPER_ADMIN("ROLE_SUPER_ADMIN"), // Can do everything the OWNER can do except adding SUPER_ADMIN's
-	ROLE_ADMIN("ROLE_ADMIN"), // Can do everything the SUPER_ADMIN can do except adding ADMIN's
-	ROLE_USER("ROLE_USER"), // Can do only the access given below
-	ROLE_ADD_USER("ROLE_ADD_USER"),  
-	ROLE_ADD_LOCATION("ROLE_ADD_LOCATION"), 
-	ROLE_ADD_DISCOUNT("ROLE_ADD_LOCATION"), 
-	ROLE_ADD_RATE("ROLE_ADD_RATE");
+import com.leopin.parkfifty.shared.ApplicationVersion;
 
-	private final String role;
+public enum Role implements GrantedAuthority {
 	
-	Role(String role) {
-		this.role = role;
+	OWNER(0), 			// 1
+	SUPER_ADMIN(1),		// 2
+	ADMIN(2), 			// 4
+	USER(3), 			// 8
+	ADD_LOCATION(4), 	// 16
+	ADD_RATE(6), 		// 32
+	ADD_DISCOUNT(6);	// 64
+
+	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
+	private final int bit;
+
+	Role(int bit) {
+		this.bit = bit;
 	}
-	
-	public String getRole() {
-		return role;
+
+	public int getBit() {
+		return this.bit;
+	}
+
+	@Override
+	public String getAuthority() {
+		return toString();
 	}
 }

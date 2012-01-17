@@ -4,9 +4,10 @@
 	
 	<ui:with field='res' type='com.leopin.parkfifty.client.resources.ParkFiftyResources'/>
 	
-	<g:HTMLPanel>
+	<g:HTMLPanel ui:field="uiMainPanel">
 	
 		<div id="wrapper">
+		
 			<div id="header">
 				HEADER
 			</div>
@@ -18,6 +19,7 @@
 			<div id="footer">
 				FOOTER
 			</div>
+			
 		</div>
 		
 

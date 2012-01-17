@@ -8,12 +8,10 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import com.ashriv.security.server.GrantedRole;
 import com.ashriv.security.server.Role;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
@@ -239,7 +237,7 @@ public class AdminServiceImpl implements AdminService {
 			
 			// Check for duplicate userId within a given company.
 //			CompanyUser companyUser = ofyGet.get(companyUser.getCompanyKey()), CompanyUser.class, companyUser.getCompanyId());
-			if (companyUser.getAuthorities().contains(new GrantedRole(Role.ROLE_OWNER))) {
+			if (companyUser.getAuthorities().contains(Role.OWNER)) {
 				throw new AppException(AppErrorKey.ADMIN_COMPANYUSER_OWNER_EXISTS.getErrorKey(), new Object[] {companyUser.getUsername()});
 			} else {
 				CompanyUser cu= ofyGet.query(CompanyUser.class)
@@ -298,7 +296,7 @@ public class AdminServiceImpl implements AdminService {
 			
 			// Set defaults for the User Id treated as an Owner when creating the company
 			Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-			authorities.add(new GrantedRole(Role.ROLE_OWNER));
+			authorities.add(Role.OWNER);
 			companyAndUser.getCompanyUser().setAuthorities(authorities);
 //			companyAndUser.getCompanyUser().addEntitlement(Entitlement.NOT_APPLICABLE);
 			companyAndUser.getCompanyUser().setCompanyKey(new Key<Company>(Company.class, companyAndUser.getCompany().getId()));

@@ -30,7 +30,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-r09.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-3.0.1.jar" sourcepath="/Users/gvpinto/Opensource/Objectify/objectify-3.0.1/src"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/datanucleus-appengine-1.0.10.final.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/gwt-servlet.jar" sourcepath="/Users/gvpinto/Opensource/gwt-2.4.0/gwt-user.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.aop-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.asm-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.aspects-3.1.0.RELEASE.jar"/>

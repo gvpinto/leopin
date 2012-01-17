@@ -11,7 +11,13 @@ import org.springframework.security.authentication.dao.SystemWideSaltSource;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.ashriv.security.server.GaeAuthenticationEntryPoint;
+import com.ashriv.security.server.GaeAuthenticationFailureHandler;
+import com.ashriv.security.server.GaeAuthenticationSuccessHandler;
 import com.ashriv.security.server.GaeDataStoreUserDetailsService;
 
 @Profile("production")
@@ -28,9 +34,9 @@ public class SecurityConfig {
 	}
 	
 	@Bean UserDetailsService userDetailsService() {
-		UserDetailsService userDetailsService = new GaeDataStoreUserDetailsService();
-		return userDetailsService;
+		return new GaeDataStoreUserDetailsService();
 	}
+	
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -48,8 +54,20 @@ public class SecurityConfig {
 	public String passwordSalt() {
 		return "AB#@SA123SLJasd%%TKLS";
 	}
-
-
 	
+	@Bean
+	public AuthenticationEntryPoint authEntryPoint() {
+		return new GaeAuthenticationEntryPoint();
+	}
 	
+	@Bean
+	public AuthenticationFailureHandler authFailureHandler() {
+		return new GaeAuthenticationFailureHandler();
+	}
+	
+	@Bean
+	public AuthenticationSuccessHandler authSuccessHandler() {
+		return new GaeAuthenticationSuccessHandler();
+	}
+
 }

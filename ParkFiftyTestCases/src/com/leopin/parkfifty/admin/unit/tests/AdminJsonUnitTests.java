@@ -47,7 +47,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
-import com.ashriv.security.server.GrantedRole;
 import com.ashriv.security.server.Role;
 import com.leopin.parkfifty.admin.domain.AdminDomainData;
 import com.leopin.parkfifty.server.controllers.AdminController;
@@ -567,8 +566,8 @@ public class AdminJsonUnitTests {
 			assertEquals("gvpinto571", companyUser.getUsername());
 			assertEquals("Glenn", companyUser.getFirstName());
 			assertEquals("Pinto", companyUser.getLastName());
-			assertTrue(companyUser.getAuthorities().contains(new GrantedRole(Role.ROLE_USER)));
-			assertTrue(companyUser.getAuthorities().contains(new GrantedRole(Role.ROLE_ADD_LOCATION)));
+			assertTrue(companyUser.getAuthorities().contains(Role.USER));
+			assertTrue(companyUser.getAuthorities().contains(Role.ADD_LOCATION));
 			assertTrue(companyUser.isAccountNonExpired());
 			assertTrue(companyUser.isAccountNonLocked());
 			assertTrue(companyUser.isCredentialsNonExpired());
@@ -622,11 +621,10 @@ public class AdminJsonUnitTests {
 	@Test
 	public void testGrantedAuthoritySetContainsConditions() {
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		authorities.add(new GrantedRole(Role.ROLE_ADMIN));
-		authorities.add(new GrantedRole(Role.ROLE_ADD_USER));
-		assertFalse(authorities.contains(new GrantedRole(Role.ROLE_OWNER)));
-		authorities.add(new GrantedRole(Role.ROLE_OWNER));
-		assertTrue(authorities.contains(new GrantedRole(Role.ROLE_OWNER)));
+		authorities.add(Role.ADMIN);
+		assertFalse(authorities.contains(Role.OWNER));
+		authorities.add(Role.OWNER);
+		assertTrue(authorities.contains((Role.OWNER)));
 	}
 	
 	@Test

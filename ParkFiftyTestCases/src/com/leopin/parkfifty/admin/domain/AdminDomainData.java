@@ -53,7 +53,7 @@ public class AdminDomainData {
 //			companyUser.addEntitlement(Entitlement.ADD_USER);
 //			companyUser.setRole(Role.OWNER);
 			Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-			authorities.add(new GrantedRole(Role.ROLE_OWNER));
+			authorities.add(Role.OWNER);
 //			authorities.add(new GrantedRole(Role.ADD_LOCATION));
 			companyUser.setAuthorities(authorities);
 			companyUser.setTitle("Mr.");
