@@ -1,11 +1,10 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_CODE;
-import static com.leopin.parkfifty.shared.AppRegExp.COMPANY_NAME;
-import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
-import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
-import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.shared.AppRegExp.URL;
+import static com.leopin.parkfifty.server.AppRegExp.COMPANY_NAME;
+import static com.leopin.parkfifty.server.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.server.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.server.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.server.AppRegExp.URL;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,7 +20,7 @@ import com.google.common.base.Objects;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.shared.ApplicationVersion;
+import com.leopin.parkfifty.server.ApplicationVersion;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 /**
@@ -34,7 +33,7 @@ import com.leopin.parkfifty.shared.utils.Utils;
 @Component
 @Entity
 @Unindexed
-public class Company implements Serializable {
+public class Company implements Serializable, CompanyProxy {
 	
 	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
 	

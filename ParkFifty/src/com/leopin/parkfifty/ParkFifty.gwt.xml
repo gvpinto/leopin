@@ -4,7 +4,10 @@
 	<!-- Inherit the core Web Toolkit stuff. -->
 	<inherits name='com.google.gwt.user.User' />
 	<inherits name="com.googlecode.objectify.Objectify" />
-	<inherits name="com.ashriv.security.Authentication" />
+	<inherits name="com.google.common.base.Base"/>
+	<!-- <inherits name="com.ashriv.security.Authentication" /> -->
+	<inherits name='com.ashriv.springsecurity.SpringSecurity'/>
+	<inherits name='com.ashriv.jackson.Jackson'/>
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->

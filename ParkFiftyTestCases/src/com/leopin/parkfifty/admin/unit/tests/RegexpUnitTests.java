@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.leopin.parkfifty.shared.AppRegExp;
+import com.leopin.parkfifty.server.AppRegExp;
 
 public class RegexpUnitTests {
 

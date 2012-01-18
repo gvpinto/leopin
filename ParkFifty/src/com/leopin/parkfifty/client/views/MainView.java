@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.client;
+package com.leopin.parkfifty.client.views;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ResizeEvent;
@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.leopin.parkfifty.client.ui.CompanyWidget;
 
 public class MainView extends Composite  {
 
@@ -33,6 +34,10 @@ public class MainView extends Composite  {
 		uiMainPanel.add(header, "header");
 		uiMainPanel.add(content, "content");
 		uiMainPanel.add(footer, "footer");
+		
+		FlowPanel companyPanel = new FlowPanel();
+		companyPanel.add(new CompanyWidget());
+		content.add(companyPanel);
 	}
 
 

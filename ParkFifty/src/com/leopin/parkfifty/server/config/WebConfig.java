@@ -19,8 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerExceptionResolver;
 
+import com.leopin.parkfifty.server.Shared;
 import com.leopin.parkfifty.server.controllers.Controllers;
-import com.leopin.parkfifty.shared.Shared;
 
 @Profile("production")
 @Configuration

@@ -1,14 +1,14 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.shared.AppRegExp.EMAIL;
-import static com.leopin.parkfifty.shared.AppRegExp.EMPTY_STRING;
-import static com.leopin.parkfifty.shared.AppRegExp.MIDDLEINITIAL;
-import static com.leopin.parkfifty.shared.AppRegExp.NAME;
-import static com.leopin.parkfifty.shared.AppRegExp.PASSWORD;
-import static com.leopin.parkfifty.shared.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.shared.AppRegExp.SUFFIX;
-import static com.leopin.parkfifty.shared.AppRegExp.TITLE;
-import static com.leopin.parkfifty.shared.AppRegExp.USER_ID;
+import static com.leopin.parkfifty.server.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.server.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.server.AppRegExp.MIDDLEINITIAL;
+import static com.leopin.parkfifty.server.AppRegExp.NAME;
+import static com.leopin.parkfifty.server.AppRegExp.PASSWORD;
+import static com.leopin.parkfifty.server.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.server.AppRegExp.SUFFIX;
+import static com.leopin.parkfifty.server.AppRegExp.TITLE;
+import static com.leopin.parkfifty.server.AppRegExp.USER_ID;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -30,7 +30,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import com.ashriv.security.server.Role;
+import com.ashriv.security.client.shared.Role;
 import com.google.common.base.Objects;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
@@ -38,7 +38,7 @@ import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Serialized;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.shared.ApplicationVersion;
+import com.leopin.parkfifty.server.ApplicationVersion;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 /**

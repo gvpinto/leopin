@@ -1,8 +1,8 @@
-package com.ashriv.security.server;
+package com.ashriv.security.client.shared;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.leopin.parkfifty.shared.ApplicationVersion;
+import com.leopin.parkfifty.server.ApplicationVersion;
 
 public enum Role implements GrantedAuthority {
 	

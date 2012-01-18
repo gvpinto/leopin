@@ -1,10 +1,7 @@
 package com.leopin.parkfifty.shared.exception;
 
-import org.springframework.stereotype.Component;
-
 import com.google.common.base.Objects;
 
-@Component
 public class AppException extends RuntimeException {
 
 	private String errorKey;

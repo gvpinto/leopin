@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.shared;
+package com.leopin.parkfifty.server;
 
 /**
  * <p>

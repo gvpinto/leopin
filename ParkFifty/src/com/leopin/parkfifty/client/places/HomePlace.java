@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.client;
+package com.leopin.parkfifty.client.places;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;

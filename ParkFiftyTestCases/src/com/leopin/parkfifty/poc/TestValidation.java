@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 
-import com.leopin.parkfifty.shared.AppRegExp;
+import com.leopin.parkfifty.server.AppRegExp;
 
 public class TestValidation {
 

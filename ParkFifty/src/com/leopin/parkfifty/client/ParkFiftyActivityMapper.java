@@ -3,7 +3,8 @@ package com.leopin.parkfifty.client;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
-import com.manning.gwtia.ch14.client.mvp.ClientFactory;
+import com.leopin.parkfifty.client.places.HomePlace;
+import com.leopin.parkfifty.client.presenters.HomeActivity;
 
 public class ParkFiftyActivityMapper implements ActivityMapper {
 
@@ -15,8 +16,11 @@ public class ParkFiftyActivityMapper implements ActivityMapper {
 	
 	@Override
 	public Activity getActivity(Place place) {
-		// TODO Auto-generated method stub
-		return null;
+		if (place instanceof HomePlace) {
+			return new HomeActivity((HomePlace) place, this.clientFactory);
+		} else {
+			return null;
+		}
 	}
 
 }
