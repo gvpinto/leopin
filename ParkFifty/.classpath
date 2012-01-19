@@ -71,5 +71,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-web-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/Opensource/spring-security-3.1.0.RELEASE/dist/spring-security-web-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SpringSecurityGwt 3.1"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Guava-r11"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jackson 1.9.3"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

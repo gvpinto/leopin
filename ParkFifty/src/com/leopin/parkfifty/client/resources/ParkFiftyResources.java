@@ -13,6 +13,7 @@ public interface ParkFiftyResources extends ClientBundle {
 
 	  interface Style extends CssResource {
 		  String serverResponseLabelError();
+		  String companyWidget();
 	  }
 	  
 	  @Source("parkfifty.css")

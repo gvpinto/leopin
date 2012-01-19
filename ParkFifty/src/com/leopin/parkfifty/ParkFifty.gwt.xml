@@ -7,7 +7,7 @@
 	<inherits name="com.google.common.base.Base"/>
 	<!-- <inherits name="com.ashriv.security.Authentication" /> -->
 	<inherits name='com.ashriv.springsecurity.SpringSecurity'/>
-	<inherits name='com.ashriv.jackson.Jackson'/>
+	<!-- <inherits name='com.ashriv.jackson.Jackson'/> -->
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
