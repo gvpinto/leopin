@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -40,7 +41,8 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 
 	@Override
 	public void onKeyPress(KeyPressEvent event) {
-		Window.alert("Enter Key Pressed");
+		if (event.getUnicodeCharCode() == KeyCodes.KEY_ENTER)
+			Window.alert("Enter Key Pressed");
 	}
 
 }
