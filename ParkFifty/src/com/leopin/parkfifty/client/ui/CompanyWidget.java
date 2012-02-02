@@ -1,5 +1,7 @@
 package com.leopin.parkfifty.client.ui;
 
+import java.text.DecimalFormat;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,6 +24,8 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 	private static CompanyWidgetUiBinder uiBinder = GWT
 			.create(CompanyWidgetUiBinder.class);
 
+	NumberFormat format = NumberFormat.getFormat("(###) ###-###0");
+	
 	interface CompanyWidgetUiBinder extends UiBinder<Widget, CompanyWidget> {
 	}
 
@@ -63,10 +67,9 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 			Window.alert("Enter Key Pressed");
 	}
 	
-	@UiHandler("uiPriPhone")
+	@UiHandler("uiPriPhone,uiFax,uiSecPhone")
 	public void formatPhone(BlurEvent event) {
-		
-		NumberFormat.getFormat("(###) ###-###0").format(Utils.scrubPhoneNum(uiPriPhone)); 
+		uiPriPhone.setText(Utils.formatPhoneNum(uiPriPhone.getText()));
 		
 	}
 
