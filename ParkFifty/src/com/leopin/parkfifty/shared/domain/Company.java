@@ -1,10 +1,10 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.server.AppRegExp.COMPANY_NAME;
-import static com.leopin.parkfifty.server.AppRegExp.EMAIL;
-import static com.leopin.parkfifty.server.AppRegExp.EMPTY_STRING;
-import static com.leopin.parkfifty.server.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.server.AppRegExp.URL;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.COMPANY_NAME;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.URL;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +20,7 @@ import com.google.common.base.Objects;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.server.ApplicationVersion;
+import com.leopin.parkfifty.shared.utils.ApplicationVersion;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 /**

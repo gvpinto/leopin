@@ -13,7 +13,7 @@
 						<g:Label>Company Name:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiName" maxLength="100" visibleLength="30"></g:TextBox>
+						<g:TextBox ui:field="uiName" name="uiName" maxLength="100" visibleLength="30"></g:TextBox>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -21,7 +21,7 @@
 						<g:Label>Website URL:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiUrl" visibleLength="30" maxLength="100"></g:TextBox>
+						<g:TextBox ui:field="uiUrl" name="uiUrl" visibleLength="30" maxLength="100"></g:TextBox>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -29,7 +29,7 @@
 						<g:Label>Email Address:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiEmail" visibleLength="30" maxLength="300"></g:TextBox>
+						<g:TextBox ui:field="uiEmail"  name="uiEmail" visibleLength="30" maxLength="300"></g:TextBox>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -37,7 +37,7 @@
 						<g:Label>Phone Number:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiPriPhone" visibleLength="30" maxLength="15"></g:TextBox>
+						<g:TextBox ui:field="uiPriPhone" name="uiPriPhone" visibleLength="30" maxLength="15"></g:TextBox>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -45,7 +45,7 @@
 						<g:Label text="Secondary Phone Number:">Other Phone Number:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiSecPhone" visibleLength="30" maxLength="15"></g:TextBox>
+						<g:TextBox ui:field="uiSecPhone"  name="uiSecPhone" visibleLength="30" maxLength="15"></g:TextBox>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -53,7 +53,7 @@
 						<g:Label>Fax</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiFax" visibleLength="30" maxLength="15"></g:TextBox>
+						<g:TextBox ui:field="uiFax" name="uiFax" visibleLength="30" maxLength="15"></g:TextBox>
 					</g:customCell>
 				</g:row>
 			</g:Grid>

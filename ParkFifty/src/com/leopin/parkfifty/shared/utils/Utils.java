@@ -49,4 +49,26 @@ public abstract class Utils {
 		else 
 			return "";
 	}
+
+	public static boolean validate(String value, String regex, boolean isRequired) {
+		
+		boolean result = false;
+		
+		if (!isEmptyOrNull(value)) {
+			result = value.matches(regex);
+		} else {
+			if (isRequired) {
+				result = false;
+			} else {
+				result = true;
+			}
+		}
+		
+		return result;
+		
+	}
+	
+	public static boolean isEmptyOrNull(String value) {
+		return !(value != null && value.trim().length() != 0);
+	}
 }

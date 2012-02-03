@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.leopin.parkfifty.shared.utils.AppRegExp;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 public class ParkFiftyUnitTests {
@@ -34,7 +35,26 @@ public class ParkFiftyUnitTests {
 		phoneNum = "553262";
 		Assert.assertEquals("55-3262", Utils.formatPhoneNum(phoneNum));
 
-		
+	}
+	
+	@Test
+	public void testIsEmptyOrNull() {
+		String value = null;
+		Assert.assertTrue(Utils.isEmptyOrNull(value));
+		value = "";
+		Assert.assertTrue(Utils.isEmptyOrNull(value));
+		value = "G";
+		Assert.assertFalse(Utils.isEmptyOrNull(value));
+		value = "Glenn";
+		Assert.assertFalse(Utils.isEmptyOrNull(value));
+	}
+	
+	@Test
+	public void testValidate() {
+		String value = "This is a Parking Company";
+		Assert.assertTrue(Utils.validate(value, AppRegExp.COMPANY_NAME, true));
+		value = "th";
+		Assert.assertFalse(Utils.validate(value, AppRegExp.COMPANY_NAME, true));
 	}
 
 }

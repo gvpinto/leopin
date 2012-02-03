@@ -14,6 +14,8 @@ public interface ParkFiftyResources extends ClientBundle {
 	  interface Style extends CssResource {
 		  String serverResponseLabelError();
 		  String companyWidget();
+		  // highlight the background when there is a validation error
+		  String validateError();
 	  }
 	  
 	  @Source("parkfifty.css")

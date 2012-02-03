@@ -11,7 +11,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.server.ApplicationVersion;
+import com.leopin.parkfifty.shared.utils.ApplicationVersion;
 
 
 @Entity

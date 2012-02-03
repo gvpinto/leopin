@@ -1,16 +1,16 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.server.AppRegExp.CITY;
-import static com.leopin.parkfifty.server.AppRegExp.COUNTRY_CD;
-import static com.leopin.parkfifty.server.AppRegExp.EMAIL;
-import static com.leopin.parkfifty.server.AppRegExp.EMPTY_STRING;
-import static com.leopin.parkfifty.server.AppRegExp.LOCATION_DESC;
-import static com.leopin.parkfifty.server.AppRegExp.LOCATION_NAME;
-import static com.leopin.parkfifty.server.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.server.AppRegExp.SIMPLE_DESC;
-import static com.leopin.parkfifty.server.AppRegExp.STATE_CD;
-import static com.leopin.parkfifty.server.AppRegExp.STREET;
-import static com.leopin.parkfifty.server.AppRegExp.ZIP_CD;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.CITY;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.COUNTRY_CD;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.LOCATION_DESC;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.LOCATION_NAME;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.SIMPLE_DESC;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.STATE_CD;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.STREET;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.ZIP_CD;
 
 import java.util.Date;
 
@@ -28,7 +28,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.server.ApplicationVersion;
+import com.leopin.parkfifty.shared.utils.ApplicationVersion;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 /**

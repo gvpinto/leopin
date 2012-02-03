@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.base.Objects;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
-import com.leopin.parkfifty.server.ApplicationVersion;
+import com.leopin.parkfifty.shared.utils.ApplicationVersion;
 
 @Component
 @Scope("prototype")

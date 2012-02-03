@@ -35,3 +35,7 @@
 .companyWidget {
 	float: right;
 }
+
+.validateError {
+	background: #ffff66;
+}

@@ -2,7 +2,7 @@ package com.leopin.parkfifty.shared.domain;
 
 import javax.validation.Valid;
 
-import com.leopin.parkfifty.server.ApplicationVersion;
+import com.leopin.parkfifty.shared.utils.ApplicationVersion;
 
 public class CompanyAndUser {
 	

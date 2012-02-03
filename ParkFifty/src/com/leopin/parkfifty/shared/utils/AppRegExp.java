@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.server;
+package com.leopin.parkfifty.shared.utils;
 
 public abstract class AppRegExp {
 //	public static final String EMAIL = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$";

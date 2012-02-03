@@ -1,14 +1,14 @@
 package com.leopin.parkfifty.shared.domain;
 
-import static com.leopin.parkfifty.server.AppRegExp.EMAIL;
-import static com.leopin.parkfifty.server.AppRegExp.EMPTY_STRING;
-import static com.leopin.parkfifty.server.AppRegExp.MIDDLEINITIAL;
-import static com.leopin.parkfifty.server.AppRegExp.NAME;
-import static com.leopin.parkfifty.server.AppRegExp.PASSWORD;
-import static com.leopin.parkfifty.server.AppRegExp.PHONE_NUM;
-import static com.leopin.parkfifty.server.AppRegExp.SUFFIX;
-import static com.leopin.parkfifty.server.AppRegExp.TITLE;
-import static com.leopin.parkfifty.server.AppRegExp.USER_ID;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.EMAIL;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.EMPTY_STRING;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.MIDDLEINITIAL;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.NAME;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.PASSWORD;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.PHONE_NUM;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.SUFFIX;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.TITLE;
+import static com.leopin.parkfifty.shared.utils.AppRegExp.USER_ID;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -38,7 +38,7 @@ import com.googlecode.objectify.annotation.Indexed;
 import com.googlecode.objectify.annotation.Parent;
 import com.googlecode.objectify.annotation.Serialized;
 import com.googlecode.objectify.annotation.Unindexed;
-import com.leopin.parkfifty.server.ApplicationVersion;
+import com.leopin.parkfifty.shared.utils.ApplicationVersion;
 import com.leopin.parkfifty.shared.utils.Utils;
 
 /**
