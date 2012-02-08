@@ -3,12 +3,28 @@ package com.leopin.parkfifty.shared.utils;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Strings;
 
+/**
+ * Utility class with methods for perform validation, checks formatting and other
+ * utility functions required by the application
+ * @author Glenn Pinto
+ *
+ */
 public abstract class Utils {
 
+	/**
+	 * Script the given phone number of all special characters or spaces
+	 * @param phoneNum Phone number to be cleaned up
+	 * @return Cleaned phone number value
+	 */
 	public static String scrubPhoneNum(String phoneNum) {
 		return CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(phoneNum));
 	}
 	
+	/**
+	 * Format a give phone number to (xxx) xxx-xxxx
+	 * @param phoneNum Phone number to be formatted
+	 * @return The formatted phone number
+	 */
 	public static String formatPhoneNum(String phoneNum) {
 		
 		phoneNum = stripChars(phoneNum);
@@ -50,6 +66,13 @@ public abstract class Utils {
 			return "";
 	}
 
+	/**
+	 * Validate a value given a regular expression and is required flag
+	 * @param value Value for validation
+	 * @param regex Regular expression against which the value has to be validated
+	 * @param isRequired If the value is required one then set it to true else set it to false
+	 * @return
+	 */
 	public static boolean validate(String value, String regex, boolean isRequired) {
 		
 		boolean result = false;
@@ -68,7 +91,12 @@ public abstract class Utils {
 		
 	}
 	
+	/**
+	 * Check if the given value is Empty or Null
+	 * @param value Value to check if its Empty or Null
+	 * @return true if Empty or Null otherwise false
+	 */
 	public static boolean isEmptyOrNull(String value) {
-		return !(value != null && value.trim().length() != 0);
+		return (value == null || value.trim().length() == 0);
 	}
 }

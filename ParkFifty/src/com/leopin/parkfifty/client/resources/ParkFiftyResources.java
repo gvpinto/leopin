@@ -16,6 +16,7 @@ public interface ParkFiftyResources extends ClientBundle {
 		  String companyWidget();
 		  // highlight the background when there is a validation error
 		  String validateError();
+		  String xclamation();
 	  }
 	  
 	  @Source("parkfifty.css")
@@ -24,6 +25,9 @@ public interface ParkFiftyResources extends ClientBundle {
 	  @Source("pfbg.png")
 	  @ImageOptions(repeatStyle=RepeatStyle.Horizontal)
 	  public ImageResource pfbg();
+	  
+	  @Source("xclamation.png")
+	  public ImageResource xclamation();
 
 //	  @Source("config.xml")
 //	  public TextResource initialConfiguration();

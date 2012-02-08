@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.leopin.parkfifty.client.messages.AppMessages;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 import com.leopin.parkfifty.shared.utils.Utils;
@@ -30,6 +31,7 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 			.create(CompanyWidgetUiBinder.class);
 
 	private static Map regex = new HashMap();
+	
 	static {
 		regex.put("uiName", AppRegExp.COMPANY_NAME);
 	}
@@ -40,6 +42,12 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 	
 	public CompanyWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		uiName.setHelpText(AppMessages.INSTANCE.companyNameInvalid());
+		uiUrl.setHelpText(AppMessages.INSTANCE.urlInvalid());
+		uiEmail.setHelpText(AppMessages.INSTANCE.emailInvalid());
+		uiPriPhone.setHelpText(AppMessages.INSTANCE.priPhoneNumInvalid());
+		uiSecPhone.setHelpText(AppMessages.INSTANCE.secPhoneNumInvalid());
+		uiFax.setHelpText(AppMessages.INSTANCE.faxInvalid());
 	}
 	
 	// Had to rename the button field as continue is a key fiels
@@ -47,22 +55,22 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 	Button uiContinue;
 	
 	@UiField
-	TextBox uiName;
+	TextBoxCombo uiName;
 	
 	@UiField
-	TextBox uiUrl;
+	TextBoxCombo uiUrl;
 	
 	@UiField
-	TextBox uiEmail;
+	TextBoxCombo uiEmail;
 	
 	@UiField
-	TextBox uiPriPhone;
+	TextBoxCombo uiPriPhone;
 	
 	@UiField
-	TextBox uiSecPhone;
+	TextBoxCombo uiSecPhone;
 	
 	@UiField
-	TextBox uiFax;
+	TextBoxCombo uiFax;
 
 	@UiHandler("uiContinue")
 	void onClick(ClickEvent e) {
@@ -73,34 +81,52 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 	public void onKeyPress(KeyPressEvent event) {
 		if (event.getUnicodeCharCode() == KeyCodes.KEY_ENTER)
 			Window.alert("Enter Key Pressed");
+		event.stopPropagation();
 	}
 	
 	
-	@UiHandler(value={"uiName", "uiUrl"})
+	@UiHandler(value={"uiName", "uiUrl", "uiEmail", "uiPriPhone", "uiFax", "uiSecPhone"})
 	public void clearValidation(FocusEvent event) {
 		TextBox textBox = (TextBox) event.getSource();
 		textBox.removeStyleName(ParkFiftyResources.INSTANCE.style().validateError());
+		((TextBoxCombo)textBox.getParent().getParent()).hideHelp();
+		if (textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
+			
+		}
 	}
 	
-	@UiHandler(value={"uiName", "uiUrl", "uiPriPhone", "uiFax", "uiSecPhone"})
-	public void formatPhone(BlurEvent event) {
-	
+	@UiHandler(value={"uiName", "uiUrl", "uiEmail", "uiPriPhone", "uiFax", "uiSecPhone"})
+	public void validate(BlurEvent event) {
+		
 		// Validation
 		TextBox textBox = (TextBox) event.getSource();
 		if (textBox.getName().matches("uiName")) {
 			if (!Utils.validate(textBox.getText(), AppRegExp.COMPANY_NAME, true)) {
-				uiName.addStyleName(errorStyle());
+				textBox.addStyleName(errorStyle());
+				uiName.showHelp();
 			}
 		} else if(textBox.getName().matches("uiUrl")) {
 			if (!Utils.validate(textBox.getText(), AppRegExp.URL, true)) {
-				uiUrl.addStyleName(errorStyle());
+				textBox.addStyleName(errorStyle());
+				uiUrl.showHelp();
 			}
-		}
-		
-		
-		// Phone Number formatting
-		if (textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
-			textBox.setText(Utils.formatPhoneNum(textBox.getText()));
+		}  else if(textBox.getName().matches("uiEmail")) {
+			if (!Utils.validate(textBox.getText(), AppRegExp.EMAIL, true)) {
+				textBox.addStyleName(errorStyle());
+				uiEmail.showHelp();
+			}
+		} else if(textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
+			boolean valid = true;
+			textBox.setText(Utils.stripChars(textBox.getText()));
+			if (!Utils.validate(textBox.getText(), AppRegExp.PHONE_NUM, (textBox.getName().matches("uiPriPhone")))) {
+				textBox.addStyleName(errorStyle());
+				((TextBoxCombo)textBox.getParent().getParent()).showHelp();
+				valid = false;
+			}
+			// Format the Phone Number if he entered data is valid
+			if (valid) {
+				textBox.setText(Utils.formatPhoneNum(textBox.getText()));	
+			}
 		}
 		
 	}
@@ -109,8 +135,5 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 		return ParkFiftyResources.INSTANCE.style().validateError();
 	}
 
-//	private boolean validate(String value) {
-//		Utils.validate(value, regex);
-//	}
 	
 }

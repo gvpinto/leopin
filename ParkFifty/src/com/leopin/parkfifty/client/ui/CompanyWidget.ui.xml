@@ -1,6 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
 	<ui:with field='res' type='com.leopin.parkfifty.client.resources.ParkFiftyResources'/>
 	<g:HTMLPanel styleName="{res.style.companyWidget}">
 		<g:FlowPanel>
@@ -13,7 +14,7 @@
 						<g:Label>Company Name:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiName" name="uiName" maxLength="100" visibleLength="30"></g:TextBox>
+						<c:TextBoxCombo ui:field="uiName" name="uiName" maxLength="100" visibleLength="30"/>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -21,7 +22,7 @@
 						<g:Label>Website URL:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiUrl" name="uiUrl" visibleLength="30" maxLength="100"></g:TextBox>
+						<c:TextBoxCombo ui:field="uiUrl" name="uiUrl" visibleLength="30" maxLength="100"/>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -29,7 +30,7 @@
 						<g:Label>Email Address:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiEmail"  name="uiEmail" visibleLength="30" maxLength="300"></g:TextBox>
+						<c:TextBoxCombo ui:field="uiEmail"  name="uiEmail" visibleLength="30" maxLength="300"/>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -37,7 +38,7 @@
 						<g:Label>Phone Number:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiPriPhone" name="uiPriPhone" visibleLength="30" maxLength="15"></g:TextBox>
+						<c:TextBoxCombo ui:field="uiPriPhone" name="uiPriPhone" visibleLength="30" maxLength="15"/>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -45,7 +46,7 @@
 						<g:Label text="Secondary Phone Number:">Other Phone Number:</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiSecPhone"  name="uiSecPhone" visibleLength="30" maxLength="15"></g:TextBox>
+						<c:TextBoxCombo ui:field="uiSecPhone"  name="uiSecPhone" visibleLength="30" maxLength="15"/>
 					</g:customCell>
 				</g:row>
 				<g:row>
@@ -53,7 +54,7 @@
 						<g:Label>Fax</g:Label>
 					</g:customCell>
 					<g:customCell>
-						<g:TextBox ui:field="uiFax" name="uiFax" visibleLength="30" maxLength="15"></g:TextBox>
+						<c:TextBoxCombo ui:field="uiFax" name="uiFax" visibleLength="30" maxLength="15"/>
 					</g:customCell>
 				</g:row>
 			</g:Grid>

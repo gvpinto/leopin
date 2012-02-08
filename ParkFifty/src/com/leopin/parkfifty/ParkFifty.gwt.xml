@@ -32,5 +32,10 @@
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />
 	<source path='shared' />
+	
+	<!-- Local Definition -->
+	<inherits name='com.google.gwt.i18n.I18N' />
+	<extend-property name='locale' values='en,sv' />
+	<set-property-fallback name='locale' value='en' />
 
 </module>
