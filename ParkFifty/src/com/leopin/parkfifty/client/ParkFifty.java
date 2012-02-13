@@ -5,7 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.EventBus;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
-import com.leopin.parkfifty.client.views.MainView;
+import com.leopin.parkfifty.client.views.HomeView;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -19,9 +19,12 @@ public class ParkFifty implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-	    EventBus eventBus = clientFactory.getEventBus();		
-		MainView mainView = new MainView();
-		RootPanel.get().add(mainView);
+	   
+		HomeView homeView = clientFactory.getHomeView();
+		new ParkFiftyApp(clientFactory.getService(), clientFactory.getEventBus(), homeView);
+		RootPanel.get().add(homeView);
+		
+		// Ensure content resources are initialized
 		ParkFiftyResources.INSTANCE.style().ensureInjected();
 	}
 }

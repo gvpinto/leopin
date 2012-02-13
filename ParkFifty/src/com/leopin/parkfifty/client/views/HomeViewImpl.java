@@ -15,58 +15,65 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.leopin.parkfifty.client.presenters.Presenter;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 
-public class MainView extends Composite implements HasKeyPressHandlers {
+public class HomeViewImpl extends Composite implements HasKeyPressHandlers, HomeView {
 
-	private static MainViewUiBinder uiBinder = GWT
-			.create(MainViewUiBinder.class);
+	private static HomeViewImplUiBinder uiBinder = GWT
+			.create(HomeViewImplUiBinder.class);
 	
-	SimplePanel content = new SimplePanel();
-	SimplePanel header = new SimplePanel();
-	SimplePanel footer = new SimplePanel();
+	SimplePanel uiContent = new SimplePanel();
+	SimplePanel uiHeader = new SimplePanel();
+	SimplePanel uiFooter = new SimplePanel();
+	
+	// Is signed on?
+	boolean signedOn = false;
 
-	interface MainViewUiBinder extends UiBinder<Widget, MainView> {
+	interface HomeViewImplUiBinder extends UiBinder<Widget, HomeViewImpl> {
 	}
 
 	@UiField
 	HTMLPanel uiMainPanel;
 	
-	public MainView() {
+	public HomeViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
 		Window.addResizeHandler(resizeHandler);
-		uiMainPanel.add(header, "header");
-		uiMainPanel.add(content, "content");
-		uiMainPanel.add(footer, "footer");
-		CompanyWidget companyWidget = new CompanyWidget();
-		this.addKeyPressHandler(companyWidget);
-		FlowPanel companyPanel = new FlowPanel();
-		companyPanel.add(companyWidget);
-		content.add(companyPanel);
+		uiMainPanel.add(uiHeader, "uiHeader");
+		uiMainPanel.add(uiContent, "uiContent");
+		uiMainPanel.add(uiFooter, "uiFooter");
+		
+		if (!signedOn) {
+			CompanyWidget companyWidget = new CompanyWidget();
+			this.addKeyPressHandler(companyWidget);
+			FlowPanel companyPanel = new FlowPanel();
+			companyPanel.add(companyWidget);
+			uiContent.add(companyPanel);
+		}
 	}
 
 
 
-	public static MainViewUiBinder getUiBinder() {
+	public static HomeViewImplUiBinder getUiBinder() {
 		return uiBinder;
 	}
 
 
 
 	public SimplePanel getContent() {
-		return content;
+		return uiContent;
 	}
 
 
 
 	public SimplePanel getHeader() {
-		return header;
+		return uiHeader;
 	}
 
 
 
 	public SimplePanel getFooter() {
-		return footer;
+		return uiFooter;
 	}
 
 
@@ -91,13 +98,24 @@ public class MainView extends Composite implements HasKeyPressHandlers {
 
     private void setWidgetToMaxWidthAndHeight ()
     {
-        setWidth("100%");
-        setHeight("100%");
+//    	uiHeader.setHeight("42px");
+//    	uiContent.setHeight("550px");
+//    	uiFooter.setHeight("8px");
+//        setWidth("100%");
+//        setHeight("100%");
     }
 
 	@Override
 	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
 		return addDomHandler(handler, KeyPressEvent.getType());
+	}
+
+
+
+	@Override
+	public void setPresenter(Presenter presenter) {
+		// TODO Auto-generated method stub
+		
 	}
 
     

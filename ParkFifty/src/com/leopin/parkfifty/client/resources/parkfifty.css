@@ -6,20 +6,20 @@
 	background-color: #efefef;
 }
 
-#wrapper {
+#uiWrapper {
 	margin: 0 auto;
 	width: 960px;
 }
 
-#header {
+#uiHeader {
 	margin: 10px 0 0 0;
 }
 
-#content {
+#uiContent {
 	margin: 30px 0 0 0;
 }
 
-#footer {
+#uiFooter {
 	
 }
 

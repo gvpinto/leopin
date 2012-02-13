@@ -16,6 +16,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.messages.AppMessages;
@@ -42,15 +43,24 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 	
 	public CompanyWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		// Set the Help Text in advance from the AppMessages properties file
 		uiName.setHelpText(AppMessages.INSTANCE.companyNameInvalid());
 		uiUrl.setHelpText(AppMessages.INSTANCE.urlInvalid());
 		uiEmail.setHelpText(AppMessages.INSTANCE.emailInvalid());
 		uiPriPhone.setHelpText(AppMessages.INSTANCE.priPhoneNumInvalid());
 		uiSecPhone.setHelpText(AppMessages.INSTANCE.secPhoneNumInvalid());
 		uiFax.setHelpText(AppMessages.INSTANCE.faxInvalid());
+		
+		// Size the 2nd column on the grid to avoid the jumping of the table 
+		// when the help icon is displayed
+		uiGrid.getColumnFormatter().setWidth(1, "250px");
+		
 	}
 	
-	// Had to rename the button field as continue is a key fiels
+	@UiField
+	Grid uiGrid;
+	
 	@UiField
 	Button uiContinue;
 	
