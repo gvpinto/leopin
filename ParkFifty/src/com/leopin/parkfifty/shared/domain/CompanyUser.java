@@ -137,7 +137,7 @@ public class CompanyUser implements UserDetails, CredentialsContainer, Serializa
 	String lastName;
 	
 	@NotNull(message="{com.leopin.contraints.middleinitial.invalid}")
-	@Pattern(regexp=MIDDLEINITIAL, message="{com.leopin.contraints.middleinitial.invalid}")			
+	@Pattern(regexp=MIDDLEINITIAL+ "|" + EMPTY_STRING, message="{com.leopin.contraints.middleinitial.invalid}")			
 	String middleInitial;
 
 	@NotNull(message="{com.leopin.contraints.suffix.invalid}")

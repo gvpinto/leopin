@@ -6,16 +6,22 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 import com.leopin.parkfifty.client.services.ParkFiftyService;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
+import com.leopin.parkfifty.client.views.AppView;
+import com.leopin.parkfifty.client.views.AppViewImpl;
+import com.leopin.parkfifty.client.views.CompanyRegistrationView;
+import com.leopin.parkfifty.client.views.CompanyRegistrationViewImpl;
 import com.leopin.parkfifty.client.views.HomeView;
 import com.leopin.parkfifty.client.views.HomeViewImpl;
 
 public class ClientFactoryImpl implements ClientFactory {
 
 	private static EventBus eventBus;
+	private static AppView appView;
 	private static ParkFiftyService service;
 	private static PlaceController placeController;
 	private static HomeView homeView;
 	private static CompanyWidget companyWidget;
+	private static CompanyRegistrationView companyRegistrationView;
 	
 	public EventBus getEventBus() {
 		if (eventBus == null) eventBus = new SimpleEventBus();
@@ -41,6 +47,18 @@ public class ClientFactoryImpl implements ClientFactory {
 	public ParkFiftyService getService() {
 		if (service == null) service = new ParkFiftyService();
 		return service;
+	}
+
+	@Override
+	public AppView getAppView() {
+		if (appView == null) appView = new AppViewImpl();
+		return appView;
+	}
+
+	@Override
+	public CompanyRegistrationView getCompanyRegistrationView() {
+		if (companyRegistrationView == null) companyRegistrationView = new CompanyRegistrationViewImpl();
+		return companyRegistrationView;
 	}
 
 }

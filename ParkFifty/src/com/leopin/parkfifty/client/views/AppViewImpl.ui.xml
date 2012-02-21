@@ -5,27 +5,25 @@
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
 
-	<g:SimplePanel>
-		<g:HTMLPanel ui:field="uiMainPanel">
+	<g:HTMLPanel ui:field="uiMainPanel">
 
-			<div id="uiWrapper">
+		<div id="uiWrapper">
 
-				<div id="uiHeader">
-					HEADER
-				</div>
-
-				<div id="uiContent">
-					CONTENT
-				</div>
-
-				<div id="uiFooter">
-					FOOTER
-				</div>
-
+			<div id="uiHeader">
+				HEADER
 			</div>
 
+			<div id="uiContent">
+				
+			</div>
 
-		</g:HTMLPanel>
-	</g:SimplePanel>
-	
+			<div id="uiFooter">
+				FOOTER
+			</div>
+
+		</div>
+
+
+	</g:HTMLPanel>
+
 </ui:UiBinder> 

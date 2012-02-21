@@ -29,6 +29,7 @@ import com.leopin.parkfifty.client.constants.AppConstants;
  *
  */
 public class TextBoxCombo extends Composite implements HasFocusHandlers, HasBlurHandlers {
+//public class TextBoxCombo extends Composite  {
 
 	private static TextBoxComboUiBinder uiBinder = GWT.create(TextBoxComboUiBinder.class);
 	

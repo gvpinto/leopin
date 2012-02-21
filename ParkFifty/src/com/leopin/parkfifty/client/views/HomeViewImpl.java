@@ -1,122 +1,132 @@
 package com.leopin.parkfifty.client.views;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.leopin.parkfifty.client.presenters.HomePresenter;
 import com.leopin.parkfifty.client.presenters.Presenter;
+import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
+import com.leopin.parkfifty.client.ui.TextBoxCombo;
 
-public class HomeViewImpl extends Composite implements HasKeyPressHandlers, HomeView {
+public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
+		BlurHandler, KeyPressHandler {
 
-	private static HomeViewImplUiBinder uiBinder = GWT
-			.create(HomeViewImplUiBinder.class);
+	CompanyWidget companyWidget;
+	HomePresenter presenter;
 	
-	SimplePanel uiContent = new SimplePanel();
-	SimplePanel uiHeader = new SimplePanel();
-	SimplePanel uiFooter = new SimplePanel();
-	
-	// Is signed on?
-	boolean signedOn = false;
 
-	interface HomeViewImplUiBinder extends UiBinder<Widget, HomeViewImpl> {
-	}
-
-	@UiField
-	HTMLPanel uiMainPanel;
-	
 	public HomeViewImpl() {
-		initWidget(uiBinder.createAndBindUi(this));
-		Window.addResizeHandler(resizeHandler);
-		uiMainPanel.add(uiHeader, "uiHeader");
-		uiMainPanel.add(uiContent, "uiContent");
-		uiMainPanel.add(uiFooter, "uiFooter");
-		
-		if (!signedOn) {
-			CompanyWidget companyWidget = new CompanyWidget();
-			this.addKeyPressHandler(companyWidget);
-			FlowPanel companyPanel = new FlowPanel();
-			companyPanel.add(companyWidget);
-			uiContent.add(companyPanel);
-		}
+		companyWidget = new CompanyWidget();
+		companyWidget.initBlurHandlers(this);
+		companyWidget.initFocusHandlers(this);
+		this.initWidget(companyWidget);
+//		this.add(companyWidget);
+//		this.addKeyPressHandler(this);
 	}
-
-
-
-	public static HomeViewImplUiBinder getUiBinder() {
-		return uiBinder;
-	}
-
-
-
-	public SimplePanel getContent() {
-		return uiContent;
-	}
-
-
-
-	public SimplePanel getHeader() {
-		return uiHeader;
-	}
-
-
-
-	public SimplePanel getFooter() {
-		return uiFooter;
-	}
-
-
-
-	public HTMLPanel getUiMainPanel() {
-		return uiMainPanel;
-	}
-//	public MainView(String firstName) {
-//		initWidget(uiBinder.createAndBindUi(this));
-//	}
-
-    /* *************  WIDGET CENTERING CODE *************** */
-    private ResizeHandler resizeHandler = new ResizeHandler()
-    {
-        public void onResize (ResizeEvent event)
-        {
-            setWidgetToMaxWidthAndHeight();
-        }
-    };
-
-
-
-    private void setWidgetToMaxWidthAndHeight ()
-    {
-//    	uiHeader.setHeight("42px");
-//    	uiContent.setHeight("550px");
-//    	uiFooter.setHeight("8px");
-//        setWidth("100%");
-//        setHeight("100%");
-    }
-
-	@Override
-	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
-		return addDomHandler(handler, KeyPressEvent.getType());
-	}
-
-
 
 	@Override
 	public void setPresenter(Presenter presenter) {
-		// TODO Auto-generated method stub
-		
+		this.presenter = (HomePresenter) presenter;
 	}
 
-    
+	public Widget asWidget() {
+		return this;
+	}
+
+	@Override
+	public void onFocus(FocusEvent event) {
+		GWT.log("HomeViewImpl - onBlur: " + event.getSource().toString());
+		TextBox textBox = (TextBox) event.getSource();
+		textBox.removeStyleName(ParkFiftyResources.INSTANCE.style()
+				.validateError());
+		((TextBoxCombo) textBox.getParent().getParent()).hideHelp();
+		if (textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
+
+		}
+	}
+
+	/**
+	 * Set the error style to show the exclamation icon and display the error
+	 * message
+	 * 
+	 * @param textBox
+	 */
+	private void showHelp(TextBox textBox) {
+		textBox.addStyleName(errorStyle());
+		((TextBoxCombo) textBox.getParent().getParent()).showHelp();
+	}
+
+	@Override
+	public void onBlur(BlurEvent event) {
+		// GWT.log("HomeViewImpl - onFocus: " + event.getSource().toString());
+		// Validation
+		TextBox textBox = (TextBox) event.getSource();
+		if (textBox.getName().matches("uiName")) {
+			if (!this.presenter.validateName(textBox.getText())) {
+				showHelp(textBox);
+			}
+		} else if (textBox.getName().matches("uiUrl")) {
+			if (!this.presenter.validateUrl(textBox.getText())) {
+				showHelp(textBox);
+			}
+		} else if (textBox.getName().matches("uiEmail")) {
+			if (!this.presenter.validateEmail(textBox.getText())) {
+				showHelp(textBox);
+			}
+		} else if (textBox.getName().matches("uiPriPhone")) {
+			boolean valid = true;
+			textBox.setText(this.presenter.stripChars(textBox.getText()));
+			if (!this.presenter.validatePriPhone(textBox.getText())) {
+				;
+				showHelp(textBox);
+				valid = false;
+			}
+			// Format the Phone Number if he entered data is valid
+			if (valid) {
+				textBox.setText(this.presenter.formatPhoneNum(textBox.getText()));
+			}
+		} else if (textBox.getName().matches("uiFax|uiSecPhone")) {
+			boolean valid = true;
+			textBox.setText(this.presenter.stripChars(textBox.getText()));
+			if (!this.presenter.validateOtherPhone(textBox.getText())) {
+				showHelp(textBox);
+				valid = false;
+			}
+			// Format the Phone Number if he entered data is valid
+			if (valid) {
+				textBox.setText(this.presenter.formatPhoneNum(textBox.getText()));
+			}
+		}
+	}
+
+	/**
+	 * Get access to the resource file
+	 * 
+	 * @return
+	 */
+	private String errorStyle() {
+		return ParkFiftyResources.INSTANCE.style().validateError();
+	}
+
+
+	@Override
+	public void onKeyPress(KeyPressEvent event) {
+		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
+			next();
+		event.stopPropagation();
+	}
+	
+	private void next() {
+		this.presenter.next();
+	}
+
 }

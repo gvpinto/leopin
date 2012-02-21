@@ -5,8 +5,10 @@ import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
@@ -24,7 +26,7 @@ import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 import com.leopin.parkfifty.shared.utils.Utils;
 
-public class CompanyWidget extends Composite implements KeyPressHandler {
+public class CompanyWidget extends Composite  {
 
 	private static final String String = null;
 
@@ -86,63 +88,31 @@ public class CompanyWidget extends Composite implements KeyPressHandler {
 	void onClick(ClickEvent e) {
 		Window.alert("Hello!");
 	}
-
-	@Override
-	public void onKeyPress(KeyPressEvent event) {
-		if (event.getUnicodeCharCode() == KeyCodes.KEY_ENTER)
-			Window.alert("Enter Key Pressed");
-		event.stopPropagation();
+	
+	/**
+	 * Initialize Focus Handlers for Composites using this widget
+	 * @param handler FocusHandler
+	 */
+	public void initFocusHandlers(FocusHandler handler) {
+		uiName.addFocusHandler(handler);
+		uiUrl.addFocusHandler(handler);
+		uiEmail.addFocusHandler(handler);
+		uiPriPhone.addFocusHandler(handler);
+		uiSecPhone.addFocusHandler(handler);
+		uiFax.addFocusHandler(handler);
 	}
 	
-	
-	@UiHandler(value={"uiName", "uiUrl", "uiEmail", "uiPriPhone", "uiFax", "uiSecPhone"})
-	public void clearValidation(FocusEvent event) {
-		TextBox textBox = (TextBox) event.getSource();
-		textBox.removeStyleName(ParkFiftyResources.INSTANCE.style().validateError());
-		((TextBoxCombo)textBox.getParent().getParent()).hideHelp();
-		if (textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
-			
-		}
-	}
-	
-	@UiHandler(value={"uiName", "uiUrl", "uiEmail", "uiPriPhone", "uiFax", "uiSecPhone"})
-	public void validate(BlurEvent event) {
-		
-		// Validation
-		TextBox textBox = (TextBox) event.getSource();
-		if (textBox.getName().matches("uiName")) {
-			if (!Utils.validate(textBox.getText(), AppRegExp.COMPANY_NAME, true)) {
-				textBox.addStyleName(errorStyle());
-				uiName.showHelp();
-			}
-		} else if(textBox.getName().matches("uiUrl")) {
-			if (!Utils.validate(textBox.getText(), AppRegExp.URL, true)) {
-				textBox.addStyleName(errorStyle());
-				uiUrl.showHelp();
-			}
-		}  else if(textBox.getName().matches("uiEmail")) {
-			if (!Utils.validate(textBox.getText(), AppRegExp.EMAIL, true)) {
-				textBox.addStyleName(errorStyle());
-				uiEmail.showHelp();
-			}
-		} else if(textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
-			boolean valid = true;
-			textBox.setText(Utils.stripChars(textBox.getText()));
-			if (!Utils.validate(textBox.getText(), AppRegExp.PHONE_NUM, (textBox.getName().matches("uiPriPhone")))) {
-				textBox.addStyleName(errorStyle());
-				((TextBoxCombo)textBox.getParent().getParent()).showHelp();
-				valid = false;
-			}
-			// Format the Phone Number if he entered data is valid
-			if (valid) {
-				textBox.setText(Utils.formatPhoneNum(textBox.getText()));	
-			}
-		}
-		
-	}
-	
-	private String errorStyle() {		
-		return ParkFiftyResources.INSTANCE.style().validateError();
+	/**
+	 * Initialize Blur Handler for Composites using this widget
+	 * @param handler BlurHandler
+	 */
+	public void initBlurHandlers(BlurHandler handler) {
+		uiName.addBlurHandler(handler);
+		uiUrl.addBlurHandler(handler);
+		uiEmail.addBlurHandler(handler);
+		uiPriPhone.addBlurHandler(handler);
+		uiSecPhone.addBlurHandler(handler);
+		uiFax.addBlurHandler(handler);
 	}
 
 	
