@@ -1,30 +1,23 @@
 package com.leopin.parkfifty.client.views;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.HasKeyPressHandlers;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.presenters.Presenter;
-import com.leopin.parkfifty.client.ui.CompanyWidget;
 
 public class AppViewImpl extends SimplePanel implements AppView {
 
 	private static AppViewImplUiBinder uiBinder = GWT
 			.create(AppViewImplUiBinder.class);
 	
-	FocusPanel uiContent = new FocusPanel();
+	SimplePanel uiContent = new SimplePanel();
 	SimplePanel uiHeader = new SimplePanel();
 	SimplePanel uiFooter = new SimplePanel();
 	
@@ -40,6 +33,8 @@ public class AppViewImpl extends SimplePanel implements AppView {
 	public AppViewImpl() {
 		add(uiBinder.createAndBindUi(this));
 		Window.addResizeHandler(resizeHandler);
+		uiHeader.add(new HTML("HEADER"));
+		uiFooter.add(new HTML("FOOTER"));
 		uiMainPanel.add(uiHeader, "uiHeader");
 		uiMainPanel.add(uiContent, "uiContent");
 		uiMainPanel.add(uiFooter, "uiFooter");
@@ -53,7 +48,7 @@ public class AppViewImpl extends SimplePanel implements AppView {
 
 
 
-	public FocusPanel getContent() {
+	public SimplePanel getContent() {
 		return uiContent;
 	}
 

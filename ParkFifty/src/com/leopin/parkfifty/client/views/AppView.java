@@ -7,7 +7,7 @@ import com.leopin.parkfifty.client.presenters.Presenter;
 
 public interface AppView extends IsWidget  {
 	void setPresenter(Presenter presenter);
-	public FocusPanel getContent();	
+	public SimplePanel getContent();	
 	public SimplePanel getHeader();
 	public SimplePanel getFooter();
 }

@@ -10,7 +10,7 @@
 		<div id="uiWrapper">
 
 			<div id="uiHeader">
-				HEADER
+
 			</div>
 
 			<div id="uiContent">
@@ -18,7 +18,7 @@
 			</div>
 
 			<div id="uiFooter">
-				FOOTER
+
 			</div>
 
 		</div>

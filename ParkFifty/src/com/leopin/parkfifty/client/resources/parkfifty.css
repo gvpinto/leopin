@@ -1,5 +1,5 @@
-/** Add css rules here for your application. */
 
+/** Add css rules here for your application. */
 
 @sprite body {
 	gwt-image: "pfbg";
@@ -12,24 +12,25 @@
 }
 
 #uiHeader {
-	margin: 10px 0 0 0;
+	height: 40px;
 }
 
 #uiContent {
-	margin: 30px 0 0 0;
+	margin: 2px 0 0 0;
+	height: 550px;
 }
 
 #uiFooter {
-	
+	margin: 1px 0 0 0;
 }
 
 .serverResponseLabelError {
-  color: red;
+	color: red;
 }
 
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
-  margin: 15px 6px 6px;
+	margin: 15px 6px 6px;
 }
 
 .companyWidget {
@@ -37,11 +38,17 @@
 }
 
 .validateError {
-	background: #ffff66;
+
 }
 
 .xclamation {
-	margin: 0 5px;
-	padding: 0 0;
+	margin: 0px 5px;
+	padding: 0px 0px;
+	border-top-width: 7px none;
 }
-	
+
+.textBox {
+	margin: 3px 0;
+	padding: 4px 2px;
+	font-size: 100%;
+}

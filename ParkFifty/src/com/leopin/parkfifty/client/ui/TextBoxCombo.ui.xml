@@ -5,7 +5,7 @@
 	
 	<g:FlowPanel>
 	
-		<g:TextBox ui:field="uiTextBox"/><g:Image ui:field="uiImage" visible="false" resource="{res.xclamation}" styleName="{res.style.xclamation}"/>
+		<g:TextBox ui:field="uiTextBox" styleName="{res.style.textBox}"/><g:Image ui:field="uiImage" visible="false" resource="{res.xclamation}" styleName="{res.style.xclamation}"/>
 		
 	</g:FlowPanel>
 	

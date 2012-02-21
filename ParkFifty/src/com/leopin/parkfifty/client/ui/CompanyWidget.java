@@ -56,15 +56,12 @@ public class CompanyWidget extends Composite  {
 		
 		// Size the 2nd column on the grid to avoid the jumping of the table 
 		// when the help icon is displayed
-		uiGrid.getColumnFormatter().setWidth(1, "250px");
+		uiGrid.getColumnFormatter().setWidth(1, "300px");
 		
 	}
 	
 	@UiField
 	Grid uiGrid;
-	
-	@UiField
-	Button uiContinue;
 	
 	@UiField
 	TextBoxCombo uiName;
@@ -83,11 +80,6 @@ public class CompanyWidget extends Composite  {
 	
 	@UiField
 	TextBoxCombo uiFax;
-
-	@UiHandler("uiContinue")
-	void onClick(ClickEvent e) {
-		Window.alert("Hello!");
-	}
 	
 	/**
 	 * Initialize Focus Handlers for Composites using this widget

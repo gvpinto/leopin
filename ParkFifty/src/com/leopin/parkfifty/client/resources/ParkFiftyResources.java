@@ -17,6 +17,7 @@ public interface ParkFiftyResources extends ClientBundle {
 		  // highlight the background when there is a validation error
 		  String validateError();
 		  String xclamation();
+		  String textBox();
 	  }
 	  
 	  @Source("parkfifty.css")
