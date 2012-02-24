@@ -34,6 +34,18 @@ public interface ParkFiftyResources extends ClientBundle {
 		  String sectionTitle();
 		  String labelCol();
 		  String fieldCol();
+		  
+		  /**
+		   * CSS formatting for label cells
+		   * @return label cell style
+		   */
+		  String labelCell();
+		  
+		  /**
+		   * CSS formatting for field cells
+		   * @return field cell style
+		   */
+		  String fieldCell();
 		  /**
 		   * Column that defines the collection of all the labels and text field
 		   * @return column style

@@ -8,11 +8,11 @@
 		<!-- <g:Grid width="100%" ui:field="uiGrid"> -->
 		<g:Grid ui:field="uiGrid">
 			<g:row>
-				<g:customCell>
+				<g:customCell styleName="{res.style.labelCell}">
 					<g:Label horizontalAlignment="ALIGN_RIGHT" wordWrap="false">Company
 						Name:</g:Label>
 				</g:customCell>
-				<g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
 					<c:TextBoxCombo ui:field="uiName" name="uiName"
 						maxLength="100" visibleLength="25" />
 				</g:customCell>

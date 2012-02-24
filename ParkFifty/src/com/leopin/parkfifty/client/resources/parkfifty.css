@@ -89,11 +89,18 @@ body,div
 
 .labelCol {
 	width: 150px;
-	text-align: right;
 }
 
 .fieldCol {
 	width: 275px;
+	text-align: left;
+}
+
+.labelCell {
+	text-align: right;
+}
+
+.fieldCell {
 	text-align: left;
 }
 
