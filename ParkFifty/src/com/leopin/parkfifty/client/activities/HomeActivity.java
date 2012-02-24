@@ -1,11 +1,11 @@
 package com.leopin.parkfifty.client.activities;
 
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.leopin.parkfifty.client.ClientFactory;
+import com.leopin.parkfifty.client.domain.CompanyProxy;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.presenters.HomePresenter;
@@ -53,10 +53,6 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		return Utils.validate(value, AppRegExp.COMPANY_NAME, isRequired);
 	}
 
-	@Override
-	public void next() {
-		goTo(new CompanyRegistrationPlace());
-	}
 
 	@Override
 	public boolean validateName(String value) {
@@ -98,6 +94,14 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	@Override
 	public String formatPhoneNum(String value) {
 		return Utils.formatPhoneNum(value);
+	}
+
+	/**
+	 * When the user clicks the Continue button
+	 */
+	@Override
+	public void next(CompanyProxy company) {
+		goTo(new CompanyRegistrationPlace());
 	}
 
 }

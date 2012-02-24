@@ -21,7 +21,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-ext-1.6.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-log4j12-1.6.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/validation-api-1.0.0.GA.jar" sourcepath="/Users/gvpinto/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA-sources.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/guava-r09.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objectify-3.0.1.jar" sourcepath="/Users/gvpinto/Opensource/Objectify/objectify-3.0.1/src"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.aop-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.asm-3.1.0.RELEASE.jar"/>
@@ -61,5 +60,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jackson 1.9.3"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/gvpinto/Opensource/jackson-1.9.3/gwt-module/Jackson-1.9.3.jar"/>
+	<classpathentry kind="lib" path="/Users/gvpinto/Opensource/guava-r11/guava-gwt-11.0.1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

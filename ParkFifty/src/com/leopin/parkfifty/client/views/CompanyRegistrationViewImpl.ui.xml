@@ -1,14 +1,20 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
-	xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
 
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
 
 	<g:FlowPanel>
-		<c:CompanyWidget />
-		<c:CompanyOwnerWidget />
+		<g:HTML>Sign up for an Account</g:HTML>
+		<g:FlowPanel>
+			<c:CompanyOwnerWidget styleName="{res.style.floatL}" />
+			<c:CompanyWidget styleName="{res.style.floatL}" />
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{res.style.navbar}">
+			<g:Button addStyleNames="{res.style.button}">Save</g:Button>
+		</g:FlowPanel>
 	</g:FlowPanel>
+
 
 </ui:UiBinder> 

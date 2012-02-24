@@ -4,27 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.leopin.parkfifty.client.domain.CompanyProxy;
 import com.leopin.parkfifty.client.messages.AppMessages;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
+import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
-import com.leopin.parkfifty.shared.utils.Utils;
 
 public class CompanyWidget extends Composite  {
 
@@ -56,7 +47,8 @@ public class CompanyWidget extends Composite  {
 		
 		// Size the 2nd column on the grid to avoid the jumping of the table 
 		// when the help icon is displayed
-		uiGrid.getColumnFormatter().setWidth(1, "300px");
+		uiGrid.getColumnFormatter().addStyleName(0, labelColStyle());
+		uiGrid.getColumnFormatter().addStyleName(1, fieldColStyle());
 		
 	}
 	
@@ -106,6 +98,24 @@ public class CompanyWidget extends Composite  {
 		uiSecPhone.addBlurHandler(handler);
 		uiFax.addBlurHandler(handler);
 	}
-
+	
+	public CompanyProxy getCompany() {
+		CompanyProxy company = new CompanyProxy();
+		company.setName(uiName.getText());
+		company.setEmail(uiEmail.getText());
+		company.setFax(uiFax.getText());
+		company.setPriPhone(uiPriPhone.getText());
+		company.setSecPhone(uiSecPhone.getText());
+		company.setFax(uiFax.getText());
+		return company;
+	}
+	
+	private String labelColStyle() {
+		return ParkFiftyResources.INSTANCE.style().labelCol();
+	}
+	
+	private String fieldColStyle() {
+		return ParkFiftyResources.INSTANCE.style().fieldCol();
+	}
 	
 }

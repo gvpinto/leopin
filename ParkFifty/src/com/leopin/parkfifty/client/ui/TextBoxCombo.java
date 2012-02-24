@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.constants.AppConstants;
+import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 
 /**
  * Custom TextBox that bundle an Input Box, Exclamation Icon to be displayed
@@ -148,6 +149,7 @@ public class TextBoxCombo extends Composite implements HasFocusHandlers, HasBlur
 	void onMouseOver(MouseOverEvent e) {
 		if (errorHelpTextPopup == null) {
 			errorHelpTextPopup = new ErrorHelpTextPopup(helpText);
+			errorHelpTextPopup.addStyleName(popupStyle());
 //			errorHelpTextPopup.setAnimationEnabled(true);
 //			errorHelpTextPopup.setPixelSize(helpWidth, helpHeight);
 			errorHelpTextPopup.setSize(String.valueOf(helpWidth) + "px", "100%");
@@ -225,6 +227,10 @@ public class TextBoxCombo extends Composite implements HasFocusHandlers, HasBlur
 	 */
 	public void hideHelp() {
 		uiImage.setVisible(false);
+	}
+	
+	private String popupStyle() {
+		return ParkFiftyResources.INSTANCE.style().popup();
 	}
 
 

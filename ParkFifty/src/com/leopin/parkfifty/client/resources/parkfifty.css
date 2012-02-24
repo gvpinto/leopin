@@ -1,4 +1,11 @@
 
+body,div
+	{
+	margin: 0;
+	padding: 0;
+	font-family: Tahoma, “Lucida Grande”, Arial, sans-serif;
+}
+
 /** Add css rules here for your application. */
 
 @sprite body {
@@ -17,7 +24,8 @@
 
 #uiContent {
 	margin: 2px 0 0 0;
-	height: 550px;
+	padding:5px;
+	height: 540px;
 }
 
 #uiFooter {
@@ -49,6 +57,47 @@
 
 .textBox {
 	margin: 3px 0;
-	padding: 4px 2px;
+	padding: 2px 2px;
 	font-size: 100%;
+}
+
+.floatR {
+	float: right;
+}
+
+.floatL {
+	float: left;	
+}
+
+.navbar {
+	padding:20px;
+	clear:both;
+	text-align: center;
+}
+
+.sectionTitle {
+	font-size: 125%;
+	font-weight: bold;
+}
+.button {
+	width:75px;
+}
+
+.popup {
+	font-size: 75%;
+}
+
+.labelCol {
+	width: 150px;
+	text-align: right;
+}
+
+.fieldCol {
+	width: 275px;
+	text-align: left;
+}
+
+.column {
+	width: 450px;
+	text-align: center;	
 }

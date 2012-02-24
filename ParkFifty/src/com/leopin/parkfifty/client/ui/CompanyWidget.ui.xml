@@ -5,7 +5,8 @@
 		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
 
 	<g:FlowPanel>
-		<g:Grid width="100%" ui:field="uiGrid">
+		<!-- <g:Grid width="100%" ui:field="uiGrid"> -->
+		<g:Grid ui:field="uiGrid">
 			<g:row>
 				<g:customCell>
 					<g:Label horizontalAlignment="ALIGN_RIGHT" wordWrap="false">Company
@@ -13,7 +14,7 @@
 				</g:customCell>
 				<g:customCell>
 					<c:TextBoxCombo ui:field="uiName" name="uiName"
-						maxLength="100" visibleLength="30" />
+						maxLength="100" visibleLength="25" />
 				</g:customCell>
 			</g:row>
 			<g:row>
@@ -22,7 +23,7 @@
 				</g:customCell>
 				<g:customCell>
 					<c:TextBoxCombo ui:field="uiUrl" name="uiUrl"
-						visibleLength="30" maxLength="100" />
+						visibleLength="25" maxLength="100" />
 				</g:customCell>
 			</g:row>
 			<g:row>
@@ -31,7 +32,7 @@
 				</g:customCell>
 				<g:customCell>
 					<c:TextBoxCombo ui:field="uiEmail" name="uiEmail"
-						visibleLength="30" maxLength="300" />
+						visibleLength="25" maxLength="300" />
 				</g:customCell>
 			</g:row>
 			<g:row>
@@ -40,7 +41,7 @@
 				</g:customCell>
 				<g:customCell>
 					<c:TextBoxCombo ui:field="uiPriPhone" name="uiPriPhone"
-						visibleLength="30" maxLength="15" />
+						visibleLength="25" maxLength="15" />
 				</g:customCell>
 			</g:row>
 			<g:row>
@@ -50,7 +51,7 @@
 				</g:customCell>
 				<g:customCell>
 					<c:TextBoxCombo ui:field="uiSecPhone" name="uiSecPhone"
-						visibleLength="30" maxLength="15" />
+						visibleLength="25" maxLength="15" />
 				</g:customCell>
 			</g:row>
 			<g:row>
@@ -59,7 +60,7 @@
 				</g:customCell>
 				<g:customCell>
 					<c:TextBoxCombo ui:field="uiFax" name="uiFax"
-						visibleLength="30" maxLength="15" />
+						visibleLength="25" maxLength="15" />
 				</g:customCell>
 			</g:row>
 		</g:Grid>

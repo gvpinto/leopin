@@ -3,11 +3,16 @@ package com.leopin.parkfifty.client.views;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -16,32 +21,47 @@ import com.leopin.parkfifty.client.presenters.Presenter;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
+import com.leopin.parkfifty.shared.domain.Company;
 
 public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		BlurHandler, KeyPressHandler {
 
-	CompanyWidget companyWidget;
-	HomePresenter presenter;
-	
+	private HomePresenter presenter;
+
+	private static HomeViewImplUiBinder uiBinder = GWT
+			.create(HomeViewImplUiBinder.class);
+
+	interface HomeViewImplUiBinder extends UiBinder<Widget, HomeViewImpl> {
+	}
 
 	public HomeViewImpl() {
-		companyWidget = new CompanyWidget();
-		companyWidget.initBlurHandlers(this);
-		companyWidget.initFocusHandlers(this);
-		this.initWidget(companyWidget);
-//		this.add(companyWidget);
-//		this.addKeyPressHandler(this);
+		initWidget(uiBinder.createAndBindUi(this));
+		uiCompanyWidget.initBlurHandlers(this);
+		uiCompanyWidget.initFocusHandlers(this);
+	}
+
+	@UiField
+	CompanyWidget uiCompanyWidget;
+
+	@UiField
+	Button uiContinue;
+
+	public HomeViewImpl(String firstName) {
+		initWidget(uiBinder.createAndBindUi(this));
+	}
+
+	@UiHandler("uiContinue")
+	void onClick(ClickEvent e) {
+		next();
 	}
 
 	@Override
-	public void setPresenter(Presenter presenter) {
-		this.presenter = (HomePresenter) presenter;
+	public void onKeyPress(KeyPressEvent event) {
+		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
+			next();
+		event.stopPropagation();
 	}
-
-	public Widget asWidget() {
-		return this;
-	}
-
+	
 	@Override
 	public void onFocus(FocusEvent event) {
 		GWT.log("HomeViewImpl - onBlur: " + event.getSource().toString());
@@ -108,6 +128,26 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		}
 	}
 
+
+	
+	@Override
+	public void setPresenter(Presenter presenter) {
+		this.presenter = (HomePresenter) presenter;
+	}
+
+	@Override
+	public Widget asWidget() {
+		return this;
+	}
+	
+	/*
+	 * PRIVATE METHODS
+	 */
+	private void next() {
+		this.presenter.next(uiCompanyWidget.getCompany());
+	}
+
+
 	/**
 	 * Get access to the resource file
 	 * 
@@ -116,17 +156,4 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	private String errorStyle() {
 		return ParkFiftyResources.INSTANCE.style().validateError();
 	}
-
-
-	@Override
-	public void onKeyPress(KeyPressEvent event) {
-		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
-			next();
-		event.stopPropagation();
-	}
-	
-	private void next() {
-		this.presenter.next();
-	}
-
 }

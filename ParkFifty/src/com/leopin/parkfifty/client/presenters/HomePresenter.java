@@ -1,5 +1,7 @@
 package com.leopin.parkfifty.client.presenters;
 
+import com.leopin.parkfifty.client.domain.CompanyProxy;
+
 public interface HomePresenter extends Presenter {
 	public boolean validate(String value, String regex, boolean isRequired);
 	boolean validateName(String value);
@@ -10,5 +12,5 @@ public interface HomePresenter extends Presenter {
 	boolean validateOtherPhone(String value);
 	String stripChars(String value);
 	String formatPhoneNum(String value);
-	public void next();
+	public void next(CompanyProxy company);
 }

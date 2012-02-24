@@ -18,6 +18,27 @@ public interface ParkFiftyResources extends ClientBundle {
 		  String validateError();
 		  String xclamation();
 		  String textBox();
+		  String floatR();
+		  String floatL();
+		  /**
+		   * Style for the navigation button
+		   * @return navbar style
+		   */
+		  String navbar();
+		  /**
+		   * Button style
+		   * @return button style
+		   */
+		  String button();
+		  String popup();
+		  String sectionTitle();
+		  String labelCol();
+		  String fieldCol();
+		  /**
+		   * Column that defines the collection of all the labels and text field
+		   * @return column style
+		   */
+		  String column();
 	  }
 	  
 	  @Source("parkfifty.css")

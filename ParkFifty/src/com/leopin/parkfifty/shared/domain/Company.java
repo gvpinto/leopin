@@ -33,7 +33,7 @@ import com.leopin.parkfifty.shared.utils.Utils;
 @Component
 @Entity
 @Unindexed
-public class Company implements Serializable, CompanyProxy {
+public class Company implements Serializable {
 	
 	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
 	
