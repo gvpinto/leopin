@@ -31,7 +31,8 @@ public interface ParkFiftyResources extends ClientBundle {
 		   */
 		  String button();
 		  String popup();
-		  String sectionTitle();
+		  String titleSection();
+		  String title();
 		  String labelCol();
 		  String fieldCol();
 		  

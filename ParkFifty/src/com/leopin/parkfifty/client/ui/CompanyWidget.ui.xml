@@ -9,7 +9,7 @@
 		<g:Grid ui:field="uiGrid">
 			<g:row>
 				<g:customCell styleName="{res.style.labelCell}">
-					<g:Label horizontalAlignment="ALIGN_RIGHT" wordWrap="false">Company
+					<g:Label wordWrap="false">Company
 						Name:</g:Label>
 				</g:customCell>
 				<g:customCell styleName="{res.style.fieldCell}">
@@ -18,47 +18,47 @@
 				</g:customCell>
 			</g:row>
 			<g:row>
-				<g:customCell>
-					<g:Label horizontalAlignment="ALIGN_RIGHT">Website URL:</g:Label>
+				<g:customCell styleName="{res.style.labelCell}">
+					<g:Label>Website URL:</g:Label>
 				</g:customCell>
-				<g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
 					<c:TextBoxCombo ui:field="uiUrl" name="uiUrl"
 						visibleLength="25" maxLength="100" />
 				</g:customCell>
 			</g:row>
 			<g:row>
-				<g:customCell>
-					<g:Label horizontalAlignment="ALIGN_RIGHT">Email Address:</g:Label>
+				<g:customCell styleName="{res.style.labelCell}">
+					<g:Label>Email Address:</g:Label>
 				</g:customCell>
-				<g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
 					<c:TextBoxCombo ui:field="uiEmail" name="uiEmail"
 						visibleLength="25" maxLength="300" />
 				</g:customCell>
 			</g:row>
 			<g:row>
-				<g:customCell>
-					<g:Label horizontalAlignment="ALIGN_RIGHT">Phone Number:</g:Label>
+				<g:customCell styleName="{res.style.labelCell}">
+					<g:Label>Phone Number:</g:Label>
 				</g:customCell>
-				<g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
 					<c:TextBoxCombo ui:field="uiPriPhone" name="uiPriPhone"
 						visibleLength="25" maxLength="15" />
 				</g:customCell>
 			</g:row>
 			<g:row>
-				<g:customCell>
+				<g:customCell styleName="{res.style.labelCell}">
 					<g:Label text="Secondary Phone Number:"
 						horizontalAlignment="ALIGN_RIGHT">Other Phone Number:</g:Label>
 				</g:customCell>
-				<g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
 					<c:TextBoxCombo ui:field="uiSecPhone" name="uiSecPhone"
 						visibleLength="25" maxLength="15" />
 				</g:customCell>
 			</g:row>
 			<g:row>
-				<g:customCell>
-					<g:Label text="Fax:" horizontalAlignment="ALIGN_RIGHT">Fax</g:Label>
+				<g:customCell styleName="{res.style.labelCell}">
+					<g:Label text="Fax:">Fax</g:Label>
 				</g:customCell>
-				<g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
 					<c:TextBoxCombo ui:field="uiFax" name="uiFax"
 						visibleLength="25" maxLength="15" />
 				</g:customCell>

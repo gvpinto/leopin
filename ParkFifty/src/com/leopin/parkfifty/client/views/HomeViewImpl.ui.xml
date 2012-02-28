@@ -5,14 +5,13 @@
 	
 	<g:FlowPanel styleName="{res.style.column}">
 		
-		<g:HTML><span class="{res.style.sectionTitle}">Sign up for an Account</span></g:HTML>
+		<g:HTML styleName="{res.style.title}"><span class="{res.style.titleSection}">Sign up for an Account</span></g:HTML>
 		<g:FlowPanel>
 			<c:CompanyWidget ui:field="uiCompanyWidget"/>
 		</g:FlowPanel>
 		<g:FlowPanel styleName="{res.style.navbar}">
 			<g:Button addStyleNames="{res.style.button}" ui:field="uiContinue">Continue</g:Button>
 		</g:FlowPanel>
-		
 		
 	</g:FlowPanel>
 	
