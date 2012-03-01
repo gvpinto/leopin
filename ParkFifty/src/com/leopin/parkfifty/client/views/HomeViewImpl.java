@@ -38,6 +38,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		initWidget(uiBinder.createAndBindUi(this));
 		uiCompanyWidget.initBlurHandlers(this);
 		uiCompanyWidget.initFocusHandlers(this);
+		uiContinue.getElement().setId("uiContinue");
 	}
 
 	@UiField
@@ -46,9 +47,9 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	@UiField
 	Button uiContinue;
 
-	public HomeViewImpl(String firstName) {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+//	public HomeViewImpl(String firstName) {
+//		initWidget(uiBinder.createAndBindUi(this));
+//	}
 
 	@UiHandler("uiContinue")
 	void onClick(ClickEvent e) {

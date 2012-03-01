@@ -85,4 +85,5 @@ public interface ParkFiftyResources extends ClientBundle {
 //	  @Source("arrow.png")
 //	  @ImageOptions(flipRtl = true)
 //	  ImageResource pointer();
+	  
 }

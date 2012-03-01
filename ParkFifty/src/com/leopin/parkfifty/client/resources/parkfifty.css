@@ -108,7 +108,7 @@ body,div
 }
 
 .column {
-	width: 450px;
 	float: right;
-	border: 2px solid #8DB600;
+	border: 2px solid #35AECF;
+	padding: 5px;
 }

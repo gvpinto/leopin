@@ -5,14 +5,16 @@
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
 
-	<g:FlowPanel>
-		<g:HTML>Sign up for an Account</g:HTML>
+	<g:FlowPanel styleName="{res.style.column}">
 		<g:FlowPanel>
-			<c:CompanyOwnerWidget styleName="{res.style.floatL}" />
-			<c:CompanyWidget styleName="{res.style.floatL}" />
-		</g:FlowPanel>
-		<g:FlowPanel styleName="{res.style.navbar}">
-			<g:Button addStyleNames="{res.style.button}">Save</g:Button>
+			<g:HTML styleName="{res.style.title}"><span class="{res.style.titleSection}">Sign up for an Account, Continued...</span></g:HTML>
+			<g:FlowPanel>
+				<c:CompanyOwnerWidget styleName="{res.style.floatL}" />
+				<c:CompanyWidget styleName="{res.style.floatL}" />
+			</g:FlowPanel>
+			<g:FlowPanel styleName="{res.style.navbar}">
+				<g:Button addStyleNames="{res.style.button}">Save</g:Button>
+			</g:FlowPanel>
 		</g:FlowPanel>
 	</g:FlowPanel>
 
