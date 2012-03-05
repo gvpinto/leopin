@@ -49,7 +49,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	}
 
 	@Override
-	public boolean validate(String value, String regex, boolean isRequired) {
+	public boolean validator(String value, String regex, boolean isRequired) {
 		return Utils.validate(value, AppRegExp.COMPANY_NAME, isRequired);
 	}
 
@@ -101,7 +101,93 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	 */
 	@Override
 	public void next(CompanyProxy company) {
-		goTo(new CompanyRegistrationPlace());
+		
+		if (validate("uiName", company.getName()) 
+			&& validate("uiUrl", company.getUrl())
+			&& validate("uiEmail", company.getEmail())
+			&& validate("uiPriPhone", company.getPriPhone())
+			&& validate("uiSecPhone", company.getSecPhone())
+			&& validate("uiFax", company.getFax())) {
+			
+			goTo(new CompanyRegistrationPlace());
+			
+		} else {
+			homeView.setFocus();
+		}
+		
+	}
+
+	@Override
+	/**
+	 * Validate the text in the input box and hightlight it if there is an error
+	 */
+	public boolean validate(String name, String text) {
+		
+		boolean error = false;
+		boolean valid = false;
+		String tempPhone = null;
+		
+		if (name.matches("uiName")) {
+			
+			if (!this.validateName(text)) {
+				error = true;
+			}
+			
+		} else if (name.matches("uiUrl")) {
+			
+			if (!this.validateUrl(text)) {
+				error = true;
+			}
+			
+		} else if (name.matches("uiEmail")) {
+			
+			if (!this.validateEmail(text)) {
+				error = true;
+			}
+			
+		} else if (name.matches("uiPriPhone")) {
+			
+			valid = true;
+//			homeView.setUiText(name, this.stripChars(text));
+			tempPhone = this.stripChars(text);
+			if (!this.validatePriPhone(this.stripChars(tempPhone))) {
+				valid = false;
+				error = true;
+			}
+
+			
+		} else if (name.matches("uiFax|uiSecPhone")) {
+			
+			valid = true;
+			tempPhone = this.stripChars(text);
+			
+			if (!this.validateOtherPhone(tempPhone)) {
+				valid = false;
+				error = true;
+			}
+
+			
+		}
+		
+		// Format the Phone Number if he entered data is valid
+		if (valid) {
+			homeView.setUiText(name, this.formatPhoneNum(text));
+		}
+		
+		if (error) {
+			homeView.showHelp(name);
+		} else {
+			homeView.removeHelp(name);
+		}
+		
+		return error;
+	}
+
+	@Override
+	public void onFocus(String name, String text) {
+		if (name.matches("uiPriPhone|uiSecPhone|uiFax")) {
+			homeView.setUiText(name, this.stripChars(text));
+		}
 	}
 
 }

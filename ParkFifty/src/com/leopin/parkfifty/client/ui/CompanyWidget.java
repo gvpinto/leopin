@@ -6,6 +6,8 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -17,7 +19,7 @@ import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 
-public class CompanyWidget extends Composite  {
+public class CompanyWidget extends Composite   {
 
 	private static final String String = null;
 
@@ -58,20 +60,44 @@ public class CompanyWidget extends Composite  {
 	@UiField
 	TextBoxCombo uiName;
 	
+	public TextBoxCombo getUiName() {
+		return uiName;
+	}
+	
 	@UiField
 	TextBoxCombo uiUrl;
+	
+	public TextBoxCombo getUiUrl() {
+		return uiUrl;
+	}
 	
 	@UiField
 	TextBoxCombo uiEmail;
 	
+	public TextBoxCombo getUiEmail() {
+		return uiEmail;
+	}
+	
 	@UiField
 	TextBoxCombo uiPriPhone;
+	
+	public TextBoxCombo getUiPriPhone() {
+		return uiPriPhone;
+	}
 	
 	@UiField
 	TextBoxCombo uiSecPhone;
 	
+	public TextBoxCombo getUiSecPhone() {
+		return uiSecPhone;
+	}
+	
 	@UiField
 	TextBoxCombo uiFax;
+	
+	public TextBoxCombo getUiFax() {
+		return uiFax;
+	}
 	
 	/**
 	 * Initialize Focus Handlers for Composites using this widget

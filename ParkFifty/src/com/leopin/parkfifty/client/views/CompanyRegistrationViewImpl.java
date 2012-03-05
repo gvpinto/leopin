@@ -6,6 +6,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.presenters.CompanyRegistrationPresenter;
 import com.leopin.parkfifty.client.presenters.Presenter;
+import com.leopin.parkfifty.client.resources.ParkFiftyResources;
+import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
 
 public class CompanyRegistrationViewImpl extends Composite implements CompanyRegistrationView {
 
@@ -34,6 +36,11 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	@Override
 	public Widget asWidget() {
 		return this;
+	}
+
+	@Override
+	public Style style() {
+		return ParkFiftyResources.INSTANCE.style();
 	}
 
 }

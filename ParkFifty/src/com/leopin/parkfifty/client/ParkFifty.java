@@ -25,5 +25,6 @@ public class ParkFifty implements EntryPoint {
 		
 		// Ensure content resources are initialized
 		ParkFiftyResources.INSTANCE.style().ensureInjected();
+		
 	}
 }

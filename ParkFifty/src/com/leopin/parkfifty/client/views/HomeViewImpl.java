@@ -6,9 +6,11 @@ import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.HasKeyPressHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -19,12 +21,13 @@ import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.presenters.HomePresenter;
 import com.leopin.parkfifty.client.presenters.Presenter;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
+import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
 import com.leopin.parkfifty.shared.domain.Company;
 
 public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
-		BlurHandler, KeyPressHandler {
+		BlurHandler, KeyPressHandler, HasKeyPressHandlers {
 
 	private HomePresenter presenter;
 
@@ -39,6 +42,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		uiCompanyWidget.initBlurHandlers(this);
 		uiCompanyWidget.initFocusHandlers(this);
 		uiContinue.getElement().setId("uiContinue");
+		this.addKeyPressHandler(this);
 	}
 
 	@UiField
@@ -65,69 +69,105 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	
 	@Override
 	public void onFocus(FocusEvent event) {
-		GWT.log("HomeViewImpl - onBlur: " + event.getSource().toString());
+		
 		TextBox textBox = (TextBox) event.getSource();
-		textBox.removeStyleName(ParkFiftyResources.INSTANCE.style()
-				.validateError());
-		((TextBoxCombo) textBox.getParent().getParent()).hideHelp();
-		if (textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
-
-		}
+		String name = textBox.getName();
+		String text = textBox.getText();
+		this.presenter.onFocus(name, text);
+		
+//		TextBox textBox = (TextBox) event.getSource();
+//		textBox.removeStyleName(ParkFiftyResources.INSTANCE.style()
+//				.validateError());
+//		((TextBoxCombo) textBox.getParent().getParent()).hideHelp();
+//		if (textBox.getName().matches("uiPriPhone|uiFax|uiSecPhone")) {
+//
+//		}
 	}
 
-	/**
-	 * Set the error style to show the exclamation icon and display the error
-	 * message
-	 * 
-	 * @param textBox
-	 */
-	private void showHelp(TextBox textBox) {
-		textBox.addStyleName(errorStyle());
-		((TextBoxCombo) textBox.getParent().getParent()).showHelp();
-	}
 
 	@Override
 	public void onBlur(BlurEvent event) {
 		// GWT.log("HomeViewImpl - onFocus: " + event.getSource().toString());
 		// Validation
 		TextBox textBox = (TextBox) event.getSource();
-		if (textBox.getName().matches("uiName")) {
-			if (!this.presenter.validateName(textBox.getText())) {
-				showHelp(textBox);
-			}
-		} else if (textBox.getName().matches("uiUrl")) {
-			if (!this.presenter.validateUrl(textBox.getText())) {
-				showHelp(textBox);
-			}
-		} else if (textBox.getName().matches("uiEmail")) {
-			if (!this.presenter.validateEmail(textBox.getText())) {
-				showHelp(textBox);
-			}
-		} else if (textBox.getName().matches("uiPriPhone")) {
-			boolean valid = true;
-			textBox.setText(this.presenter.stripChars(textBox.getText()));
-			if (!this.presenter.validatePriPhone(textBox.getText())) {
-				;
-				showHelp(textBox);
-				valid = false;
-			}
-			// Format the Phone Number if he entered data is valid
-			if (valid) {
-				textBox.setText(this.presenter.formatPhoneNum(textBox.getText()));
-			}
-		} else if (textBox.getName().matches("uiFax|uiSecPhone")) {
-			boolean valid = true;
-			textBox.setText(this.presenter.stripChars(textBox.getText()));
-			if (!this.presenter.validateOtherPhone(textBox.getText())) {
-				showHelp(textBox);
-				valid = false;
-			}
-			// Format the Phone Number if he entered data is valid
-			if (valid) {
-				textBox.setText(this.presenter.formatPhoneNum(textBox.getText()));
-			}
-		}
+		String name = textBox.getName();
+		String text = textBox.getText();
+		
+		this.presenter.validate(name, text);
+
 	}
+
+	public void showHelpUiName(String text) {
+		uiCompanyWidget.getUiName().showHelp();
+	}
+	
+	/**
+	 * Remove the help and any highlighting associated with the help
+	 */
+	public void removeHelp(String name) {
+		
+		TextBoxCombo textBoxCombo = findTextBoxCombo(name);
+
+		if (textBoxCombo != null) {
+			textBoxCombo.getUiTextBox().removeStyleName(ParkFiftyResources.INSTANCE.style()
+					.validateError());
+			textBoxCombo.hideHelp();
+		}
+
+	}
+	
+	/**
+	 * Show help related artifacts and highlighting to indicate an error
+	 */
+	public void showHelp(String name) {
+		TextBoxCombo textBox = findTextBoxCombo(name);
+		if (textBox != null) {
+			textBox.showHelp();
+		}	
+	}
+	
+	/**
+	 * Search for the right TextBoxCombo depending on the name 
+	 * @param name Name of the widget for which the widget object has to be retrieved
+	 * @return TextBoxCombo object
+	 */
+	public TextBoxCombo findTextBoxCombo(String name) {
+		TextBoxCombo textBoxCombo = null;
+		if (name.matches("uiName")) {
+			textBoxCombo = uiCompanyWidget.getUiName();
+		} else if (name.matches("uiUrl")) {
+			textBoxCombo = uiCompanyWidget.getUiUrl();
+		} else if (name.matches("uiEmail")) {
+			textBoxCombo = uiCompanyWidget.getUiEmail();
+		} else if (name.matches("uiPriPhone")) {
+			textBoxCombo = uiCompanyWidget.getUiPriPhone();
+		} else if (name.matches("uiSecPhone")) {
+			textBoxCombo = uiCompanyWidget.getUiSecPhone();
+		} else if (name.matches("uiFax")) {
+			textBoxCombo = uiCompanyWidget.getUiFax();
+		}
+		return textBoxCombo;
+	}
+	
+//	public void showHelpUiUrl(String text) {
+//		uiCompanyWidget.getUiUrl().showHelp();
+//	}
+//	
+//	public void showHelpUiEmail(String text) {
+//		uiCompanyWidget.getUiEmail().showHelp();
+//	}
+//	
+//	public void showHelpUiPriPhone(String text) {
+//		uiCompanyWidget.getUiPriPhone().showHelp();
+//	}
+//	
+//	public void showHelpUiSecPhone(String text) {
+//		uiCompanyWidget.getUiSecPhone().showHelp();
+//	}
+//	
+//	public void showHelpUiFax(String text) {
+//		uiCompanyWidget.getUiFax().showHelp();
+//	}
 
 
 	
@@ -149,12 +189,31 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	}
 
 
-	/**
-	 * Get access to the resource file
-	 * 
-	 * @return
-	 */
-	private String errorStyle() {
-		return ParkFiftyResources.INSTANCE.style().validateError();
+	@Override
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+		return addDomHandler(handler, KeyPressEvent.getType());
+	}
+
+	@Override
+	public void setUiText(String name, String text) {
+		
+		if (name.matches("uiPriPhone")) {
+			uiCompanyWidget.getUiPriPhone().setText(text);
+		} else if (name.matches("uiSecPhone")) {
+			uiCompanyWidget.getUiSecPhone().setText(text);
+		} else if (name.matches("uiFax")) {
+			uiCompanyWidget.getUiFax().setText(text);
+		}
+		
+	}
+
+	@Override
+	public void setFocus() {
+		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
+	}
+
+	@Override
+	public Style style() {
+		return ParkFiftyResources.INSTANCE.style();
 	}
 }
