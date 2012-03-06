@@ -47,7 +47,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
 import org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping;
 
-import com.ashriv.security.server.Role;
+import com.ashriv.security.client.shared.Role;
 import com.leopin.parkfifty.admin.domain.AdminDomainData;
 import com.leopin.parkfifty.server.controllers.AdminController;
 import com.leopin.parkfifty.server.services.AdminService;

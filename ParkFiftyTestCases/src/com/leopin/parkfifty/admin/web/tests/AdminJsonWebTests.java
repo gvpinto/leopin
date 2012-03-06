@@ -25,8 +25,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.ashriv.security.server.GrantedRole;
-import com.ashriv.security.server.Role;
+import com.ashriv.security.client.shared.Role;
 import com.leopin.parkfifty.admin.domain.AdminDomainData;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyAndUser;
@@ -187,7 +186,7 @@ public class AdminJsonWebTests {
 		String userId = companyUser.getUsername();
 //		companyUser.setRole(Role.SUPER_ADMIN);
 		Set<GrantedAuthority> authorities =  new HashSet<GrantedAuthority>();
-		authorities.add(new GrantedRole(Role.ROLE_SUPER_ADMIN));
+		authorities.add(Role.SUPER_ADMIN);
 		companyUser.setAuthorities(authorities);
 		LOGGER.debug(companyUser.toString());
 		

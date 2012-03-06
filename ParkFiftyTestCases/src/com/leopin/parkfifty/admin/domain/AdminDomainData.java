@@ -7,8 +7,7 @@ import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import com.ashriv.security.server.GrantedRole;
-import com.ashriv.security.server.Role;
+import com.ashriv.security.client.shared.Role;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyAndUser;
 import com.leopin.parkfifty.shared.domain.CompanyUser;

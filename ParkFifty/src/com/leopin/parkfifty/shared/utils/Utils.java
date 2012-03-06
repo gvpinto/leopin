@@ -71,7 +71,7 @@ public abstract class Utils {
 	 * @param value Value for validation
 	 * @param regex Regular expression against which the value has to be validated
 	 * @param isRequired If the value is required one then set it to true else set it to false
-	 * @return
+	 * @return true if it passes the validation, false if it fails the validation
 	 */
 	public static boolean validate(String value, String regex, boolean isRequired) {
 		
