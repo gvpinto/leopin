@@ -3,7 +3,7 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
 	<ui:with field='res' type='com.leopin.parkfifty.client.resources.ParkFiftyResources'/>
 	
-	<g:FlowPanel styleName="{res.style.column}">
+	<g:FlowPanel addStyleNames="{res.style.column} {res.style.floatR}">
 		
 		<g:HTML styleName="{res.style.title}"><span class="{res.style.titleSection}">Sign up for an Account</span></g:HTML>
 		<g:FlowPanel>

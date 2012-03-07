@@ -9,8 +9,8 @@
 		<g:FlowPanel>
 			<g:HTML styleName="{res.style.title}"><span class="{res.style.titleSection}">Sign up for an Account, Continued...</span></g:HTML>
 			<g:FlowPanel>
-				<c:CompanyWidget styleName="{res.style.floatL}" />
-				<c:CompanyOwnerWidget styleName="{res.style.floatL}" />
+				<c:CompanyOwnerWidget styleName="{res.style.floatR}" />
+				<c:CompanyWidget styleName="{res.style.floatR}" />
 			</g:FlowPanel>
 			<g:FlowPanel styleName="{res.style.navbar}">
 				<g:Button addStyleNames="{res.style.button}">Save</g:Button>
