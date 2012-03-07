@@ -1,7 +1,6 @@
 package com.leopin.parkfifty.shared.utils;
 
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Strings;
+
 
 /**
  * Utility class with methods for perform validation, checks formatting and other
@@ -17,7 +16,8 @@ public abstract class Utils {
 	 * @return Cleaned phone number value
 	 */
 	public static String scrubPhoneNum(String phoneNum) {
-		return CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(phoneNum));
+		return stripChars(phoneNum);
+//		return CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(Strings.nullToEmpty(phoneNum));
 	}
 	
 	/**

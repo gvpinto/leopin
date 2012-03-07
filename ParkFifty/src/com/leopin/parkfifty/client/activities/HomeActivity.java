@@ -118,31 +118,28 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	}
 
 	@Override
-	/**
-	 * Validate the text in the input box and hightlight it if there is an error
-	 */
 	public boolean validate(String name, String text) {
 		
-		boolean error = false;
+		boolean pass = true;
 		boolean valid = false;
 		String tempPhone = null;
 		
 		if (name.matches("uiName")) {
 			
 			if (!this.validateName(text)) {
-				error = true;
+				pass = false;
 			}
 			
 		} else if (name.matches("uiUrl")) {
 			
 			if (!this.validateUrl(text)) {
-				error = true;
+				pass = false;
 			}
 			
 		} else if (name.matches("uiEmail")) {
 			
 			if (!this.validateEmail(text)) {
-				error = true;
+				pass = false;
 			}
 			
 		} else if (name.matches("uiPriPhone")) {
@@ -152,7 +149,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 			tempPhone = this.stripChars(text);
 			if (!this.validatePriPhone(this.stripChars(tempPhone))) {
 				valid = false;
-				error = true;
+				pass = false;
 			}
 
 			
@@ -163,7 +160,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 			
 			if (!this.validateOtherPhone(tempPhone)) {
 				valid = false;
-				error = true;
+				pass = false;
 			}
 
 			
@@ -174,13 +171,13 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 			homeView.setUiText(name, this.formatPhoneNum(text));
 		}
 		
-		if (error) {
+		if (!pass) {
 			homeView.showHelp(name);
 		} else {
 			homeView.removeHelp(name);
 		}
 		
-		return error;
+		return pass;
 	}
 
 	@Override

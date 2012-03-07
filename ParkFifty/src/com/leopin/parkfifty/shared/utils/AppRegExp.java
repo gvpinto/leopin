@@ -3,7 +3,7 @@ package com.leopin.parkfifty.shared.utils;
 public abstract class AppRegExp {
 //	public static final String EMAIL = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$";
 	public static final String EMAIL = "^[a-z0-9_\\-]+(\\.[_a-z0-9\\-]+)*@([_a-z0-9\\-]+\\.)+([a-z]{2}|aero|arpa|biz|com|coop|edu|gov|info|int|jobs|mil|museum|name|nato|net|org|pro|travel)$";
-	public static final String URL = "(http|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?";
+	public static final String URL = "(http:\\/\\/|https:\\/\\/|)[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?";
 	public static final String COMPANY_CODE = "^[A-Z][\\_\\-0-9A-Z]{4,10}$";
 	public static final String COMPANY_NAME = "^[\\w\\s\\-\\.\\,\\;\\']{3,100}$";
 	public static final String PHONE_NUM = "(^[0-9]{10,15}$)";

@@ -128,8 +128,8 @@ public class CompanyWidget extends Composite   {
 	public CompanyProxy getCompany() {
 		CompanyProxy company = new CompanyProxy();
 		company.setName(uiName.getText());
+		company.setUrl(uiUrl.getText());
 		company.setEmail(uiEmail.getText());
-		company.setFax(uiFax.getText());
 		company.setPriPhone(uiPriPhone.getText());
 		company.setSecPhone(uiSecPhone.getText());
 		company.setFax(uiFax.getText());

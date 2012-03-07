@@ -84,6 +84,7 @@ public class RegexpUnitTests {
 
 	}
 
+	@Test
 	public void testURL() {
 		
 		Pattern pattern = Pattern.compile(AppRegExp.URL);
@@ -97,7 +98,19 @@ public class RegexpUnitTests {
 		Assert.assertFalse(pattern.matcher("http://www.bbt-hello.com/javascript:alert(&quot;XSS&quot;)").matches());
 		Assert.assertFalse(pattern.matcher("http://www.bbt-hello.com/hello?<SCRIPT>alert(“Cookie”+document.cookie)</SCRIPT>").matches());
 		Assert.assertFalse(pattern.matcher("http://www.bbt-hello.com/hello?alert(“Cookie”+document.cookie)").matches());
-		Assert.assertFalse(pattern.matcher("http://www.example.com/malicious-code.js%3e%3c/script%3e").matches());
+		Assert.assertTrue(pattern.matcher("http://www.example.com/malicious-code.js%3e%3c/script%3e").matches());
+		Assert.assertTrue(pattern.matcher("www.bbt.com").matches());
+		Assert.assertTrue(pattern.matcher("www.bbt.com").matches());
+		Assert.assertTrue(pattern.matcher("www.bbt.com/hello/hello.html").matches());
+		Assert.assertTrue(pattern.matcher("bbt.com").matches());
+		Assert.assertTrue(pattern.matcher("bbt-hello.com").matches());
+		Assert.assertTrue(pattern.matcher("www.bbt-hello.com").matches());
+		Assert.assertTrue(pattern.matcher("www.bbt-hello.com").matches());
+		
+		Assert.assertFalse(pattern.matcher("bbt").matches());
+		Assert.assertFalse(pattern.matcher("bbt").matches());
+		Assert.assertFalse(pattern.matcher("bbt/hello/hello.html").matches());
+
 		
 		
 	}
