@@ -24,7 +24,6 @@ import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
-import com.leopin.parkfifty.shared.domain.Company;
 
 public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		BlurHandler, KeyPressHandler, HasKeyPressHandlers {

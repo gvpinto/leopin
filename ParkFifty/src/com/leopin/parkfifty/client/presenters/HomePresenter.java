@@ -1,6 +1,6 @@
 package com.leopin.parkfifty.client.presenters;
 
-import com.leopin.parkfifty.client.domain.CompanyProxy;
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
 
 public interface HomePresenter extends Presenter {
 	public boolean validator(String value, String regex, boolean isRequired);

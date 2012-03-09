@@ -2,7 +2,9 @@ package com.leopin.parkfifty.client.domain;
 
 import java.util.Date;
 
-public class CompanyProxy {
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
+
+public class CompanyProxyImpl implements CompanyProxy {
 
 	Long id;
 	String name;	
@@ -15,7 +17,7 @@ public class CompanyProxy {
 	Date updateTs;
 	String updateUid;
 
-	public CompanyProxy() {
+	public CompanyProxyImpl() {
 		this.updateTs = new Date();
 	}
 

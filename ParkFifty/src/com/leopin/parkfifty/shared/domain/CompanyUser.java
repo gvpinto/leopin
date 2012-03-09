@@ -47,7 +47,7 @@ import com.leopin.parkfifty.shared.utils.Utils;
  */
 @Entity
 @Unindexed
-public class CompanyUser implements UserDetails, CredentialsContainer, Serializable {
+public class CompanyUser implements UserDetails, CredentialsContainer, CompanyUserProxy, Serializable {
 	
 	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
 	

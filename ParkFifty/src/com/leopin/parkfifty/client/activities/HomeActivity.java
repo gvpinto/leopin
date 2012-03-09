@@ -5,11 +5,11 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.leopin.parkfifty.client.ClientFactory;
-import com.leopin.parkfifty.client.domain.CompanyProxy;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.presenters.HomePresenter;
 import com.leopin.parkfifty.client.views.HomeView;
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 import com.leopin.parkfifty.shared.utils.Utils;
 

@@ -6,20 +6,19 @@ import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Widget;
-import com.leopin.parkfifty.client.domain.CompanyProxy;
+import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
 import com.leopin.parkfifty.client.messages.AppMessages;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
-import com.leopin.parkfifty.shared.domain.Company;
+import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 
-public class CompanyWidget extends Composite   {
+public class CompanyWidget extends Composite implements UiWidget {
 
 	private static final String String = null;
 
@@ -49,8 +48,8 @@ public class CompanyWidget extends Composite   {
 		
 		// Size the 2nd column on the grid to avoid the jumping of the table 
 		// when the help icon is displayed
-		uiGrid.getColumnFormatter().addStyleName(0, labelColStyle());
-		uiGrid.getColumnFormatter().addStyleName(1, fieldColStyle());
+		uiGrid.getColumnFormatter().addStyleName(0, this.style().labelCol());
+		uiGrid.getColumnFormatter().addStyleName(1, this.style().fieldCol());
 		
 	}
 	
@@ -126,7 +125,7 @@ public class CompanyWidget extends Composite   {
 	}
 	
 	public CompanyProxy getCompany() {
-		CompanyProxy company = new CompanyProxy();
+		CompanyProxy company = new CompanyProxyImpl();
 		company.setName(uiName.getText());
 		company.setUrl(uiUrl.getText());
 		company.setEmail(uiEmail.getText());
@@ -135,13 +134,10 @@ public class CompanyWidget extends Composite   {
 		company.setFax(uiFax.getText());
 		return company;
 	}
-	
-	private String labelColStyle() {
-		return ParkFiftyResources.INSTANCE.style().labelCol();
-	}
-	
-	private String fieldColStyle() {
-		return ParkFiftyResources.INSTANCE.style().fieldCol();
+
+	@Override
+	public Style style() {
+		return ParkFiftyResources.INSTANCE.style();
 	}
 	
 }

@@ -52,6 +52,12 @@ public interface ParkFiftyResources extends ClientBundle {
 		   * @return column style
 		   */
 		  String column();
+		  
+		  /**
+		   * Align the dom elements to center
+		   * @return center style
+		   */
+		  String center();
 	  }
 	  
 	  @Source("parkfifty.css")
