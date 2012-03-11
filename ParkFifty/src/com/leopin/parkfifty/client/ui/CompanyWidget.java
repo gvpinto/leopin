@@ -134,6 +134,25 @@ public class CompanyWidget extends Composite implements UiWidget {
 		company.setFax(uiFax.getText());
 		return company;
 	}
+	
+	public Widget getWidget(String name) {
+		Widget widget = null;
+		
+		if (name.matches("uiName")) {
+			widget = this.getUiName();
+		} else if (name.matches("uiUrl")) {
+			widget = this.getUiUrl();
+		} else if (name.matches("uiEmail")) {
+			widget = this.getUiEmail();
+		} else if (name.matches("uiPriPhone")) {
+			widget = this.getUiPriPhone();
+		} else if (name.matches("uiSecPhone")) {
+			widget = this.getUiSecPhone();
+		} else if (name.matches("uiFax")) {
+			widget = this.getUiFax();
+		}
+		return widget;
+	}
 
 	@Override
 	public Style style() {

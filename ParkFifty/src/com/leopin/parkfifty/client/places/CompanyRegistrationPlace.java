@@ -2,12 +2,16 @@ package com.leopin.parkfifty.client.places;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
 
 public class CompanyRegistrationPlace extends Place {
 	
 	String state;
-	public CompanyRegistrationPlace() {
+	CompanyProxy company;
+	
+	public CompanyRegistrationPlace(CompanyProxy company) {
 		state = "register";
+		company = company;
 	}
 	
 	public String getState() {
@@ -18,7 +22,7 @@ public class CompanyRegistrationPlace extends Place {
 
 		@Override
 		public CompanyRegistrationPlace getPlace(String token) {
-			return new CompanyRegistrationPlace();
+			return new CompanyRegistrationPlace(null);
 		}
 
 		@Override

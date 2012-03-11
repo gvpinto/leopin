@@ -1,5 +1,8 @@
 package com.leopin.parkfifty.client.activities;
 
+import static com.leopin.parkfifty.shared.utils.Validator.*;
+import static com.leopin.parkfifty.shared.utils.Utils.*;
+
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -10,8 +13,6 @@ import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.presenters.HomePresenter;
 import com.leopin.parkfifty.client.views.HomeView;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
-import com.leopin.parkfifty.shared.utils.AppRegExp;
-import com.leopin.parkfifty.shared.utils.Utils;
 
 public class HomeActivity extends AbstractActivity implements HomePresenter {
 	
@@ -30,7 +31,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		bind();
 	}
 
-    private void bind() {
+    public void bind() {
 		homeView.setPresenter(this);
 	}
 
@@ -48,53 +49,6 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		clientFactory.getPlaceController().goTo(place);
 	}
 
-	@Override
-	public boolean validator(String value, String regex, boolean isRequired) {
-		return Utils.validate(value, AppRegExp.COMPANY_NAME, isRequired);
-	}
-
-
-	@Override
-	public boolean validateName(String value) {
-		return Utils.validate(value, AppRegExp.COMPANY_NAME, true);
-	}
-
-	@Override
-	public boolean validateUrl(String value) {
-		return Utils.validate(value, AppRegExp.URL, true);
-	}
-
-	@Override
-	public boolean validateEmail(String value) {
-		return Utils.validate(value, AppRegExp.EMAIL, true);
-	}
-
-	@Override
-	public boolean validatePriPhone(String value) {
-		return Utils.validate(value, AppRegExp.PHONE_NUM, true);
-	}
-
-	@Override
-	public boolean validateOtherPhone(String value) {
-		return Utils.validate(value, AppRegExp.PHONE_NUM, false);
-	}
-
-
-	@Override
-	public String stripChars(String value) {
-		return Utils.stripChars(value);
-	}
-
-	@Override
-	public boolean validateSecPhone(String value) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String formatPhoneNum(String value) {
-		return Utils.formatPhoneNum(value);
-	}
 
 	/**
 	 * When the user clicks the Continue button
@@ -109,7 +63,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 			&& validate("uiSecPhone", company.getSecPhone())
 			&& validate("uiFax", company.getFax())) {
 			
-			goTo(new CompanyRegistrationPlace());
+			goTo(new CompanyRegistrationPlace(company));
 			
 		} else {
 			homeView.setFocus();
@@ -126,19 +80,19 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		
 		if (name.matches("uiName")) {
 			
-			if (!this.validateName(text)) {
+			if (!validateName(text)) {
 				pass = false;
 			}
 			
 		} else if (name.matches("uiUrl")) {
 			
-			if (!this.validateUrl(text)) {
+			if (!validateUrl(text)) {
 				pass = false;
 			}
 			
 		} else if (name.matches("uiEmail")) {
 			
-			if (!this.validateEmail(text)) {
+			if (!validateEmail(text)) {
 				pass = false;
 			}
 			
@@ -146,8 +100,8 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 			
 			valid = true;
 //			homeView.setUiText(name, this.stripChars(text));
-			tempPhone = this.stripChars(text);
-			if (!this.validatePriPhone(this.stripChars(tempPhone))) {
+			tempPhone = stripChars(text);
+			if (!validatePriPhone(stripChars(tempPhone))) {
 				valid = false;
 				pass = false;
 			}
@@ -156,9 +110,9 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		} else if (name.matches("uiFax|uiSecPhone")) {
 			
 			valid = true;
-			tempPhone = this.stripChars(text);
+			tempPhone = stripChars(text);
 			
-			if (!this.validateOtherPhone(tempPhone)) {
+			if (!validateOtherPhone(tempPhone)) {
 				valid = false;
 				pass = false;
 			}
@@ -168,7 +122,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		
 		// Format the Phone Number if he entered data is valid
 		if (valid) {
-			homeView.setUiText(name, this.formatPhoneNum(text));
+			homeView.setUiText(name, formatPhoneNum(text));
 		}
 		
 		if (!pass) {
@@ -183,8 +137,9 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	@Override
 	public void onFocus(String name, String text) {
 		if (name.matches("uiPriPhone|uiSecPhone|uiFax")) {
-			homeView.setUiText(name, this.stripChars(text));
+			homeView.setUiText(name, stripChars(text));
 		}
 	}
+
 
 }

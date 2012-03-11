@@ -15,10 +15,10 @@ import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 
 public class CompanyOwnerWidget extends Composite implements UiWidget {
 
-	private static CompanyOwnerWidgetUiBinder uiBinder = GWT
-			.create(CompanyOwnerWidgetUiBinder.class);
+	private static CompanyOwnerWidgetUiUserBinder uiBinder = GWT
+			.create(CompanyOwnerWidgetUiUserBinder.class);
 
-	interface CompanyOwnerWidgetUiBinder extends
+	interface CompanyOwnerWidgetUiUserBinder extends
 			UiBinder<Widget, CompanyOwnerWidget> {
 	}
 
@@ -39,80 +39,80 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	Grid uiGrid;
 	
 	@UiField
-	TextBoxCombo uiUsername;
+	TextBoxCombo uiUserUsername;
 	
-	public TextBoxCombo getUiUsername() {
-		return uiUsername;
+	public TextBoxCombo getUiUserUsername() {
+		return uiUserUsername;
 	}
 	
 	@UiField
-	PasswordCombo uiPassword;
+	PasswordCombo uiUserPassword;
 	
-	public PasswordCombo getUiPassword() {
-		return uiPassword;
+	public PasswordCombo getUiUserPassword() {
+		return uiUserPassword;
 	}
 	
 	@UiField
-	TextBoxCombo uiTitle;
+	TextBoxCombo uiUserTitle;
 	
-	public TextBoxCombo getUiTitle() {
-		return uiTitle;
+	public TextBoxCombo getUiUserTitle() {
+		return uiUserTitle;
 	}
 	
 	@UiField
-	TextBoxCombo uiFirstName;
+	TextBoxCombo uiUserFirstName;
 	
-	public TextBoxCombo getUiFirstName() {
-		return uiFirstName;
+	public TextBoxCombo getUiUserFirstName() {
+		return uiUserFirstName;
 	}
 	
 	@UiField
-	TextBoxCombo uiMiddleInitial;
+	TextBoxCombo uiUserMiddleInitial;
 	
-	public TextBoxCombo getUiMiddleInitial() {
-		return uiMiddleInitial;
+	public TextBoxCombo getUiUserMiddleInitial() {
+		return uiUserMiddleInitial;
 	}
 	
 	@UiField
-	TextBoxCombo uiLastName;
+	TextBoxCombo uiUserLastName;
 	
-	public TextBoxCombo getUiLastName() {
-		return uiLastName;
+	public TextBoxCombo getUiUserLastName() {
+		return uiUserLastName;
 	}
 	
 	@UiField
-	TextBoxCombo uiSuffix;
+	TextBoxCombo uiUserSuffix;
 	
-	public TextBoxCombo getUiSuffix() {
-		return uiSuffix;
+	public TextBoxCombo getUiUserSuffix() {
+		return uiUserSuffix;
 	}
 	
 	@UiField
-	TextBoxCombo uiPriPhone;
+	TextBoxCombo uiUserPriPhone;
 	
-	public TextBoxCombo getUiPriPhone() {
-		return uiPriPhone;
+	public TextBoxCombo getUiUserPriPhone() {
+		return uiUserPriPhone;
 	}
 	
 	@UiField
-	TextBoxCombo uiSecPhone;
+	TextBoxCombo uiUserSecPhone;
 	
-	public TextBoxCombo getUiSecPhone() {
-		return uiSecPhone;
+	public TextBoxCombo getUiUserSecPhone() {
+		return uiUserSecPhone;
 	}
 	
 	@UiField
-	TextBoxCombo uiFax;
+	TextBoxCombo uiUserFax;
 	
-	public TextBoxCombo getUiFax() {
-		return uiFax;
+	public TextBoxCombo getUiUserFax() {
+		return uiUserFax;
 	}
 	
 	@UiField
-	TextBoxCombo uiEmail;
+	TextBoxCombo uiUserEmail;
 	
-	public TextBoxCombo getUiEmail() {
-		return uiEmail;
+	public TextBoxCombo getUiUserEmail() {
+		return uiUserEmail;
 	}
 	
 	/**
@@ -120,17 +120,17 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	 * @param handler FocusHandler
 	 */
 	public void initFocusHandlers(FocusHandler handler) {
-		uiUsername.addFocusHandler(handler);
-		uiPassword.addFocusHandler(handler);
-		uiTitle.addFocusHandler(handler);
-		uiFirstName.addFocusHandler(handler);
-		uiMiddleInitial.addFocusHandler(handler);
-		uiLastName.addFocusHandler(handler);
-		uiSuffix.addFocusHandler(handler);
-		uiPriPhone.addFocusHandler(handler);
-		uiSecPhone.addFocusHandler(handler);
-		uiFax.addFocusHandler(handler);
-		uiEmail.addFocusHandler(handler);
+		getUiUserUsername().addFocusHandler(handler);
+		getUiUserPassword().addFocusHandler(handler);
+		getUiUserTitle().addFocusHandler(handler);
+		getUiUserFirstName().addFocusHandler(handler);
+		getUiUserMiddleInitial().addFocusHandler(handler);
+		getUiUserLastName().addFocusHandler(handler);
+		getUiUserSuffix().addFocusHandler(handler);
+		getUiUserPriPhone().addFocusHandler(handler);
+		getUiUserSecPhone().addFocusHandler(handler);
+		getUiUserFax().addFocusHandler(handler);
+		getUiUserEmail().addFocusHandler(handler);
 	}
 	
 	/**
@@ -138,36 +138,64 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	 * @param handler BlurHandler
 	 */
 	public void initBlurHandlers(BlurHandler handler) {
-		uiUsername.addBlurHandler(handler);
-		uiPassword.addBlurHandler(handler);
-		uiTitle.addBlurHandler(handler);
-		uiFirstName.addBlurHandler(handler);
-		uiMiddleInitial.addBlurHandler(handler);
-		uiLastName.addBlurHandler(handler);
-		uiSuffix.addBlurHandler(handler);
-		uiPriPhone.addBlurHandler(handler);
-		uiSecPhone.addBlurHandler(handler);
-		uiFax.addBlurHandler(handler);
-		uiEmail.addBlurHandler(handler);
+		getUiUserUsername().addBlurHandler(handler);
+		getUiUserPassword().addBlurHandler(handler);
+		getUiUserTitle().addBlurHandler(handler);
+		getUiUserFirstName().addBlurHandler(handler);
+		getUiUserMiddleInitial().addBlurHandler(handler);
+		getUiUserLastName().addBlurHandler(handler);
+		getUiUserSuffix().addBlurHandler(handler);
+		getUiUserPriPhone().addBlurHandler(handler);
+		getUiUserSecPhone().addBlurHandler(handler);
+		getUiUserFax().addBlurHandler(handler);
+		getUiUserEmail().addBlurHandler(handler);
 	}
 	
 	public CompanyUserProxy getCompanyUserProxy() {
 		CompanyUserProxy companyUserProxy = new CompanyUserProxyImpl();
-		companyUserProxy.setUsername(uiUsername.getText());
-		companyUserProxy.setPassword(uiPassword.getText());
-		companyUserProxy.setTitle(uiTitle.getText());
-		companyUserProxy.setFirstName(uiFirstName.getText());
-		companyUserProxy.setMiddleInitial(uiMiddleInitial.getText());
-		companyUserProxy.setLastName(uiLastName.getText());
-		companyUserProxy.setSuffix(uiSuffix.getText());
-		companyUserProxy.setPriPhone(uiPriPhone.getText());
-		companyUserProxy.setSecPhone(uiSecPhone.getText());
-		companyUserProxy.setFax(uiFax.getText());
-		companyUserProxy.setEmail(uiEmail.getText());
+		companyUserProxy.setUsername(getUiUserUsername().getText());
+		companyUserProxy.setPassword(getUiUserPassword().getText());
+		companyUserProxy.setTitle(getUiUserTitle().getText());
+		companyUserProxy.setFirstName(getUiUserFirstName().getText());
+		companyUserProxy.setMiddleInitial(getUiUserMiddleInitial().getText());
+		companyUserProxy.setLastName(getUiUserLastName().getText());
+		companyUserProxy.setSuffix(getUiUserSuffix().getText());
+		companyUserProxy.setPriPhone(getUiUserPriPhone().getText());
+		companyUserProxy.setSecPhone(getUiUserSecPhone().getText());
+		companyUserProxy.setFax(getUiUserFax().getText());
+		companyUserProxy.setEmail(getUiUserEmail().getText());
 		
 		return companyUserProxy;
 	}
 
+	public Widget getWidget(String name) {
+		Widget widget = null;
+		
+		if (name.matches("uiUserUsername")) {
+			widget = this.getUiUserUsername();
+		} else if (name.matches("uiUserPassword")) {
+			widget = this.getUiUserPassword();
+		} else if (name.matches("uiEmail")) {
+			widget = this.getUiUserEmail();
+		} else if (name.matches("uiUserPriPhone")) {
+			widget = this.getUiUserPriPhone();
+		} else if (name.matches("uiUserSecPhone")) {
+			widget = this.getUiUserSecPhone();
+		} else if (name.matches("uiUserFax")) {
+			widget = this.getUiUserFax();
+		} else if (name.matches("uiUserTitle")) {
+			widget = this.getUiUserTitle();
+		} else if (name.matches("uiUserFirstName")) {
+			widget = this.getUiUserFirstName();
+		} else if (name.matches("uiUserLastName")) {
+			widget = this.getUiUserLastName();
+		} else if (name.matches("uiUserMiddleInitial")) {
+			widget = this.getUiUserMiddleInitial();
+		} else if (name.matches("uiUserSuffix")) {
+			widget = this.getUiUserSuffix();
+		}
+		return widget;
+	}
 	@Override
 	public Style style() {
 		return ParkFiftyResources.INSTANCE.style();

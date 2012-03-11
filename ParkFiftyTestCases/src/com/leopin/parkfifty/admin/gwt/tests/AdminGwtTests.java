@@ -3,7 +3,6 @@ package com.leopin.parkfifty.admin.gwt.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -17,10 +16,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.google.gwt.place.shared.PlaceController;
 import com.leopin.parkfifty.client.ClientFactory;
 import com.leopin.parkfifty.client.activities.HomeActivity;
-import com.leopin.parkfifty.client.domain.CompanyProxy;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.views.HomeView;
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AdminGwtTests {

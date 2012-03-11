@@ -95,58 +95,16 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		this.presenter.validate(name, text);
 
 	}
+	
+	@Override
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+		return addDomHandler(handler, KeyPressEvent.getType());
+	}
 
 	public void showHelpUiName(String text) {
 		uiCompanyWidget.getUiName().showHelp();
 	}
-	
-	/**
-	 * Remove the help and any highlighting associated with the help
-	 */
-	public void removeHelp(String name) {
-		
-		TextBoxCombo textBoxCombo = findTextBoxCombo(name);
 
-		if (textBoxCombo != null) {
-			textBoxCombo.getUiTextBox().removeStyleName(ParkFiftyResources.INSTANCE.style()
-					.validateError());
-			textBoxCombo.hideHelp();
-		}
-
-	}
-	
-	/**
-	 * Show help related artifacts and highlighting to indicate an error
-	 */
-	public void showHelp(String name) {
-		TextBoxCombo textBox = findTextBoxCombo(name);
-		if (textBox != null) {
-			textBox.showHelp();
-		}	
-	}
-	
-	/**
-	 * Search for the right TextBoxCombo depending on the name 
-	 * @param name Name of the widget for which the widget object has to be retrieved
-	 * @return TextBoxCombo object
-	 */
-	public TextBoxCombo findTextBoxCombo(String name) {
-		TextBoxCombo textBoxCombo = null;
-		if (name.matches("uiName")) {
-			textBoxCombo = uiCompanyWidget.getUiName();
-		} else if (name.matches("uiUrl")) {
-			textBoxCombo = uiCompanyWidget.getUiUrl();
-		} else if (name.matches("uiEmail")) {
-			textBoxCombo = uiCompanyWidget.getUiEmail();
-		} else if (name.matches("uiPriPhone")) {
-			textBoxCombo = uiCompanyWidget.getUiPriPhone();
-		} else if (name.matches("uiSecPhone")) {
-			textBoxCombo = uiCompanyWidget.getUiSecPhone();
-		} else if (name.matches("uiFax")) {
-			textBoxCombo = uiCompanyWidget.getUiFax();
-		}
-		return textBoxCombo;
-	}
 	
 //	public void showHelpUiUrl(String text) {
 //		uiCompanyWidget.getUiUrl().showHelp();
@@ -179,19 +137,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	public Widget asWidget() {
 		return this;
 	}
-	
-	/*
-	 * PRIVATE METHODS
-	 */
-	private void next() {
-		this.presenter.next(uiCompanyWidget.getCompany());
-	}
 
-
-	@Override
-	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
-		return addDomHandler(handler, KeyPressEvent.getType());
-	}
 
 	@Override
 	public void setUiText(String name, String text) {
@@ -206,6 +152,30 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		
 	}
 
+	/**
+	 * Remove the help and any highlighting associated with the help
+	 */
+	public void removeHelp(String name) {
+		
+		TextBoxCombo textBoxCombo = findTextBoxCombo(name);
+
+		if (textBoxCombo != null) {
+			textBoxCombo.getUiTextBox().removeStyleName(ParkFiftyResources.INSTANCE.style()
+					.validateError());
+			textBoxCombo.hideHelp();
+		}
+
+	}
+	
+	/**
+	 * Show help related artifacts and highlighting to indicate an error
+	 */
+	public void showHelp(String name) {
+		TextBoxCombo textBox = findTextBoxCombo(name);
+		if (textBox != null) {
+			textBox.showHelp();
+		}	
+	}
 	@Override
 	public void setFocus() {
 		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
@@ -215,4 +185,30 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	public Style style() {
 		return ParkFiftyResources.INSTANCE.style();
 	}
+
+	/*
+	 * PRIVATE METHODS
+	 */
+	private void next() {
+		this.presenter.next(uiCompanyWidget.getCompany());
+	}
+
+	/**
+	 * Search for the right TextBoxCombo depending on the name 
+	 * @param name Name of the widget for which the widget object has to be retrieved
+	 * @return TextBoxCombo object
+	 */
+	private TextBoxCombo findTextBoxCombo(String name) {
+		Widget widget = null;
+		
+		widget = uiCompanyWidget.getWidget(name);
+		
+		if (widget instanceof TextBoxCombo) {
+			return (TextBoxCombo) widget;
+		} else {
+			return null;
+		}
+	}
+	
+
 }
