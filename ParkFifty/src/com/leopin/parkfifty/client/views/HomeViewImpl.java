@@ -59,6 +59,12 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		next();
 	}
 
+	
+	@Override
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+		return addDomHandler(handler, KeyPressEvent.getType());
+	}
+	
 	@Override
 	public void onKeyPress(KeyPressEvent event) {
 		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
@@ -95,11 +101,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		this.presenter.validate(name, text);
 
 	}
-	
-	@Override
-	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
-		return addDomHandler(handler, KeyPressEvent.getType());
-	}
+
 
 	public void showHelpUiName(String text) {
 		uiCompanyWidget.getUiName().showHelp();
@@ -177,8 +179,12 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		}	
 	}
 	@Override
-	public void setFocus() {
-		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
+	public void setFocus(String name) {
+		Widget widget = findTextBoxCombo(name);
+		if (widget != null && widget instanceof TextBoxCombo) {
+			((TextBoxCombo) widget).getUiTextBox().setFocus(true);
+		}
+//		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
 	}
 
 	@Override

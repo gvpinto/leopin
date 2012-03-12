@@ -5,6 +5,11 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -19,8 +24,9 @@ import com.leopin.parkfifty.client.ui.CompanyOwnerWidget;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
+import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 
-public class CompanyRegistrationViewImpl extends Composite implements CompanyRegistrationView, BlurHandler, FocusHandler {
+public class CompanyRegistrationViewImpl extends Composite implements CompanyRegistrationView, BlurHandler, FocusHandler, KeyPressHandler, HasKeyPressHandlers  {
 
 	CompanyRegistrationPresenter presenter;
 	
@@ -37,7 +43,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		uiCompany.initFocusHandlers(this);
 		uiCompanyOwner.initBlurHandlers(this);
 		uiCompanyOwner.initFocusHandlers(this);
-
+		this.addKeyPressHandler(this);
 	}
 
 	
@@ -174,6 +180,33 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+		return addDomHandler(handler, KeyPressEvent.getType());
+	}
+
+	@Override
+	public void onKeyPress(KeyPressEvent event) {
+		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
+			submit();
+		event.stopPropagation();
+	}
+
+	private void submit() {
+		CompanyProxy company = null;
+		CompanyUserProxy companyUser =  null;
+		this.presenter.submit(company, companyUser);
+	}
+
+	@Override
+	public void setFocus(String name) {
+		Widget widget = findTextBoxCombo(name);
+		if (widget != null && widget instanceof TextBoxCombo) {
+			((TextBoxCombo) widget).getUiTextBox().setFocus(true);
+		}
+//		getUiCompany().getUiName().getUiTextBox().setFocus(true);
 	}
 
 }

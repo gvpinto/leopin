@@ -11,6 +11,8 @@ import com.leopin.parkfifty.client.ClientFactory;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.presenters.CompanyRegistrationPresenter;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
+import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 
 public class CompanyRegistrationActivity extends AbstractActivity implements
 		CompanyRegistrationPresenter {
@@ -18,6 +20,10 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 	CompanyRegistrationView companyRegistrationView;
 	ClientFactory clientFactory;
 	EventBus eventBus;
+	
+	// This field is used to determine the first widget the failed validation
+	// do that the focus can be set to that field
+	String name;
 	
 	public CompanyRegistrationActivity(CompanyRegistrationPlace place,
 			ClientFactory clientFactory) {
@@ -58,6 +64,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 		boolean pass = true;
 		boolean valid = false;
 		String tempPhone = null;
+		this.name = name;
 		
 		if (name.matches("uiName")) {
 			
@@ -156,10 +163,35 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 		}
 	}
 
+
 	@Override
-	public void submit() {
-		// TODO Auto-generated method stub
+	public void submit(CompanyProxy company, CompanyUserProxy companyUser) {
 		
+		name = null;
+		
+		if (validate("uiName", company.getName())
+			&& validate("uiUrl", company.getUrl())
+			&& validate("uiEmail", company.getEmail())
+			&& validate("uiPriPhone", company.getPriPhone())
+			&& validate("uiSecPhone", company.getSecPhone())
+			&& validate("uiFax", company.getFax())
+			&& validate("uiUserUsername", companyUser.getUsername())
+			&& validate("uiUserPassword", companyUser.getPassword())
+			&& validate("uiUserTitle", companyUser.getTitle())
+			&& validate("uiUserFirstName", companyUser.getFirstName())
+			&& validate("uiUserMiddleInitial", companyUser.getMiddleInitial())
+			&& validate("uiUserLastName", companyUser.getLastName())
+			&& validate("uiUserSuffix", companyUser.getSuffix())
+			&& validate("uiUserPriPhone", companyUser.getPriPhone())
+			&& validate("uiUserSecPhone", companyUser.getSecPhone())
+			&& validate("uiUserFax", companyUser.getFax())) {
+			
+			// Submit the Data to the Server and save it
+			
+		} else {
+			companyRegistrationView.setFocus(name);
+		}
+	
 	}
 
 }

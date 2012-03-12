@@ -20,6 +20,10 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	private ClientFactory clientFactory;
 	private HomeView homeView;
 	
+	// The first widget that failed validated when the Continue or Next button is clicked
+	// This will help set the focus on that widget
+	private String name;
+	
 	public HomeActivity(HomePlace place, ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
 		homeView = clientFactory.getHomeView();
@@ -50,26 +54,6 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	}
 
 
-	/**
-	 * When the user clicks the Continue button
-	 */
-	@Override
-	public void next(CompanyProxy company) {
-		
-		if (validate("uiName", company.getName()) 
-			&& validate("uiUrl", company.getUrl())
-			&& validate("uiEmail", company.getEmail())
-			&& validate("uiPriPhone", company.getPriPhone())
-			&& validate("uiSecPhone", company.getSecPhone())
-			&& validate("uiFax", company.getFax())) {
-			
-			goTo(new CompanyRegistrationPlace(company));
-			
-		} else {
-			homeView.setFocus();
-		}
-		
-	}
 
 	@Override
 	public boolean validate(String name, String text) {
@@ -77,6 +61,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		boolean pass = true;
 		boolean valid = false;
 		String tempPhone = null;
+		this.name = name;
 		
 		if (name.matches("uiName")) {
 			
@@ -141,5 +126,28 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		}
 	}
 
+
+	/**
+	 * When the user clicks the Continue button
+	 */
+	@Override
+	public void next(CompanyProxy company) {
+		
+		name = null;
+		
+		if (validate("uiName", company.getName()) 
+			&& validate("uiUrl", company.getUrl())
+			&& validate("uiEmail", company.getEmail())
+			&& validate("uiPriPhone", company.getPriPhone())
+			&& validate("uiSecPhone", company.getSecPhone())
+			&& validate("uiFax", company.getFax())) {
+			
+			goTo(new CompanyRegistrationPlace(company));
+			
+		} else {
+			homeView.setFocus(name);
+		}
+		
+	}
 
 }

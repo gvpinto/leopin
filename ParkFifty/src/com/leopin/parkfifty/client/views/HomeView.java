@@ -21,6 +21,6 @@ public interface HomeView extends View {
 	
 	public void setUiText(String name, String text);
 
-	public void setFocus();
+	public void setFocus(String name);
 	
 }

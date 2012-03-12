@@ -30,4 +30,9 @@ public interface CompanyRegistrationView extends View {
 	 * @param name Name of the TextBoxCombo Widget
 	 */
 	void removeHelp(String name);
+	
+	/**
+	 * If there is a validation error set the focus back to the first element on the page
+	 */
+	void setFocus(String name);
 }
