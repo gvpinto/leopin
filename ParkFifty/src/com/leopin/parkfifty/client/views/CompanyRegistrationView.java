@@ -31,8 +31,8 @@ public interface CompanyRegistrationView extends View {
 	 */
 	void removeHelp(String name);
 	
-	/**
-	 * If there is a validation error set the focus back to the first element on the page
-	 */
-	void setFocus(String name);
+//	/**
+//	 * If there is a validation error set the focus back to the first element on the page
+//	 */
+//	void setFocus(String name);
 }

@@ -29,6 +29,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
 		this.companyRegistrationView = clientFactory.getCompanyRegistrationView();
+		this.companyRegistrationView.setCompany(place.getCompanyProxy());
 		
 	}
 
@@ -157,7 +158,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 	}
 
 	@Override
-	public void onFocus(String name, String text) {
+	public void onFocusSetValue(String name, String text) {
 		if (name.matches("uiPriPhone|uiSecPhone|uiFax|uiUserPriPhone|uiUserSecPhone|uiUserFax")) {
 			companyRegistrationView.setUiText(name, stripChars(text));
 		}
@@ -165,7 +166,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 
 
 	@Override
-	public void submit(CompanyProxy company, CompanyUserProxy companyUser) {
+	public String submit(CompanyProxy company, CompanyUserProxy companyUser) {
 		
 		name = null;
 		
@@ -187,10 +188,10 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			&& validate("uiUserFax", companyUser.getFax())) {
 			
 			// Submit the Data to the Server and save it
-			
-		} else {
-			companyRegistrationView.setFocus(name);
+			// TODO Submit Data
 		}
+		
+		return name;
 	
 	}
 

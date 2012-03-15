@@ -78,7 +78,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		TextBox textBox = (TextBox) event.getSource();
 		String name = textBox.getName();
 		String text = textBox.getText();
-		this.presenter.onFocus(name, text);
+		this.presenter.onFocusSetValue(name, text);
 		
 //		TextBox textBox = (TextBox) event.getSource();
 //		textBox.removeStyleName(ParkFiftyResources.INSTANCE.style()
@@ -196,7 +196,10 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	 * PRIVATE METHODS
 	 */
 	private void next() {
-		this.presenter.next(uiCompanyWidget.getCompany());
+		String errorFieldName = this.presenter.next(uiCompanyWidget.getCompany());
+		if (errorFieldName != null) {
+			setFocus(errorFieldName);
+		}
 	}
 
 	/**

@@ -120,7 +120,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	}
 
 	@Override
-	public void onFocus(String name, String text) {
+	public void onFocusSetValue(String name, String text) {
 		if (name.matches("uiPriPhone|uiSecPhone|uiFax")) {
 			homeView.setUiText(name, stripChars(text));
 		}
@@ -131,7 +131,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	 * When the user clicks the Continue button
 	 */
 	@Override
-	public void next(CompanyProxy company) {
+	public String next(CompanyProxy company) {
 		
 		name = null;
 		
@@ -142,12 +142,14 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 			&& validate("uiSecPhone", company.getSecPhone())
 			&& validate("uiFax", company.getFax())) {
 			
-			goTo(new CompanyRegistrationPlace(company));
+			CompanyRegistrationPlace companyRegistrationPlace = new CompanyRegistrationPlace("register");
+			companyRegistrationPlace.setCompanyProxy(company);
 			
-		} else {
-			homeView.setFocus(name);
+			goTo(companyRegistrationPlace);
+			
 		}
 		
+		return name;
 	}
 
 }

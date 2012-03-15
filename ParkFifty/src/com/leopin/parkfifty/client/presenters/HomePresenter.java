@@ -47,6 +47,6 @@ public interface HomePresenter extends Presenter {
 	 * @return true if the value passes the validation else return false
 	 */
 	public boolean validate(String name, String value);
-	public void next(CompanyProxy company);
-	public void onFocus(String name, String text);
+	public String next(CompanyProxy company);
+	public void onFocusSetValue(String name, String text);
 }

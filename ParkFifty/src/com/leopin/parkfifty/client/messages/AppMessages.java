@@ -25,4 +25,26 @@ public interface AppMessages extends Messages {
 	@Key("com.leopin.contraints.fax.invalid")
 	String faxInvalid();
 	
+	@Key("com.leopin.contraints.userid.invalid")
+	String userIdInvalid();
+	
+	@Key("com.leopin.contraints.password.invalid")
+	String passwordInvalid();
+	
+	@Key("com.leopin.contraints.title.invalid")
+	String titleInvalid();
+	
+	@Key("com.leopin.contraints.lastname.invalid")
+	String lastNameInvalid();
+	
+	@Key("com.leopin.contraints.firstname.invalid")
+	String firstNameInvalid();
+	
+	@Key("com.leopin.contraints.middleinitial.invalid")
+	String middleInitialInvalid();
+	
+	@Key("com.leopin.contraints.suffix.invalid")
+	String suffixInvalid();
+
+	
 }

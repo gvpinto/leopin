@@ -9,9 +9,16 @@ public class CompanyRegistrationPlace extends Place {
 	String state;
 	CompanyProxy company;
 	
-	public CompanyRegistrationPlace(CompanyProxy company) {
-		state = "register";
-		company = company;
+	public CompanyRegistrationPlace(String state) {
+		this.state = state;
+	}
+	
+	public void setCompanyProxy(CompanyProxy company) {
+		this.company = company;
+	}
+	
+	public CompanyProxy getCompanyProxy() {
+		return this.company;
 	}
 	
 	public String getState() {
@@ -22,7 +29,7 @@ public class CompanyRegistrationPlace extends Place {
 
 		@Override
 		public CompanyRegistrationPlace getPlace(String token) {
-			return new CompanyRegistrationPlace(null);
+			return new CompanyRegistrationPlace(token);
 		}
 
 		@Override

@@ -1,11 +1,8 @@
 package com.leopin.parkfifty.admin.gwt.tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.google.gwt.place.shared.PlaceController;
 import com.leopin.parkfifty.client.ClientFactory;
 import com.leopin.parkfifty.client.activities.HomeActivity;
+import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.views.HomeView;
@@ -54,7 +52,7 @@ public class AdminGwtTests {
 	
 	@Test
 	public void nextTestPass() {
-		CompanyProxy company = new CompanyProxy();
+		CompanyProxy company = new CompanyProxyImpl();
 		company.setName("The First Park Company");
 		company.setEmail("thefirstparkcompany@gmail.com");
 		company.setUrl("http://www.thefirstparkcompany.com");
@@ -75,7 +73,7 @@ public class AdminGwtTests {
 	
 	@Test
 	public void nextTestPass2() {
-		CompanyProxy company = new CompanyProxy();
+		CompanyProxy company = new CompanyProxyImpl();
 		company.setName("The First Park Company");
 		company.setEmail("thefirstparkcompany@gmail.com");
 		company.setUrl("www.thefirstparkcompany.com");
@@ -96,8 +94,8 @@ public class AdminGwtTests {
 	
 	
 	@Test
-	public void nextTestFail() {
-		CompanyProxy company = new CompanyProxy();
+	public void nextTestUrlFail() {
+		CompanyProxy company = new CompanyProxyImpl();
 		company.setName("The First Park Company");
 		company.setEmail("thefirstparkcompany@gmail.com");
 		company.setUrl("thefirstparkcompany");
@@ -112,9 +110,33 @@ public class AdminGwtTests {
 		assertTrue(homeActivity.validate("uiSecPhone", company.getSecPhone()));
 		assertTrue(homeActivity.validate("uiFax", company.getFax()));
 		
-		homeActivity.next(company);
+		String name = homeActivity.next(company);
 		verify(placeController, times(0)).goTo(any(CompanyRegistrationPlace.class));
-		verify(homeView, times(1)).setFocus();
+//		verify(homeView, times(1)).setFocus(anyString());
+		assertEquals("uiUrl", name);
+	}
+
+	@Test
+	public void nextTestPriPhoneFail() {
+		CompanyProxy company = new CompanyProxyImpl();
+		company.setName("The First Park Company");
+		company.setEmail("thefirstparkcompany@gmail.com");
+		company.setUrl("thefirstparkcompany.parkfifty.com");
+		company.setPriPhone("(919) 455-326");
+		company.setFax("(919) 455-3263");
+		company.setSecPhone("");
+		
+		assertTrue(homeActivity.validate("uiName", company.getName()));
+		assertTrue(homeActivity.validate("uiUrl", company.getUrl()));
+		assertTrue(homeActivity.validate("uiEmail", company.getEmail()));
+		assertFalse(homeActivity.validate("uiPriPhone", company.getPriPhone()));
+		assertTrue(homeActivity.validate("uiSecPhone", company.getSecPhone()));
+		assertTrue(homeActivity.validate("uiFax", company.getFax()));
+		
+		String name = homeActivity.next(company);
+		verify(placeController, times(0)).goTo(any(CompanyRegistrationPlace.class));
+//		verify(homeView, times(1)).setFocus(anyString());
+		assertEquals("uiPriPhone", name);
 	}
 
 }

@@ -105,7 +105,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		TextBox textBox = (TextBox) event.getSource();
 		String name = textBox.getName();
 		String text = textBox.getText();
-		this.presenter.onFocus(name, text);
+		this.presenter.onFocusSetValue(name, text);
 		
 	}
 
@@ -197,11 +197,14 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	private void submit() {
 		CompanyProxy company = null;
 		CompanyUserProxy companyUser =  null;
-		this.presenter.submit(company, companyUser);
+		String errorFieldName = this.presenter.submit(company, companyUser);
+		if (errorFieldName != null) {
+			setFocus(errorFieldName);
+		}
 	}
 
-	@Override
-	public void setFocus(String name) {
+//	@Override
+	private void setFocus(String name) {
 		Widget widget = findTextBoxCombo(name);
 		if (widget != null && widget instanceof TextBoxCombo) {
 			((TextBoxCombo) widget).getUiTextBox().setFocus(true);
