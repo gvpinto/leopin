@@ -166,7 +166,7 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		getUiUserEmail().addBlurHandler(handler);
 	}
 	
-	public CompanyUserProxy getCompanyUserProxy() {
+	public CompanyUserProxy getCompanyUser() {
 		CompanyUserProxy companyUserProxy = new CompanyUserProxyImpl();
 		companyUserProxy.setUsername(getUiUserUsername().getText());
 		companyUserProxy.setPassword(getUiUserPassword().getText());

@@ -195,9 +195,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	}
 
 	private void submit() {
-		CompanyProxy company = null;
-		CompanyUserProxy companyUser =  null;
-		String errorFieldName = this.presenter.submit(company, companyUser);
+		String errorFieldName = this.presenter.submit(uiCompany.getCompany(), uiCompanyOwner.getCompanyUser());
 		if (errorFieldName != null) {
 			setFocus(errorFieldName);
 		}
