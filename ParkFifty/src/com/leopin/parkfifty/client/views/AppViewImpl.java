@@ -102,7 +102,6 @@ public class AppViewImpl extends SimplePanel implements AppView {
 
 	@Override
 	public void setPresenter(Presenter presenter) {
-		// TODO Auto-generated method stub
 		
 	}
 

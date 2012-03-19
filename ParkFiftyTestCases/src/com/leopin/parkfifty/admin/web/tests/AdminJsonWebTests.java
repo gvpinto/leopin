@@ -50,7 +50,7 @@ public class AdminJsonWebTests {
 
 	}
 	
-	@Test
+//	@Test
 	public void testGetCompanyById() {
 			
 		Map<String, String> urlVars = new HashMap<String, String>();
@@ -152,11 +152,11 @@ public class AdminJsonWebTests {
 		ResponseEntity<Company> responseGet = new RestTemplate().getForEntity("{urlPrefix}/company/{companyName}", Company.class, urlVars);
 		assertEquals("Delete Company", responseGet.getBody().getName());
 		
-		new RestTemplate().delete("{urlPre`fix}/company/{companyName}", urlVars);
+		new RestTemplate().delete("{urlPrefix}/company/{companyName}", urlVars);
 		
 	}
 	
-//	@Test
+	@Test
 	public void testAddCompanyAndUser() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
@@ -176,7 +176,7 @@ public class AdminJsonWebTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void testAddCompanyUser() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
@@ -203,7 +203,7 @@ public class AdminJsonWebTests {
 		
 	}
 	
-	@Test(expected=HttpClientErrorException.class)
+//	@Test(expected=HttpClientErrorException.class)
 	public void testAddCompanyUserErrorNotMoreThanOneOwner() {
 		
 		Map<String, String> urlVars = new HashMap<String, String>();
@@ -226,7 +226,7 @@ public class AdminJsonWebTests {
 	}
 	
 	
-	@Test
+//	@Test
 	public void testGetCompanyUserByUserID() {
 			
 		Map<String, String> urlVars = new HashMap<String, String>();

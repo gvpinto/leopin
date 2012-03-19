@@ -47,6 +47,24 @@ public interface HomePresenter extends Presenter {
 	 * @return true if the value passes the validation else return false
 	 */
 	public boolean validate(String name, String value);
+	
+	/**
+	 * @param company Company object with all values filled in from the Widget
+	 * @return the name of the widget that failed the validation to set the focus on that widget
+	 */
 	public String next(CompanyProxy company);
+	
+	
+	/**
+	 * Set the focus on the Widget and set its value
+	 * @param name Widget name
+	 * @param text value that needs to be set
+	 */
 	public void onFocusSetValue(String name, String text);
+	
+	/**
+	 * Checking if the client is already authenticated. If so dont'display the sign-up form
+	 * @return
+	 */
+	public boolean isAuthenticated();
 }

@@ -4,8 +4,16 @@ import static com.leopin.parkfifty.shared.utils.Validator.*;
 import static com.leopin.parkfifty.shared.utils.Utils.*;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
+import com.google.gwt.http.client.URL;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.leopin.parkfifty.client.ClientFactory;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
@@ -19,6 +27,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	
 	private ClientFactory clientFactory;
 	private HomeView homeView;
+	private boolean isLoggedIn = false;
 	
 	// The first widget that failed validated when the Continue or Next button is clicked
 	// This will help set the focus on that widget
@@ -35,6 +44,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		bind();
 	}
 
+	
     public void bind() {
 		homeView.setPresenter(this);
 	}
@@ -150,6 +160,47 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		}
 		
 		return name;
+	}
+
+	@Override
+	public boolean isAuthenticated() {
+		
+		RequestBuilder rb = new RequestBuilder(
+				RequestBuilder.GET,
+				GWT.getHostPageBaseURL() + "/admin/logincheck");
+//		rb.setHeader("Content-type", "application/x-www-form-urlencoded");
+//		rb.setHeader("Content-type", "application/x-www-form-urlencoded");
+//		String request = "j_username=" + userId + "&j_password=" + password;
+//		rb.setRequestData(URL.encode(request));
+
+		rb.setCallback(new RequestCallback() {
+			@Override
+			public void onResponseReceived(Request request, Response response) {
+				if (200 == response.getStatusCode()) {
+					GWT.log("SUCCESS");
+					isLoggedIn = true;
+				} else {
+					GWT.log("ERROR: Code: " + response.getStatusCode());
+					isLoggedIn = false;
+				}
+			}
+			
+			@Override
+			public void onError(Request request, Throwable exception) {
+				GWT.log("ERROR: Message: " + exception.getMessage());
+				isLoggedIn = false;
+			}
+		});
+	
+		try {
+			rb.send();
+		} catch (RequestException e) {
+			isLoggedIn = false;
+			GWT.log("ERROR: Code: " + e.getMessage());
+			// TODO Throw and Error. Introduce a Event that can be fired if there is an Error anywhere in the App
+		}
+		return isLoggedIn;
+		
 	}
 
 }

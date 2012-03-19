@@ -3,6 +3,7 @@ package com.leopin.parkfifty.client.views;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.HasKeyPressHandlers;
@@ -12,6 +13,7 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.TextBox;
@@ -192,6 +194,11 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
 			submit();
 		event.stopPropagation();
+	}
+	
+	@UiHandler("uiSubmit")
+	void onClick(ClickEvent e) {
+		submit();
 	}
 
 	private void submit() {

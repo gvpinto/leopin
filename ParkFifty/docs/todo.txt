@@ -2,6 +2,8 @@ Required:
 1. Captcha
 2. Password Check - type in twice
 3. Logout Functionality
+4. Set the Title and Suffix to drop box
+5. Camelize the names and capitalize middle initial
 
 1. Add recaptcha to the Company enrollment
 2. Add Spring security to the Admin login

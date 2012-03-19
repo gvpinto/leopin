@@ -8,9 +8,13 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.ashriv.security.client.shared.Role;
+import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
+import com.leopin.parkfifty.client.domain.CompanyUserProxyImpl;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyAndUser;
+import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
+import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 import com.leopin.parkfifty.shared.domain.Location;
 import com.leopin.parkfifty.shared.domain.ParkFacilityType;
 
@@ -108,5 +112,43 @@ public class AdminDomainData {
 		location.setMannedDesc("This is a Manned place with 24hrs of security");
 		return location;
 	}
+	
+	/**
+	 * Return Company Object for the GWT client
+	 * @return CompanyProxy Company object
+	 */
+	public static CompanyProxy getCompanyProxy() {
+		CompanyProxy company = new CompanyProxyImpl();
+		company.setName("The First Park Company");
+		company.setUrl("www.thefirstparkcompany.com");
+		company.setEmail("thefirstparkcompany@gmail.com");
+		company.setPriPhone("(919) 447-0110");
+		company.setSecPhone("");
+		company.setFax("(919) 404-9291");
+		return company;
+	}
+	
+	/**
+	 * Return CompanyUser object to the GWT client
+	 * @return CompanyUser CompanyUser object
+	 */
+	public static CompanyUserProxy getCompanyUserProxy() {
+		CompanyUserProxy companyUser = new CompanyUserProxyImpl();
+		companyUser.setUsername("gvpinto");
+		companyUser.setPassword("The#Pass1234");
+		companyUser.setTitle("Mr.");
+		companyUser.setFirstName("Johnny");
+		companyUser.setMiddleInitial("Z");
+		companyUser.setLastName("Smith");
+		companyUser.setSuffix("");
+		companyUser.setEmail("varevadal@gmail.com");
+		companyUser.setPriPhone("(919) 455-3263");
+		companyUser.setSecPhone("");
+		companyUser.setFax("(919) 447-0110");
+		return companyUser;
+		
+	}
+	
+	
 
 }

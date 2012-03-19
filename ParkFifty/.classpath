@@ -28,7 +28,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.beans-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/Opensource/spring-framework-3.1.0.RELEASE/src/org.springframework.beans-sources-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.context-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/.m2/repository/org/springframework/spring-context/3.1.0.RELEASE/spring-context-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.context.support-3.1.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.core-3.1.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.core-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/.m2/repository/org/springframework/spring-core/3.1.0.RELEASE/spring-core-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.expression-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.instrument-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.springframework.instrument.tomcat-3.1.0.RELEASE.jar"/>

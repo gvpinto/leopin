@@ -37,11 +37,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	}
 
 	public HomeViewImpl() {
-		initWidget(uiBinder.createAndBindUi(this));
-		uiCompanyWidget.initBlurHandlers(this);
-		uiCompanyWidget.initFocusHandlers(this);
-		uiContinue.getElement().setId("uiContinue");
-		this.addKeyPressHandler(this);
+		initWidget(uiBinder.createAndBindUi(this));		
 	}
 
 	@UiField
@@ -49,10 +45,6 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 
 	@UiField
 	Button uiContinue;
-
-//	public HomeViewImpl(String firstName) {
-//		initWidget(uiBinder.createAndBindUi(this));
-//	}
 
 	@UiHandler("uiContinue")
 	void onClick(ClickEvent e) {
@@ -133,6 +125,24 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	@Override
 	public void setPresenter(Presenter presenter) {
 		this.presenter = (HomePresenter) presenter;
+
+		/* 
+		 * When the loading the home page check if the user is already authenticated.
+		 * If Authenticated then show the Log Off link
+		 *  If Not Authenticated the display the Log In Link and also the sign up fields
+		 */
+		if (this.presenter.isAuthenticated()) {
+			// TODO Set the TopNav to Log Off
+			GWT.log("LOG OFF");
+		} else  {
+			// TODO Set the TopNav to Log In
+			GWT.log("LOG IN");
+			uiCompanyWidget.initBlurHandlers(this);
+			uiCompanyWidget.initFocusHandlers(this);
+			uiContinue.getElement().setId("uiContinue");
+			this.addKeyPressHandler(this);
+		}
+		
 	}
 
 	@Override

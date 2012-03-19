@@ -52,5 +52,6 @@
 	<classpathentry kind="lib" path="/ParkFifty/war/WEB-INF/lib/spring-security-crypto-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/Opensource/spring-security-3.1.0.RELEASE/dist/spring-security-crypto-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="/ParkFifty/war/WEB-INF/lib/spring-security-web-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/Opensource/spring-security-3.1.0.RELEASE/dist/spring-security-web-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

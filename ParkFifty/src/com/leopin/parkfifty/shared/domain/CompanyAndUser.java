@@ -30,6 +30,8 @@ public class CompanyAndUser {
 		this.companyUser = companyUser;
 	}
 
-
+	public String toString() {
+		return company.toString() + "," + companyUser.toString();
+	}
 	
 }

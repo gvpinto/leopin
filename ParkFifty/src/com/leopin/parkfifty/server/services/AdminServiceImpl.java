@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.ashriv.security.client.shared.Role;
 import com.googlecode.objectify.Key;
@@ -34,10 +35,10 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private ObjectifyFactory objectifyFactory;
 	
-//	@Autowired
+	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-//	@Autowired
+	@Autowired
 	String passwordSalt;
 	
 //	public void setObjectifyFactory(ObjectifyFactory objectifyFactory) {
@@ -275,8 +276,10 @@ public class AdminServiceImpl implements AdminService {
 			
 			// Check if the User Id already exists. Should be unique across companies
 			// TODO: Need to check for delete timestamp when looking up Company user. Should not consider those as part of the Uniqueness
+//			Assert.notNull(companyAndUser.getCompany());
+//			Assert.notNull(companyAndUser.getCompany().getId());
 			CompanyUser cu= ofyGet.query(CompanyUser.class)
-					.ancestor(new Key<Company>(Company.class, companyAndUser.getCompany().getId()))
+//					.ancestor(new Key<Company>(Company.class, companyAndUser.getCompany().getId()))
 					.filter("username", companyAndUser.getCompanyUser().getUsername())
 					.get();
 			
@@ -306,6 +309,11 @@ public class AdminServiceImpl implements AdminService {
 			companyAndUser.getCompanyUser().setCredentialsNonExpired(true);
 			
 			// Hash the password before storing the user
+			Assert.notNull(companyAndUser.getCompanyUser());
+			Assert.notNull(passwordEncoder);
+			Assert.notNull(companyAndUser.getCompanyUser().getPassword());
+			Assert.notNull(passwordSalt);
+			
 			companyAndUser.getCompanyUser().setPassword(passwordEncoder.encodePassword(companyAndUser.getCompanyUser().getPassword(), passwordSalt));
 			LOGGER.debug("Password: " + companyAndUser.getCompanyUser().getPassword());
 			

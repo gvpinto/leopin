@@ -9,6 +9,8 @@
 	
 	<!-- Inherit dumb down Server Code -->
 	<inherits name="com.googlecode.objectify.Objectify" />
+	<inherits name='com.google.gwt.json.JSON'/>
+	<inherits name='com.google.gwt.jsonp.Jsonp'/>
 	<!-- <inherits name="com.google.common.base.Base"/> -->
 	<!-- <inherits name="com.google.common.annotations.Annotations"/> -->
 	<!-- <inherits name="com.ashriv.security.Authentication" /> -->

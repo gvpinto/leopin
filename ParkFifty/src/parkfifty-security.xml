@@ -16,6 +16,7 @@
 	
 	<http auto-config='true' use-expressions="true" entry-point-ref="authEntryPoint">
 		<intercept-url pattern="/admin/company" access="permitAll"/>
+		<intercept-url pattern="/_ah/**" access="permitAll"/>
 		<intercept-url pattern="/**" access="hasRole('USER')" />
 		<form-login authentication-failure-handler-ref="authFailureHandler" authentication-success-handler-ref="authSuccessHandler"/>
 	</http>

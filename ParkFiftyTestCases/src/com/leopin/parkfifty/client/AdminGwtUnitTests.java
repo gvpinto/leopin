@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.admin.gwt.tests;
+package com.leopin.parkfifty.client;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
@@ -11,23 +11,31 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.gwt.place.shared.PlaceController;
+import com.leopin.parkfifty.admin.domain.AdminDomainData;
 import com.leopin.parkfifty.client.ClientFactory;
+import com.leopin.parkfifty.client.activities.CompanyRegistrationActivity;
 import com.leopin.parkfifty.client.activities.HomeActivity;
 import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.views.HomeView;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
+import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AdminGwtTests {
+public class AdminGwtUnitTests {
 
 
 	HomePlace place;
+	
+	@Mock
+	CompanyRegistrationActivity companyRegistrationActivity;
+
 	@Mock
 	ClientFactory clientFactory;
 	@Mock
 	HomeActivity homeActivity;
+	
 	@Mock
 	PlaceController placeController;
 	@Mock
@@ -42,6 +50,7 @@ public class AdminGwtTests {
 		
 		when(clientFactory.getHomeView()).thenReturn(homeView);
 		when(clientFactory.getPlaceController()).thenReturn(placeController);
+
 		homeActivity = new HomeActivity(place, clientFactory);
 	}
 	
@@ -138,5 +147,15 @@ public class AdminGwtTests {
 //		verify(homeView, times(1)).setFocus(anyString());
 		assertEquals("uiPriPhone", name);
 	}
+	
+	@Test
+	public void testcompanyAndUserJsonFeed() {
+		when(companyRegistrationActivity.registerCompany(isA(CompanyProxy.class), isA(CompanyUserProxy.class))).thenCallRealMethod();
+		System.out.println(companyRegistrationActivity.registerCompany(AdminDomainData.getCompanyProxy(), AdminDomainData.getCompanyUserProxy()));
+		
+	}
+	
+	
+	
 
 }

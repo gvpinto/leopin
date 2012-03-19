@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Widget;
 
-public class TopNav extends Composite implements HasText {
+public class TopNav extends Composite  {
 
 	private static TopNavUiBinder uiBinder = GWT.create(TopNavUiBinder.class);
 
@@ -20,10 +20,29 @@ public class TopNav extends Composite implements HasText {
 	}
 
 	@UiField
-	Anchor anchor;
+	Anchor uiLogin;
+	public Anchor getUiLogin() {
+		return uiLogin;
+	}
 
 	public TopNav(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
+	}
+	
+	public void setToLogOff() {
+		getUiLogin().setText("Log Off");
+	}
+	
+	
+	/**
+	 * Set the Anchor to "Login" to indicate the client needs to login
+	 */
+	public void setToLogin() {
+		getUiLogin().setText("Login");
+	}
+	
+	public void Logoff() {
+		// TODO Call Spring Security to logoff
 	}
 
 }
