@@ -55,11 +55,11 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-core-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/Opensource/spring-security-3.1.0.RELEASE/dist/spring-security-core-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-crypto-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/Opensource/spring-security-3.1.0.RELEASE/dist/spring-security-crypto-3.1.0.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/spring-security-web-3.1.0.RELEASE.jar" sourcepath="/Users/gvpinto/Opensource/spring-security-3.1.0.RELEASE/dist/spring-security-web-3.1.0.RELEASE-sources.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SpringSecurityGwt 3.1"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Guava-r11"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jackson 1.9.3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/cglib-nodep-2.2.2.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/guava"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jackson"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/springsecurity"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
