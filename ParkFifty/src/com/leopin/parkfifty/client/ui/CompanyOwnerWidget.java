@@ -190,7 +190,7 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 			widget = this.getUiUserUsername();
 		} else if (name.matches("uiUserPassword")) {
 			widget = this.getUiUserPassword();
-		} else if (name.matches("uiEmail")) {
+		} else if (name.matches("uiUserEmail")) {
 			widget = this.getUiUserEmail();
 		} else if (name.matches("uiUserPriPhone")) {
 			widget = this.getUiUserPriPhone();

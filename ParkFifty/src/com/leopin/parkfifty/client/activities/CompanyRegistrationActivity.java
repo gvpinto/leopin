@@ -62,6 +62,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		this.eventBus = eventBus;
 		panel.setWidget(this.companyRegistrationView);
+		this.companyRegistrationView.setFocus("uiName");
 		bind();
 	}
 
@@ -130,7 +131,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 				pass = false;
 			}
 			
-		} else if (name.matches("uiUserPasssword")) {
+		} else if (name.matches("uiUserPassword")) {
 			
 			if (!validatePassword(value)) {
 				pass = false;

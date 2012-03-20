@@ -64,6 +64,14 @@
 			</g:row>		
 			<g:row>
 				<g:customCell  styleName="{res.style.labelCell}">
+					<g:Label horizontalAlignment="ALIGN_RIGHT">Email Address:</g:Label>
+				</g:customCell>
+				<g:customCell  styleName="{res.style.fieldCell}">
+					<c:TextBoxCombo ui:field="uiUserEmail"  name="uiUserEmail" visibleLength="25" maxLength="300"/>
+				</g:customCell>
+			</g:row>	
+			<g:row>
+				<g:customCell  styleName="{res.style.labelCell}">
 					<g:Label text="Primary Phone Number:" horizontalAlignment="ALIGN_RIGHT">Other Phone Number:</g:Label>
 				</g:customCell>
 				<g:customCell  styleName="{res.style.fieldCell}">
@@ -86,14 +94,7 @@
 					<c:TextBoxCombo ui:field="uiUserFax" name="uiUserFax" visibleLength="25" maxLength="15"/>
 				</g:customCell>
 			</g:row>
-			<g:row>
-				<g:customCell  styleName="{res.style.labelCell}">
-					<g:Label horizontalAlignment="ALIGN_RIGHT">Email Address:</g:Label>
-				</g:customCell>
-				<g:customCell  styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiUserEmail"  name="uiUserEmail" visibleLength="25" maxLength="300"/>
-				</g:customCell>
-			</g:row>				
+			
 		</g:Grid>
 	</g:FlowPanel>
 

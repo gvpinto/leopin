@@ -23,6 +23,7 @@ import com.leopin.parkfifty.client.presenters.Presenter;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
+import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
 
 public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
@@ -139,6 +140,8 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 			GWT.log("LOG IN");
 			uiCompanyWidget.initBlurHandlers(this);
 			uiCompanyWidget.initFocusHandlers(this);
+			
+			// Set the id of the Continue button to uiContinue
 			uiContinue.getElement().setId("uiContinue");
 			this.addKeyPressHandler(this);
 		}
@@ -169,7 +172,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	 */
 	public void removeHelp(String name) {
 		
-		TextBoxCombo textBoxCombo = findTextBoxCombo(name);
+		TextBoxBaseCombo textBoxCombo = findTextBoxCombo(name);
 
 		if (textBoxCombo != null) {
 			textBoxCombo.getUiTextBox().removeStyleName(ParkFiftyResources.INSTANCE.style()
@@ -183,7 +186,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	 * Show help related artifacts and highlighting to indicate an error
 	 */
 	public void showHelp(String name) {
-		TextBoxCombo textBox = findTextBoxCombo(name);
+		TextBoxBaseCombo textBox = findTextBoxCombo(name);
 		if (textBox != null) {
 			textBox.showHelp();
 		}	
@@ -192,7 +195,9 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	public void setFocus(String name) {
 		Widget widget = findTextBoxCombo(name);
 		if (widget != null && widget instanceof TextBoxCombo) {
-			((TextBoxCombo) widget).getUiTextBox().setFocus(true);
+			TextBoxCombo textBoxCombo = (TextBoxCombo) widget;
+			textBoxCombo.getUiTextBox().selectAll();
+			textBoxCombo.getUiTextBox().setFocus(true);
 		}
 //		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
 	}
@@ -217,13 +222,13 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	 * @param name Name of the widget for which the widget object has to be retrieved
 	 * @return TextBoxCombo object
 	 */
-	private TextBoxCombo findTextBoxCombo(String name) {
+	private TextBoxBaseCombo findTextBoxCombo(String name) {
 		Widget widget = null;
 		
 		widget = uiCompanyWidget.getWidget(name);
 		
-		if (widget instanceof TextBoxCombo) {
-			return (TextBoxCombo) widget;
+		if (widget instanceof TextBoxBaseCombo) {
+			return (TextBoxBaseCombo) widget;
 		} else {
 			return null;
 		}

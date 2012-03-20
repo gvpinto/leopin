@@ -26,6 +26,8 @@ public abstract class AppRegExp {
 //	public static final String PASSWORD = "^(?=.*[!@#$%^&*0-9\\-\\_]+[a-zA-Z]){6,20}";
 //	public static final String PASSWORD = "^(?=.*[\\d$\\.!@#$%^&*-_])[\\w]{6,20}$";
 	public static final String PASSWORD = "^(?=.*[0-9!@#$%^&*_+-\\.\\?:;,])[\\w0-9!@#$%^&*_+-\\.\\?:;,]{6,19}";
+//	public static final String PASSWORD = "^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*$";
+//	public static final String PASSWORD = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
 	public static final String ROLE = "^(O|S|A|U)$";
 	public static final String TITLE = "^[a-zA-Z\\.]{2,4}";
 	public static final String NAME = "^[a-zA-Z''-'\\s]{1,40}$";

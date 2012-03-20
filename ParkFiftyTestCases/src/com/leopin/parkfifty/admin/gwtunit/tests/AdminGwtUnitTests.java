@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.client;
+package com.leopin.parkfifty.admin.gwtunit.tests;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
@@ -11,47 +11,56 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.gwt.place.shared.PlaceController;
-import com.leopin.parkfifty.admin.domain.AdminDomainData;
 import com.leopin.parkfifty.client.ClientFactory;
 import com.leopin.parkfifty.client.activities.CompanyRegistrationActivity;
 import com.leopin.parkfifty.client.activities.HomeActivity;
 import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
+import com.leopin.parkfifty.client.views.CompanyRegistrationView;
 import com.leopin.parkfifty.client.views.HomeView;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
-import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
+import com.leopin.parkfifty.shared.utils.AppRegExp;
+import com.leopin.parkfifty.shared.utils.Utils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AdminGwtUnitTests {
 
 
-	HomePlace place;
+	HomePlace homePlace;
+	CompanyRegistrationPlace companyRegistrationPlace;
 	
-	@Mock
+//	@Mock
 	CompanyRegistrationActivity companyRegistrationActivity;
 
 	@Mock
 	ClientFactory clientFactory;
-	@Mock
+	
+//	@Mock
 	HomeActivity homeActivity;
 	
 	@Mock
 	PlaceController placeController;
+	
 	@Mock
 	HomeView homeView;
 	
+	@Mock
+	CompanyRegistrationView companyRegistrationView;
+	
 	@Before
 	public void setUp() throws Exception {
-		place = new HomePlace();
-//		clientFactory = mock(ClientFactory.class);
-//		placeController = mock(PlaceController.class);
-//		homeView = mock(HomeView.class);
+		homePlace = new HomePlace();
+		companyRegistrationPlace = new CompanyRegistrationPlace("register");
 		
-		when(clientFactory.getHomeView()).thenReturn(homeView);
 		when(clientFactory.getPlaceController()).thenReturn(placeController);
+		when(clientFactory.getHomeView()).thenReturn(homeView);
+		homeActivity = new HomeActivity(homePlace, clientFactory);
+		
+		when(clientFactory.getCompanyRegistrationView()).thenReturn(companyRegistrationView);
+		companyRegistrationActivity = new CompanyRegistrationActivity(companyRegistrationPlace, clientFactory);
 
-		homeActivity = new HomeActivity(place, clientFactory);
+
 	}
 	
 //	@Test
@@ -61,6 +70,7 @@ public class AdminGwtUnitTests {
 	
 	@Test
 	public void nextTestPass() {
+		
 		CompanyProxy company = new CompanyProxyImpl();
 		company.setName("The First Park Company");
 		company.setEmail("thefirstparkcompany@gmail.com");
@@ -82,6 +92,7 @@ public class AdminGwtUnitTests {
 	
 	@Test
 	public void nextTestPass2() {
+		
 		CompanyProxy company = new CompanyProxyImpl();
 		company.setName("The First Park Company");
 		company.setEmail("thefirstparkcompany@gmail.com");
@@ -104,6 +115,7 @@ public class AdminGwtUnitTests {
 	
 	@Test
 	public void nextTestUrlFail() {
+		
 		CompanyProxy company = new CompanyProxyImpl();
 		company.setName("The First Park Company");
 		company.setEmail("thefirstparkcompany@gmail.com");
@@ -127,6 +139,7 @@ public class AdminGwtUnitTests {
 
 	@Test
 	public void nextTestPriPhoneFail() {
+		
 		CompanyProxy company = new CompanyProxyImpl();
 		company.setName("The First Park Company");
 		company.setEmail("thefirstparkcompany@gmail.com");
@@ -148,13 +161,57 @@ public class AdminGwtUnitTests {
 		assertEquals("uiPriPhone", name);
 	}
 	
+//	@Test
+//	public void testcompanyAndUserJsonFeed() {
+////		when(companyRegistrationActivity.registerCompany(isA(CompanyProxy.class), isA(CompanyUserProxy.class))).thenCallRealMethod();
+////		System.out.println(companyRegistrationActivity.registerCompany(AdminDomainData.getCompanyProxy(), AdminDomainData.getCompanyUserProxy()));
+//		
+//	}
+//	
 	@Test
-	public void testcompanyAndUserJsonFeed() {
-		when(companyRegistrationActivity.registerCompany(isA(CompanyProxy.class), isA(CompanyUserProxy.class))).thenCallRealMethod();
-		System.out.println(companyRegistrationActivity.registerCompany(AdminDomainData.getCompanyProxy(), AdminDomainData.getCompanyUserProxy()));
-		
+	public void testValidateCompanyRegistrationForGoodUiEmail() {
+		assertTrue(companyRegistrationActivity.validate("uiEmail", "gvpinto@gmail.com"));
+		verify(companyRegistrationView, atLeastOnce()).removeHelp("uiEmail");
+		verify(companyRegistrationView, never()).showHelp(anyString());
+	}
+
+	@Test
+	public void testValidateCompanyRegistrationForGoodUiUserEmail() {
+		assertTrue(companyRegistrationActivity.validate("uiUserEmail", "gvpinto@gmail.com"));
+		verify(companyRegistrationView, atLeastOnce()).removeHelp("uiUserEmail");
+		verify(companyRegistrationView, never()).showHelp(anyString());
+	}
+
+	@Test
+	public void testValidateCompanyRegistrationForEmptyUiEmail() {
+		assertFalse(companyRegistrationActivity.validate("uiEmail", ""));
+		verify(companyRegistrationView, never()).removeHelp(anyString());
+		verify(companyRegistrationView, atLeastOnce()).showHelp("uiEmail");
 	}
 	
+	@Test
+	public void testValidateCompanyRegistrationForEmptyUiUserEmail() {
+		assertFalse(companyRegistrationActivity.validate("uiUserEmail", ""));
+		verify(companyRegistrationView, never()).removeHelp(anyString());
+		verify(companyRegistrationView, atLeastOnce()).showHelp("uiUserEmail");
+	}
+	
+	
+	@Test
+	public void testValidateCompanyRegistrationForGoodUiUserPassword() {
+		assertTrue(Utils.validate("M1nG12L%D", AppRegExp.PASSWORD, true));
+		assertTrue(companyRegistrationActivity.validate("uiUserPassword", "M1nG12L%D"));
+		verify(companyRegistrationView, atLeastOnce()).removeHelp("uiUserPassword");
+		verify(companyRegistrationView, never()).showHelp(anyString());
+	}
+	
+	@Test
+	public void testValidateCompanyRegistrationForBadUiUserPassword() {
+		assertFalse(Utils.validate("Gl", AppRegExp.PASSWORD, true));
+		assertFalse(companyRegistrationActivity.validate("uiUserPassword", "Gl"));
+		verify(companyRegistrationView, never()).removeHelp(anyString());
+		verify(companyRegistrationView, atLeastOnce()).showHelp("uiUserPassword");
+	}
 	
 	
 

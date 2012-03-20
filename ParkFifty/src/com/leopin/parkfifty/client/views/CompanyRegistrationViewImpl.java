@@ -1,5 +1,7 @@
 package com.leopin.parkfifty.client.views;
 
+import static com.leopin.parkfifty.shared.utils.Utils.*;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -24,9 +26,10 @@ import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
 import com.leopin.parkfifty.client.ui.CompanyOwnerWidget;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
+import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
-import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
+
 
 public class CompanyRegistrationViewImpl extends Composite implements CompanyRegistrationView, BlurHandler, FocusHandler, KeyPressHandler, HasKeyPressHandlers  {
 
@@ -46,6 +49,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		uiCompanyOwner.initBlurHandlers(this);
 		uiCompanyOwner.initFocusHandlers(this);
 		this.addKeyPressHandler(this);
+		uiSubmit.getElement().setId("uiSubmit");
 	}
 
 	
@@ -94,12 +98,14 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	@Override
 	public void setCompany(CompanyProxy company) {
-		uiCompany.getUiName().setText(company.getName());
-		uiCompany.getUiUrl().setText(company.getUrl());
-		uiCompany.getUiEmail().setText(company.getEmail());
-		uiCompany.getUiPriPhone().setText(company.getPriPhone());
-		uiCompany.getUiSecPhone().setText(company.getSecPhone());
-		uiCompany.getUiFax().setText(company.getFax());
+		if (company != null) {
+			uiCompany.getUiName().setText(nullCheck(company.getName()));
+			uiCompany.getUiUrl().setText(nullCheck(company.getUrl()));
+			uiCompany.getUiEmail().setText(nullCheck(company.getEmail()));
+			uiCompany.getUiPriPhone().setText(nullCheck(company.getPriPhone()));
+			uiCompany.getUiSecPhone().setText(nullCheck(company.getSecPhone()));
+			uiCompany.getUiFax().setText(nullCheck(company.getFax()));
+		}
 	}
 
 	@Override
@@ -142,7 +148,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	@Override
 	public void showHelp(String name) {
-		TextBoxCombo textBox = findTextBoxCombo(name);
+		TextBoxBaseCombo textBox = findTextBoxCombo(name);
 		if (textBox != null) {
 			textBox.showHelp();
 		}	
@@ -150,7 +156,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	@Override
 	public void removeHelp(String name) {
-		TextBoxCombo textBoxCombo = findTextBoxCombo(name);
+		TextBoxBaseCombo textBoxCombo = findTextBoxCombo(name);
 
 		if (textBoxCombo != null) {
 			textBoxCombo.getUiTextBox().removeStyleName(ParkFiftyResources.INSTANCE.style()
@@ -169,7 +175,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	 * @param name Name of the widget for which the widget object has to be retrieved
 	 * @return TextBoxCombo object
 	 */
-	private TextBoxCombo findTextBoxCombo(String name) {
+	private TextBoxBaseCombo findTextBoxCombo(String name) {
 		Widget widget = null;
 		
 		widget = uiCompany.getWidget(name);
@@ -177,8 +183,8 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 			widget = uiCompanyOwner.getWidget(name);
 		}
 		
-		if (widget instanceof TextBoxCombo) {
-			return (TextBoxCombo) widget;
+		if (widget instanceof TextBoxBaseCombo) {
+			return (TextBoxBaseCombo) widget;
 		} else {
 			return null;
 		}
@@ -208,13 +214,15 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		}
 	}
 
-//	@Override
-	private void setFocus(String name) {
+	@Override
+	public void setFocus(String name) {
 		Widget widget = findTextBoxCombo(name);
 		if (widget != null && widget instanceof TextBoxCombo) {
-			((TextBoxCombo) widget).getUiTextBox().setFocus(true);
+			TextBoxCombo textBoxCombo = (TextBoxCombo) widget;
+			textBoxCombo.getUiTextBox().selectAll();
+			textBoxCombo.getUiTextBox().setFocus(true);
 		}
-//		getUiCompany().getUiName().getUiTextBox().setFocus(true);
+//		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
 	}
 
 }

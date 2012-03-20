@@ -217,7 +217,7 @@ public class RegexpUnitTests {
 //		Assert.assertTrue(pattern.matcher("Regina+Pinto").matches());
 
 		Assert.assertFalse(pattern.matcher("VeenaRePinto").matches());
-		Assert.assertFalse(pattern.matcher("Veena.RePinto").matches());
+		Assert.assertFalse(pattern.matcher("Glenn").matches());
 //		Assert.assertTrue(pattern.matcher("Regina.Pinto").matches());
 //		Assert.assertTrue(pattern.matcher("M1ng1$L4r2").matches());
 //		Assert.assertTrue(pattern.matcher("12%df.$*W^e#2B&g@3s!").matches());

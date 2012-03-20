@@ -41,6 +41,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		panel.setWidget(homeView.asWidget());
+		this.homeView.setFocus("uiName");
 		bind();
 	}
 

@@ -99,4 +99,8 @@ public abstract class Utils {
 	public static boolean isEmptyOrNull(String value) {
 		return (value == null || value.trim().length() == 0);
 	}
+	
+	public static String nullCheck(String value) {
+		return (value != null ? value : "");
+	}
 }
