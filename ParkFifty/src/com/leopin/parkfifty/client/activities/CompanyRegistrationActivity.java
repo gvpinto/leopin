@@ -1,18 +1,10 @@
 package com.leopin.parkfifty.client.activities;
 
-import static com.leopin.parkfifty.shared.utils.Utils.formatPhoneNum;
-import static com.leopin.parkfifty.shared.utils.Utils.stripChars;
-import static com.leopin.parkfifty.shared.utils.Validator.validateEmail;
-import static com.leopin.parkfifty.shared.utils.Validator.validateMiddleInitial;
-import static com.leopin.parkfifty.shared.utils.Validator.validateName;
-import static com.leopin.parkfifty.shared.utils.Validator.validateOtherPhone;
-import static com.leopin.parkfifty.shared.utils.Validator.validatePassword;
-import static com.leopin.parkfifty.shared.utils.Validator.validatePriPhone;
-import static com.leopin.parkfifty.shared.utils.Validator.validateSuffix;
-import static com.leopin.parkfifty.shared.utils.Validator.validateTitle;
-import static com.leopin.parkfifty.shared.utils.Validator.validateUrl;
-import static com.leopin.parkfifty.shared.utils.Validator.validateUserName;
-import static com.leopin.parkfifty.shared.utils.Validator.validateUsername;
+import static com.leopin.parkfifty.shared.utils.Utils.*;
+import static com.leopin.parkfifty.shared.utils.Validator.*;
+import static com.leopin.parkfifty.shared.constants.AppURI.*;
+import static com.leopin.parkfifty.shared.constants.HTTPHeaders.*;
+
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
@@ -28,7 +20,11 @@ import com.google.gwt.json.client.JSONString;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.leopin.parkfifty.client.ClientFactory;
+import com.leopin.parkfifty.client.events.AppBusyEvent;
+import com.leopin.parkfifty.client.events.AppErrorEvent;
+import com.leopin.parkfifty.client.events.AppFreeEvent;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
+import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.presenters.CompanyRegistrationPresenter;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
@@ -207,24 +203,41 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			&& validate("uiUserSecPhone", companyUser.getSecPhone())
 			&& validate("uiUserFax", companyUser.getFax())) {
 			
+			
+			// setting the name back to null so that the focus remains on the submit button
+			name = null;
+			
 			// Submit the Data to the Server and save it
-			// TODO Submit Data
 			String jsonString = createJson(company, companyUser);
 			GWT.log(jsonString);
-			registerCompany(jsonString);
+			
+			try {
+				eventBus.fireEvent(new AppBusyEvent());
+				registerCompany(jsonString);
+			} finally {
+				eventBus.fireEvent(new AppFreeEvent());
+			}
+			
 		}
 		
 		return name;
 	
 	}
+	
+
+	@Override
+	public void cancel() {
+		clientFactory.getPlaceController().goTo(new HomePlace());
+	}
+
 
 	private void registerCompany(String jsonString) {
 		
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.POST,
-				GWT.getHostPageBaseURL() + "/admin/company");
+				GWT.getHostPageBaseURL() + ADD_COMPANY);
 		
 //		rb.setHeader("Content-type", "application/x-www-form-urlencoded");
-		rb.setHeader("Content-type", "application/json;charset=UTF-8");
+		rb.setHeader(CONTENT_TYPE_JSON.getKey(), CONTENT_TYPE_JSON.getValue());
 		rb.setRequestData(jsonString);
 		
 		rb.setCallback(new RequestCallback() {
@@ -235,7 +248,10 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					GWT.log("Success");
 					// TODO Display companyRegistrationView.registrationSucessful();
 				} else {
-					GWT.log("Error. Code: " + response.getStatusCode());
+					GWT.log(">> Error Code: " + response.getStatusCode());
+					AppErrorEvent event = new AppErrorEvent();
+					event.setErrorMsg(">> Error Code: " + response.getStatusCode());
+					eventBus.fireEvent(event);
 					// TODO Display a Popup with with Error Information
 				}
 				

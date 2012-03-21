@@ -206,8 +206,14 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	}
 	
 	@UiHandler("uiSubmit")
-	void onClick(ClickEvent e) {
+	void onSubmitClick(ClickEvent e) {
+//		getUiSubmit().setEnabled(false);
 		submit();
+	}
+	
+	@UiHandler("uiCancel")
+	void onCancelClick(ClickEvent e) {
+		this.presenter.cancel();
 	}
 
 	private void submit() {

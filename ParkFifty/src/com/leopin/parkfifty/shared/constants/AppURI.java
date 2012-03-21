@@ -2,7 +2,8 @@ package com.leopin.parkfifty.shared.constants;
 
 public enum AppURI {
 	
-	ADMIN_LOGIN_CHECK("/admin/logincheck");
+	ADMIN_LOGIN_CHECK("/admin/logincheck"),
+	ADD_COMPANY("/admin/company");
 	
 	String uri;
 	

@@ -6,16 +6,20 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.EventBus;
 import com.leopin.parkfifty.client.events.AppBusyEvent;
 import com.leopin.parkfifty.client.events.AppBusyHandler;
+import com.leopin.parkfifty.client.events.AppErrorEvent;
+import com.leopin.parkfifty.client.events.AppErrorHandler;
 import com.leopin.parkfifty.client.events.AppFreeEvent;
 import com.leopin.parkfifty.client.events.AppFreeHandler;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.services.ParkFiftyService;
+import com.leopin.parkfifty.client.ui.ConfirmationDialog;
 
 public class ParkFiftyApp {
 
@@ -72,6 +76,16 @@ public class ParkFiftyApp {
 				busyLabel.setVisible(false);
 				
 			}
+		});
+		
+		eventBus.addHandler(AppErrorEvent.getType(), new AppErrorHandler() {
+			
+			@Override
+			public void onAppErrorEvent(AppErrorEvent event) {
+				GWT.log("AppErrorEvent Received. Message: " + event.getErrorMsg());
+				new ConfirmationDialog("AppErrorEvent Received. Message: " + event.getErrorMsg()).show();
+			}
+			
 		});
 		
 		

@@ -1,8 +1,15 @@
-package com.leopin.parkfifty.admin.gwtunit.tests;
+package com.leopin.parkfifty.admin.tests.unit.gwt;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +27,7 @@ import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
 import com.leopin.parkfifty.client.views.HomeView;
 import com.leopin.parkfifty.shared.constants.CompanyFields;
+import com.leopin.parkfifty.shared.constants.CompanyUserFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 import com.leopin.parkfifty.shared.utils.Utils;
@@ -216,7 +224,26 @@ public class AdminGwtUnitTests {
 	
 	@Test
 	public void testCompanyFields() {
-		assertEquals("uiName", CompanyFields.UiName);
+		assertEquals("uiName", CompanyFields.UiName.getId());
+		assertEquals("uiUrl", CompanyFields.UiUrl.getId());
+		assertEquals("uiEmail", CompanyFields.UiEmail.getId());
+		assertEquals("uiPriPhone", CompanyFields.UiPriPhone.getId());
+		assertEquals("uiSecPhone", CompanyFields.UiSecPhone.getId());
+		assertEquals("uiFax", CompanyFields.UiFax.getId());
+	}
+	
+	@Test
+	public void testCompanyUserFields() {
+		assertEquals("uiUserUsername", CompanyUserFields.UiUsername.getId());
+		assertEquals("uiUserPassword", CompanyUserFields.UiPassword.getId());
+		assertEquals("uiUserTitle", CompanyUserFields.UiTitle.getId());
+		assertEquals("uiUserFirstName", CompanyUserFields.UiFirstName.getId());
+		assertEquals("uiUserLastName", CompanyUserFields.UiLastName.getId());
+		assertEquals("uiUserSuffix", CompanyUserFields.UiSuffix.getId());
+		assertEquals("uiUserPriPhone", CompanyUserFields.UiPriPhone.getId());
+		assertEquals("uiUserSecPhone", CompanyUserFields.UiSecPhone.getId());
+		assertEquals("uiUserFax", CompanyUserFields.UiFax.getId());
+		assertEquals("uiUserEmail", CompanyUserFields.UiEmail.getId());
 	}
 
 }

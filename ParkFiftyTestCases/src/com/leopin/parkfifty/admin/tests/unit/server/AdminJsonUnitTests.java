@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.admin.unit.tests;
+package com.leopin.parkfifty.admin.tests.unit.server;
 
 //import static org.junit.Assert.*;
 //import static org.mockito.Matchers.*;

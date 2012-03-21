@@ -7,6 +7,7 @@ public interface CompanyRegistrationPresenter extends Presenter {
 	
 	boolean validate(String name, String value);
 	String submit(CompanyProxy company, CompanyUserProxy companyUser);
+	void cancel();
 	void onFocusSetValue(String name, String text);
 	
 }

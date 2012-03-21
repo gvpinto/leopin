@@ -1,4 +1,4 @@
-package com.leopin.parkfifty.admin.web.tests;
+package com.leopin.parkfifty.admin.tests.web;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

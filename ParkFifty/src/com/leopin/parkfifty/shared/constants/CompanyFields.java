@@ -30,7 +30,4 @@ public enum CompanyFields {
 		return labelKey;
 	}
 	
-	public String toString() {
-		return id;
-	}
 }
