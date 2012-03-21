@@ -1,5 +1,6 @@
 package com.leopin.parkfifty.client.ui;
 
+import static com.leopin.parkfifty.shared.constants.CompanyFields.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
 import com.leopin.parkfifty.client.messages.AppMessages;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
+import com.leopin.parkfifty.shared.constants.CompanyFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 
@@ -24,12 +26,6 @@ public class CompanyWidget extends Composite implements UiWidget {
 
 	private static CompanyWidgetUiBinder uiBinder = GWT
 			.create(CompanyWidgetUiBinder.class);
-
-	private static Map regex = new HashMap();
-	
-	static {
-		regex.put("uiName", AppRegExp.COMPANY_NAME);
-	}
 	
 	interface CompanyWidgetUiBinder extends UiBinder<Widget, CompanyWidget> {
 	}
@@ -138,17 +134,17 @@ public class CompanyWidget extends Composite implements UiWidget {
 	public Widget getWidget(String name) {
 		Widget widget = null;
 		
-		if (name.matches("uiName")) {
+		if (name.matches(UiName.getId())) {
 			widget = this.getUiName();
-		} else if (name.matches("uiUrl")) {
+		} else if (name.matches(UiUrl.getId())) {
 			widget = this.getUiUrl();
-		} else if (name.matches("uiEmail")) {
+		} else if (name.matches(UiEmail.getId())) {
 			widget = this.getUiEmail();
-		} else if (name.matches("uiPriPhone")) {
+		} else if (name.matches(UiPriPhone.getId())) {
 			widget = this.getUiPriPhone();
-		} else if (name.matches("uiSecPhone")) {
+		} else if (name.matches(UiSecPhone.getId())) {
 			widget = this.getUiSecPhone();
-		} else if (name.matches("uiFax")) {
+		} else if (name.matches(UiFax.getId())) {
 			widget = this.getUiFax();
 		}
 		return widget;

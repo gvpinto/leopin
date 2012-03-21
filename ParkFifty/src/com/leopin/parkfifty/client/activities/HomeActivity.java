@@ -1,5 +1,7 @@
 package com.leopin.parkfifty.client.activities;
 
+import static com.leopin.parkfifty.shared.constants.AppURI.*;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.*;
 import static com.leopin.parkfifty.shared.utils.Validator.*;
 import static com.leopin.parkfifty.shared.utils.Utils.*;
 
@@ -41,7 +43,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		panel.setWidget(homeView.asWidget());
-		this.homeView.setFocus("uiName");
+		this.homeView.setFocus(UiName.getId());
 		bind();
 	}
 
@@ -74,25 +76,25 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		String tempPhone = null;
 		this.name = name;
 		
-		if (name.matches("uiName")) {
+		if (name.matches(UiName.getId())) {
 			
 			if (!validateName(text)) {
 				pass = false;
 			}
 			
-		} else if (name.matches("uiUrl")) {
+		} else if (name.matches(UiUrl.getId())) {
 			
 			if (!validateUrl(text)) {
 				pass = false;
 			}
 			
-		} else if (name.matches("uiEmail")) {
+		} else if (name.matches(UiEmail.getId())) {
 			
 			if (!validateEmail(text)) {
 				pass = false;
 			}
 			
-		} else if (name.matches("uiPriPhone")) {
+		} else if (name.matches(UiPriPhone.getId())) {
 			
 			valid = true;
 //			homeView.setUiText(name, this.stripChars(text));
@@ -103,7 +105,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 			}
 
 			
-		} else if (name.matches("uiFax|uiSecPhone")) {
+		} else if (name.matches(UiFax.getId() + "|" + UiSecPhone.getId())) {
 			
 			valid = true;
 			tempPhone = stripChars(text);
@@ -132,7 +134,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 
 	@Override
 	public void onFocusSetValue(String name, String text) {
-		if (name.matches("uiPriPhone|uiSecPhone|uiFax")) {
+		if (name.matches(UiPriPhone.getId() + "|" + UiSecPhone.getId() + "|" + UiFax.getId())) {
 			homeView.setUiText(name, stripChars(text));
 		}
 	}
@@ -146,12 +148,12 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		
 		name = null;
 		
-		if (validate("uiName", company.getName()) 
-			&& validate("uiUrl", company.getUrl())
-			&& validate("uiEmail", company.getEmail())
-			&& validate("uiPriPhone", company.getPriPhone())
-			&& validate("uiSecPhone", company.getSecPhone())
-			&& validate("uiFax", company.getFax())) {
+		if (validate(UiName.getId(), company.getName()) 
+			&& validate(UiUrl.getId(), company.getUrl())
+			&& validate(UiEmail.getId(), company.getEmail())
+			&& validate(UiPriPhone.getId(), company.getPriPhone())
+			&& validate(UiSecPhone.getId(), company.getSecPhone())
+			&& validate(UiFax.getId(), company.getFax())) {
 			
 			CompanyRegistrationPlace companyRegistrationPlace = new CompanyRegistrationPlace("register");
 			companyRegistrationPlace.setCompanyProxy(company);
@@ -168,7 +170,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		
 		RequestBuilder rb = new RequestBuilder(
 				RequestBuilder.GET,
-				GWT.getHostPageBaseURL() + "/admin/logincheck");
+				GWT.getHostPageBaseURL() + ADMIN_LOGIN_CHECK);
 //		rb.setHeader("Content-type", "application/x-www-form-urlencoded");
 //		rb.setHeader("Content-type", "application/x-www-form-urlencoded");
 //		String request = "j_username=" + userId + "&j_password=" + password;

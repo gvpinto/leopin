@@ -1,5 +1,7 @@
 package com.leopin.parkfifty.client.ui;
 
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.*;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
@@ -186,27 +188,27 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	public Widget getWidget(String name) {
 		Widget widget = null;
 		
-		if (name.matches("uiUserUsername")) {
+		if (name.matches(UiUsername.getId())) {
 			widget = this.getUiUserUsername();
-		} else if (name.matches("uiUserPassword")) {
+		} else if (name.matches(UiPassword.getId())) {
 			widget = this.getUiUserPassword();
-		} else if (name.matches("uiUserEmail")) {
+		} else if (name.matches(UiEmail.getId())) {
 			widget = this.getUiUserEmail();
-		} else if (name.matches("uiUserPriPhone")) {
+		} else if (name.matches(UiPriPhone.getId())) {
 			widget = this.getUiUserPriPhone();
-		} else if (name.matches("uiUserSecPhone")) {
+		} else if (name.matches(UiSecPhone.getId())) {
 			widget = this.getUiUserSecPhone();
-		} else if (name.matches("uiUserFax")) {
+		} else if (name.matches(UiFax.getId())) {
 			widget = this.getUiUserFax();
-		} else if (name.matches("uiUserTitle")) {
+		} else if (name.matches(UiTitle.getId())) {
 			widget = this.getUiUserTitle();
-		} else if (name.matches("uiUserFirstName")) {
+		} else if (name.matches(UiFirstName.getId())) {
 			widget = this.getUiUserFirstName();
-		} else if (name.matches("uiUserLastName")) {
+		} else if (name.matches(UiLastName.getId())) {
 			widget = this.getUiUserLastName();
-		} else if (name.matches("uiUserMiddleInitial")) {
+		} else if (name.matches(UiMiddleInitial.getId())) {
 			widget = this.getUiUserMiddleInitial();
-		} else if (name.matches("uiUserSuffix")) {
+		} else if (name.matches(UiSuffix.getId())) {
 			widget = this.getUiUserSuffix();
 		}
 		return widget;

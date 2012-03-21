@@ -19,6 +19,7 @@ import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
 import com.leopin.parkfifty.client.views.HomeView;
+import com.leopin.parkfifty.shared.constants.CompanyFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.utils.AppRegExp;
 import com.leopin.parkfifty.shared.utils.Utils;
@@ -213,6 +214,9 @@ public class AdminGwtUnitTests {
 		verify(companyRegistrationView, atLeastOnce()).showHelp("uiUserPassword");
 	}
 	
-	
+	@Test
+	public void testCompanyFields() {
+		assertEquals("uiName", CompanyFields.UiName);
+	}
 
 }

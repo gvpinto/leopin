@@ -1,6 +1,7 @@
 package com.leopin.parkfifty.client.views;
 
 import static com.leopin.parkfifty.shared.utils.Utils.*;
+import static com.leopin.parkfifty.shared.constants.NavigationButtons.*;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -27,7 +28,8 @@ import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
 import com.leopin.parkfifty.client.ui.CompanyOwnerWidget;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
-import com.leopin.parkfifty.client.ui.TextBoxCombo;
+import com.leopin.parkfifty.shared.constants.CompanyFields;
+import com.leopin.parkfifty.shared.constants.CompanyUserFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 
 
@@ -49,7 +51,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		uiCompanyOwner.initBlurHandlers(this);
 		uiCompanyOwner.initFocusHandlers(this);
 		this.addKeyPressHandler(this);
-		uiSubmit.getElement().setId("uiSubmit");
+		uiSubmit.getElement().setId(UiSubmit.getId());
 	}
 
 	
@@ -130,17 +132,18 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	@Override
 	public void setUiText(String name, String value) {
-		if (name.matches("uiPriPhone")) {
+		
+		if (name.matches(CompanyFields.UiPriPhone.getId())) {
 			uiCompany.getUiPriPhone().setText(value);
-		} else if (name.matches("uiSecPhone")) {
+		} else if (name.matches(CompanyFields.UiSecPhone.getId())) {
 			uiCompany.getUiSecPhone().setText(value);
-		} else if (name.matches("uiFax")) {
+		} else if (name.matches(CompanyFields.UiFax.getId())) {
 			uiCompany.getUiFax().setText(value);
-		} else if (name.matches("uiUserPriPhone")) {
+		} else if (name.matches(CompanyUserFields.UiPriPhone.getId())) {
 			uiCompanyOwner.getUiUserPriPhone().setText(value);
-		} else if (name.matches("uiUserSecPhone")) {
+		} else if (name.matches(CompanyUserFields.UiSecPhone.getId())) {
 			uiCompanyOwner.getUiUserSecPhone().setText(value);
-		} else if (name.matches("uiUserFax")) {
+		} else if (name.matches(CompanyUserFields.UiFax.getId())) {
 			uiCompanyOwner.getUiUserFax().setText(value);
 		}
 		
@@ -217,12 +220,11 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	@Override
 	public void setFocus(String name) {
 		Widget widget = findTextBoxCombo(name);
-		if (widget != null && widget instanceof TextBoxCombo) {
-			TextBoxCombo textBoxCombo = (TextBoxCombo) widget;
+		if (widget != null && widget instanceof TextBoxBaseCombo) {
+			TextBoxBaseCombo textBoxCombo = (TextBoxBaseCombo) widget;
 			textBoxCombo.getUiTextBox().selectAll();
 			textBoxCombo.getUiTextBox().setFocus(true);
 		}
-//		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
 	}
 
 }

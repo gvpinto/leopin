@@ -56,5 +56,6 @@ public class AdminUnitTests {
 		value = "th";
 		Assert.assertFalse(Utils.validate(value, AppRegExp.COMPANY_NAME, true));
 	}
+	
 
 }

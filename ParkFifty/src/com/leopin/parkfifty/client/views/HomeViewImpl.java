@@ -1,5 +1,6 @@
 package com.leopin.parkfifty.client.views;
 
+import static com.leopin.parkfifty.shared.constants.CompanyFields.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -157,11 +158,11 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	@Override
 	public void setUiText(String name, String text) {
 		
-		if (name.matches("uiPriPhone")) {
+		if (name.matches(UiPriPhone.getId())) {
 			uiCompanyWidget.getUiPriPhone().setText(text);
-		} else if (name.matches("uiSecPhone")) {
+		} else if (name.matches(UiSecPhone.getId())) {
 			uiCompanyWidget.getUiSecPhone().setText(text);
-		} else if (name.matches("uiFax")) {
+		} else if (name.matches(UiFax.getId())) {
 			uiCompanyWidget.getUiFax().setText(text);
 		}
 		
