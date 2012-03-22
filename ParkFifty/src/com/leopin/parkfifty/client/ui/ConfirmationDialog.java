@@ -24,6 +24,8 @@ public class ConfirmationDialog  {
 		uiBinder.createAndBindUi(this);
 		this.uiMessage.setText(message);
 		this.uiErrorDialog.setGlassEnabled(true);
+		this.uiErrorDialog.setWidth("300px");
+		this.uiErrorDialog.setHeight("200px");
 		// TODO Try to set it up as MODAL and not responsive to out side clicks
 	}
 	
