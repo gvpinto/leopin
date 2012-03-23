@@ -156,7 +156,6 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 //			final int top = e.getClientY();
 //			final int left = e.getClientX();
 			errorHelpTextPopup.setPopupPositionAndShow(new PopupPanel.PositionCallback() {
-
 				public void setPosition(int offsetWidth, int offsetHeight) {
 					errorHelpTextPopup.setPopupPosition(left, top);
 					
@@ -168,7 +167,7 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 	@UiHandler("uiImage")
 	public void onMouseOut(MouseOutEvent e) {
 		if (errorHelpTextPopup != null) {
-			errorHelpTextPopup.removeFromParent();
+			errorHelpTextPopup.hide();
 			errorHelpTextPopup = null;
 		}
 	}

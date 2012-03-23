@@ -25,12 +25,18 @@ public class AdminDomainData {
 	 * @return Company
 	 */
 	
-	public static Company getCompany() {
+	public static Company getCompany(boolean newCompany) {
 		Random rand = new Random(System.currentTimeMillis());
 		
+		String val = null;
+		
 		Company company = new Company();
-		int randval = rand.nextInt(9999);
-		String val = new DecimalFormat("0000").format(randval);
+		if (newCompany) {
+			int randval = rand.nextInt(9999);
+			val = new DecimalFormat("0000").format(randval);
+		} else {
+			val = "0000";
+		}
 		
 		company.setName("This is a Good Company " + val);
 		
@@ -47,12 +53,16 @@ public class AdminDomainData {
 	 * Get Company User template data
 	 * @return CompanyUser
 	 */
-	public static CompanyUser getCompanyUser(Long companyId) {
+	public static CompanyUser getCompanyUser(Long companyId, boolean newCompanyUser) {
 			Random rand = new Random(System.currentTimeMillis());
-			int userIdSuffix = rand.nextInt(999);
+			int userIdSuffix = 0;
+			if (newCompanyUser) {
+				userIdSuffix = rand.nextInt(999);
+			}
+			
 			CompanyUser companyUser = new CompanyUser();
 			companyUser.setUsername("gvpinto" + userIdSuffix);
-			companyUser.setPassword("M1ng1L4r2");
+			companyUser.setPassword("Kadri.Guttu");
 //			companyUser.addEntitlement(Entitlement.ADD_USER);
 //			companyUser.setRole(Role.OWNER);
 			Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
@@ -78,10 +88,17 @@ public class AdminDomainData {
 	}
 	
 	
-	public static CompanyAndUser getCompanyAndUser() {
+	public static CompanyAndUser getDynamicCompanyAndUser() {
 		CompanyAndUser newCompanyWrapper = new CompanyAndUser();
-		newCompanyWrapper.setCompany(getCompany());
-		newCompanyWrapper.setCompanyUser(getCompanyUser(0L));
+		newCompanyWrapper.setCompany(getCompany(true));
+		newCompanyWrapper.setCompanyUser(getCompanyUser(0L, true));
+		return newCompanyWrapper;
+	}
+	
+	public static CompanyAndUser getStaticCompanyAndUser() {
+		CompanyAndUser newCompanyWrapper = new CompanyAndUser();
+		newCompanyWrapper.setCompany(getCompany(false));
+		newCompanyWrapper.setCompanyUser(getCompanyUser(0L, false));
 		return newCompanyWrapper;
 	}
 

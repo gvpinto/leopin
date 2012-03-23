@@ -230,6 +230,7 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	@Override
 	public CompanyUser addCompanyUser(CompanyUser companyUser) {
+		
 		Objectify ofyAdd = objectifyFactory.beginTransaction();
 		Objectify ofyGet = objectifyFactory.begin();
 		
@@ -276,8 +277,7 @@ public class AdminServiceImpl implements AdminService {
 			
 			// Check if the User Id already exists. Should be unique across companies
 			// TODO: Need to check for delete timestamp when looking up Company user. Should not consider those as part of the Uniqueness
-//			Assert.notNull(companyAndUser.getCompany());
-//			Assert.notNull(companyAndUser.getCompany().getId());
+
 			CompanyUser cu= ofyGet.query(CompanyUser.class)
 //					.ancestor(new Key<Company>(Company.class, companyAndUser.getCompany().getId()))
 					.filter("username", companyAndUser.getCompanyUser().getUsername())

@@ -163,7 +163,27 @@ public class AdminJsonWebTests {
 		urlVars.put("urlPrefix", adminURL);
 		
 
-		CompanyAndUser companyAndUser = AdminDomainData.getCompanyAndUser();
+		CompanyAndUser companyAndUser = AdminDomainData.getDynamicCompanyAndUser();
+		String companyName = companyAndUser.getCompany().getName();
+		String userId = companyAndUser.getCompanyUser().getUsername();
+		
+		ResponseEntity<CompanyAndUser> response = new RestTemplate().postForEntity("{urlPrefix}/company", companyAndUser, CompanyAndUser.class, urlVars);
+		
+		assertEquals(companyName, response.getBody().getCompany().getName());
+		assertEquals(userId, response.getBody().getCompanyUser().getUsername());
+		assertNotNull(response.getBody().getCompany().getId());
+		assertNotNull(response.getBody().getCompanyUser().getId());
+		
+	}
+	
+	@Test
+	public void testForExistingCompanyAndUser() {
+		
+		Map<String, String> urlVars = new HashMap<String, String>();
+		urlVars.put("urlPrefix", adminURL);
+		
+
+		CompanyAndUser companyAndUser = AdminDomainData.getStaticCompanyAndUser();
 		String companyName = companyAndUser.getCompany().getName();
 		String userId = companyAndUser.getCompanyUser().getUsername();
 		
@@ -182,7 +202,7 @@ public class AdminJsonWebTests {
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
 		
-		CompanyUser companyUser = AdminDomainData.getCompanyUser(1L);
+		CompanyUser companyUser = AdminDomainData.getCompanyUser(1L, true);
 		String userId = companyUser.getUsername();
 //		companyUser.setRole(Role.SUPER_ADMIN);
 		Set<GrantedAuthority> authorities =  new HashSet<GrantedAuthority>();
@@ -209,7 +229,7 @@ public class AdminJsonWebTests {
 		Map<String, String> urlVars = new HashMap<String, String>();
 		urlVars.put("urlPrefix", adminURL);
 		
-		CompanyUser companyUser = AdminDomainData.getCompanyUser(1L);
+		CompanyUser companyUser = AdminDomainData.getCompanyUser(1L, true);
 		String userId = companyUser.getUsername();
 		LOGGER.debug(companyUser.toString());
 		

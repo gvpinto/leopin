@@ -10,6 +10,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.google.web.bindery.event.shared.EventBus;
 import com.leopin.parkfifty.client.events.AppBusyEvent;
 import com.leopin.parkfifty.client.events.AppBusyHandler;
@@ -83,7 +84,18 @@ public class ParkFiftyApp {
 			@Override
 			public void onAppErrorEvent(AppErrorEvent event) {
 				GWT.log("AppErrorEvent Received. Message: " + event.getErrorMsg());
-				new ConfirmationDialog("AppErrorEvent Received. Message: " + event.getErrorMsg()).show();
+				ConfirmationDialog dialog = new ConfirmationDialog("AppErrorEvent Received. Message: " + event.getErrorMsg());
+				dialog.show();
+				
+//				.setPopupPositionAndShow(new PositionCallback() {
+//					
+//					@Override
+//					public void setPosition(int offsetWidth, int offsetHeight) {
+//						int left = (Window.getClientWidth() - offsetWidth)/2;
+//						int top = (Window.getClientHeight() - offsetHeight)/2;
+//						this.setPosition(left, top);
+//					}
+//				});
 			}
 			
 		});
