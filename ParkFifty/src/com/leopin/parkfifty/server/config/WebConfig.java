@@ -39,7 +39,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public ResourceBundleMessageSource messages() {
 		ResourceBundleMessageSource rbms = 
 				new ResourceBundleMessageSource();
-		String[] messageFileNames = {"messages"};
+		String[] messageFileNames = {"com.leopin.parkfifty.shared.messages.AppMessages"};
 		rbms.setBasenames(messageFileNames);
 		return rbms;	
 	}
@@ -65,7 +65,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
 //		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		messageSource.setBasename("ValidationMessages");
+		messageSource.setBasename("com.leopin.parkfifty.shared.messages.ValidationMessages");
 //		if (environment.acceptsProfiles("embedded")) {
 //			messageSource.setCacheSeconds(0);
 //		}

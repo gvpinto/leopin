@@ -5,6 +5,7 @@ Required:
 4. Set the Title and Suffix to drop box
 5. Camelize the names and capitalize middle initial
 6. Move the widget names as an enum if possible
+7. Realtime user id avaiable check
 
 1. Add recaptcha to the Company enrollment
 2. Add Spring security to the Admin login

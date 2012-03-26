@@ -11,10 +11,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.domain.CompanyUserProxyImpl;
-import com.leopin.parkfifty.client.messages.AppMessages;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
 import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
+import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class CompanyOwnerWidget extends Composite implements UiWidget {
 
@@ -29,17 +29,17 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		// Set the Help Text in advance from the AppMessages properties file
-		uiUserUsername.setHelpText(AppMessages.INSTANCE.userIdInvalid());
-		uiUserPassword.setHelpText(AppMessages.INSTANCE.passwordInvalid());
-		uiUserTitle.setHelpText(AppMessages.INSTANCE.titleInvalid());
-		uiUserFirstName.setHelpText(AppMessages.INSTANCE.firstNameInvalid());
-		uiUserMiddleInitial.setHelpText(AppMessages.INSTANCE.middleInitialInvalid());
-		uiUserLastName.setHelpText(AppMessages.INSTANCE.lastNameInvalid());
-		uiUserSuffix.setHelpText(AppMessages.INSTANCE.suffixInvalid());
-		uiUserPriPhone.setHelpText(AppMessages.INSTANCE.priPhoneNumInvalid());
-		uiUserSecPhone.setHelpText(AppMessages.INSTANCE.secPhoneNumInvalid());
-		uiUserFax.setHelpText(AppMessages.INSTANCE.faxInvalid());
-		uiUserEmail.setHelpText(AppMessages.INSTANCE.emailInvalid());
+		uiUserUsername.setHelpText(ValidationMessages.INSTANCE.userIdInvalid());
+		uiUserPassword.setHelpText(ValidationMessages.INSTANCE.passwordInvalid());
+		uiUserTitle.setHelpText(ValidationMessages.INSTANCE.titleInvalid());
+		uiUserFirstName.setHelpText(ValidationMessages.INSTANCE.firstNameInvalid());
+		uiUserMiddleInitial.setHelpText(ValidationMessages.INSTANCE.middleInitialInvalid());
+		uiUserLastName.setHelpText(ValidationMessages.INSTANCE.lastNameInvalid());
+		uiUserSuffix.setHelpText(ValidationMessages.INSTANCE.suffixInvalid());
+		uiUserPriPhone.setHelpText(ValidationMessages.INSTANCE.priPhoneNumInvalid());
+		uiUserSecPhone.setHelpText(ValidationMessages.INSTANCE.secPhoneNumInvalid());
+		uiUserFax.setHelpText(ValidationMessages.INSTANCE.faxInvalid());
+		uiUserEmail.setHelpText(ValidationMessages.INSTANCE.emailInvalid());
 		
 		// Size the 2nd column on the grid to avoid the jumping of the table 
 		// when the help icon is displayed

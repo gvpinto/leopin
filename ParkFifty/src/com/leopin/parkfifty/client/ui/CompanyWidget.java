@@ -1,8 +1,6 @@
 package com.leopin.parkfifty.client.ui;
 
 import static com.leopin.parkfifty.shared.constants.CompanyFields.*;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -13,12 +11,10 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
-import com.leopin.parkfifty.client.messages.AppMessages;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
-import com.leopin.parkfifty.shared.constants.CompanyFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
-import com.leopin.parkfifty.shared.utils.AppRegExp;
+import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class CompanyWidget extends Composite implements UiWidget {
 
@@ -35,12 +31,12 @@ public class CompanyWidget extends Composite implements UiWidget {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		// Set the Help Text in advance from the AppMessages properties file
-		uiName.setHelpText(AppMessages.INSTANCE.companyNameInvalid());
-		uiUrl.setHelpText(AppMessages.INSTANCE.urlInvalid());
-		uiEmail.setHelpText(AppMessages.INSTANCE.emailInvalid());
-		uiPriPhone.setHelpText(AppMessages.INSTANCE.priPhoneNumInvalid());
-		uiSecPhone.setHelpText(AppMessages.INSTANCE.secPhoneNumInvalid());
-		uiFax.setHelpText(AppMessages.INSTANCE.faxInvalid());
+		uiName.setHelpText(ValidationMessages.INSTANCE.companyNameInvalid());
+		uiUrl.setHelpText(ValidationMessages.INSTANCE.urlInvalid());
+		uiEmail.setHelpText(ValidationMessages.INSTANCE.emailInvalid());
+		uiPriPhone.setHelpText(ValidationMessages.INSTANCE.priPhoneNumInvalid());
+		uiSecPhone.setHelpText(ValidationMessages.INSTANCE.secPhoneNumInvalid());
+		uiFax.setHelpText(ValidationMessages.INSTANCE.faxInvalid());
 		
 		// Size the 2nd column on the grid to avoid the jumping of the table 
 		// when the help icon is displayed

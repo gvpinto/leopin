@@ -84,18 +84,10 @@ public class ParkFiftyApp {
 			@Override
 			public void onAppErrorEvent(AppErrorEvent event) {
 				GWT.log("AppErrorEvent Received. Message: " + event.getErrorMsg());
-				ConfirmationDialog dialog = new ConfirmationDialog("AppErrorEvent Received. Message: " + event.getErrorMsg());
-				dialog.show();
-				
-//				.setPopupPositionAndShow(new PositionCallback() {
-//					
-//					@Override
-//					public void setPosition(int offsetWidth, int offsetHeight) {
-//						int left = (Window.getClientWidth() - offsetWidth)/2;
-//						int top = (Window.getClientHeight() - offsetHeight)/2;
-//						this.setPosition(left, top);
-//					}
-//				});
+				ConfirmationDialog dialog = new ConfirmationDialog();
+				dialog.setBodyText(event.getErrorMsg());
+				dialog.setCaption("Unable to process request");
+				dialog.center();
 			}
 			
 		});
