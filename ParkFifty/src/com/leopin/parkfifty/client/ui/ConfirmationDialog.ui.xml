@@ -1,14 +1,61 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
 	<ui:style>
+		.popupContainer {
+			width: 400px;
+			height: 300px;
+		}
 		
+		.popupTitle {
+			font-weight: bold;
+			font-size: 110%;
+		}
+		
+		.popupHeader {
+			padding: 10px;
+			border-bottom: 1px dotted gray;
+		}
+		
+		.popupBody {
+			padding: 20px 10px 10px 10px;
+			margin-bottom: 65px;
+			overflow: hidden;
+		}
+		
+		.popupNav {
+			height: 50px;
+			width: 100%;
+			bottom: 0;
+			position: absolute;
+			text-align: center;
+		}
+		
+		.popupButton {
+			width: 75px;
+			margin: 5px;
+		}
 	</ui:style>
- <g:DialogBox ui:field="uiErrorDialog" autoHide="false" modal="true">
-   <g:caption><b>Caption text</b></g:caption>
-   <g:HTMLPanel>
-     	<g:HTML ui:field="uiMessage"></g:HTML>
-     <g:Button ui:field='uiOk'>OK</g:Button>
-   </g:HTMLPanel>
- </g:DialogBox>
+
+	<g:FlowPanel ui:field="uiAppPopup">
+
+		<g:FlowPanel styleName="{style.popupHeader}">
+			<g:InlineHTML ui:field="uiCaption" styleName="{style.popupTitle}"></g:InlineHTML>
+		</g:FlowPanel>
+
+		<g:FlowPanel styleName="{style.popupBody}">
+
+			<g:InlineHTML ui:field="uiText"></g:InlineHTML>
+
+		</g:FlowPanel>
+		<g:FlowPanel styleName="{style.popupNav}">
+
+			<g:Button ui:field="uiOK" addStyleNames="{style.popupButton}">OK</g:Button>
+			<!-- <g:Button ui:field="uiCancel" addStyleNames="{style.popupButton}">Cancel</g:Button> -->
+
+		</g:FlowPanel>
+
+	</g:FlowPanel>
+
 </ui:UiBinder> 
