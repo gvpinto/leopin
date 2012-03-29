@@ -6,11 +6,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.google.web.bindery.event.shared.EventBus;
 import com.leopin.parkfifty.client.events.AppBusyEvent;
 import com.leopin.parkfifty.client.events.AppBusyHandler;
@@ -84,7 +82,9 @@ public class ParkFiftyApp {
 			@Override
 			public void onAppErrorEvent(AppErrorEvent event) {
 				GWT.log("AppErrorEvent Received. Message: " + event.getErrorMsg());
-				ConfirmationDialog dialog = new ConfirmationDialog();
+				
+				// Display the confirmation dialog box with the error message
+				ConfirmationDialog dialog = new ConfirmationDialog(clientFactory, event.getPlace(), true);
 				dialog.setBodyText(event.getErrorMsg());
 				dialog.setCaption("Unable to process request");
 				dialog.center();

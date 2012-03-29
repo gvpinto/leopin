@@ -1,11 +1,13 @@
 package com.leopin.parkfifty.client.events;
 
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.place.shared.Place;
 
 public class AppErrorEvent extends GwtEvent<AppErrorHandler> {
 
 	private static Type<AppErrorHandler> TYPE = new Type<AppErrorHandler>();
 	private String errorMsg;
+	private Place place;
 	
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
@@ -13,6 +15,14 @@ public class AppErrorEvent extends GwtEvent<AppErrorHandler> {
 	
 	public String getErrorMsg() {
 		return this.errorMsg;
+	}
+	
+	public void setPlace(Place place) {
+		this.place = place;
+	}
+	
+	public Place getPlace() {
+		return place;
 	}
 	
 	@Override

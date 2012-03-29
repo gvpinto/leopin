@@ -22,5 +22,11 @@ public interface HomeView extends View {
 	public void setUiText(String name, String text);
 
 	public void setFocus(String name);
+
+	
+	/**
+	 * Initialize the widgets by removing previous data
+	 */
+	public void init();
 	
 }

@@ -1,20 +1,9 @@
 package com.leopin.parkfifty.client.activities;
 
-import static com.leopin.parkfifty.shared.constants.AppURI.ADD_COMPANY;
-import static com.leopin.parkfifty.shared.constants.HTTPHeaders.CONTENT_TYPE_JSON;
-import static com.leopin.parkfifty.shared.utils.Utils.formatPhoneNum;
-import static com.leopin.parkfifty.shared.utils.Utils.stripChars;
-import static com.leopin.parkfifty.shared.utils.Validator.validateEmail;
-import static com.leopin.parkfifty.shared.utils.Validator.validateMiddleInitial;
-import static com.leopin.parkfifty.shared.utils.Validator.validateName;
-import static com.leopin.parkfifty.shared.utils.Validator.validateOtherPhone;
-import static com.leopin.parkfifty.shared.utils.Validator.validatePassword;
-import static com.leopin.parkfifty.shared.utils.Validator.validatePriPhone;
-import static com.leopin.parkfifty.shared.utils.Validator.validateSuffix;
-import static com.leopin.parkfifty.shared.utils.Validator.validateTitle;
-import static com.leopin.parkfifty.shared.utils.Validator.validateUrl;
-import static com.leopin.parkfifty.shared.utils.Validator.validateUserName;
-import static com.leopin.parkfifty.shared.utils.Validator.validateUsername;
+import static com.leopin.parkfifty.shared.constants.AppURI.*;
+import static com.leopin.parkfifty.shared.constants.HTTPHeaders.*;
+import static com.leopin.parkfifty.shared.utils.Utils.*;
+import static com.leopin.parkfifty.shared.utils.Validator.*;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
@@ -239,7 +228,8 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 
 	@Override
 	public void cancel() {
-		clientFactory.getPlaceController().goTo(new HomePlace());
+		// Go back to the Home page and restore the entered data
+		clientFactory.getPlaceController().goTo(new HomePlace("restore"));
 	}
 
 
@@ -259,6 +249,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 				if (200 == response.getStatusCode()) {
 					GWT.log("Success");
 					// TODO Display companyRegistrationView.registrationSucessful();
+					
 				} else if (420 == response.getStatusCode()) {
 					GWT.log(response.getText());
 					ErrorInfo errorInfo = getErrorInfo(response.getText());
@@ -268,9 +259,11 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 				} else {
 					GWT.log(">> Error Code: " + response.getStatusCode());
 					AppErrorEvent event = new AppErrorEvent();
-					event.setErrorMsg(">> Error Code: " + response.getStatusCode());
+					long errorCode = System.currentTimeMillis();
+					event.setErrorMsg("Unknown error occurred. Please call the call center with the following error code " + errorCode);
+					event.setPlace(new HomePlace());
 					eventBus.fireEvent(event);
-					// TODO Display a Popup with with Error Information
+					// TODO: LOG ERROR: Make the Asynch call to log the error with the following TS errorCode
 				}
 				
 			}

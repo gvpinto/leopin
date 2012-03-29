@@ -146,9 +146,24 @@ public class CompanyWidget extends Composite implements UiWidget {
 		return widget;
 	}
 
+	
+	/**
+	 * Clear all the widgets
+	 */
+	public void clear() {
+		getUiName().setText("");
+		getUiEmail().setText("");
+		getUiFax().setText("");
+		getUiPriPhone().setText("");
+		getUiSecPhone().setText("");
+		getUiUrl().setText("");
+	}
+	
 	@Override
 	public Style style() {
 		return ParkFiftyResources.INSTANCE.style();
 	}
+	
+	
 	
 }
