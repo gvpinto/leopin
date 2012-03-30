@@ -6,15 +6,15 @@ import com.google.gwt.place.shared.Place;
 public class AppErrorEvent extends GwtEvent<AppErrorHandler> {
 
 	private static Type<AppErrorHandler> TYPE = new Type<AppErrorHandler>();
-	private String errorMsg;
+	private String message;
 	private Place place;
 	
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
-	public String getErrorMsg() {
-		return this.errorMsg;
+	public String getMessage() {
+		return this.message;
 	}
 	
 	public void setPlace(Place place) {

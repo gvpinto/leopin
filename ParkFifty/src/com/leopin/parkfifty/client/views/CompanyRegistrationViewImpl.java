@@ -32,7 +32,12 @@ import com.leopin.parkfifty.shared.constants.CompanyFields;
 import com.leopin.parkfifty.shared.constants.CompanyUserFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 
-
+/**
+ * Company Registration view which displays the fields to capture the company information
+ * and Company Owner information
+ * @author Glenn Pinto
+ *
+ */
 public class CompanyRegistrationViewImpl extends Composite implements CompanyRegistrationView, BlurHandler, FocusHandler, KeyPressHandler, HasKeyPressHandlers  {
 
 	CompanyRegistrationPresenter presenter;
@@ -127,7 +132,6 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		
 		this.presenter.validate(name, text);
 
-		
 	}
 
 	@Override
