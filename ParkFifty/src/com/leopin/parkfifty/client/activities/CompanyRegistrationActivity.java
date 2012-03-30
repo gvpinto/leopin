@@ -24,12 +24,14 @@ import com.leopin.parkfifty.client.domain.ErrorInfo;
 import com.leopin.parkfifty.client.events.AppBusyEvent;
 import com.leopin.parkfifty.client.events.AppErrorEvent;
 import com.leopin.parkfifty.client.events.AppFreeEvent;
+import com.leopin.parkfifty.client.events.AppSuccessEvent;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.presenters.CompanyRegistrationPresenter;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
+import com.leopin.parkfifty.shared.messages.AppMessages;
 
 public class CompanyRegistrationActivity extends AbstractActivity implements
 		CompanyRegistrationPresenter {
@@ -214,7 +216,10 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			
 			try {
 				eventBus.fireEvent(new AppBusyEvent());
-				registerCompany(jsonString);
+				
+				// Making the database call to register the company and the company owner
+				registerCompany(jsonString, company.getName());
+				
 			} finally {
 				eventBus.fireEvent(new AppFreeEvent());
 			}
@@ -233,7 +238,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 	}
 
 
-	private void registerCompany(String jsonString) {
+	private void registerCompany(String jsonString, final String companyName) {
 		
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.POST,
 				GWT.getHostPageBaseURL() + ADD_COMPANY);
@@ -250,20 +255,22 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					GWT.log("Success");
 					clientFactory.getCompanyRegistrationView().clear();
 					clientFactory.getHomeView().clear();
+					AppSuccessEvent event  = new AppSuccessEvent();
+					event.setMessage(AppMessages.INSTANCE.addCompanySuccessful(companyName));
+					eventBus.fireEvent(event);
 					
 				} else if (420 == response.getStatusCode()) {
 					GWT.log(response.getText());
 					ErrorInfo errorInfo = getErrorInfo(response.getText());
 					AppErrorEvent event = new AppErrorEvent();
-					event.setErrorMsg(errorInfo.getDescription());
+					event.setMessage(errorInfo.getDescription());
 					eventBus.fireEvent(event);
 					
 				} else {
 					GWT.log(">> Error Code: " + response.getStatusCode());
 					AppErrorEvent event = new AppErrorEvent();
 					long errorCode = System.currentTimeMillis();
-					event.setErrorMsg("Unknown error occurred. Please call the call center with the following error code " + errorCode);
-					event.setPlace(new HomePlace());
+					event.setMessage("Unknown error occurred. Please call the call center with the following error code " + errorCode);
 					eventBus.fireEvent(event);
 					// TODO: LOG ERROR: Make the Asynch call to log the error with the following TS errorCode
 					

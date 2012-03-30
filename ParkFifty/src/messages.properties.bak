@@ -16,7 +16,7 @@ error.sys.admin.add.location=Error occurred while adding location {0}.
 error.app.admin.location.binding.errors=JSON data has validation errors. List of errors as as follows\n {0}.
 
 /* USER ID */
-error.app.admin.user.exists=User ID {0} already exists under this Company. Please try another User ID.
+error.app.admin.user.exists=User Id {0} already exists. Please try to pick another User Id.
 error.sys.admin.add.user=Unable to add User ID {0}.
 error.app.admin.companyuser.binding.errors=JSON data has validation errors. List of errors as as follows\n {0}.
 error.app.admin.companyuser.owner.exists=Cannot create more than one owner per company. User ID {0}.

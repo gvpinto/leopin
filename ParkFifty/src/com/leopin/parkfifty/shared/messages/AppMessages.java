@@ -9,4 +9,8 @@ public interface AppMessages extends Messages {
 	
 	@Key("error.app.admin.user.exists")
 	String adminUserExists(String username);
+	
+	@Key("success.app.admin.add.company")
+	String addCompanySuccessful(String companyName);
+	
 }

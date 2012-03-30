@@ -6,7 +6,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.EventBus;
@@ -16,9 +15,13 @@ import com.leopin.parkfifty.client.events.AppErrorEvent;
 import com.leopin.parkfifty.client.events.AppErrorHandler;
 import com.leopin.parkfifty.client.events.AppFreeEvent;
 import com.leopin.parkfifty.client.events.AppFreeHandler;
+import com.leopin.parkfifty.client.events.AppSuccessEvent;
+import com.leopin.parkfifty.client.events.AppSuccessHandler;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.services.ParkFiftyService;
 import com.leopin.parkfifty.client.ui.ConfirmationDialog;
+import com.leopin.parkfifty.client.ui.ErrorDialog;
+import com.leopin.parkfifty.client.ui.SuccessDialog;
 import com.leopin.parkfifty.client.views.AppView;
 
 public class ParkFiftyApp {
@@ -95,13 +98,33 @@ public class ParkFiftyApp {
 			@Override
 			public void onAppErrorEvent(AppErrorEvent event) {
 				GWT.log("AppErrorEvent Received. Message: "
-						+ event.getErrorMsg());
+						+ event.getMessage());
 
 				// Display the confirmation dialog box with the error message
-				ConfirmationDialog dialog = new ConfirmationDialog(
-						clientFactory, event.getPlace(), true);
-				dialog.setBodyText(event.getErrorMsg());
+				ConfirmationDialog dialog = new ErrorDialog(
+						clientFactory, event.getPlace());
+				dialog.setBodyText(event.getMessage());
+				// TODO: Move the message to AppMessages
 				dialog.setCaption("Unable to process request");
+				dialog.center();
+			}
+
+		});
+		
+
+		eventBus.addHandler(AppSuccessEvent.getType(), new AppSuccessHandler() {
+
+			@Override
+			public void onAppSuccessEvent(AppSuccessEvent event) {
+				GWT.log("Event Successful. Message: "
+						+ event.getMessage());
+
+				// Display the confirmation dialog box with the error message
+				ConfirmationDialog dialog = new SuccessDialog(
+						clientFactory, event.getPlace());
+				dialog.setBodyText(event.getMessage());
+				// TODO: Move the message to AppMessages
+				dialog.setCaption("Request successful processed");
 				dialog.center();
 			}
 

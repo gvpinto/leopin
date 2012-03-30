@@ -1,11 +1,13 @@
 package com.leopin.parkfifty.client.events;
 
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.place.shared.Place;
 
 public class AppSuccessEvent extends GwtEvent<AppSuccessHandler> {
 
 	private static Type<AppSuccessHandler> TYPE = new Type<AppSuccessHandler>();
 	private String message;
+	private Place place;
 	
 	public void setMessage(String message) {
 		this.message = message;
@@ -13,6 +15,15 @@ public class AppSuccessEvent extends GwtEvent<AppSuccessHandler> {
 	
 	public String getMessage() {
 		return this.message;
+	}
+	
+	
+	public void setPlace(Place place) {
+		this.place = place;
+	}
+	
+	public Place getPlace() {
+		return place;
 	}
 	
 	@Override

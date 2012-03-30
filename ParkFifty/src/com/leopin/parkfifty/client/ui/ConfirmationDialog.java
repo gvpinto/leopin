@@ -48,10 +48,6 @@ public class ConfirmationDialog extends PopupPanel {
 			uiImage.setResource(ParkFiftyResources.INSTANCE.successIcon());
 		}
 	}
-	
-	public ConfirmationDialog(String height, String width) {
-
-	}
 
 //	@UiField
 //	InlineHTML uiText;
