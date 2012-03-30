@@ -248,7 +248,8 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			public void onResponseReceived(Request request, Response response) {
 				if (200 == response.getStatusCode()) {
 					GWT.log("Success");
-					// TODO Display companyRegistrationView.registrationSucessful();
+					clientFactory.getCompanyRegistrationView().clear();
+					clientFactory.getHomeView().clear();
 					
 				} else if (420 == response.getStatusCode()) {
 					GWT.log(response.getText());
@@ -256,6 +257,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					AppErrorEvent event = new AppErrorEvent();
 					event.setErrorMsg(errorInfo.getDescription());
 					eventBus.fireEvent(event);
+					
 				} else {
 					GWT.log(">> Error Code: " + response.getStatusCode());
 					AppErrorEvent event = new AppErrorEvent();
@@ -264,6 +266,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					event.setPlace(new HomePlace());
 					eventBus.fireEvent(event);
 					// TODO: LOG ERROR: Make the Asynch call to log the error with the following TS errorCode
+					
 				}
 				
 			}

@@ -213,6 +213,21 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		}
 		return widget;
 	}
+	
+	public void clear() {
+		this.getUiUserUsername().setText("");
+		this.getUiUserPassword().setText("");
+		this.getUiUserTitle().setText("");
+		this.getUiUserFirstName().setText("");
+		this.getUiUserLastName().setText("");
+		this.getUiUserMiddleInitial().setText("");
+		this.getUiUserEmail().setText("");
+		this.getUiUserPriPhone().setText("");
+		this.getUiUserSecPhone().setText("");
+		this.getUiUserSuffix().setText("");
+		this.getUiUserFax().setText("");
+	}
+	
 	@Override
 	public Style style() {
 		return ParkFiftyResources.INSTANCE.style();

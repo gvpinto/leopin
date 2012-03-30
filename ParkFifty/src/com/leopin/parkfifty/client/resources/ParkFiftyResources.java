@@ -69,6 +69,12 @@ public interface ParkFiftyResources extends ClientBundle {
 	  
 	  @Source("xclamation.png")
 	  public ImageResource xclamation();
+	  
+	  @Source("error_32x32.png")
+	  public ImageResource errorIcon();
+	  
+	  @Source("checkmark_32x32.png")
+	  public ImageResource successIcon();
 
 //	  @Source("config.xml")
 //	  public TextResource initialConfiguration();

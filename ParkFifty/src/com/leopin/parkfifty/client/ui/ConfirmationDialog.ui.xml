@@ -14,8 +14,19 @@
 		}
 		
 		.popupHeader {
-			padding: 10px;
+			padding: 5px;
 			border-bottom: 1px dotted gray;
+		}
+		
+		.popupHeader .imageInline {
+			display: inline;
+			margin: 0 20px 0 0;
+		}
+		
+		.popupHeader .captionInline {
+			display: inline;
+			position: relative;
+			bottom: 10px;
 		}
 		
 		.popupBody {
@@ -36,26 +47,31 @@
 			width: 75px;
 			margin: 5px;
 		}
+		
+		
 	</ui:style>
 
-	<g:FlowPanel ui:field="uiAppPopup">
+	<g:HTMLPanel ui:field="uiAppPopup">
 
-		<g:FlowPanel styleName="{style.popupHeader}">
-			<g:InlineHTML ui:field="uiCaption" styleName="{style.popupTitle}"></g:InlineHTML>
-		</g:FlowPanel>
+		<div class="{style.popupHeader}">
+		
+			<div class="{style.imageInline}"><g:Image ui:field="uiImage"/></div><div class="{style.captionInline}"><span ui:field="uiCaption" class="{style.popupTitle}"/></div>
+			
+		</div>
 
-		<g:FlowPanel styleName="{style.popupBody}">
+		<div class="{style.popupBody}">
 
-			<g:InlineHTML ui:field="uiText"></g:InlineHTML>
+			<span ui:field="uiText"/>
 
-		</g:FlowPanel>
-		<g:FlowPanel styleName="{style.popupNav}">
+		</div>
+		
+		<div class="{style.popupNav}">
 
 			<g:Button ui:field="uiOK" addStyleNames="{style.popupButton}">OK</g:Button>
 			<!-- <g:Button ui:field="uiCancel" addStyleNames="{style.popupButton}">Cancel</g:Button> -->
 
-		</g:FlowPanel>
+		</div>
 
-	</g:FlowPanel>
+	</g:HTMLPanel>
 
 </ui:UiBinder> 

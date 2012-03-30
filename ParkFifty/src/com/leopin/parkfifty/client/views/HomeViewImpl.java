@@ -235,9 +235,8 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		}
 	}
 
-
 	@Override
-	public void init() {
+	public void clear() {
 		uiCompanyWidget.clear();
 	}
 	

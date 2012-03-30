@@ -39,7 +39,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		this.clientFactory = clientFactory;
 		homeView = clientFactory.getHomeView();
 		if("init".equals(place.getToken())) {
-			homeView.init();
+			homeView.clear();
 		}
 	}
 

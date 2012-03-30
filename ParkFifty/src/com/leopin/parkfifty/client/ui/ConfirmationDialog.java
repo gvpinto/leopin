@@ -1,17 +1,19 @@
 package com.leopin.parkfifty.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.InlineHTML;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.ClientFactory;
+import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 
 /**
  * @author Glenn Pinto
@@ -31,33 +33,53 @@ public class ConfirmationDialog extends PopupPanel {
 	Place place;
 
 	public ConfirmationDialog(ClientFactory clientFactory, Place place, boolean isError) {
-		this("200px", "400px");
+		setWidget(uiBinder.createAndBindUi(this));
+		
+		// TODO: Need to Set this as Variable, maybe small, medium and large boxes
+		this.setHeight("200px");
+		this.setWidth("400px");
+		this.setGlassEnabled(true);
+		this.setModal(true);
 		this.clientFactory = clientFactory;
 		this.place = place;
 		if (isError) {
-			// TODO: Show the X image on the Confirmation dialog
+			uiImage.setResource(ParkFiftyResources.INSTANCE.errorIcon());
 		} else {
-			// TODO: Show the V image on the Confirmation dialog
+			uiImage.setResource(ParkFiftyResources.INSTANCE.successIcon());
 		}
 	}
 	
 	public ConfirmationDialog(String height, String width) {
-		setWidget(uiBinder.createAndBindUi(this));
-		this.setHeight(height);
-		this.setWidth(width);
-		this.setGlassEnabled(true);
-		this.setModal(true);
+
 	}
 
+//	@UiField
+//	InlineHTML uiText;
+//	public InlineHTML getUiText() {
+//		return uiText;
+//	}
+	
+//	@UiField
+//	InlineHTML uiCaption;
+//	public InlineHTML getUiCaption() {
+//		return uiCaption;
+//	}
+	
 	@UiField
-	InlineHTML uiText;
-	public InlineHTML getUiText() {
+	Image uiImage;
+	public Image getUiImage() {
+		return uiImage;
+	}
+	
+	@UiField
+	SpanElement uiText;
+	public SpanElement getUiText() {
 		return uiText;
 	}
 	
 	@UiField
-	InlineHTML uiCaption;
-	public InlineHTML getUiCaption() {
+	SpanElement uiCaption;
+	public SpanElement getUiCaption() {
 		return uiCaption;
 	}
 	
@@ -77,12 +99,15 @@ public class ConfirmationDialog extends PopupPanel {
 	}
 	
 	public void setBodyText(String text) {
-		this.uiText.setText(text);
+//		this.uiText.setText(text);
+		this.uiText.setInnerText(text);
 	}
 	
 	public void setCaption(String text) {
-		this.uiCaption.setText(text);
+//		this.uiCaption.setText(text);
+		this.uiCaption.setInnerText(text);
 	}
+	
 
 	
 }

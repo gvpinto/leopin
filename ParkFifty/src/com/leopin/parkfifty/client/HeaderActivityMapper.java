@@ -8,23 +8,24 @@ import com.leopin.parkfifty.client.activities.HomeActivity;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 
-public class ParkFiftyActivityMapper implements ActivityMapper {
+public class HeaderActivityMapper implements ActivityMapper {
 
 	private ClientFactory clientFactory;
 	
-	public ParkFiftyActivityMapper(ClientFactory clientFactory) {
+	public HeaderActivityMapper(ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
 	}
 	
 	@Override
 	public Activity getActivity(Place place) {
-		if (place instanceof HomePlace) {
-			return new HomeActivity((HomePlace) place, this.clientFactory);
-		} else if (place instanceof CompanyRegistrationPlace) {
-			return new CompanyRegistrationActivity((CompanyRegistrationPlace) place, this.clientFactory);
-		} else {
-			return null;
-		}
+//		if (place instanceof HomePlace) {
+//			return new HomeActivity((HomePlace) place, this.clientFactory);
+//		} else if (place instanceof CompanyRegistrationPlace) {
+//			return new CompanyRegistrationActivity((CompanyRegistrationPlace) place, this.clientFactory);
+//		} else {
+//			return null;
+//		}
+		
+		return null;
 	}
-
 }

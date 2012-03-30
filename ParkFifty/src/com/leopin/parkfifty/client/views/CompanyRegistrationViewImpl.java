@@ -233,4 +233,10 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		}
 	}
 
+	@Override
+	public void clear() {
+		getUiCompany().clear();
+		getUiCompanyOwnerWidget().clear();
+	}
+
 }

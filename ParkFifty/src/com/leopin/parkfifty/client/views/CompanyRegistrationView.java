@@ -36,4 +36,9 @@ public interface CompanyRegistrationView extends View {
 	 * @param name Widget name
 	 */
 	void setFocus(String name);
+	
+	/**
+	 * Clear/reset all the widgets
+	 */
+	void clear();
 }
