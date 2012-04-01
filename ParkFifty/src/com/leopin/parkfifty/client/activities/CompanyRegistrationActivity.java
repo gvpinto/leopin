@@ -253,9 +253,8 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			public void onResponseReceived(Request request, Response response) {
 				if (200 == response.getStatusCode()) {
 					GWT.log("Success");
-					clientFactory.getCompanyRegistrationView().clear();
-					clientFactory.getHomeView().clear();
 					AppSuccessEvent event  = new AppSuccessEvent();
+					event.setPlace(new HomePlace());
 					event.setMessage(AppMessages.INSTANCE.addCompanySuccessful(companyName));
 					eventBus.fireEvent(event);
 					
