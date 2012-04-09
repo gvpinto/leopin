@@ -29,7 +29,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	
 	private ClientFactory clientFactory;
 	private HomeView homeView;
-	private boolean isLoggedIn = false;
+
 	
 	// The first widget that failed validated when the Continue or Next button is clicked
 	// This will help set the focus on that widget
@@ -40,6 +40,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		homeView = clientFactory.getHomeView();
 		if("init".equals(place.getToken())) {
 			homeView.clear();
+			clientFactory.getCompanyRegistrationView().clear();
 		}
 	}
 
@@ -168,45 +169,6 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 		return name;
 	}
 
-	@Override
-	public boolean isAuthenticated() {
-		
-		RequestBuilder rb = new RequestBuilder(
-				RequestBuilder.GET,
-				GWT.getHostPageBaseURL() + ADMIN_LOGIN_CHECK);
-//		rb.setHeader("Content-type", "application/x-www-form-urlencoded");
-//		rb.setHeader("Content-type", "application/x-www-form-urlencoded");
-//		String request = "j_username=" + userId + "&j_password=" + password;
-//		rb.setRequestData(URL.encode(request));
 
-		rb.setCallback(new RequestCallback() {
-			@Override
-			public void onResponseReceived(Request request, Response response) {
-				if (200 == response.getStatusCode()) {
-					GWT.log("SUCCESS");
-					isLoggedIn = true;
-				} else {
-					GWT.log("ERROR: Code: " + response.getStatusCode());
-					isLoggedIn = false;
-				}
-			}
-			
-			@Override
-			public void onError(Request request, Throwable exception) {
-				GWT.log("ERROR: Message: " + exception.getMessage());
-				isLoggedIn = false;
-			}
-		});
-	
-		try {
-			rb.send();
-		} catch (RequestException e) {
-			isLoggedIn = false;
-			GWT.log("ERROR: Code: " + e.getMessage());
-			// TODO Throw and Error. Introduce a Event that can be fired if there is an Error anywhere in the App
-		}
-		return isLoggedIn;
-		
-	}
 
 }

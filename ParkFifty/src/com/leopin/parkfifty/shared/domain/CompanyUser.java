@@ -484,6 +484,7 @@ public class CompanyUser implements UserDetails, CredentialsContainer, CompanyUs
 
 	private static SortedSet<GrantedAuthority> sortAuthorities(Collection<? extends GrantedAuthority> authorities) {
         Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
+        
         // Ensure array iteration order is predictable (as per UserDetails.getAuthorities() contract and SEC-717)
         SortedSet<GrantedAuthority> sortedAuthorities =
             new TreeSet<GrantedAuthority>(new AuthorityComparator());

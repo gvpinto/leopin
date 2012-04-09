@@ -1,0 +1,98 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
+
+	<ui:with field='res'
+		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
+	<ui:style>
+		.popupContainer {
+			width: 400px;
+			height: 300px;
+		}
+		
+		.popupTitle {
+			font-weight: bold;
+			font-size: 110%;
+		}
+		
+		.popupHeader {
+			padding: 10px;
+			border-bottom: 1px dotted gray;
+		}
+		
+		.popupHeader .imageInline {
+			display: inline;
+			margin: 0 20px 0 0;
+		}
+		
+		.popupHeader .captionInline {
+			display: inline;
+			position: relative;
+			bottom: 10px;
+		}
+		
+		.popupBody {
+			padding: 20px 10px 10px 10px;
+			margin-bottom: 65px;
+			overflow: hidden;
+		}
+		
+		.popupNav {
+			height: 50px;
+			width: 100%;
+			bottom: 0;
+			position: absolute;
+			text-align: center;
+		}
+		
+		.popupButton {
+			width: 75px;
+			margin: 5px;
+		}
+		
+		
+	</ui:style>
+
+	<g:HTMLPanel ui:field="uiAppPopup">
+
+		<div class="{style.popupHeader}">
+		
+			<div class="{style.imageInline}"><g:Image ui:field="uiImage"/></div><div class="{style.captionInline}"><span ui:field="uiCaption" class="{style.popupTitle}"/></div>
+			
+		</div>
+
+		<div class="{style.popupBody}">
+
+		<!-- <g:Grid width="100%" ui:field="uiGrid"> -->
+		<g:Grid ui:field="uiGrid">
+			<g:row>
+				<g:customCell styleName="{res.style.labelCell}">
+					<g:Label wordWrap="false">Login ID:</g:Label>
+				</g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
+					<c:TextBoxCombo ui:field="uiUsername" name="uiUsername" visibleLength="25" maxLength="100"  />
+				</g:customCell>
+			</g:row>
+			<g:row>
+				<g:customCell styleName="{res.style.labelCell}">
+					<g:Label>Password:</g:Label>
+				</g:customCell>
+				<g:customCell styleName="{res.style.fieldCell}">
+					<c:TextBoxCombo ui:field="uiPassword" name="uiPassword" visibleLength="25" maxLength="100" />
+				</g:customCell>
+			</g:row>
+		</g:Grid>
+
+		</div>
+		
+		<div class="{style.popupNav}">
+
+			<g:Button ui:field="uiLogin" addStyleNames="{style.popupButton}">Login</g:Button>
+			<g:Button ui:field="uiCancel" addStyleNames="{style.popupButton}">Cancel</g:Button>
+
+		</div>
+
+	</g:HTMLPanel>
+
+</ui:UiBinder> 

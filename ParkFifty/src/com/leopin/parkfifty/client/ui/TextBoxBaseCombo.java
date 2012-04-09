@@ -220,6 +220,10 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 		uiImage.setVisible(false);
 	}
 	
+	public void clear() {
+		this.uiTextBox.setText("");
+	}
+	
 	private String popupStyle() {
 		return ParkFiftyResources.INSTANCE.style().popup();
 	}
@@ -227,6 +231,7 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 	ParkFiftyResources.Style style() {
 		return ParkFiftyResources.INSTANCE.style();
 	}
+	
 
 
 }

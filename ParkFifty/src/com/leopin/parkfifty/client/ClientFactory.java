@@ -5,6 +5,7 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.leopin.parkfifty.client.services.ParkFiftyService;
 import com.leopin.parkfifty.client.views.AppView;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
+import com.leopin.parkfifty.client.views.HeaderView;
 import com.leopin.parkfifty.client.views.HomeView;
 
 public interface ClientFactory {
@@ -16,5 +17,6 @@ public interface ClientFactory {
 	AppView getAppView();
 	HomeView getHomeView();
 	CompanyRegistrationView getCompanyRegistrationView();
+	HeaderView getHeaderView();
 	
 }

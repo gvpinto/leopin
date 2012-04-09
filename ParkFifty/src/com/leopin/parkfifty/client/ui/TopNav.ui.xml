@@ -1,12 +1,10 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style>
-		.important {
-			font-weight: bold;
-		}
-	</ui:style>
-	<g:HTMLPanel>
+	<ui:with field='res'
+		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
+		
+	<g:HTMLPanel styleName="{res.style.floatR}">
 		<g:Anchor ui:field="uiLogin"></g:Anchor>
 	</g:HTMLPanel>
 </ui:UiBinder> 

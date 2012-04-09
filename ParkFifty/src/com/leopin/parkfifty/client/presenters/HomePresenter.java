@@ -62,9 +62,4 @@ public interface HomePresenter extends Presenter {
 	 */
 	public void onFocusSetValue(String name, String text);
 	
-	/**
-	 * Checking if the client is already authenticated. If so dont'display the sign-up form
-	 * @return
-	 */
-	public boolean isAuthenticated();
 }
