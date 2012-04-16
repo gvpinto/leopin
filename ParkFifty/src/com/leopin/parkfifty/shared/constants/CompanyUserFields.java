@@ -2,8 +2,8 @@ package com.leopin.parkfifty.shared.constants;
 
 public enum CompanyUserFields {
 
-	UiUsername("uiUserUsername"),
-	UiPassword("uiUserPassword"),
+	UiUsername("uiUsername"),
+	UiPassword("uiPassword"),
 	UiTitle("uiUserTitle"),
 	UiFirstName("uiUserFirstName"),
 	UiMiddleInitial("uiUserMiddleInitial"),

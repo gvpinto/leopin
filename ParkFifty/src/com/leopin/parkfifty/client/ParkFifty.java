@@ -3,7 +3,6 @@ package com.leopin.parkfifty.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
 import com.leopin.parkfifty.client.views.AppView;
 
 /**
@@ -23,8 +22,8 @@ public class ParkFifty implements EntryPoint {
 		ParkFiftyApp app = new ParkFiftyApp(clientFactory.getService(), clientFactory.getEventBus(), clientFactory.getAppView());
 		RootPanel.get().add(appView);
 		
-		// Ensure content resources are initialized
-		ParkFiftyResources.INSTANCE.style().ensureInjected();
+//		// Ensure content resources are initialized
+//		ParkFiftyResources.INSTANCE.style().ensureInjected();
 		
 	}
 }

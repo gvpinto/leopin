@@ -4,7 +4,8 @@
 	xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
 
 	<ui:with field='res'
-		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
+		type='com.leopin.parkfifty.client.resources.AppStyles' />
+		
 	<ui:style>
 		.popupContainer {
 			width: 400px;
@@ -28,6 +29,7 @@
 		
 		.popupHeader .captionInline {
 			display: inline;
+			font-size: 14pt;
 			position: relative;
 			bottom: 10px;
 		}
@@ -51,6 +53,15 @@
 			margin: 5px;
 		}
 		
+		.errorMsgArea {
+			padding: 5px 0 5px 0;
+			height: 10px;
+		}
+		
+		.errorMsg {
+			color: red;
+		}
+		
 		
 	</ui:style>
 
@@ -63,6 +74,10 @@
 		</div>
 
 		<div class="{style.popupBody}">
+		
+		<div class="{style.errorMsgArea}">
+			<span class="{style.errorMsg}" ui:field="uiErrorMsg"/>
+		</div>
 
 		<!-- <g:Grid width="100%" ui:field="uiGrid"> -->
 		<g:Grid ui:field="uiGrid">

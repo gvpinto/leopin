@@ -13,9 +13,7 @@ import com.googlecode.objectify.ObjectifyFactory;
 import com.leopin.parkfifty.shared.domain.Company;
 import com.leopin.parkfifty.shared.domain.CompanyUser;
 import com.leopin.parkfifty.shared.exception.AppErrorKey;
-import com.leopin.parkfifty.shared.exception.AppException;
 import com.leopin.parkfifty.shared.exception.SysErrorKey;
-import com.leopin.parkfifty.shared.exception.SysException;
 
 public class GaeDataStoreUserDetailsService implements UserDetailsService {
 

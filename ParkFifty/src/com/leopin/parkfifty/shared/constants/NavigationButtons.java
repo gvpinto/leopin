@@ -4,7 +4,8 @@ public enum NavigationButtons {
 
 	UiContinue("uiContinue"),
 	UiSubmit("uiSubmit"),
-	UiCancel("uiCancel");
+	UiCancel("uiCancel"),
+	UiLogin("uiLogin");
 
 	String id;
 	String labelKey;

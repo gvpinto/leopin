@@ -1,6 +1,9 @@
 package com.leopin.parkfifty.client.views;
 
-import static com.leopin.parkfifty.shared.constants.CompanyFields.*;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiFax;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiPriPhone;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiSecPhone;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -21,11 +24,14 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.presenters.HomePresenter;
 import com.leopin.parkfifty.client.presenters.Presenter;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
+import com.leopin.parkfifty.client.resources.AppStyles;
+import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
+import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
+import com.leopin.parkfifty.shared.messages.ValidationMessages;
+
 
 public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		BlurHandler, KeyPressHandler, HasKeyPressHandlers {
@@ -166,7 +172,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		TextBoxBaseCombo textBoxCombo = findTextBoxCombo(name);
 
 		if (textBoxCombo != null) {
-			textBoxCombo.getUiTextBox().removeStyleName(ParkFiftyResources.INSTANCE.style()
+			textBoxCombo.getUiTextBox().removeStyleName(style()
 					.validateError());
 			textBoxCombo.hideHelp();
 		}
@@ -191,13 +197,24 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 			textBoxCombo.getUiTextBox().setFocus(true);
 		}
 //		uiCompanyWidget.getUiName().getUiTextBox().setFocus(true);
+		
 	}
-
+	
 	@Override
 	public Style style() {
-		return ParkFiftyResources.INSTANCE.style();
+		return AppStyles.style();
 	}
-
+	
+	@Override
+	public AppResources resources() {
+		return AppStyles.resources();
+	}
+	
+	@Override
+	public ValidationMessages validationMessages() {
+		return ValidationMessages.INSTANCE;
+	}
+	
 	/*
 	 * PRIVATE METHODS
 	 */
@@ -229,6 +246,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	public void clear() {
 		uiCompanyWidget.clear();
 	}
+
 	
 
 }

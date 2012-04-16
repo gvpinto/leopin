@@ -114,3 +114,18 @@ body,div
 .center {
 	text-align: center;
 }
+
+.errorMsgArea {
+	height: 10px;
+}
+
+.errorMsg {
+	color: red;
+}
+
+
+a:hover {
+    color: #0066CC;
+    text-decoration: none;
+    cursor: pointer;
+}

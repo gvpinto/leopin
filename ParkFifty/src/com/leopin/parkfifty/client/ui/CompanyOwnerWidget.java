@@ -1,18 +1,30 @@
 package com.leopin.parkfifty.client.ui;
 
-import static com.leopin.parkfifty.shared.constants.CompanyUserFields.*;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiEmail;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiFax;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiFirstName;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiLastName;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiMiddleInitial;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiPassword;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiPriPhone;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiSecPhone;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiSuffix;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiTitle;
+import static com.leopin.parkfifty.shared.constants.CompanyUserFields.UiUsername;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.domain.CompanyUserProxyImpl;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
+import com.leopin.parkfifty.client.resources.AppStyles;
+import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
+import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
@@ -29,17 +41,17 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		// Set the Help Text in advance from the AppMessages properties file
-		uiUserUsername.setHelpText(ValidationMessages.INSTANCE.userIdInvalid());
-		uiUserPassword.setHelpText(ValidationMessages.INSTANCE.passwordInvalid());
-		uiUserTitle.setHelpText(ValidationMessages.INSTANCE.titleInvalid());
-		uiUserFirstName.setHelpText(ValidationMessages.INSTANCE.firstNameInvalid());
-		uiUserMiddleInitial.setHelpText(ValidationMessages.INSTANCE.middleInitialInvalid());
-		uiUserLastName.setHelpText(ValidationMessages.INSTANCE.lastNameInvalid());
-		uiUserSuffix.setHelpText(ValidationMessages.INSTANCE.suffixInvalid());
-		uiUserPriPhone.setHelpText(ValidationMessages.INSTANCE.priPhoneNumInvalid());
-		uiUserSecPhone.setHelpText(ValidationMessages.INSTANCE.secPhoneNumInvalid());
-		uiUserFax.setHelpText(ValidationMessages.INSTANCE.faxInvalid());
-		uiUserEmail.setHelpText(ValidationMessages.INSTANCE.emailInvalid());
+		uiUsername.setHelpText(validationMessages().userIdInvalid());
+		uiPassword.setHelpText(validationMessages().passwordInvalid());
+		uiUserTitle.setHelpText(validationMessages().titleInvalid());
+		uiUserFirstName.setHelpText(validationMessages().firstNameInvalid());
+		uiUserMiddleInitial.setHelpText(validationMessages().middleInitialInvalid());
+		uiUserLastName.setHelpText(validationMessages().lastNameInvalid());
+		uiUserSuffix.setHelpText(validationMessages().suffixInvalid());
+		uiUserPriPhone.setHelpText(validationMessages().priPhoneNumInvalid());
+		uiUserSecPhone.setHelpText(validationMessages().secPhoneNumInvalid());
+		uiUserFax.setHelpText(validationMessages().faxInvalid());
+		uiUserEmail.setHelpText(validationMessages().emailInvalid());
 		
 		// Size the 2nd column on the grid to avoid the jumping of the table 
 		// when the help icon is displayed
@@ -47,26 +59,21 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		uiGrid.getColumnFormatter().addStyleName(1, this.style().fieldCol());
 	}
 
-
-	public CompanyOwnerWidget(String firstName) {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
-
 	@UiField
 	Grid uiGrid;
 	
 	@UiField
-	TextBoxCombo uiUserUsername;
+	TextBoxCombo uiUsername;
 	
-	public TextBoxCombo getUiUserUsername() {
-		return uiUserUsername;
+	public TextBoxCombo getUiUsername() {
+		return uiUsername;
 	}
 	
 	@UiField
-	PasswordCombo uiUserPassword;
+	PasswordCombo uiPassword;
 	
-	public PasswordCombo getUiUserPassword() {
-		return uiUserPassword;
+	public PasswordCombo getUiPassword() {
+		return uiPassword;
 	}
 	
 	@UiField
@@ -132,13 +139,24 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		return uiUserEmail;
 	}
 	
+	
+	
+
+	@Override
+	public void initHandlers(EventHandler handler) {
+
+		initFocusHandlers ((FocusHandler) handler);
+		initBlurHandlers((BlurHandler)handler);
+
+	}
+	
 	/**
 	 * Initialize Focus Handlers for Composites using this widget
 	 * @param handler FocusHandler
 	 */
 	public void initFocusHandlers(FocusHandler handler) {
-		getUiUserUsername().addFocusHandler(handler);
-		getUiUserPassword().addFocusHandler(handler);
+		getUiUsername().addFocusHandler(handler);
+		getUiPassword().addFocusHandler(handler);
 		getUiUserTitle().addFocusHandler(handler);
 		getUiUserFirstName().addFocusHandler(handler);
 		getUiUserMiddleInitial().addFocusHandler(handler);
@@ -155,8 +173,8 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	 * @param handler BlurHandler
 	 */
 	public void initBlurHandlers(BlurHandler handler) {
-		getUiUserUsername().addBlurHandler(handler);
-		getUiUserPassword().addBlurHandler(handler);
+		getUiUsername().addBlurHandler(handler);
+		getUiPassword().addBlurHandler(handler);
 		getUiUserTitle().addBlurHandler(handler);
 		getUiUserFirstName().addBlurHandler(handler);
 		getUiUserMiddleInitial().addBlurHandler(handler);
@@ -170,8 +188,8 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	
 	public CompanyUserProxy getCompanyUser() {
 		CompanyUserProxy companyUserProxy = new CompanyUserProxyImpl();
-		companyUserProxy.setUsername(getUiUserUsername().getText());
-		companyUserProxy.setPassword(getUiUserPassword().getText());
+		companyUserProxy.setUsername(getUiUsername().getText());
+		companyUserProxy.setPassword(getUiPassword().getText());
 		companyUserProxy.setTitle(getUiUserTitle().getText());
 		companyUserProxy.setFirstName(getUiUserFirstName().getText());
 		companyUserProxy.setMiddleInitial(getUiUserMiddleInitial().getText());
@@ -189,9 +207,9 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		Widget widget = null;
 		
 		if (name.matches(UiUsername.getId())) {
-			widget = this.getUiUserUsername();
+			widget = this.getUiUsername();
 		} else if (name.matches(UiPassword.getId())) {
-			widget = this.getUiUserPassword();
+			widget = this.getUiPassword();
 		} else if (name.matches(UiEmail.getId())) {
 			widget = this.getUiUserEmail();
 		} else if (name.matches(UiPriPhone.getId())) {
@@ -215,8 +233,8 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	}
 	
 	public void clear() {
-		this.getUiUserUsername().setText("");
-		this.getUiUserPassword().setText("");
+		this.getUiUsername().setText("");
+		this.getUiPassword().setText("");
 		this.getUiUserTitle().setText("");
 		this.getUiUserFirstName().setText("");
 		this.getUiUserLastName().setText("");
@@ -230,7 +248,17 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	
 	@Override
 	public Style style() {
-		return ParkFiftyResources.INSTANCE.style();
+		return AppStyles.style();
+	}
+	
+	@Override
+	public AppResources resources() {
+		return AppStyles.resources();
+	}
+	
+	@Override
+	public ValidationMessages validationMessages() {
+		return ValidationMessages.INSTANCE;
 	}
 	
 }

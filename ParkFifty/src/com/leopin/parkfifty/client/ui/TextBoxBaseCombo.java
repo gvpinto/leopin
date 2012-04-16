@@ -16,7 +16,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.leopin.parkfifty.client.constants.AppConstants;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
+import com.leopin.parkfifty.client.resources.AppStyles;
+import com.leopin.parkfifty.client.resources.AppStyles.Style;
 
 /**
  * Custom TextBox that bundle an Input Box, Exclamation Icon to be displayed
@@ -225,13 +226,12 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 	}
 	
 	private String popupStyle() {
-		return ParkFiftyResources.INSTANCE.style().popup();
+		return style().popup();
 	}
-	
-	ParkFiftyResources.Style style() {
-		return ParkFiftyResources.INSTANCE.style();
+
+	private Style style() {
+		return AppStyles.style();
 	}
-	
 
 
 }

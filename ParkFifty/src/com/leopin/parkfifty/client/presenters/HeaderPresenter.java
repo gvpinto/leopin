@@ -11,7 +11,7 @@ public interface HeaderPresenter extends Presenter {
 	 * Checking if the client is already authenticated. If so dont'display the sign-up form
 	 * @return
 	 */
-	public boolean isAuthenticated();
+	public void isAuthenticated();
 
 	/**
 	 * Attempt to login to the system given the Username and Password
@@ -19,6 +19,14 @@ public interface HeaderPresenter extends Presenter {
 	 * This is Unique across the system
 	 * @param Password	password associated with this User ID/Username/Login ID
 	 */
-	public void attemptToLogin(String username, String password);
+	public String attemptToLogin(String username, String password);
+	
+	
+	/**
+	 * Validate the input before submitting the data to the server
+	 * The data is once again validated on the server to ensure its not
+	 * changed after its submitted
+	 */
+	public boolean validate(String name, String value);
 	
 }

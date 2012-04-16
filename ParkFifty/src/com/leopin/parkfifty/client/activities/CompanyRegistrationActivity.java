@@ -1,9 +1,20 @@
 package com.leopin.parkfifty.client.activities;
 
-import static com.leopin.parkfifty.shared.constants.AppURI.*;
-import static com.leopin.parkfifty.shared.constants.HTTPHeaders.*;
-import static com.leopin.parkfifty.shared.utils.Utils.*;
-import static com.leopin.parkfifty.shared.utils.Validator.*;
+import static com.leopin.parkfifty.shared.constants.AppURI.ADD_COMPANY;
+import static com.leopin.parkfifty.shared.constants.HTTPHeaders.CONTENT_TYPE_JSON;
+import static com.leopin.parkfifty.shared.utils.Utils.formatPhoneNum;
+import static com.leopin.parkfifty.shared.utils.Utils.stripChars;
+import static com.leopin.parkfifty.shared.utils.Validator.validateEmail;
+import static com.leopin.parkfifty.shared.utils.Validator.validateMiddleInitial;
+import static com.leopin.parkfifty.shared.utils.Validator.validateName;
+import static com.leopin.parkfifty.shared.utils.Validator.validateOtherPhone;
+import static com.leopin.parkfifty.shared.utils.Validator.validatePassword;
+import static com.leopin.parkfifty.shared.utils.Validator.validatePriPhone;
+import static com.leopin.parkfifty.shared.utils.Validator.validateSuffix;
+import static com.leopin.parkfifty.shared.utils.Validator.validateTitle;
+import static com.leopin.parkfifty.shared.utils.Validator.validateUrl;
+import static com.leopin.parkfifty.shared.utils.Validator.validateUserName;
+import static com.leopin.parkfifty.shared.utils.Validator.validateUsername;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
@@ -29,6 +40,7 @@ import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.presenters.CompanyRegistrationPresenter;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
+import com.leopin.parkfifty.shared.constants.CompanyUserFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 import com.leopin.parkfifty.shared.messages.AppMessages;
@@ -125,12 +137,12 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 				pass = false;
 			}
 
-		} else if (name.matches("uiUserUsername")) {
+		} else if (name.matches(CompanyUserFields.UiUsername.getId())) {
 			if (!validateUsername(value)) {
 				pass = false;
 			}
 			
-		} else if (name.matches("uiUserPassword")) {
+		} else if (name.matches(CompanyUserFields.UiPassword.getId())) {
 			
 			if (!validatePassword(value)) {
 				pass = false;
@@ -195,8 +207,8 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			&& validate("uiPriPhone", company.getPriPhone())
 			&& validate("uiSecPhone", company.getSecPhone())
 			&& validate("uiFax", company.getFax())
-			&& validate("uiUserUsername", companyUser.getUsername())
-			&& validate("uiUserPassword", companyUser.getPassword())
+			&& validate(CompanyUserFields.UiUsername.getId(), companyUser.getUsername())
+			&& validate(CompanyUserFields.UiPassword.getId(), companyUser.getPassword())
 			&& validate("uiUserTitle", companyUser.getTitle())
 			&& validate("uiUserFirstName", companyUser.getFirstName())
 			&& validate("uiUserMiddleInitial", companyUser.getMiddleInitial())
@@ -255,7 +267,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					GWT.log("Success");
 					AppSuccessEvent event  = new AppSuccessEvent();
 					event.setPlace(new HomePlace());
-					event.setMessage(AppMessages.INSTANCE.addCompanySuccessful(companyName));
+					event.setMessage(messages().addCompanySuccessful(companyName));
 					eventBus.fireEvent(event);
 					
 				} else if (420 == response.getStatusCode()) {
@@ -342,5 +354,12 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 	private ErrorInfo getErrorInfo(String json) {
 		return JsonUtils.safeEval(json);
 	}
+	
+	
+	@Override
+	public AppMessages messages() {
+		return AppMessages.INSTANCE;
+	}
+
 
 }

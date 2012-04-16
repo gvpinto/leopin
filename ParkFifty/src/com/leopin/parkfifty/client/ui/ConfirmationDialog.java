@@ -1,9 +1,9 @@
 package com.leopin.parkfifty.client.ui;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -13,14 +13,17 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.ClientFactory;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
+import com.leopin.parkfifty.client.resources.AppStyles;
+import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
+import com.leopin.parkfifty.client.resources.AppStyles.Style;
+import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 /**
  * @author Glenn Pinto
  * Confirmation Dialog for Error messages or other messages
  *
  */
-public class ConfirmationDialog extends PopupPanel {
+public class ConfirmationDialog extends PopupPanel implements UiWidget {
 
 	private static ConfirmationDialogUiBinder uiBinder = GWT
 			.create(ConfirmationDialogUiBinder.class);
@@ -43,9 +46,9 @@ public class ConfirmationDialog extends PopupPanel {
 		this.clientFactory = clientFactory;
 		this.place = place;
 		if (isError) {
-			uiImage.setResource(ParkFiftyResources.INSTANCE.errorIcon());
+			uiImage.setResource(resources().errorIcon());
 		} else {
-			uiImage.setResource(ParkFiftyResources.INSTANCE.successIcon());
+			uiImage.setResource(resources().successIcon());
 		}
 	}
 
@@ -104,6 +107,25 @@ public class ConfirmationDialog extends PopupPanel {
 		this.uiCaption.setInnerText(text);
 	}
 	
-
+	@Override
+	public Style style() {
+		return AppStyles.style();
+	}
+	
+	@Override
+	public AppResources resources() {
+		return AppStyles.resources();
+	}
+	
+	@Override
+	public ValidationMessages validationMessages() {
+		return ValidationMessages.INSTANCE;
+	}
+	
+	@Override
+	public void initHandlers(EventHandler handler) {
+		// Initialize and handlers required to handle events
+		
+	}
 	
 }

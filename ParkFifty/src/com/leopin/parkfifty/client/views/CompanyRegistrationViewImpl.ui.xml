@@ -3,7 +3,7 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
 
 	<ui:with field='res'
-		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
+		type='com.leopin.parkfifty.client.resources.AppStyles' />
 
 	<g:FlowPanel styleName="{res.style.column}">
 		

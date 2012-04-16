@@ -1,18 +1,25 @@
 package com.leopin.parkfifty.client.ui;
 
-import static com.leopin.parkfifty.shared.constants.CompanyFields.*;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiEmail;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiFax;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiName;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiPriPhone;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiSecPhone;
+import static com.leopin.parkfifty.shared.constants.CompanyFields.UiUrl;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
+import com.leopin.parkfifty.client.resources.AppStyles;
+import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
+import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
@@ -31,12 +38,12 @@ public class CompanyWidget extends Composite implements UiWidget {
 		initWidget(uiBinder.createAndBindUi(this));
 		
 		// Set the Help Text in advance from the AppMessages properties file
-		uiName.setHelpText(ValidationMessages.INSTANCE.companyNameInvalid());
-		uiUrl.setHelpText(ValidationMessages.INSTANCE.urlInvalid());
-		uiEmail.setHelpText(ValidationMessages.INSTANCE.emailInvalid());
-		uiPriPhone.setHelpText(ValidationMessages.INSTANCE.priPhoneNumInvalid());
-		uiSecPhone.setHelpText(ValidationMessages.INSTANCE.secPhoneNumInvalid());
-		uiFax.setHelpText(ValidationMessages.INSTANCE.faxInvalid());
+		uiName.setHelpText(validationMessages().companyNameInvalid());
+		uiUrl.setHelpText(validationMessages().urlInvalid());
+		uiEmail.setHelpText(validationMessages().emailInvalid());
+		uiPriPhone.setHelpText(validationMessages().priPhoneNumInvalid());
+		uiSecPhone.setHelpText(validationMessages().secPhoneNumInvalid());
+		uiFax.setHelpText(validationMessages().faxInvalid());
 		
 		// Size the 2nd column on the grid to avoid the jumping of the table 
 		// when the help icon is displayed
@@ -88,6 +95,16 @@ public class CompanyWidget extends Composite implements UiWidget {
 	
 	public TextBoxCombo getUiFax() {
 		return uiFax;
+	}
+	
+	
+
+	@Override
+	public void initHandlers(EventHandler handler) {
+
+		initFocusHandlers ((FocusHandler) handler);
+		initBlurHandlers((BlurHandler)handler);
+
 	}
 	
 	/**
@@ -161,7 +178,17 @@ public class CompanyWidget extends Composite implements UiWidget {
 	
 	@Override
 	public Style style() {
-		return ParkFiftyResources.INSTANCE.style();
+		return AppStyles.style();
+	}
+	
+	@Override
+	public AppResources resources() {
+		return AppStyles.resources();
+	}
+	
+	@Override
+	public ValidationMessages validationMessages() {
+		return ValidationMessages.INSTANCE;
 	}
 	
 	

@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
-	<ui:with field='res' type='com.leopin.parkfifty.client.resources.ParkFiftyResources'/>
+	<ui:with field='res' type='com.leopin.parkfifty.client.resources.AppStyles'/>
 
 	<g:FlowPanel>
 		<g:Grid ui:field="uiGrid">
@@ -11,7 +11,7 @@
 					<g:Label wordWrap="false">User ID:</g:Label>
 				</g:customCell>
 				<g:customCell  styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiUserUsername" name="uiUserUsername" maxLength="12" visibleLength="25"/>
+					<c:TextBoxCombo ui:field="uiUsername" name="uiUsername" maxLength="12" visibleLength="25"/>
 				</g:customCell>
 			</g:row>
 			<g:row>
@@ -19,7 +19,7 @@
 					<g:Label horizontalAlignment="ALIGN_RIGHT">Password:</g:Label>
 				</g:customCell>
 				<g:customCell  styleName="{res.style.fieldCell}">
-					<c:PasswordCombo ui:field="uiUserPassword" name="uiUserPassword" visibleLength="25" maxLength="20"/>
+					<c:PasswordCombo ui:field="uiPassword" name="uiPassword" visibleLength="25" maxLength="20"/>
 				</g:customCell>
 			</g:row>
 			<g:row>

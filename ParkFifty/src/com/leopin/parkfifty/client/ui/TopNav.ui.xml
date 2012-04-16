@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:with field='res'
-		type='com.leopin.parkfifty.client.resources.ParkFiftyResources' />
+		type='com.leopin.parkfifty.client.resources.AppStyles' />
 		
 	<g:HTMLPanel styleName="{res.style.floatR}">
 		<g:Anchor ui:field="uiLogin"></g:Anchor>

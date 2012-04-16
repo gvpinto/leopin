@@ -1,26 +1,36 @@
 package com.leopin.parkfifty.client.ui;
 
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.FocusHandler;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
+import com.google.gwt.event.shared.EventHandler;
+import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
+import com.leopin.parkfifty.client.resources.AppStyles.Style;
+import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public interface UiWidget {
 	
-	/**
-	 * Initialize the widgets to handle onBlur events
-	 * @param handler Blur Handler
-	 */
-	public void initFocusHandlers(FocusHandler handler);
 	
 	/**
-	 * Initialize the widgets to handle onFocus events
+	 * Initialize Handlers
 	 * @param handler
 	 */
-	public void initBlurHandlers(BlurHandler handler);
+	public void initHandlers(EventHandler handler);
 	
 	/**
-	 * Return the Global style resource
+	 * Returns the Application wide style resource
 	 * @return
 	 */
-	ParkFiftyResources.Style style();
+	Style style();
+	
+	/**
+	 * Returns the application wide file, css, image etc resources
+	 * @return
+	 */
+	AppResources resources();
+	
+	/**
+	 * Returns application wide validation messages for displaying messages for fields
+	 * whose data value entered by the user has failed
+	 * @return validationMessages message object
+	 */
+	ValidationMessages validationMessages();
+	
 }

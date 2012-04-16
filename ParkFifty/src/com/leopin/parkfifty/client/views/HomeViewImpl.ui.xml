@@ -1,7 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
-	<ui:with field='res' type='com.leopin.parkfifty.client.resources.ParkFiftyResources'/>
+	<ui:with field='res' type='com.leopin.parkfifty.client.resources.AppStyles'/>
 	
 	<g:FlowPanel addStyleNames="{res.style.column} {res.style.floatR}">
 		

@@ -7,9 +7,21 @@ Required:
 6. Move the widget names as an enum if possible
 7. Realtime user id avaiable check
 8. Asynch calls to the server to update log on Error
+9. Need to show the wait
+10. Need to use the reference to all field names in teh app from Strings to Enum Field name
+11. Need to work on auditing, sending async updates to the server all protected except for the login attempts
 
 1. Add recaptcha to the Company enrollment
 2. Add Spring security to the Admin login
 3. Use Memcached
 4. Move all the bean properties from parkfifty-security to a javaconfig. Do a import in parkfifty
-5. Re-define the Salt
+5. Re-define the Salt and change the ALGO to...
+6. PCI compliant?
+
+
+Last left:
+Working on the Cancel for the Login Dialog
+The Login Key enter needs to get resolved
+After the click the login and the login fails the focus in se on the Username field, password is showing an issue
+Need to Segue if the login works
+Need to fix alignment issues of the Login popup

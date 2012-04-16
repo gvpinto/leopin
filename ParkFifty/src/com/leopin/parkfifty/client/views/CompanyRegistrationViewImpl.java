@@ -1,7 +1,7 @@
 package com.leopin.parkfifty.client.views;
 
-import static com.leopin.parkfifty.shared.utils.Utils.*;
-import static com.leopin.parkfifty.shared.constants.NavigationButtons.*;
+import static com.leopin.parkfifty.shared.constants.NavigationButtons.UiSubmit;
+import static com.leopin.parkfifty.shared.utils.Utils.nullCheck;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -23,14 +23,16 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.presenters.CompanyRegistrationPresenter;
 import com.leopin.parkfifty.client.presenters.Presenter;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources;
-import com.leopin.parkfifty.client.resources.ParkFiftyResources.Style;
+import com.leopin.parkfifty.client.resources.AppStyles;
+import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
+import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.client.ui.CompanyOwnerWidget;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.shared.constants.CompanyFields;
 import com.leopin.parkfifty.shared.constants.CompanyUserFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
+import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 /**
  * Company Registration view which displays the fields to capture the company information
@@ -51,10 +53,12 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	public CompanyRegistrationViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
-		uiCompany.initBlurHandlers(this);
-		uiCompany.initFocusHandlers(this);
-		uiCompanyOwner.initBlurHandlers(this);
-		uiCompanyOwner.initFocusHandlers(this);
+		uiCompany.initHandlers(this);
+//		uiCompany.initBlurHandlers(this);
+//		uiCompany.initFocusHandlers(this);
+		uiCompanyOwner.initHandlers(this);
+//		uiCompanyOwner.initBlurHandlers(this);
+//		uiCompanyOwner.initFocusHandlers(this);
 		this.addKeyPressHandler(this);
 		uiSubmit.getElement().setId(UiSubmit.getId());
 	}
@@ -100,9 +104,19 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	@Override
 	public Style style() {
-		return ParkFiftyResources.INSTANCE.style();
+		return AppStyles.style();
 	}
-
+	
+	@Override
+	public AppResources resources() {
+		return AppStyles.resources();
+	}
+	
+	@Override
+	public ValidationMessages validationMessages() {
+		return ValidationMessages.INSTANCE;
+	}
+	
 	@Override
 	public void setCompany(CompanyProxy company) {
 		if (company != null) {
@@ -117,6 +131,8 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	@Override
 	public void onFocus(FocusEvent event) {
+		
+		// Mainly required for Phone Numbers only		
 		TextBox textBox = (TextBox) event.getSource();
 		String name = textBox.getName();
 		String text = textBox.getText();
@@ -126,6 +142,8 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 
 	@Override
 	public void onBlur(BlurEvent event) {
+		
+		// Validate the individual values enter by the user
 		TextBox textBox = (TextBox) event.getSource();
 		String name = textBox.getName();
 		String text = textBox.getText();
@@ -166,7 +184,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		TextBoxBaseCombo textBoxCombo = findTextBoxCombo(name);
 
 		if (textBoxCombo != null) {
-			textBoxCombo.getUiTextBox().removeStyleName(ParkFiftyResources.INSTANCE.style()
+			textBoxCombo.getUiTextBox().removeStyleName(style()
 					.validateError());
 			textBoxCombo.hideHelp();
 		}	
