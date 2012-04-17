@@ -114,6 +114,7 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 
 			// Make a call to the Server to attempt to authenticate
 			login(username, password);
+			this.name = null;
 	
 		}
 		

@@ -5,7 +5,11 @@ import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
@@ -16,7 +20,7 @@ import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
-public class LoginDialog extends PopupPanel implements UiWidget  {
+public class LoginDialog extends PopupPanel implements UiWidget, HasKeyPressHandlers  {
 
 	private static LoginDialogUiBinder uiBinder = GWT
 			.create(LoginDialogUiBinder.class);
@@ -77,7 +81,9 @@ public class LoginDialog extends PopupPanel implements UiWidget  {
 	
 	public void clear() {
 		uiUsername.clear();
+		uiUsername.hideHelp();
 		uiPassword.clear();
+		uiPassword.hideHelp();
 	}
 	
 	public void setErrorMsg(String message) {
@@ -91,6 +97,8 @@ public class LoginDialog extends PopupPanel implements UiWidget  {
 		uiPassword.addFocusHandler((FocusHandler)handler);
 		uiPassword.addBlurHandler((BlurHandler)handler);
 		uiLogin.addClickHandler((ClickHandler) handler);
+		uiCancel.addClickHandler((ClickHandler) handler);
+		this.addKeyPressHandler((KeyPressHandler) handler);
 	}
 
 	@Override
@@ -106,6 +114,11 @@ public class LoginDialog extends PopupPanel implements UiWidget  {
 	@Override
 	public ValidationMessages validationMessages() {
 		return ValidationMessages.INSTANCE;
+	}
+
+	@Override
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+		return addDomHandler(handler, KeyPressEvent.getType());
 	}
 	
 

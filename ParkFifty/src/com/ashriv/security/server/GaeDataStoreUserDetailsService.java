@@ -62,6 +62,7 @@ public class GaeDataStoreUserDetailsService implements UserDetailsService {
 					SysErrorKey.ADMIN_GET_USER.getErrorKey());
 		}
 		
+		LOGGER.debug(companyUser.toString());
 		return companyUser;
 	}
 

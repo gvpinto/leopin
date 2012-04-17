@@ -7,6 +7,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.TextBox;
@@ -29,7 +32,7 @@ import com.leopin.parkfifty.shared.messages.ValidationMessages;
  * @author Glenn Pinto
  *
  */
-public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, BlurHandler {
+public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, BlurHandler, KeyPressHandler {
 
 	HeaderPresenter presenter;
 	TopNav topNav;
@@ -76,14 +79,16 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 		GWT.log(source.toString());
 		if (source instanceof Anchor) {
 			Anchor uiLoginAnchor = (Anchor) source;
-			loginDialog.center(); // Need to extend Popup
+			loginDialog.center();
+			// Clear the text fields and any help text lingering from the previous validation
 			loginDialog.clear();
+			setFocus(CompanyUserFields.UiUsername.getId());
 		} else if(source instanceof Button) {
-			Button uiLoginButton = (Button) source;
-			if ("Login".equals(uiLoginButton.getText())) {
+			Button button = (Button) source;
+			if ("Login".equals(button.getText())) {
 				attemptToLogin();
-			} else if (NavigationButtons.UiLogin.getId().equals(loginDialog.getUiLogin().getN)) {
-				
+			} else if("Cancel".equals(button.getText())) {
+				loginDialog.hide();
 			}
 		}
 		
@@ -102,10 +107,13 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 		
 		// Set the focus on the field the failed the validation
 		if (name != null) {
-				setFocus(name);
+			setFocus(name);
 		} else {
-			// Do noting for now
+			setFocus(CompanyUserFields.UiUsername.getId());
 		}
+		
+		// Clear the entered credentials after failed a login attempt
+		loginDialog.clear();
 		
 	}
 	
@@ -123,8 +131,8 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 	public void setErrorMsg(String message) {
 		// Set the error message, clear the username and password fields and set the focus on the username field
 		loginDialog.setErrorMsg(message);
-		loginDialog.clear();
-		setFocus(CompanyUserFields.UiUsername.getId());
+//		loginDialog.clear();
+//		setFocus(CompanyUserFields.UiUsername.getId());
 
 		
 	}
@@ -210,6 +218,16 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 		String text = textBox.getText();
 		
 		this.presenter.validate(name, text);
+		
+	}
+
+	@Override
+	public void onKeyPress(KeyPressEvent event) {
+		// Handle enter key on the username and password fields
+		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
+			attemptToLogin();
+		event.stopPropagation();
+		
 		
 	}
 

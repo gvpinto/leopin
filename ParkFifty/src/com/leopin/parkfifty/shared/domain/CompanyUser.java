@@ -25,12 +25,15 @@ import javax.validation.constraints.Pattern;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
 import com.ashriv.security.client.shared.Role;
+import com.ashriv.security.server.GaeDataStoreUserDetailsService;
 import com.google.common.base.Objects;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
@@ -50,6 +53,8 @@ import com.leopin.parkfifty.shared.utils.Utils;
 public class CompanyUser implements UserDetails, CredentialsContainer, CompanyUserProxy, Serializable {
 	
 	private static final long serialVersionUID = ApplicationVersion.SERIAL_VERSION_UID;
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(CompanyUser.class);
 	
     /**
      * Calls the more complex constructor with all boolean arguments set to {@code true}.
@@ -463,10 +468,12 @@ public class CompanyUser implements UserDetails, CredentialsContainer, CompanyUs
 	
 	@Override
 	public String toString() {
+		String password = (LOGGER.isDebugEnabled() ? this.password : "PASS-NOT-VISIBLE");
 		return Objects.toStringHelper(this)
 				.add("Id", this.id)
 				.add("Company Id", this.companyId)				
 				.add("User Id", this.username)
+				.add("Password", password)
 				.add("Role", this.authorities)
 				.add("Title", this.title)
 				.add("First Name", this.firstName)
@@ -514,6 +521,5 @@ public class CompanyUser implements UserDetails, CredentialsContainer, CompanyUs
             return g1.getAuthority().compareTo(g2.getAuthority());
         }
     }
-	
-	
+
 }
