@@ -113,12 +113,11 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 				&& validate(CompanyUserFields.UiPassword.getId(), password)) {
 
 			// Make a call to the Server to attempt to authenticate
+			// If Authenticated the application will segue into the Authensticated Home Screen
 			login(username, password);
 			this.name = null;
 	
 		}
-		
-		// TODO: If successful the segue into Authenticated Home View
 		
 		// Will be null if the login passes
 		return name;
@@ -172,13 +171,15 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 			@Override
 			public void onResponseReceived(Request request, Response response) {
 				if (200 == response.getStatusCode()) {
-					// TODO:
+					// Authenticated Successful. Go to the Authenticated Home Pages
 					goTo(new AuthHomePlace());
+					
 				} else if (401 == response.getStatusCode()) {
+					// Handle error to be displayed for invalid authentication
 					headerView.setErrorMsg(messages().loginFailed());
-					// TODO: Handle error to be displayed for invalid
-					// authentication
+					
 				} else {
+					// Handle error to be displayed for invalid authentication
 					headerView.setErrorMsg(messages().loginFailed());
 					// TODO: Handle error such as system exception
 					// uiErrorTxt.setText("Unknown Error - Reponse Code: " +
@@ -195,6 +196,7 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 
 		});
 
+		// TODO: Wait Image needs to be displayed
 		try {
 			rb.send();
 		} catch (RequestException e) {

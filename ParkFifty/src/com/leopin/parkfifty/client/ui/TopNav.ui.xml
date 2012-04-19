@@ -4,7 +4,15 @@
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.AppStyles' />
 		
-	<g:HTMLPanel styleName="{res.style.floatR}">
-		<g:Anchor ui:field="uiLogin"></g:Anchor>
+	<ui:style>
+		.topSpacer {
+			margin-top: 7.5px;
+			margin-right: 5px;
+			font-size: 12pt;
+		}
+	</ui:style>
+		
+	<g:HTMLPanel addStyleNames="{res.style.floatR},{style.topSpacer}">
+		<g:Anchor>Test</g:Anchor>&nbsp;&nbsp;&nbsp;&nbsp;<g:Anchor ui:field="uiLogin"></g:Anchor>
 	</g:HTMLPanel>
 </ui:UiBinder> 
