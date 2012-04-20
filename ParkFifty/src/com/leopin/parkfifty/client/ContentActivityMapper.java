@@ -3,8 +3,10 @@ package com.leopin.parkfifty.client;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
+import com.leopin.parkfifty.client.activities.AuthHomeActivity;
 import com.leopin.parkfifty.client.activities.CompanyRegistrationActivity;
 import com.leopin.parkfifty.client.activities.HomeActivity;
+import com.leopin.parkfifty.client.places.AuthHomePlace;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 
@@ -22,6 +24,8 @@ public class ContentActivityMapper implements ActivityMapper {
 			return new HomeActivity((HomePlace) place, this.clientFactory);
 		} else if (place instanceof CompanyRegistrationPlace) {
 			return new CompanyRegistrationActivity((CompanyRegistrationPlace) place, this.clientFactory);
+		} else if(place instanceof AuthHomePlace) {
+			return new AuthHomeActivity((AuthHomePlace) place, this.clientFactory);
 		} else {
 			return null;
 		}

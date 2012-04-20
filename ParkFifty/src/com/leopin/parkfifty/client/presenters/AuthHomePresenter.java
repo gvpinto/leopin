@@ -1,6 +1,6 @@
 package com.leopin.parkfifty.client.presenters;
 
-public interface AuthHomePresenter {
+public interface AuthHomePresenter extends Presenter {
 	void manageLocations();
 	void manageLocationRates();
 	void gotToHomePage();

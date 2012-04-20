@@ -34,11 +34,17 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 	// Useful to set the focus when the submit or login button is clicked
 	String name;
 
-	public HeaderActivity(HomePlace place, ClientFactory clientFactory) {
+	public HeaderActivity(Place place, ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
 		headerView = this.clientFactory.getHeaderView();
-		if ("init".equals(place.getToken())) {
-
+		if (place instanceof HomePlace) {
+			HomePlace homePlace = (HomePlace) place;
+			if ("init".equals(homePlace.getToken())) {
+	
+			}
+		} else if (place instanceof AuthHomePlace) {
+			AuthHomePlace authHomePlace = (AuthHomePlace)place;
+			headerView.setLoginText(true);
 		}
 	}
 
@@ -67,6 +73,7 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 	@Override
 	public void isAuthenticated() {
 
+		GWT.log("Host Page URL:" + GWT.getHostPageBaseURL());
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET,
 				GWT.getHostPageBaseURL() + ADMIN_LOGIN_CHECK);
 		// rb.setHeader("Content-type", "application/x-www-form-urlencoded");
