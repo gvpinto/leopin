@@ -73,8 +73,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/logincheck", method=RequestMethod.GET, produces="application/json")
-	public void loginCheck(HttpServletRequest request) {
+	public @ResponseBody String loginCheck(HttpServletRequest request) {
 		// Dummy URL to check if Authentication has been completed
+		return "Login Successful";
 	}
 	
 	@RequestMapping(value="/company", method=RequestMethod.GET, headers="Accept=application/json")
