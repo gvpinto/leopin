@@ -1,29 +1,37 @@
 package com.leopin.parkfifty.client.views;
 
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Widget;
+import com.leopin.parkfifty.client.presenters.AuthHomePresenter;
 import com.leopin.parkfifty.client.presenters.Presenter;
+import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class AuthHomeViewImpl extends Composite implements AuthHomeView {
+	
+	AuthHomePresenter presenter;
 
 	@Override
 	public void setPresenter(Presenter presenter) {
-		// TODO Auto-generated method stub
+		this.presenter = (AuthHomePresenter) presenter;
+	}
 
+	
+	@Override
+	public Widget asWidget() {
+		return this;
 	}
 
 	@Override
 	public Style style() {
-		// TODO Auto-generated method stub
-		return null;
+		return AppStyles.style();
 	}
-
+	
 	@Override
 	public AppResources resources() {
-		// TODO Auto-generated method stub
-		return null;
+		return AppStyles.resources();
 	}
 
 	@Override

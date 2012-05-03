@@ -1,0 +1,35 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	
+		.nav {
+		    background: url("css/images/nav-bg.png") no-repeat scroll 0 0 transparent;
+		    clear: both;
+		    float: left;
+		    height: 52px;
+		    margin: 22px 0 0;
+		    width: 100%;
+		}
+		
+		div#nav ul {
+			float: left;
+		    height: 52px;
+		    list-style-type: none;
+		    width: 700px;
+		}
+		
+		div#nav ul li {
+	
+	
+		}
+		
+	</ui:style>
+	<g:HTMLPanel styleName="{style.nav}">
+	<ul>
+		<li>Home</li>
+		<li>Manage Locations</li>
+		<li>Account</li>
+	</ul>
+	</g:HTMLPanel>
+</ui:UiBinder> 
