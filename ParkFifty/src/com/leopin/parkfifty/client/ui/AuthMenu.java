@@ -24,6 +24,4 @@ public class AuthMenu extends Composite  {
 	}
 
 
-
-
 }

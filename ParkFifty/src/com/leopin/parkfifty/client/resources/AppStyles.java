@@ -110,6 +110,11 @@ public class AppStyles {
 		 */
 		String errorMsg();
 		
+		/**
+		 * Top Navigation
+		 */
+		String topNav();
+		
 	}
 
 	public interface AppResources extends ClientBundle {

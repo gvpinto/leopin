@@ -130,3 +130,84 @@ a:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+/****************** TOP NAV **********************/
+
+.topNav {
+	margin-top: 7.5px;
+	margin-right: 5px;
+	font-size: 12pt;
+	color: #000;
+}
+
+/****************** NAVIGATION *******************/
+#uiMainNav {
+	top: 0;
+	margin: 0 auto;
+	padding-bottom: 10px;
+	align: center;
+	border-bottom: 1px solid #EFEFEF;
+}
+
+#uiMainNav ul {
+	margin: 0 auto 0 auto;
+	display:block;
+	padding: 0 0 23px 0;
+	white-space:nowrap;
+	width: 640px;
+	/* float:left; */
+}
+
+
+#uiMainNav ul li {
+	list-style-type: none;
+	width: 150px;
+	float: left;
+	text-align: center;
+
+}
+
+
+#uiMainNav ul li a {
+	padding: 5px 0 0 0;
+	height: 25px;
+	display: block;
+}
+
+#uiMainNav li a:link, #uiMainNav li a:visited {
+	font-size: 12pt; font-weight : bold;
+	font-family: Tahoma, "Lucida Grande", Arial, sans-serif;
+	text-decoration: none;
+	color: #999;
+	font-weight: bold;
+}
+
+#uiMainNav li a:hover {
+	background: transparent;
+	display:block;
+	border-bottom: 4px solid #FFF;
+}
+
+#uiMainNav ul li.active a:hover {
+	border-bottom: 4px solid #FFF;
+}
+
+#uiMainNav ul li.active a {
+	color: #FFF;
+	background-color: #35AECF;
+	border-bottom: 4px solid #EFEFEF;
+}
+
+#uiMainNav ul li.active {
+	background-color: #EFEFEF;
+}
+
+#uiMainNav li a:hover {
+	color: #000;
+}
+
+/********************* APP BODY *************************/
+#uiBody {
+	height: 515px;
+	width: 100%;
+}

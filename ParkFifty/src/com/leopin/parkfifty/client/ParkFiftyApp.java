@@ -1,8 +1,15 @@
 package com.leopin.parkfifty.client;
 
+import static com.leopin.parkfifty.shared.constants.AppURI.ADMIN_LOGIN_CHECK;
+
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
@@ -17,6 +24,7 @@ import com.leopin.parkfifty.client.events.AppFreeEvent;
 import com.leopin.parkfifty.client.events.AppFreeHandler;
 import com.leopin.parkfifty.client.events.AppSuccessEvent;
 import com.leopin.parkfifty.client.events.AppSuccessHandler;
+import com.leopin.parkfifty.client.places.AuthHomePlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.services.ParkFiftyService;
 import com.leopin.parkfifty.client.ui.ConfirmationDialog;
@@ -30,8 +38,11 @@ public class ParkFiftyApp {
 	ClientFactory clientFactory = GWT.create(ClientFactory.class);
 	Label busyLabel = new Label("BUSY");
 	// Define the JSONP Service Class
-	private Place defaultPlace = new HomePlace();
-
+	private Place defaultPlace  = new HomePlace();
+	private boolean isAuthenticated;
+	
+	
+	
 	public ParkFiftyApp(ParkFiftyService service, EventBus eventBus,
 			AppView appView) {
 
@@ -50,6 +61,9 @@ public class ParkFiftyApp {
 		ActivityManager headerActivityManager = new ActivityManager(headerActivityMapper,
 				eventBus);
 		headerActivityManager.setDisplay(appView.getHeader());
+		
+		// Check for Authentication
+		
 		
 		// Start PlaceHistoryManager with our PlaceHistoryMapper
 		PlaceHistoryHandler placeHistoryHandler = new PlaceHistoryHandler(
@@ -129,6 +143,52 @@ public class ParkFiftyApp {
 			}
 
 		});
+
+	}
+	
+
+	public void isAuthenticated() {
+
+		GWT.log("Host Page URL:" + GWT.getHostPageBaseURL());
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET,
+				GWT.getHostPageBaseURL() + ADMIN_LOGIN_CHECK);
+		// rb.setHeader("Content-type", "application/x-www-form-urlencoded");
+		// rb.setHeader("Content-type", "application/x-www-form-urlencoded");
+		// String request = "j_username=" + userId + "&j_password=" + password;
+		// rb.setRequestData(URL.encode(request));
+
+		rb.setCallback(new RequestCallback() {
+			@Override
+			public void onResponseReceived(Request request, Response response) {
+				if (200 == response.getStatusCode()) {
+					GWT.log("SUCCESS");
+					// SUCCESS
+					isAuthenticated = true;
+				} else {
+					GWT.log("ERROR: Code: " + response.getStatusCode());
+					// FAILED
+					isAuthenticated = false;
+				}
+			}
+
+			@Override
+			public void onError(Request request, Throwable exception) {
+				GWT.log("ERROR: Message: " + exception.getMessage());
+				// FAILED
+				isAuthenticated = false;
+
+			}
+		});
+
+		try {
+			rb.send();
+		} catch (RequestException e) {
+			// FAILED
+			isAuthenticated = false;
+			GWT.log("ERROR: Code: " + e.getMessage());
+			// TODO Throw and Error. Introduce a Event that can be fired if
+			// there is an Error anywhere in the App
+		}
 
 	}
 

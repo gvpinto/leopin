@@ -8,6 +8,8 @@ import com.leopin.parkfifty.client.services.ParkFiftyService;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.views.AppView;
 import com.leopin.parkfifty.client.views.AppViewImpl;
+import com.leopin.parkfifty.client.views.AuthHomeView;
+import com.leopin.parkfifty.client.views.AuthHomeViewImpl;
 import com.leopin.parkfifty.client.views.CompanyRegistrationView;
 import com.leopin.parkfifty.client.views.CompanyRegistrationViewImpl;
 import com.leopin.parkfifty.client.views.HeaderView;
@@ -25,6 +27,7 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static CompanyWidget companyWidget;
 	private static CompanyRegistrationView companyRegistrationView;
 	private static HeaderView headerView;
+	private static AuthHomeView authHomeView;
 	
 	public EventBus getEventBus() {
 		if (eventBus == null) eventBus = new SimpleEventBus();
@@ -69,6 +72,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	public HeaderView getHeaderView() {
 		if (headerView == null) headerView = new HeaderViewImpl();
 		return headerView;
+	}
+
+	@Override
+	public AuthHomeView getAuthHomeView() {
+		if (authHomeView == null) authHomeView = new AuthHomeViewImpl();
+		return authHomeView;
 	}
 
 }

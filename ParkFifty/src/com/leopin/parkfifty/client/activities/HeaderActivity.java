@@ -37,15 +37,12 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 	public HeaderActivity(Place place, ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
 		headerView = this.clientFactory.getHeaderView();
-		if (place instanceof HomePlace) {
-			HomePlace homePlace = (HomePlace) place;
-			if ("init".equals(homePlace.getToken())) {
-	
-			}
-		} else if (place instanceof AuthHomePlace) {
-			AuthHomePlace authHomePlace = (AuthHomePlace)place;
-			headerView.setLoginText(true);
+
+		HomePlace homePlace = (HomePlace) place;
+		if ("init".equals(homePlace.getToken())) {
+
 		}
+
 	}
 
 	@Override
@@ -87,6 +84,8 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 				if (200 == response.getStatusCode()) {
 					GWT.log("SUCCESS");
 					setLoginText(true);
+					// If Authenticated go to the home page
+					goTo(new AuthHomePlace());
 				} else {
 					GWT.log("ERROR: Code: " + response.getStatusCode());
 					setLoginText(false);

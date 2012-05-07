@@ -5,14 +5,10 @@
 		type='com.leopin.parkfifty.client.resources.AppStyles' />
 		
 	<ui:style>
-		.topSpacer {
-			margin-top: 7.5px;
-			margin-right: 5px;
-			font-size: 12pt;
-		}
+
 	</ui:style>
 		
-	<g:HTMLPanel addStyleNames="{res.style.floatR},{style.topSpacer}">
+	<g:HTMLPanel addStyleNames="{res.style.floatR},{res.style.topNav}">
 		<g:Anchor>Test</g:Anchor>&nbsp;&nbsp;&nbsp;&nbsp;<g:Anchor ui:field="uiLogin"></g:Anchor>
 	</g:HTMLPanel>
 </ui:UiBinder> 

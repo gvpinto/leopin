@@ -19,11 +19,14 @@ public class AuthHomeActivity extends AbstractActivity implements
 	
 	public AuthHomeActivity(AuthHomePlace place, ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
+		this.view = clientFactory.getAuthHomeView();
 	}
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		this.eventBus = eventBus;
+		panel.setWidget(this.view);
+		bind();
 	}
 
 	@Override
