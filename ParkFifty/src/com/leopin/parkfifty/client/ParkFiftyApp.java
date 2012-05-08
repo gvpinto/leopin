@@ -39,7 +39,6 @@ public class ParkFiftyApp {
 	Label busyLabel = new Label("BUSY");
 	// Define the JSONP Service Class
 	private Place defaultPlace  = new HomePlace();
-	private boolean isAuthenticated;
 	
 	
 	
@@ -146,50 +145,5 @@ public class ParkFiftyApp {
 
 	}
 	
-
-	public void isAuthenticated() {
-
-		GWT.log("Host Page URL:" + GWT.getHostPageBaseURL());
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET,
-				GWT.getHostPageBaseURL() + ADMIN_LOGIN_CHECK);
-		// rb.setHeader("Content-type", "application/x-www-form-urlencoded");
-		// rb.setHeader("Content-type", "application/x-www-form-urlencoded");
-		// String request = "j_username=" + userId + "&j_password=" + password;
-		// rb.setRequestData(URL.encode(request));
-
-		rb.setCallback(new RequestCallback() {
-			@Override
-			public void onResponseReceived(Request request, Response response) {
-				if (200 == response.getStatusCode()) {
-					GWT.log("SUCCESS");
-					// SUCCESS
-					isAuthenticated = true;
-				} else {
-					GWT.log("ERROR: Code: " + response.getStatusCode());
-					// FAILED
-					isAuthenticated = false;
-				}
-			}
-
-			@Override
-			public void onError(Request request, Throwable exception) {
-				GWT.log("ERROR: Message: " + exception.getMessage());
-				// FAILED
-				isAuthenticated = false;
-
-			}
-		});
-
-		try {
-			rb.send();
-		} catch (RequestException e) {
-			// FAILED
-			isAuthenticated = false;
-			GWT.log("ERROR: Code: " + e.getMessage());
-			// TODO Throw and Error. Introduce a Event that can be fired if
-			// there is an Error anywhere in the App
-		}
-
-	}
 
 }

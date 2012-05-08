@@ -83,7 +83,6 @@ public class HeaderActivity extends AbstractActivity implements HeaderPresenter 
 			public void onResponseReceived(Request request, Response response) {
 				if (200 == response.getStatusCode()) {
 					GWT.log("SUCCESS");
-					setLoginText(true);
 					// If Authenticated go to the home page
 					goTo(new AuthHomePlace());
 				} else {

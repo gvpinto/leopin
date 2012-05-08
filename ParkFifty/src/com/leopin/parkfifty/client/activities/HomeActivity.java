@@ -1,5 +1,6 @@
 package com.leopin.parkfifty.client.activities;
 
+import static com.leopin.parkfifty.shared.constants.AppURI.ADMIN_LOGIN_CHECK;
 import static com.leopin.parkfifty.shared.constants.CompanyFields.UiEmail;
 import static com.leopin.parkfifty.shared.constants.CompanyFields.UiFax;
 import static com.leopin.parkfifty.shared.constants.CompanyFields.UiName;
@@ -15,10 +16,17 @@ import static com.leopin.parkfifty.shared.utils.Validator.validatePriPhone;
 import static com.leopin.parkfifty.shared.utils.Validator.validateUrl;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestBuilder;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.leopin.parkfifty.client.ClientFactory;
+import com.leopin.parkfifty.client.places.AuthHomePlace;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
 import com.leopin.parkfifty.client.presenters.HomePresenter;
@@ -175,7 +183,5 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	public AppMessages messages() {
 		return AppMessages.INSTANCE;
 	}
-
-
 
 }

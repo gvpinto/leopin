@@ -1,6 +1,6 @@
 package com.leopin.parkfifty.client.views;
 
-import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.presenters.AuthHomePresenter;
 import com.leopin.parkfifty.client.presenters.Presenter;
@@ -10,13 +10,16 @@ import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.client.ui.AuthMenu;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
-public class AuthHomeViewImpl extends Composite implements AuthHomeView {
+public class AuthHomeViewImpl implements AuthHomeView {
 	
 	AuthHomePresenter presenter;
 	AuthMenu menu;
+	FlowPanel wrapper;
 
 	public AuthHomeViewImpl() {
 		this.menu = new AuthMenu();
+		this.wrapper = new FlowPanel();
+		wrapper.add(this.menu);
 	}
 	
 	@Override
@@ -27,7 +30,7 @@ public class AuthHomeViewImpl extends Composite implements AuthHomeView {
 	
 	@Override
 	public Widget asWidget() {
-		return this;
+		return this.wrapper;
 	}
 
 	@Override
