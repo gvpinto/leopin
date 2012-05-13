@@ -1,70 +1,36 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" 
-	xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
+
+	<ui:style>
+		.mandatory {
+			font-weight: bold;
+		}
+	</ui:style>
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.AppStyles' />
 
-	<g:FlowPanel>
-		<!-- <g:Grid width="100%" ui:field="uiGrid"> -->
-		<g:Grid ui:field="uiGrid">
-			<g:row>
-				<g:customCell styleName="{res.style.labelCell}">
-					<g:Label wordWrap="false">Company
-						Name:</g:Label>
-				</g:customCell>
-				<g:customCell styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiName" name="uiName"
-						maxLength="100" visibleLength="25" />
-				</g:customCell>
-			</g:row>
-			<g:row>
-				<g:customCell styleName="{res.style.labelCell}">
-					<g:Label>Website URL:</g:Label>
-				</g:customCell>
-				<g:customCell styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiUrl" name="uiUrl"
-						visibleLength="25" maxLength="100" />
-				</g:customCell>
-			</g:row>
-			<g:row>
-				<g:customCell styleName="{res.style.labelCell}">
-					<g:Label>Email Address:</g:Label>
-				</g:customCell>
-				<g:customCell styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiEmail" name="uiEmail"
-						visibleLength="25" maxLength="300" />
-				</g:customCell>
-			</g:row>
-			<g:row>
-				<g:customCell styleName="{res.style.labelCell}">
-					<g:Label>Phone Number:</g:Label>
-				</g:customCell>
-				<g:customCell styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiPriPhone" name="uiPriPhone"
-						visibleLength="25" maxLength="15" />
-				</g:customCell>
-			</g:row>
-			<g:row>
-				<g:customCell styleName="{res.style.labelCell}">
-					<g:Label text="Secondary Phone Number:"
-						horizontalAlignment="ALIGN_RIGHT">Other Phone Number:</g:Label>
-				</g:customCell>
-				<g:customCell styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiSecPhone" name="uiSecPhone"
-						visibleLength="25" maxLength="15" />
-				</g:customCell>
-			</g:row>
-			<g:row>
-				<g:customCell styleName="{res.style.labelCell}">
-					<g:Label text="Fax:">Fax</g:Label>
-				</g:customCell>
-				<g:customCell styleName="{res.style.fieldCell}">
-					<c:TextBoxCombo ui:field="uiFax" name="uiFax"
-						visibleLength="25" maxLength="15" />
-				</g:customCell>
-			</g:row>
-		</g:Grid>
-	</g:FlowPanel>
+	<g:HTMLPanel styleName="{res.style.labelColor}">
+
+		<c:TextBoxCombo ui:field="uiName" name="uiName"
+			maxLength="100" visibleLength="25" />
+
+
+		<c:TextBoxCombo ui:field="uiUrl" name="uiUrl"
+			visibleLength="25" maxLength="100" />
+
+		<c:TextBoxCombo ui:field="uiEmail" name="uiEmail"
+			visibleLength="25" maxLength="300" />
+
+		<c:TextBoxCombo ui:field="uiPriPhone" name="uiPriPhone"
+			visibleLength="25" maxLength="15" />
+
+		<c:TextBoxCombo ui:field="uiSecPhone" name="uiSecPhone"
+			visibleLength="25" maxLength="15" />
+			
+		<c:TextBoxCombo ui:field="uiFax" name="uiFax"
+			visibleLength="25" maxLength="15" />
+
+	</g:HTMLPanel>
 
 </ui:UiBinder> 

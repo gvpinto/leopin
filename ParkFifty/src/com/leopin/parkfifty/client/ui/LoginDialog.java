@@ -13,11 +13,13 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class LoginDialog extends PopupPanel implements UiWidget, HasKeyPressHandlers  {
@@ -36,11 +38,20 @@ public class LoginDialog extends PopupPanel implements UiWidget, HasKeyPressHand
 		uiPassword.setHelpText(validationMessages().passwordInvalid());
 		uiCaption.setInnerText("Login");
 		
+		// Set the Image
+		uiImage.setResource(resources().lockIcon());
+		
 		// TODO: Need to Set this as Variable, maybe small, medium and large boxes
 		this.setHeight("300");
-		this.setWidth("450px");
+		this.setWidth("350px");
 		this.setGlassEnabled(true);
 		this.setModal(true);
+	}
+	
+	@UiField
+	Image uiImage;
+	Image getUiImage() {
+		return uiImage;
 	}
 
 	@UiField
@@ -81,9 +92,7 @@ public class LoginDialog extends PopupPanel implements UiWidget, HasKeyPressHand
 	
 	public void clear() {
 		uiUsername.clear();
-		uiUsername.hideHelp();
 		uiPassword.clear();
-		uiPassword.hideHelp();
 	}
 	
 	public void setErrorMsg(String message) {
@@ -116,6 +125,11 @@ public class LoginDialog extends PopupPanel implements UiWidget, HasKeyPressHand
 		return ValidationMessages.INSTANCE;
 	}
 
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
+	}
+	
 	@Override
 	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
 		return addDomHandler(handler, KeyPressEvent.getType());

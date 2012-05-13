@@ -115,6 +115,26 @@ public class AppStyles {
 		 */
 		String topNav();
 		
+		/**
+		 * Label color across the application
+		 */
+		String labelColor();
+		
+		/**
+		 * Style for the textBoxCombo
+		 */
+		String textBoxCombo();
+		
+		/**
+		 * Style for fields that caused a validation error
+		 */
+		String error();
+		
+		/** 
+		 * Style for Please Wait Preloader
+		 */
+		String pleaseWait();
+		
 	}
 
 	public interface AppResources extends ClientBundle {
@@ -127,7 +147,7 @@ public class AppStyles {
 		@ImageOptions(repeatStyle = RepeatStyle.Horizontal)
 		public ImageResource pfbg();
 
-		@Source("xclamation.png")
+		@Source("xclamation_16x16.png")
 		public ImageResource xclamation();
 
 		@Source("error_32x32.png")
@@ -135,6 +155,12 @@ public class AppStyles {
 
 		@Source("checkmark_32x32.png")
 		public ImageResource successIcon();
+		
+		@Source("lock_36x36.png")
+		public ImageResource lockIcon();
+		
+		@Source("preloader.gif")
+		public ImageResource preloader();
 
 		// @Source("config.xml")
 		// public TextResource initialConfiguration();

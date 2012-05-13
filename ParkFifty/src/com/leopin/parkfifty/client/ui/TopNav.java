@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class TopNav extends Composite implements UiWidget { //implements HasClickHandlers {
@@ -64,6 +65,11 @@ public class TopNav extends Composite implements UiWidget { //implements HasClic
 	@Override
 	public ValidationMessages validationMessages() {
 		return ValidationMessages.INSTANCE;
+	}
+
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
 	}
 	
 //	@Override

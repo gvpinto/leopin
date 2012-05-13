@@ -21,6 +21,7 @@ import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class CompanyWidget extends Composite implements UiWidget {
@@ -45,15 +46,15 @@ public class CompanyWidget extends Composite implements UiWidget {
 		uiSecPhone.setHelpText(validationMessages().secPhoneNumInvalid());
 		uiFax.setHelpText(validationMessages().faxInvalid());
 		
-		// Size the 2nd column on the grid to avoid the jumping of the table 
-		// when the help icon is displayed
-		uiGrid.getColumnFormatter().addStyleName(0, this.style().labelCol());
-		uiGrid.getColumnFormatter().addStyleName(1, this.style().fieldCol());
+		// Set the Labels of the fields
+		uiName.setLabel(fieldLabels().companyName(), true);
+		uiUrl.setLabel(fieldLabels().websiteUrl(), true);
+		uiEmail.setLabel(fieldLabels().emailAddress(), true);
+		uiPriPhone.setLabel(fieldLabels().phoneNumber(), true);
+		uiSecPhone.setLabel(fieldLabels().secondaryPhoneNumber(), false);
+		uiFax.setLabel(fieldLabels().fax(), false);
 		
 	}
-	
-	@UiField
-	Grid uiGrid;
 	
 	@UiField
 	TextBoxCombo uiName;
@@ -190,7 +191,10 @@ public class CompanyWidget extends Composite implements UiWidget {
 	public ValidationMessages validationMessages() {
 		return ValidationMessages.INSTANCE;
 	}
-	
-	
+
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
+	}
 	
 }

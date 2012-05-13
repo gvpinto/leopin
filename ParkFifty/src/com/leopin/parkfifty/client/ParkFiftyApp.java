@@ -1,19 +1,14 @@
 package com.leopin.parkfifty.client;
 
-import static com.leopin.parkfifty.shared.constants.AppURI.ADMIN_LOGIN_CHECK;
-
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestBuilder;
-import com.google.gwt.http.client.RequestCallback;
-import com.google.gwt.http.client.RequestException;
-import com.google.gwt.http.client.Response;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.web.bindery.event.shared.EventBus;
 import com.leopin.parkfifty.client.events.AppBusyEvent;
@@ -24,8 +19,8 @@ import com.leopin.parkfifty.client.events.AppFreeEvent;
 import com.leopin.parkfifty.client.events.AppFreeHandler;
 import com.leopin.parkfifty.client.events.AppSuccessEvent;
 import com.leopin.parkfifty.client.events.AppSuccessHandler;
-import com.leopin.parkfifty.client.places.AuthHomePlace;
 import com.leopin.parkfifty.client.places.HomePlace;
+import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.services.ParkFiftyService;
 import com.leopin.parkfifty.client.ui.ConfirmationDialog;
 import com.leopin.parkfifty.client.ui.ErrorDialog;
@@ -36,7 +31,9 @@ public class ParkFiftyApp {
 
 	EventBus eventBus;
 	ClientFactory clientFactory = GWT.create(ClientFactory.class);
-	Label busyLabel = new Label("BUSY");
+//	Label busyLabel = new 
+	
+	PleaseWaitPopup pleaseWait = new PleaseWaitPopup();
 	// Define the JSONP Service Class
 	private Place defaultPlace  = new HomePlace();
 	
@@ -80,10 +77,10 @@ public class ParkFiftyApp {
 
 		// Implement a simple "Busy" display that can be shown when application
 		// is busy.
-		RootPanel.get().add(busyLabel, 200, 20);
-		busyLabel.setVisible(false);
-		busyLabel.getElement().getStyle().setBackgroundColor("#ff5555");
-		busyLabel.getElement().getStyle().setColor("#ffffff");
+//		RootPanel.get().add(busyLabel, 200, 20);
+//		busyLabel.setVisible(false);
+//		busyLabel.getElement().getStyle().setBackgroundColor("#ff5555");
+//		busyLabel.getElement().getStyle().setColor("#ffffff");
 
 	}
 
@@ -93,7 +90,8 @@ public class ParkFiftyApp {
 
 			@Override
 			public void onAppBusyEvent(AppBusyEvent event) {
-				busyLabel.setVisible(true);
+//				busyLabel.setVisible(true);
+				pleaseWait.center();
 			}
 		});
 
@@ -101,7 +99,8 @@ public class ParkFiftyApp {
 
 			@Override
 			public void onAppFreeEvent(AppFreeEvent event) {
-				busyLabel.setVisible(false);
+//				busyLabel.setVisible(false);
+				pleaseWait.hide();
 
 			}
 		});
@@ -142,6 +141,22 @@ public class ParkFiftyApp {
 			}
 
 		});
+
+	}
+	
+	
+	/**
+	 * Popup for the help text for validation errors
+	 */
+	public static class PleaseWaitPopup extends PopupPanel {
+		
+		public PleaseWaitPopup() {
+			super(false);
+			setModal(false);
+			Image preloader = new Image(AppStyles.resources().preloader());
+			setWidget(preloader);
+			setStyleName(AppStyles.style().pleaseWait());
+		}
 
 	}
 	

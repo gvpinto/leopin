@@ -10,13 +10,13 @@
 				<li ui:field="uiMainNavLocations">
 					<a href="#">LOCATIONS</a>
 				</li>
-				<li>
+				<li ui:field="uiMainNavRates">
 					<a href="#">RATES</a>
 				</li>
-				<li>
+				<li ui:field="uiMainNavDiscounts">
 					<a href="#">DISCOUNTS</a>
 				</li>
-				<li>
+				<li ui:field="uiMainNavAccount">
 					<a href="#">ACCOUNT</a>
 				</li>
 			</ul>

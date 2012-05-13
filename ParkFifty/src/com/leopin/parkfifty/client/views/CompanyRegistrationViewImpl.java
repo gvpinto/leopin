@@ -175,7 +175,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	public void showHelp(String name) {
 		TextBoxBaseCombo textBox = findTextBoxCombo(name);
 		if (textBox != null) {
-			textBox.showHelp();
+			textBox.showError();
 		}	
 	}
 
@@ -186,7 +186,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		if (textBoxCombo != null) {
 			textBoxCombo.getUiTextBox().removeStyleName(style()
 					.validateError());
-			textBoxCombo.hideHelp();
+			textBoxCombo.hideError();
 		}	
 		
 	}

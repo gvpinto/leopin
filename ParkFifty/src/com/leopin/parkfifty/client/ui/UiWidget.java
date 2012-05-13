@@ -3,6 +3,7 @@ package com.leopin.parkfifty.client.ui;
 import com.google.gwt.event.shared.EventHandler;
 import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public interface UiWidget {
@@ -32,5 +33,11 @@ public interface UiWidget {
 	 * @return validationMessages message object
 	 */
 	ValidationMessages validationMessages();
+	
+	/**
+	 * Returns Field Labels. Positioned the app to support multiple languages
+	 * @return
+	 */
+	FieldLabels fieldLabels();
 	
 }

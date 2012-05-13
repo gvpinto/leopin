@@ -26,6 +26,7 @@ import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class CompanyOwnerWidget extends Composite implements UiWidget {
@@ -259,6 +260,11 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	@Override
 	public ValidationMessages validationMessages() {
 		return ValidationMessages.INSTANCE;
+	}
+	
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
 	}
 	
 }

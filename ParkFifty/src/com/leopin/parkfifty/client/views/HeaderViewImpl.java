@@ -82,7 +82,7 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 			loginDialog.center();
 			// Clear the text fields and any help text lingering from the previous validation
 			loginDialog.clear();
-			setFocus(CompanyUserFields.UiUsername.getId());
+			//setFocus(CompanyUserFields.UiUsername.getId());
 		} else if(source instanceof Button) {
 			Button button = (Button) source;
 			if ("Login".equals(button.getText())) {
@@ -174,7 +174,7 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 	public void showHelp(String name) {
 		TextBoxBaseCombo textBox = findTextBoxCombo(name);
 		if (textBox != null) {
-			textBox.showHelp();
+			textBox.showError();
 		}	
 	}
 
@@ -185,7 +185,7 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 		if (textBoxCombo != null) {
 			textBoxCombo.getUiTextBox().removeStyleName(style()
 					.validateError());
-			textBoxCombo.hideHelp();
+			textBoxCombo.hideError();
 		}	
 		
 	}

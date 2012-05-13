@@ -114,7 +114,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 
 
 	public void showHelpUiName(String text) {
-		uiCompanyWidget.getUiName().showHelp();
+		uiCompanyWidget.getUiName().showError();
 	}
 
 	
@@ -174,7 +174,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		if (textBoxCombo != null) {
 			textBoxCombo.getUiTextBox().removeStyleName(style()
 					.validateError());
-			textBoxCombo.hideHelp();
+			textBoxCombo.hideError();
 		}
 
 	}
@@ -185,7 +185,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	public void showHelp(String name) {
 		TextBoxBaseCombo textBox = findTextBoxCombo(name);
 		if (textBox != null) {
-			textBox.showHelp();
+			textBox.showError();
 		}	
 	}
 	@Override

@@ -26,6 +26,7 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.leopin.parkfifty.client.ClientFactory;
+import com.leopin.parkfifty.client.events.AppBusyEvent;
 import com.leopin.parkfifty.client.places.AuthHomePlace;
 import com.leopin.parkfifty.client.places.CompanyRegistrationPlace;
 import com.leopin.parkfifty.client.places.HomePlace;
@@ -39,6 +40,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 	
 	private ClientFactory clientFactory;
 	private HomeView homeView;
+	private EventBus eventBus;
 
 	
 	// The first widget that failed validated when the Continue or Next button is clicked
@@ -56,6 +58,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
+		this.eventBus = eventBus;
 		panel.setWidget(homeView.asWidget());
 		this.homeView.setFocus(UiName.getId());
 		bind();
