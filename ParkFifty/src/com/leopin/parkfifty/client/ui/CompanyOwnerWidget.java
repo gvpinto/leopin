@@ -54,14 +54,21 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 		uiUserFax.setHelpText(validationMessages().faxInvalid());
 		uiUserEmail.setHelpText(validationMessages().emailInvalid());
 		
-		// Size the 2nd column on the grid to avoid the jumping of the table 
-		// when the help icon is displayed
-		uiGrid.getColumnFormatter().addStyleName(0, this.style().labelCol());
-		uiGrid.getColumnFormatter().addStyleName(1, this.style().fieldCol());
+		// Set Labels
+		uiUsername.setLabel(fieldLabels().userId(), true);
+		uiPassword.setLabel(fieldLabels().password(), true);
+		uiUserTitle.setLabel(fieldLabels().title(), false);
+		uiUserFirstName.setLabel(fieldLabels().firstName(), true);
+		uiUserMiddleInitial.setLabel(fieldLabels().middleInitial(), false);
+		uiUserLastName.setLabel(fieldLabels().lastName(), true);
+		uiUserSuffix.setLabel(fieldLabels().suffix(), false);
+		uiUserPriPhone.setLabel(fieldLabels().phoneNumber(), true);
+		uiUserSecPhone.setLabel(fieldLabels().secondaryPhoneNumber(), false);
+		uiUserFax.setLabel(fieldLabels().fax(), false);
+		uiUserEmail.setLabel(fieldLabels().emailAddress(), true);
+		
+		
 	}
-
-	@UiField
-	Grid uiGrid;
 	
 	@UiField
 	TextBoxCombo uiUsername;

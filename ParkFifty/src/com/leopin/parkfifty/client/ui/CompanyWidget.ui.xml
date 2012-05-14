@@ -2,11 +2,6 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
 
-	<ui:style>
-		.mandatory {
-			font-weight: bold;
-		}
-	</ui:style>
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.AppStyles' />
 
@@ -14,7 +9,6 @@
 
 		<c:TextBoxCombo ui:field="uiName" name="uiName"
 			maxLength="100" visibleLength="25" />
-
 
 		<c:TextBoxCombo ui:field="uiUrl" name="uiUrl"
 			visibleLength="25" maxLength="100" />

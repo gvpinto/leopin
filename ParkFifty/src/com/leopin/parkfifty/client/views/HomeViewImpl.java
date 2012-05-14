@@ -5,6 +5,8 @@ import static com.leopin.parkfifty.shared.constants.CompanyFields.UiPriPhone;
 import static com.leopin.parkfifty.shared.constants.CompanyFields.UiSecPhone;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.LabelElement;
+import com.google.gwt.dom.client.LegendElement;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -30,6 +32,7 @@ import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.client.ui.CompanyWidget;
 import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 
@@ -54,15 +57,30 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		// Set the id of the Continue button to uiContinue
 		uiContinue.getElement().setId("uiContinue");
 		
+		// Set the Title for the group
+		getUiLegend().setInnerText(fieldLabels().titleCompanyRegistration());
+		
 		// Handler the Enter key to submit the form
 		this.addKeyPressHandler(this);
 	}
 
 	@UiField
 	CompanyWidget uiCompanyWidget;
+	public CompanyWidget getUiCompanyWidget() {
+		return uiCompanyWidget;
+	}
 
 	@UiField
+	LegendElement uiLegend;
+	public LegendElement getUiLegend() {
+		return uiLegend;
+	}
+	
+	@UiField
 	Button uiContinue;
+	public Button getUiContinue() {
+		return uiContinue;
+	}
 
 	@UiHandler("uiContinue")
 	void onClick(ClickEvent e) {
@@ -143,6 +161,9 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	@Override
 	public void setPresenter(Presenter presenter) {
 		this.presenter = (HomePresenter) presenter;	
+		getUiCompanyWidget().getUiName().getUiTextBox().setFocus(true);
+		getUiCompanyWidget().getUiName().getUiTextBox().setText("asdasdasdf");
+//		getUiCompanyWidget().getUiName().getUiTextBox().selectAll();
 	}
 
 	@Override
@@ -214,7 +235,11 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	public ValidationMessages validationMessages() {
 		return ValidationMessages.INSTANCE;
 	}
-	
+
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
+	}
 	/*
 	 * PRIVATE METHODS
 	 */
@@ -246,6 +271,7 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	public void clear() {
 		uiCompanyWidget.clear();
 	}
+
 
 	
 

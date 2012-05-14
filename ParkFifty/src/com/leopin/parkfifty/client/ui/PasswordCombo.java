@@ -14,6 +14,9 @@ public class PasswordCombo extends TextBoxBaseCombo {
 
 	public PasswordCombo() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		// Set it to invisible initially
+		this.getUiHelpText().setVisible(false);
 	}
 
 }

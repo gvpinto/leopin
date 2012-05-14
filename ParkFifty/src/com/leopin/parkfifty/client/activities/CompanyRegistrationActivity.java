@@ -224,6 +224,10 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			
 			// Submit the Data to the Server and save it
 			String jsonString = createJson(company, companyUser);
+			
+			// Removing the password for security reasons
+			companyUser.setPassword("");
+			
 			GWT.log(jsonString);
 			
 			try {

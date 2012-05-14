@@ -8,6 +8,7 @@ public interface FieldLabels extends Messages {
 	public static final FieldLabels INSTANCE = (FieldLabels) GWT
 			.create(FieldLabels.class);
 
+	// FIELD LABLES
 	@Key("com.leopin.field.label.company.name")
 	String companyName();
 	
@@ -25,5 +26,33 @@ public interface FieldLabels extends Messages {
 	
 	@Key("com.leopin.field.label.fax")
 	String fax();
+	
+	@Key("com.leopin.field.label.user.id")
+	String userId();
+
+	@Key("com.leopin.field.label.password")
+	String password();
+	
+	@Key("com.leopin.field.label.title")
+	String title();
+	
+	@Key("com.leopin.field.label.first.name")
+	String firstName();
+	
+	@Key("com.leopin.field.label.middle.initial")
+	String middleInitial();
+	
+	@Key("com.leopin.field.label.last.name")
+	String lastName();
+	
+	@Key("com.leopin.field.label.suffix")
+	String suffix();
+	
+	// TITLES
+	@Key("com.leopin.field.title.company.registration")
+	String titleCompanyRegistration();
+	
+	@Key("com.leopin.field.title.company.registration.continued")
+	String titleCompanyRegistrationContinued();
 	
 }

@@ -135,6 +135,23 @@ public class AppStyles {
 		 */
 		String pleaseWait();
 		
+		/**
+		 * Style to group widgets for the work flow
+		 */
+		String groupTitle();
+		
+		/**
+		 * Style defined to display the button label in DK Green
+		 */
+		String yes();
+		
+		/**
+		 * Style defined to display the button label in DK Red
+		 */
+		String no();
+		
+		
+		
 	}
 
 	public interface AppResources extends ClientBundle {
@@ -161,6 +178,9 @@ public class AppStyles {
 		
 		@Source("preloader.gif")
 		public ImageResource preloader();
+		
+		@Source("yes.png")
+		public ImageResource yes();
 
 		// @Source("config.xml")
 		// public TextResource initialConfiguration();

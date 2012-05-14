@@ -24,6 +24,7 @@ import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.client.ui.TopNav;
 import com.leopin.parkfifty.shared.constants.CompanyUserFields;
 import com.leopin.parkfifty.shared.constants.NavigationButtons;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 /**
@@ -145,6 +146,11 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 	@Override
 	public ValidationMessages validationMessages() {
 		return ValidationMessages.INSTANCE;
+	}
+
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
 	}
 	
 	@Override

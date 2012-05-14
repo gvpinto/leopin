@@ -84,6 +84,22 @@ body,div {
 
 .button {
 	width: 75px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-size: 100%;
+}
+
+/* @sprite .button .yes {
+	gwt-image: "yes";
+	background-repeat: no-repeat;
+} */
+
+.button.yes {
+	color: #2C7502;
+}
+
+.button.no {
+	color:#FE2727;
 }
 
 .popup {
@@ -134,12 +150,24 @@ a:hover {
 	cursor: pointer;
 }
 
+/***************** GROUP TITLE *******************/
+.groupTitle {
+	border: 2px solid #35AECF;
+	font-size: 14pt;
+	color:#35AECF;
+	margin-top:5px;
+}
+
 /****************** TOP NAV **********************/
 .topNav {
 	margin-top: 7.5px;
 	margin-right: 5px;
 	font-size: 12pt;
-	color: #000;
+	color: #FFFFFF;
+}
+
+.topNav a:hover, .topNav a:visited, .topNav a {
+	color: #FFFFFF;
 }
 
 /****************** NAVIGATION *******************/
@@ -250,13 +278,39 @@ a:hover {
 	z-index: 999;
 	border: 1px solid #35AECF;
 	font-size: 80%;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; /* future proofing */
+	-khtml-border-radius: 5px; /* for old Konqueror browsers */
 }
 
 /********************* PLEASE WAIT **********************/
 .pleaseWait {
-	background: none repeat scroll 0 0 transparent;
+	background: none repeat scroll 0 0 #000;
 	border: none;
 	padding: 5px;
+	filter:alpha(opacity=50);
+	opacity:0.5;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px; /* future proofing */
+	-khtml-border-radius: 10px; /* for old Konqueror browsers */
+}
+
+.popupContent {
+	width: 200px;
+	height: 160px;
+}
+
+#preloader {
+	width:128px;
+	height:128px;
+	margin: 36px auto;
+	vertical-align: middle;
+}
+
+.pleaseWait .popupContent .preloader {
+	margin: auto;
 }
 
 /********************* APP BODY *************************/

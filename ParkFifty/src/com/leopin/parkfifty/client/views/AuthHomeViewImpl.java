@@ -8,6 +8,7 @@ import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.resources.AppStyles.AppResources;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.client.ui.AuthMenu;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 public class AuthHomeViewImpl implements AuthHomeView {
@@ -49,6 +50,12 @@ public class AuthHomeViewImpl implements AuthHomeView {
 		return null;
 	}
 
+
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
+	}
+	
 	@Override
 	public void clickOnManageLocations() {
 		// TODO Auto-generated method stub

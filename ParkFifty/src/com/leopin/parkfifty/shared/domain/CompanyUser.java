@@ -212,7 +212,11 @@ public class CompanyUser implements UserDetails, CredentialsContainer, CompanyUs
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		if (username != null) {
+			this.username = username.toLowerCase();
+		} else {
+			throw new RuntimeException("username is null");
+		}
 	}
 
 	public String getPassword() {

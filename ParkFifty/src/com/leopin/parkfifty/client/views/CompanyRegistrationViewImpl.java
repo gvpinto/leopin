@@ -4,6 +4,7 @@ import static com.leopin.parkfifty.shared.constants.NavigationButtons.UiSubmit;
 import static com.leopin.parkfifty.shared.utils.Utils.nullCheck;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.LegendElement;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,6 +33,7 @@ import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.shared.constants.CompanyFields;
 import com.leopin.parkfifty.shared.constants.CompanyUserFields;
 import com.leopin.parkfifty.shared.domain.CompanyProxy;
+import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
 /**
@@ -59,10 +61,20 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		uiCompanyOwner.initHandlers(this);
 //		uiCompanyOwner.initBlurHandlers(this);
 //		uiCompanyOwner.initFocusHandlers(this);
+		
 		this.addKeyPressHandler(this);
 		uiSubmit.getElement().setId(UiSubmit.getId());
+		
+		// Set the Title for the group
+		getUiLegend().setInnerText(fieldLabels().titleCompanyRegistrationContinued());
+
 	}
 
+	@UiField
+	LegendElement uiLegend;
+	public LegendElement getUiLegend() {
+		return uiLegend;
+	}
 	
 	@UiField
 	CompanyWidget uiCompany;
@@ -115,6 +127,11 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	@Override
 	public ValidationMessages validationMessages() {
 		return ValidationMessages.INSTANCE;
+	}
+
+	@Override
+	public FieldLabels fieldLabels() {
+		return FieldLabels.INSTANCE;
 	}
 	
 	@Override

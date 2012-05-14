@@ -6,10 +6,13 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
 import com.leopin.parkfifty.client.events.AppBusyEvent;
 import com.leopin.parkfifty.client.events.AppBusyHandler;
@@ -152,9 +155,13 @@ public class ParkFiftyApp {
 		
 		public PleaseWaitPopup() {
 			super(false);
-			setModal(false);
+			SimplePanel wrapper = new SimplePanel();
+			wrapper.getElement().setId("preloader");
+			setModal(true);
+			setGlassEnabled(true);
 			Image preloader = new Image(AppStyles.resources().preloader());
-			setWidget(preloader);
+			wrapper.add(preloader);
+			setWidget(wrapper);
 			setStyleName(AppStyles.style().pleaseWait());
 		}
 

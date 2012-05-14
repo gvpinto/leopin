@@ -13,6 +13,8 @@ public class TextBoxCombo extends TextBoxBaseCombo {
 	
 	public TextBoxCombo() {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		// Set to it invisible initially
 		this.getUiHelpText().setVisible(false);
 	}
 	

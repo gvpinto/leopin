@@ -2,23 +2,14 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:c="urn:import:com.leopin.parkfifty.client.ui">
 
-	<ui:style>
-		.groupTitle {
-			border: 2px solid #35AECF;
-			font-size: 14pt;
-			color:#35AECF;
-			margin-top:5px;
-		}
-	</ui:style>
-
-
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.AppStyles' />
 
 	<g:HTMLPanel addStyleNames="{res.style.floatR}">
 	
-		<fieldset class="{style.groupTitle}">
-			<legend>Sign up for an Account</legend>
+		<fieldset class="{res.style.groupTitle}">
+		
+			<legend ui:field="uiLegend"/>
 
 			<g:FlowPanel>
 				<c:CompanyWidget ui:field="uiCompanyWidget" />

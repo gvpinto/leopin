@@ -138,19 +138,19 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 	}
 
 	
-	@UiHandler("uiTextBox")
-	void onInputFocus(FocusEvent event) {
-		if (isHelpTextAvailable) {
-			this.getUiHelpText().setVisible(true);
-		}
-	}
-	
-	@UiHandler("uiTextBox")
-	void onInputFocus(BlurEvent event) {
-		if (isHelpTextAvailable) {
-			this.getUiHelpText().setVisible(false);
-		}
-	}
+//	@UiHandler("uiTextBox")
+//	void onInputFocus(FocusEvent event) {
+//		if (isHelpTextAvailable) {
+//			this.getUiHelpText().setVisible(true);
+//		}
+//	}
+//	
+//	@UiHandler("uiTextBox")
+//	void onInputFocus(BlurEvent event) {
+//		if (isHelpTextAvailable) {
+//			this.getUiHelpText().setVisible(false);
+//		}
+//	}
 
 //	/**
 //	 * Capture the MouseOver event and popup the help text
@@ -247,9 +247,9 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 		this.getUiTextBox().setText("");
 	}
 	
-	private String popupStyle() {
-		return style().popup();
-	}
+//	private String popupStyle() {
+//		return style().popup();
+//	}
 
 	private Style style() {
 		return AppStyles.style();

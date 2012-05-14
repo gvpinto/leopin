@@ -4,9 +4,6 @@
 	<ui:with field='res'
 		type='com.leopin.parkfifty.client.resources.AppStyles' />
 
-	<ui:style>
-
-	</ui:style>
 
 	<g:HTMLPanel styleName="{res.style.textBoxCombo}">
 		<label ui:field="uiLabel"></label>

@@ -7,18 +7,26 @@
 		
 		
 
-	<g:HTMLPanel> styleName="{res.style.column}">
+	<g:HTMLPanel>
 		
-			<g:HTML styleName="{res.style.title}"><span class="{res.style.titleSection}">Sign up for an Account, Continued...</span></g:HTML>
-			<g:FlowPanel styleName="{res.style.center}">
-				<c:CompanyWidget ui:field="uiCompany" styleName="{res.style.floatL}" />
-				<c:CompanyOwnerWidget ui:field="uiCompanyOwner" styleName="{res.style.floatL}" />
+		<fieldset class="{res.style.groupTitle}">
+		
+			<legend ui:field="uiLegend"/>
+
+			<g:FlowPanel>
+				<c:CompanyWidget ui:field="uiCompany" addStyleNames="{res.style.floatL}" />
+				<c:CompanyOwnerWidget ui:field="uiCompanyOwner" addStyleNames="{res.style.floatL}" />
 			</g:FlowPanel>
+			
 			<g:FlowPanel styleName="{res.style.navbar}">
-				<g:Button ui:field="uiSubmit" addStyleNames="{res.style.button}">Submit</g:Button>
-				<g:Button ui:field="uiCancel" addStyleNames="{res.style.button}">Cancel</g:Button>
+				<g:Button ui:field="uiSubmit" addStyleNames="{res.style.button},{res.style.yes}">Submit</g:Button>  
+				<!-- <g:Button ui:field="uiSubmit" addStyleNames="{res.style.button}">Submit</g:Button> -->
+				<!-- <g:Image resource="{res.resources.yes}"/> -->
+				<g:Button ui:field="uiCancel" addStyleNames="{res.style.button} {res.style.no}">Cancel</g:Button>
 			</g:FlowPanel>
 
+		</fieldset>
+		
 	</g:HTMLPanel>
 
 
