@@ -278,4 +278,10 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		getUiCompanyOwnerWidget().clear();
 	}
 
+	@Override
+	public void initialize() {
+		// Nothing to initialize
+		
+	}
+
 }

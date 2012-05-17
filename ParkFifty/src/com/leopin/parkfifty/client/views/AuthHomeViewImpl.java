@@ -74,4 +74,10 @@ public class AuthHomeViewImpl implements AuthHomeView {
 
 	}
 
+	@Override
+	public void initialize() {
+		// Nothing to initialize
+		
+	}
+
 }

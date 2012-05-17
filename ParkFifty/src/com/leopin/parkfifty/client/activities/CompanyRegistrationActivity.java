@@ -228,17 +228,10 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			// Removing the password for security reasons
 			companyUser.setPassword("");
 			
-			GWT.log(jsonString);
+			// GWT.log(jsonString);
 			
-			try {
-				eventBus.fireEvent(new AppBusyEvent());
-				
-				// Making the database call to register the company and the company owner
-				registerCompany(jsonString, company.getName());
-				
-			} finally {
-				eventBus.fireEvent(new AppFreeEvent());
-			}
+			// Making the database call to register the company and the company owner
+			registerCompany(jsonString, company.getName());
 			
 		}
 		
@@ -272,6 +265,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					AppSuccessEvent event  = new AppSuccessEvent();
 					event.setPlace(new HomePlace());
 					event.setMessage(messages().addCompanySuccessful(companyName));
+					eventBus.fireEvent(new AppFreeEvent());
 					eventBus.fireEvent(event);
 					
 				} else if (420 == response.getStatusCode()) {
@@ -279,6 +273,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					ErrorInfo errorInfo = getErrorInfo(response.getText());
 					AppErrorEvent event = new AppErrorEvent();
 					event.setMessage(errorInfo.getDescription());
+					eventBus.fireEvent(new AppFreeEvent());
 					eventBus.fireEvent(event);
 					
 				} else {
@@ -286,6 +281,7 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 					AppErrorEvent event = new AppErrorEvent();
 					long errorCode = System.currentTimeMillis();
 					event.setMessage("Unknown error occurred. Please call the call center with the following error code " + errorCode);
+					eventBus.fireEvent(new AppFreeEvent());
 					eventBus.fireEvent(event);
 					// TODO: LOG ERROR: Make the Asynch call to log the error with the following TS errorCode
 					
@@ -296,11 +292,13 @@ public class CompanyRegistrationActivity extends AbstractActivity implements
 			@Override
 			public void onError(Request request, Throwable exception) {
 				GWT.log("Error. Code: " + exception.getMessage());
+				eventBus.fireEvent(new AppFreeEvent());
 				// TODO Display a Popup with with Error Information				
 			}
 		});
 		
 		try {
+			eventBus.fireEvent(new AppBusyEvent());
 			rb.send();
 		} catch (RequestException e) {
 			GWT.log("Error. Code: " + e.getMessage());

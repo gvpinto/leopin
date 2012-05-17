@@ -8,37 +8,37 @@
 	<g:HTMLPanel styleName="{res.style.labelColor}">
 
 		<c:TextBoxCombo ui:field="uiUsername" name="uiUsername"
-			maxLength="12" visibleLength="25" />
+			visibleLength="250" maxLength="12"/>
 
 		<c:PasswordCombo ui:field="uiPassword" name="uiPassword" 
-			visibleLength="25" maxLength="20" />
+			visibleLength="250" maxLength="20" />
 
 		<c:TextBoxCombo ui:field="uiUserTitle" name="uiUserTitle"
-			visibleLength="4" maxLength="4" />
+			visibleLength="50" maxLength="4" />
 
 		<c:TextBoxCombo ui:field="uiUserFirstName" name="uiUserFirstName"
-			visibleLength="25" maxLength="40" />
+			visibleLength="250" maxLength="40" />
 
 		<c:TextBoxCombo ui:field="uiUserMiddleInitial" name="uiUserMiddleInitial"
-			visibleLength="1" maxLength="1" />
+			visibleLength="25" maxLength="1" />
 			
 		<c:TextBoxCombo ui:field="uiUserLastName" name="uiUserLastName"
-			visibleLength="25" maxLength="40" />
+			visibleLength="250" maxLength="40" />
 
 		<c:TextBoxCombo ui:field="uiUserSuffix" name="uiUserSuffix"
-			visibleLength="3" maxLength="3" />
+			visibleLength="100" maxLength="3" />
 
 		<c:TextBoxCombo ui:field="uiUserEmail" name="uiUserEmail"
-			visibleLength="25" maxLength="300" />
+			visibleLength="250" maxLength="300" />
 
 		<c:TextBoxCombo ui:field="uiUserPriPhone" name="uiUserPriPhone"
-			visibleLength="25" maxLength="15" />
+			visibleLength="250" maxLength="15" />
 
 		<c:TextBoxCombo ui:field="uiUserSecPhone" name="uiUserSecPhone"
-			visibleLength="25" maxLength="15" />
+			visibleLength="250" maxLength="15" />
 
 		<c:TextBoxCombo ui:field="uiUserFax" name="uiUserFax"
-			visibleLength="25" maxLength="15" />
+			visibleLength="250" maxLength="15" />
 
 	</g:HTMLPanel>
 

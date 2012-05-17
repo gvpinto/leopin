@@ -8,22 +8,22 @@
 	<g:HTMLPanel styleName="{res.style.labelColor}">
 
 		<c:TextBoxCombo ui:field="uiName" name="uiName"
-			maxLength="100" visibleLength="25" />
+			 visibleLength="250" maxLength="100"/>
 
 		<c:TextBoxCombo ui:field="uiUrl" name="uiUrl"
-			visibleLength="25" maxLength="100" />
+			visibleLength="250" maxLength="100" />
 
 		<c:TextBoxCombo ui:field="uiEmail" name="uiEmail"
-			visibleLength="25" maxLength="300" />
+			visibleLength="250" maxLength="300" />
 
 		<c:TextBoxCombo ui:field="uiPriPhone" name="uiPriPhone"
-			visibleLength="25" maxLength="15" />
+			visibleLength="250" maxLength="15" />
 
 		<c:TextBoxCombo ui:field="uiSecPhone" name="uiSecPhone"
-			visibleLength="25" maxLength="15" />
+			visibleLength="250" maxLength="15" />
 			
 		<c:TextBoxCombo ui:field="uiFax" name="uiFax"
-			visibleLength="25" maxLength="15" />
+			visibleLength="250" maxLength="15" />
 
 	</g:HTMLPanel>
 

@@ -7,19 +7,12 @@ import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.dom.client.HasFocusHandlers;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.leopin.parkfifty.client.constants.AppConstants;
 import com.leopin.parkfifty.client.resources.AppStyles;
 import com.leopin.parkfifty.client.resources.AppStyles.Style;
 
@@ -93,7 +86,8 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 	 * @param visibleLength
 	 */
 	public void setVisibleLength(String visibleLength) {
-		uiTextBox.setVisibleLength(Integer.valueOf(visibleLength));
+//		uiTextBox.setVisibleLength(Integer.valueOf(visibleLength));
+		uiTextBox.setWidth(Integer.valueOf(visibleLength) + "px");
 	}
 	
 	/**
@@ -138,19 +132,19 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 	}
 
 	
-//	@UiHandler("uiTextBox")
-//	void onInputFocus(FocusEvent event) {
-//		if (isHelpTextAvailable) {
-//			this.getUiHelpText().setVisible(true);
-//		}
-//	}
-//	
-//	@UiHandler("uiTextBox")
-//	void onInputFocus(BlurEvent event) {
-//		if (isHelpTextAvailable) {
-//			this.getUiHelpText().setVisible(false);
-//		}
-//	}
+	@UiHandler("uiTextBox")
+	void onInputFocus(FocusEvent event) {
+		if (isHelpTextAvailable) {
+			this.getUiHelpText().setVisible(true);
+		}
+	}
+	
+	@UiHandler("uiTextBox")
+	void onInputFocus(BlurEvent event) {
+		if (isHelpTextAvailable) {
+			this.getUiHelpText().setVisible(false);
+		}
+	}
 
 //	/**
 //	 * Capture the MouseOver event and popup the help text

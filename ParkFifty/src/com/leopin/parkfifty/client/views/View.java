@@ -11,7 +11,12 @@ import com.leopin.parkfifty.shared.messages.ValidationMessages;
 public interface View extends IsWidget {
 	
 	/**
-	 * Set the Presenter and initialize the View
+	 * Initialize the view
+	 */
+	void initialize();
+	
+	/**
+	 * Set the Presenter
 	 * @param presenter
 	 */
 	void setPresenter(Presenter presenter);

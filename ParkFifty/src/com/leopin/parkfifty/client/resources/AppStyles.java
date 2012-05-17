@@ -161,7 +161,7 @@ public class AppStyles {
 		public Style style();
 
 		@Source("pfbg.png")
-		@ImageOptions(repeatStyle = RepeatStyle.Horizontal)
+//		@ImageOptions(repeatStyle = RepeatStyle.Horizontal)
 		public ImageResource pfbg();
 
 		@Source("xclamation_16x16.png")

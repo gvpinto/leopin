@@ -19,9 +19,8 @@ public class ParkFifty implements EntryPoint {
 	public void onModuleLoad() {
 	   
 		AppView appView = clientFactory.getAppView();
-		ParkFiftyApp app = new ParkFiftyApp(clientFactory.getService(), clientFactory.getEventBus(), clientFactory.getAppView());
 		RootPanel.get().add(appView);
-		
+		ParkFiftyApp app = new ParkFiftyApp(clientFactory.getService(), clientFactory.getEventBus(), clientFactory.getAppView());
 //		// Ensure content resources are initialized
 //		ParkFiftyResources.INSTANCE.style().ensureInjected();
 		

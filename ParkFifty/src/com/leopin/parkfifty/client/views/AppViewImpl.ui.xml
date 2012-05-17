@@ -7,8 +7,6 @@
 
 	<g:HTMLPanel ui:field="uiMainPanel">
 
-		<div id="uiWrapper">
-
 			<div id="uiHeader">
 
 			</div>
@@ -20,8 +18,6 @@
 			<div id="uiFooter">
 
 			</div>
-
-		</div>
 
 
 	</g:HTMLPanel>

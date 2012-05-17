@@ -6,45 +6,61 @@ import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.presenters.Presenter;
 
-public class AppViewImpl extends SimplePanel implements AppView {
+public class AppViewImpl implements AppView {
 
-	private static AppViewImplUiBinder uiBinder = GWT
-			.create(AppViewImplUiBinder.class);
+//	private static AppViewImplUiBinder uiBinder = GWT
+//			.create(AppViewImplUiBinder.class);
 	
-	SimplePanel uiContent = new SimplePanel();
-	SimplePanel uiHeader = new SimplePanel();
-	SimplePanel uiFooter = new SimplePanel();
+	SimplePanel uiContent;
+	SimplePanel uiHeader;
+	SimplePanel uiFooter;
 	
 	// Is signed on?
 	boolean signedOn = false;
 
-	interface AppViewImplUiBinder extends UiBinder<Widget, AppViewImpl> {
-	}
+//	interface AppViewImplUiBinder extends UiBinder<Widget, AppViewImpl> {
+//	}
 
-	@UiField
+//	@UiField
 	HTMLPanel uiMainPanel;
 	
 	public AppViewImpl() {
-		add(uiBinder.createAndBindUi(this));
-		Window.addResizeHandler(resizeHandler);
+//		uiBinder.createAndBindUi(this);
+		
+		uiMainPanel = new HTMLPanel("");
+		uiMainPanel.getElement().setId("uiWrapper");
+		uiHeader = new SimplePanel();
+		uiHeader.getElement().setId("uiHeader");
+		uiContent = new SimplePanel();
+		uiContent.getElement().setId("uiContent");
+		uiFooter = new SimplePanel();
+		uiFooter.getElement().setId("uiFooter");
+		
+
+
 		uiHeader.add(new HTML("HEADER"));
 		uiFooter.add(new HTML("FOOTER"));
-		uiMainPanel.add(uiHeader, "uiHeader");
-		uiMainPanel.add(uiContent, "uiContent");
-		uiMainPanel.add(uiFooter, "uiFooter");
+		
+		uiMainPanel.add(uiHeader);
+		uiMainPanel.add(uiContent);
+		uiMainPanel.add(uiFooter);
+		
+		Window.addResizeHandler(resizeHandler);
+
 	}
 
 
 
-	public static AppViewImplUiBinder getUiBinder() {
-		return uiBinder;
-	}
+//	public static AppViewImplUiBinder getUiBinder() {
+//		return uiBinder;
+//	}
 
 
 
@@ -103,6 +119,13 @@ public class AppViewImpl extends SimplePanel implements AppView {
 	@Override
 	public void setPresenter(Presenter presenter) {
 		
+	}
+
+
+
+	@Override
+	public Widget asWidget() {
+		return uiMainPanel;
 	}
 
     

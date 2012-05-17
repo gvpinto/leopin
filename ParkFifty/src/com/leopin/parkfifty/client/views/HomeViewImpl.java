@@ -34,6 +34,7 @@ import com.leopin.parkfifty.client.ui.TextBoxBaseCombo;
 import com.leopin.parkfifty.client.ui.TextBoxCombo;
 import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
+import com.leopin.parkfifty.shared.utils.Utils;
 
 
 public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
@@ -161,9 +162,6 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 	@Override
 	public void setPresenter(Presenter presenter) {
 		this.presenter = (HomePresenter) presenter;	
-		getUiCompanyWidget().getUiName().getUiTextBox().setFocus(true);
-		getUiCompanyWidget().getUiName().getUiTextBox().setText("asdasdasdf");
-//		getUiCompanyWidget().getUiName().getUiTextBox().selectAll();
 	}
 
 	@Override
@@ -272,6 +270,14 @@ public class HomeViewImpl extends Composite implements HomeView, FocusHandler,
 		uiCompanyWidget.clear();
 	}
 
+	@Override
+	public void initialize() {
+//		
+		if (!Utils.isEmptyOrNull(getUiCompanyWidget().getUiName().getUiTextBox().getText())) {
+			getUiCompanyWidget().getUiName().getUiTextBox().setFocus(true);
+			getUiCompanyWidget().getUiName().getUiTextBox().selectAll();		
+		}
+	}
 
 	
 

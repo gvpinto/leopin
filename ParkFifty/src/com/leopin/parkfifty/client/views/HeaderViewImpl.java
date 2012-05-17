@@ -237,6 +237,11 @@ public class HeaderViewImpl  implements HeaderView, ClickHandler, FocusHandler, 
 		
 	}
 
+	@Override
+	public void initialize() {
+		// Nothing to initialize
+		
+	}
 	
 	
 

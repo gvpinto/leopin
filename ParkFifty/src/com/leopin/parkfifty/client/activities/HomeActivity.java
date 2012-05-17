@@ -58,10 +58,11 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
 
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		this.eventBus = eventBus;
 		panel.setWidget(homeView.asWidget());
-		this.homeView.setFocus(UiName.getId());
+		this.eventBus = eventBus;
 		bind();
+		// this.homeView.setFocus(UiName.getId());
+		this.homeView.initialize();
 	}
 
 	
@@ -80,6 +81,7 @@ public class HomeActivity extends AbstractActivity implements HomePresenter {
     
 	@Override
 	public void goTo(Place place) {
+//		eventBus.fireEvent(new AppBusyEvent());
 		clientFactory.getPlaceController().goTo(place);
 	}
 

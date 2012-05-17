@@ -94,6 +94,7 @@ public class ParkFiftyApp {
 			@Override
 			public void onAppBusyEvent(AppBusyEvent event) {
 //				busyLabel.setVisible(true);
+				GWT.log("Triggered");
 				pleaseWait.center();
 			}
 		});
@@ -103,6 +104,7 @@ public class ParkFiftyApp {
 			@Override
 			public void onAppFreeEvent(AppFreeEvent event) {
 //				busyLabel.setVisible(false);
+				GWT.log("Triggered again");
 				pleaseWait.hide();
 
 			}
@@ -161,6 +163,8 @@ public class ParkFiftyApp {
 			setGlassEnabled(true);
 			Image preloader = new Image(AppStyles.resources().preloader());
 			wrapper.add(preloader);
+			setWidth("200px");
+			setHeight("160px");
 			setWidget(wrapper);
 			setStyleName(AppStyles.style().pleaseWait());
 		}
