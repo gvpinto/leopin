@@ -29,6 +29,13 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 
 //	ErrorHelpTextPopup errorHelpTextPopup;
 	boolean isHelpTextAvailable = false;
+	
+	// Use this to track which one is currently on focus
+	// and use this information to hide help text before submitting the form
+	boolean isOnFocus = false;
+	public boolean isOnFocus() {
+		return isOnFocus;
+	}
 
 	@UiField
 	TextBox uiTextBox;
@@ -131,16 +138,26 @@ public abstract class TextBoxBaseCombo extends Composite implements HasFocusHand
 		this.getUiLabel().setInnerText((mandatory ? "* " : "") + label + ":");
 	}
 
+	/**
+	 * Hide Help Text
+	 */
+	public void hideHelpText() {
+		if (this.isOnFocus) {
+			onInputBlur(null);
+		}
+	}
 	
 	@UiHandler("uiTextBox")
-	void onInputFocus(FocusEvent event) {
+	public void onInputFocus(FocusEvent event) {
+		isOnFocus = true;
 		if (isHelpTextAvailable) {
 			this.getUiHelpText().setVisible(true);
 		}
 	}
 	
 	@UiHandler("uiTextBox")
-	void onInputFocus(BlurEvent event) {
+	public void onInputBlur(BlurEvent event) {
+		isOnFocus = false;
 		if (isHelpTextAvailable) {
 			this.getUiHelpText().setVisible(false);
 		}

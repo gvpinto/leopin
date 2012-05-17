@@ -9,8 +9,8 @@ import com.leopin.parkfifty.client.ClientFactory;
  */
 public class SuccessDialog extends ConfirmationDialog {
 
-	public SuccessDialog(ClientFactory clientFactory, Place place) {
-		super(clientFactory, place, false);
+	public SuccessDialog(ClientFactory clientFactory) {
+		super(clientFactory, false);
 	}
 
 }

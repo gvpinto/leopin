@@ -22,7 +22,7 @@ import com.leopin.parkfifty.client.resources.AppStyles.Style;
 import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
-public class LoginDialog extends PopupPanel implements UiWidget, HasKeyPressHandlers  {
+public class LoginDialog extends PopupPanel implements UiWidget, UiFormWidget, HasKeyPressHandlers  {
 
 	private static LoginDialogUiBinder uiBinder = GWT
 			.create(LoginDialogUiBinder.class);
@@ -133,6 +133,12 @@ public class LoginDialog extends PopupPanel implements UiWidget, HasKeyPressHand
 	@Override
 	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
 		return addDomHandler(handler, KeyPressEvent.getType());
+	}
+
+	@Override
+	public void hideHelpTexts() {
+		getUiUsername().hideHelpText();
+		getUiPassword().hideHelpText();
 	}
 	
 

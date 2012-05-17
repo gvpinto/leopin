@@ -36,7 +36,12 @@ public class ParkFiftyApp {
 	ClientFactory clientFactory = GWT.create(ClientFactory.class);
 //	Label busyLabel = new 
 	
+	// Dialog boxes for Global events
 	PleaseWaitPopup pleaseWait = new PleaseWaitPopup();
+	ConfirmationDialog errorDialog = new ErrorDialog(clientFactory);
+	ConfirmationDialog successDialog = new SuccessDialog(clientFactory);
+
+
 	// Define the JSONP Service Class
 	private Place defaultPlace  = new HomePlace();
 	
@@ -117,13 +122,13 @@ public class ParkFiftyApp {
 				GWT.log("AppErrorEvent Received. Message: "
 						+ event.getMessage());
 
+				// Get Place information for display accurate error information
+				errorDialog.setPlace(event.getPlace());
 				// Display the confirmation dialog box with the error message
-				ConfirmationDialog dialog = new ErrorDialog(
-						clientFactory, event.getPlace());
-				dialog.setBodyText(event.getMessage());
+				errorDialog.setBodyText(event.getMessage());
 				// TODO: Move the message to AppMessages
-				dialog.setCaption("Unable to process request");
-				dialog.center();
+				errorDialog.setCaption("Unable to process request");
+				errorDialog.center();
 			}
 
 		});
@@ -136,13 +141,13 @@ public class ParkFiftyApp {
 				GWT.log("Event Successful. Message: "
 						+ event.getMessage());
 
+				// Get Place information for display accurate success information
+				successDialog.setPlace(event.getPlace());
 				// Display the confirmation dialog box with the error message
-				ConfirmationDialog dialog = new SuccessDialog(
-						clientFactory, event.getPlace());
-				dialog.setBodyText(event.getMessage());
+				successDialog.setBodyText(event.getMessage());
 				// TODO: Move the message to AppMessages
-				dialog.setCaption("Request successful processed");
-				dialog.center();
+				successDialog.setCaption("Request successful processed");
+				successDialog.center();
 			}
 
 		});

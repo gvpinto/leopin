@@ -61,16 +61,7 @@ public class TopNav extends Composite implements UiWidget { //implements HasClic
 	public AppResources resources() {
 		return AppStyles.resources();
 	}
-	
-	@Override
-	public ValidationMessages validationMessages() {
-		return ValidationMessages.INSTANCE;
-	}
 
-	@Override
-	public FieldLabels fieldLabels() {
-		return FieldLabels.INSTANCE;
-	}
 	
 //	@Override
 //	public HandlerRegistration addClickHandler(ClickHandler handler) {

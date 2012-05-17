@@ -14,7 +14,6 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Widget;
 import com.leopin.parkfifty.client.domain.CompanyProxyImpl;
 import com.leopin.parkfifty.client.resources.AppStyles;
@@ -24,7 +23,7 @@ import com.leopin.parkfifty.shared.domain.CompanyProxy;
 import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
-public class CompanyWidget extends Composite implements UiWidget {
+public class CompanyWidget extends Composite implements UiWidget, UiFormWidget {
 
 	private static final String String = null;
 
@@ -195,6 +194,16 @@ public class CompanyWidget extends Composite implements UiWidget {
 	@Override
 	public FieldLabels fieldLabels() {
 		return FieldLabels.INSTANCE;
+	}
+
+	@Override
+	public void hideHelpTexts() {
+		uiName.hideHelpText();
+		uiUrl.hideHelpText();
+		uiEmail.hideHelpText();
+		uiPriPhone.hideHelpText();
+		uiSecPhone.hideHelpText();
+		uiFax.hideHelpText();
 	}
 	
 }

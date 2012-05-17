@@ -17,5 +17,6 @@ public class TextBoxCombo extends TextBoxBaseCombo {
 		// Set to it invisible initially
 		this.getUiHelpText().setVisible(false);
 	}
+
 	
 }

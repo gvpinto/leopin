@@ -3,6 +3,8 @@ package com.leopin.parkfifty.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -36,7 +38,7 @@ public class ConfirmationDialog extends PopupPanel implements UiWidget {
 	ClientFactory clientFactory;
 	Place place;
 
-	public ConfirmationDialog(ClientFactory clientFactory, Place place, boolean isError) {
+	public ConfirmationDialog(ClientFactory clientFactory, boolean isError) {
 		setWidget(uiBinder.createAndBindUi(this));
 		
 		// TODO: Need to Set this as Variable, maybe small, medium and large boxes
@@ -45,7 +47,6 @@ public class ConfirmationDialog extends PopupPanel implements UiWidget {
 		this.setGlassEnabled(true);
 		this.setModal(true);
 		this.clientFactory = clientFactory;
-		this.place = place;
 		if (isError) {
 			uiImage.setResource(resources().errorIcon());
 		} else {
@@ -98,6 +99,13 @@ public class ConfirmationDialog extends PopupPanel implements UiWidget {
 		
 	}
 	
+	@UiHandler("uiOK")
+	public void onKeyEnter(KeyPressEvent event) {
+		if (event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER)
+			this.hide();
+		event.stopPropagation();		
+	}
+	
 	public void setBodyText(String text) {
 //		this.uiText.setText(text);
 		this.uiText.setInnerText(text);
@@ -108,6 +116,20 @@ public class ConfirmationDialog extends PopupPanel implements UiWidget {
 		this.uiCaption.setInnerText(text);
 	}
 	
+	public void setPlace(Place place) {
+		this.place = place;
+	}
+
+	/**
+	 * Center the dialog box and set the focus on the enter key
+	 * to enable the key enter
+	 */
+	public void center() {
+		super.center();
+		this.uiOK.setFocus(true);
+	}
+
+	
 	@Override
 	public Style style() {
 		return AppStyles.style();
@@ -117,21 +139,14 @@ public class ConfirmationDialog extends PopupPanel implements UiWidget {
 	public AppResources resources() {
 		return AppStyles.resources();
 	}
-	
-	@Override
-	public ValidationMessages validationMessages() {
-		return ValidationMessages.INSTANCE;
-	}
-	
-	@Override
-	public FieldLabels fieldLabels() {
-		return FieldLabels.INSTANCE;
-	}
+
 	
 	@Override
 	public void initHandlers(EventHandler handler) {
 		// Initialize and handlers required to handle events
 		
 	}
+	
+	
 	
 }

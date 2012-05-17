@@ -29,7 +29,7 @@ import com.leopin.parkfifty.shared.domain.CompanyUserProxy;
 import com.leopin.parkfifty.shared.messages.FieldLabels;
 import com.leopin.parkfifty.shared.messages.ValidationMessages;
 
-public class CompanyOwnerWidget extends Composite implements UiWidget {
+public class CompanyOwnerWidget extends Composite implements UiWidget, UiFormWidget {
 
 	private static CompanyOwnerWidgetUiUserBinder uiBinder = GWT
 			.create(CompanyOwnerWidgetUiUserBinder.class);
@@ -272,6 +272,22 @@ public class CompanyOwnerWidget extends Composite implements UiWidget {
 	@Override
 	public FieldLabels fieldLabels() {
 		return FieldLabels.INSTANCE;
+	}
+
+
+	@Override
+	public void hideHelpTexts() {
+		getUiUsername().hideHelpText();
+		getUiPassword().hideHelpText();
+		getUiUserTitle().hideHelpText();
+		getUiUserFirstName().hideHelpText();
+		getUiUserMiddleInitial().hideHelpText();
+		getUiUserLastName().hideHelpText();
+		getUiUserSuffix().hideHelpText();
+		getUiUserPriPhone().hideHelpText();
+		getUiUserSecPhone().hideHelpText();
+		getUiUserFax().hideHelpText();
+		getUiUserEmail().hideHelpText();
 	}
 	
 }

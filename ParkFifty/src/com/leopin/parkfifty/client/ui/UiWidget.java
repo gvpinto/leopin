@@ -26,18 +26,6 @@ public interface UiWidget {
 	 * @return
 	 */
 	AppResources resources();
-	
-	/**
-	 * Returns application wide validation messages for displaying messages for fields
-	 * whose data value entered by the user has failed
-	 * @return validationMessages message object
-	 */
-	ValidationMessages validationMessages();
-	
-	/**
-	 * Returns Field Labels. Positioned the app to support multiple languages
-	 * @return
-	 */
-	FieldLabels fieldLabels();
+
 	
 }

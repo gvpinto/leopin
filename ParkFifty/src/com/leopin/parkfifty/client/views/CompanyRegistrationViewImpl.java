@@ -208,9 +208,9 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		
 	}
 	
-	/**
-	 * PRIVATE METHODS
-	 */
+	public void removeHelpText() {
+		
+	}
 	
 	/**
 	 * Search for the right TextBoxCombo depending on the name 
@@ -219,7 +219,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 	 */
 	private TextBoxBaseCombo findTextBoxCombo(String name) {
 		Widget widget = null;
-		
+	
 		widget = uiCompany.getWidget(name);
 		if (widget == null) {
 			widget = uiCompanyOwner.getWidget(name);
@@ -232,6 +232,8 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		}
 	}
 
+	// EVENTS
+	
 	@Override
 	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
 		return addDomHandler(handler, KeyPressEvent.getType());
@@ -243,7 +245,7 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 			submit();
 		event.stopPropagation();
 	}
-	
+		
 	@UiHandler("uiSubmit")
 	void onSubmitClick(ClickEvent e) {
 //		getUiSubmit().setEnabled(false);
@@ -255,7 +257,15 @@ public class CompanyRegistrationViewImpl extends Composite implements CompanyReg
 		this.presenter.cancel();
 	}
 
+	/**
+	 * perform a validation and submit the form
+	 */
 	private void submit() {
+		
+		// Hide any of the field
+		uiCompany.hideHelpTexts();
+		uiCompanyOwner.hideHelpTexts();
+		
 		String errorFieldName = this.presenter.submit(uiCompany.getCompany(), uiCompanyOwner.getCompanyUser());
 		if (errorFieldName != null) {
 			setFocus(errorFieldName);
